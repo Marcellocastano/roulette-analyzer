@@ -1,0 +1,14 @@
+meta {
+  name: Get Session Spins
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:5001/api/v1/spins/session/{{sessionId}}
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

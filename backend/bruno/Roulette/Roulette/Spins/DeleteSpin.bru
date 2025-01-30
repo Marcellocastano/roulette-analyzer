@@ -1,0 +1,14 @@
+meta {
+  name: Delete Spin
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:5001/api/v1/spins/{{spinId}}
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

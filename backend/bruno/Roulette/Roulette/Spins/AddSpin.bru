@@ -1,0 +1,21 @@
+meta {
+  name: Add Spin
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:5001/api/v1/spins
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "number": 7
+  }
+}

@@ -1,14 +1,26 @@
-const { StatsService } = require('../services');
+const StatsService = require('../services/stats.service');
 
 class StatsController {
   constructor() {
     this.statsService = StatsService;
   }
 
+  addSpin = async (req, res, next) => {
+    try {
+      const { number } = req.body;
+      const stats = await this.statsService.addSpin(req.user.id, number);
+      res.status(200).json({
+        status: 'success',
+        data: stats
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   getDozensStats = async (req, res, next) => {
     try {
-      const stats = await StatsService.getDozensStats(req.user.id);
-      
+      const stats = await this.statsService.getDozensStats(req.user.id);
       res.status(200).json({
         status: 'success',
         data: stats
@@ -20,8 +32,7 @@ class StatsController {
 
   getZeroNeighborsStats = async (req, res, next) => {
     try {
-      const stats = await StatsService.getZeroNeighborsStats(req.user.id);
-      
+      const stats = await this.statsService.getZeroNeighborsStats(req.user.id);
       res.status(200).json({
         status: 'success',
         data: stats
@@ -33,8 +44,7 @@ class StatsController {
 
   getHotNumbers = async (req, res, next) => {
     try {
-      const hotNumbers = await StatsService.getHotNumbers(req.user.id);
-      
+      const hotNumbers = await this.statsService.getHotNumbers(req.user.id);
       res.status(200).json({
         status: 'success',
         data: hotNumbers
@@ -46,8 +56,7 @@ class StatsController {
 
   getColdNumbers = async (req, res, next) => {
     try {
-      const coldNumbers = await StatsService.getColdNumbers(req.user.id);
-      
+      const coldNumbers = await this.statsService.getColdNumbers(req.user.id);
       res.status(200).json({
         status: 'success',
         data: coldNumbers
@@ -59,11 +68,25 @@ class StatsController {
 
   getPredictions = async (req, res, next) => {
     try {
-      const predictions = await StatsService.getPredictions(req.user.id);
-      
+      const predictions = await this.statsService.getPredictions(req.user.id);
       res.status(200).json({
         status: 'success',
         data: predictions
+      });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        status: 'error',
+        message: error.message
+      });
+    }
+  };
+
+  resetSession = async (req, res, next) => {
+    try {
+      const result = await this.statsService.resetSession(req.user.id);
+      res.status(200).json({
+        status: 'success',
+        data: result
       });
     } catch (error) {
       next(error);

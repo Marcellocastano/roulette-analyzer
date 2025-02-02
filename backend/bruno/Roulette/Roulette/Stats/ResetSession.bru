@@ -1,0 +1,12 @@
+meta {
+  name: Reset Session
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/stats/reset
+  headers {
+    Authorization: Bearer {{token}}
+  }
+}

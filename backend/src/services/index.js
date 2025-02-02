@@ -1,11 +1,13 @@
 const AuthService = require('./auth.service');
-const SpinService = require('./spins.service');
-const StatisticsService = require('./stats.service');
+const StatsService = require('./stats.service');
+const SpinsService = require('./spins.service');
 const UserService = require('./user.service');
+const InitialStatsService = require('./initial-stats.service');
 
 module.exports = {
-  AuthService,
-  SpinService,
-  StatisticsService,
-  UserService
+    AuthService,
+    StatsService,
+    SpinsService,
+    UserService,
+    InitialStatsService
 };

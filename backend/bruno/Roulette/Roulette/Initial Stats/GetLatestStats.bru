@@ -1,0 +1,14 @@
+meta {
+  name: Get Latest Stats
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:5001/api/v1/initial-stats/latest
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

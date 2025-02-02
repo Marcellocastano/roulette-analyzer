@@ -4,6 +4,7 @@ const authRoutes = require('./auth.routes');
 const spinsRoutes = require('./spins.routes');
 const statsRoutes = require('./stats.routes');
 const userRoutes = require('./user.routes');
+const initialStatsRoutes = require('./initial-stats.routes');
 const { errorHandler } = require('../middlewares/errorHandler');
 
 const router = express.Router();
@@ -19,8 +20,9 @@ router.use(limiter);
 
 // API Routes
 router.use('/auth', authRoutes);
-router.use('/spins', spinsRoutes);
+router.use('/initial-stats', initialStatsRoutes);
 router.use('/stats', statsRoutes);
+router.use('/spins', spinsRoutes);
 router.use('/users', userRoutes);
 
 // Error handling

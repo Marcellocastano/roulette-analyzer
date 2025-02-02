@@ -1,6 +1,9 @@
 const { AppError } = require('../middlewares/errorHandler');
 const { spinRepository, statisticsRepository, userRepository } = require('../repositories');
 
+const ZERO_NEIGHBORS = [0, 3, 15, 26, 32, 35, 12];
+const RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+
 class SpinsService {
   async addSpin(userId, { number, sessionId }) {
     try {
@@ -10,27 +13,62 @@ class SpinsService {
         throw new AppError('User not found', 404);
       }
 
-      // Verifica il numero di spin disponibili
-      const recentSpins = await spinRepository.getRecentSpins(userId);
-      if (recentSpins.length >= user.subscription.features.maxSpins) {
-        throw new AppError('Spin limit reached for your subscription plan', 403);
-      }
+      // Calcola i metadati
+      const metadata = this._calculateSpinMetadata(number);
 
       // Crea il nuovo spin
       const spin = await spinRepository.create({
         number,
         user: userId,
-        sessionId
+        sessionId,
+        metadata
       });
 
       // Aggiorna le statistiche
-      await statisticsRepository.updateWithNewSpin(userId, spin);
+      await statisticsRepository.updateWithNewSpin(userId, number);
 
       return spin;
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Error adding spin', 500);
     }
+  }
+
+  _calculateSpinMetadata(number) {
+    // Determina la dozzina
+    let dozen;
+    if (number === 0) {
+      dozen = 'zero';
+    } else if (number <= 12) {
+      dozen = 'first';
+    } else if (number <= 24) {
+      dozen = 'second';
+    } else {
+      dozen = 'third';
+    }
+
+    // Determina se è un vicino dello zero
+    const isZeroNeighbor = ZERO_NEIGHBORS.includes(number);
+
+    // Determina il colore
+    let color;
+    if (number === 0) {
+      color = 'green';
+    } else if (RED_NUMBERS.includes(number)) {
+      color = 'red';
+    } else {
+      color = 'black';
+    }
+
+    // Determina se è pari
+    const isEven = number !== 0 && number % 2 === 0;
+
+    return {
+      dozen,
+      isZeroNeighbor,
+      color,
+      isEven
+    };
   }
 
   async getRecentSpins(userId) {
@@ -40,7 +78,7 @@ class SpinsService {
         throw new AppError('User not found', 404);
       }
 
-      return await spinRepository.getRecentSpins(userId, user.subscription.features.maxSpins);
+      return await spinRepository.getRecentSpins(userId);
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Error fetching recent spins', 500);
@@ -114,6 +152,14 @@ class SpinsService {
     } catch (error) {
       throw new AppError('Error fetching zero neighbors statistics', 500);
     }
+  }
+
+  async getSpins(userId) {
+    return await spinRepository.find({ user: userId });
+  }
+
+  async deleteAllSpins(userId) {
+    return await spinRepository.deleteMany({ user: userId });
   }
 }
 

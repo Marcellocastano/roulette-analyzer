@@ -1,116 +1,68 @@
-const BaseRepository = require('./base.repository');
-const { Statistics } = require('../models');
+const Statistics = require('../models/statistics.model');
 
-class StatisticsRepository extends BaseRepository {
-  constructor() {
-    super(Statistics);
-  }
-
+class StatisticsRepository {
   async findOrCreateUserStats(userId) {
-    let stats = await this.findOne({ user: userId });
-    
+    let stats = await Statistics.findOne({ user: userId });
     if (!stats) {
-      stats = await this.create({
-        user: userId,
-        generalStats: {
-          totalSpins: 0,
-          lastUpdate: new Date(),
-          timeRange: {
-            start: new Date(),
-            end: new Date()
-          }
-        }
-      });
+      stats = new Statistics({ user: userId });
+      await stats.save();
     }
-    
     return stats;
   }
 
-  async updateWithNewSpin(userId, spin) {
+  async updateWithNewSpin(userId, number) {
     const stats = await this.findOrCreateUserStats(userId);
-    return await stats.updateWithNewSpin(spin);
+    stats.updateWithNewSpin(number);
+    await stats.save();
+    return stats;
   }
 
-  async getDozensStats(userId) {
-    const stats = await this.findOne(
-      { user: userId },
-      { select: 'dozens generalStats.totalSpins' }
-    );
-    return stats ? stats.dozens : null;
+  async getDozensStats(userId, spinRange = 500) {
+    const stats = await this.findOrCreateUserStats(userId);
+    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
+    return stats[statsKey].dozens;
   }
 
-  async getZeroNeighborsStats(userId) {
-    const stats = await this.findOne(
-      { user: userId },
-      { select: 'zeroNeighbors generalStats.totalSpins' }
-    );
-    return stats ? stats.zeroNeighbors : null;
+  async getZeroNeighborsStats(userId, spinRange = 500) {
+    const stats = await this.findOrCreateUserStats(userId);
+    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
+    return stats[statsKey].zeroNeighbors;
   }
 
-  async getHotNumbers(userId, limit = 5) {
-    const stats = await this.findOne(
-      { user: userId },
-      { select: 'hotNumbers' }
-    );
-    
-    return stats ? 
-      stats.hotNumbers
-        .sort((a, b) => b.percentage - a.percentage)
-        .slice(0, limit) : 
-      [];
+  async getHotNumbers(userId, limit = 5, spinRange = 500) {
+    const stats = await this.findOrCreateUserStats(userId);
+    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
+    return stats[statsKey].hotNumbers.slice(0, limit);
   }
 
-  async getColdNumbers(userId, limit = 5) {
-    const stats = await this.findOne(
-      { user: userId },
-      { select: 'coldNumbers' }
-    );
-    
-    return stats ? 
-      stats.coldNumbers
-        .sort((a, b) => b.missedSpins - a.missedSpins)
-        .slice(0, limit) : 
-      [];
+  async getColdNumbers(userId, limit = 5, spinRange = 500) {
+    const stats = await this.findOrCreateUserStats(userId);
+    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
+    return stats[statsKey].coldNumbers.slice(0, limit);
   }
 
-  async getPredictions(userId) {
-    const stats = await this.findOne(
-      { user: userId },
-      { select: 'predictions' }
-    );
-    
-    if (!stats || !stats.predictions) {
-      return {
-        recommendedNumbers: [],
-        lastCalculated: null,
-        accuracy: 0
-      };
-    }
-
-    // Aggiorna le predizioni se sono vecchie di più di 5 minuti
-    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-    if (!stats.predictions.lastCalculated || stats.predictions.lastCalculated < fiveMinutesAgo) {
-      // TODO: Implementare la logica di calcolo delle predizioni
-      stats.predictions.lastCalculated = new Date();
-      await stats.save();
-    }
-
-    return stats.predictions;
+  async getSequences(userId, spinRange = 500) {
+    const stats = await this.findOrCreateUserStats(userId);
+    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
+    return stats[statsKey].sequences;
   }
 
-  async updatePredictionAccuracy(userId, wasCorrect) {
-    const stats = await this.findOne({ user: userId });
-    if (!stats || !stats.predictions) return;
+  async getSpinHistory(userId, limit = 500) {
+    const stats = await this.findOrCreateUserStats(userId);
+    return stats.spinHistory.slice(-limit);
+  }
 
-    // Aggiorna l'accuratezza usando una media mobile
-    const currentAccuracy = stats.predictions.accuracy || 0;
-    const weight = 0.1; // Peso per la media mobile
-    const newAccuracy = (currentAccuracy * (1 - weight)) + (wasCorrect ? 100 : 0) * weight;
-
-    await this.findOneAndUpdate(
-      { user: userId },
-      { $set: { 'predictions.accuracy': newAccuracy } }
-    );
+  async getStats(userId, spinRange = 500) {
+    const stats = await this.findOrCreateUserStats(userId);
+    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
+    return {
+      dozens: stats[statsKey].dozens,
+      zeroNeighbors: stats[statsKey].zeroNeighbors,
+      hotNumbers: stats[statsKey].hotNumbers,
+      coldNumbers: stats[statsKey].coldNumbers,
+      sequences: stats[statsKey].sequences,
+      spinRange
+    };
   }
 }
 

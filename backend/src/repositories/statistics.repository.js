@@ -49,7 +49,7 @@ class StatisticsRepository {
 
   async getSpinHistory(userId, limit = 500) {
     const stats = await this.findOrCreateUserStats(userId);
-    return stats.spinHistory.slice(-limit);
+    return stats.spinHistory.slice(-limit).reverse();
   }
 
   async getStats(userId, spinRange = 500) {

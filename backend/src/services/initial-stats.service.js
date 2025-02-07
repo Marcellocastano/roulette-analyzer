@@ -41,7 +41,11 @@ class InitialStatsService {
                     }
                 },
                 zeroZoneNumbers,
-                analysis
+                dozenDown: analysis.dozenDown,
+                analysis: {
+                    tableStatus: analysis.tableStatus,
+                    reasons: analysis.reasons
+                }
             });
 
             // 2. Salva nel modello Statistics
@@ -118,19 +122,24 @@ class InitialStatsService {
     _analyzeTableConditions(stats) {
         const reasons = [];
         let status = 'recommended';
+        let dozenDown = null;
 
         // Analisi dozzine a 500 spin
         const dozens500 = stats.stats500.dozens;
-        let hasSufferingDozen = false;
+        let lowestPercentage = 29;  // Soglia per considerare una dozzina in sofferenza
+        
+        // Mappa per convertire il nome della dozzina in numero
+        const dozenToNumber = { first: 1, second: 2, third: 3 };
         
         Object.entries(dozens500).forEach(([dozen, percentage]) => {
-            if (dozen !== 'zero' && percentage < 28) {
-                hasSufferingDozen = true;
+            if (dozen !== 'zero' && percentage < lowestPercentage) {
+                lowestPercentage = percentage;
+                dozenDown = dozenToNumber[dozen];
                 reasons.push(`Dozzina ${dozen} in sofferenza (${percentage.toFixed(1)}%)`);
             }
         });
 
-        if (!hasSufferingDozen) {
+        if (!dozenDown) {
             status = 'not_recommended';
             reasons.push('Nessuna dozzina in sofferenza');
         }
@@ -146,7 +155,8 @@ class InitialStatsService {
 
         return {
             tableStatus: status,
-            reasons
+            reasons,
+            dozenDown
         };
     }
 
@@ -156,18 +166,12 @@ class InitialStatsService {
             const short = stats.stats50.numbers[number] || 0;
             const long = stats.stats500.numbers[number] || 0;
 
-            let trend = 'stable';
-            if (short > long) {
-                trend = 'increasing';
-            } else if (short < long) {
-                trend = 'decreasing';
-            }
+            // Calcola la differenza percentuale (positiva se in crescita, negativa se in diminuzione)
+            const increasePercentage = long - short;
 
             return {
                 number,
-                trend,
-                shortTermPercentage: short,
-                longTermPercentage: long
+                increasePercentage
             };
         });
     }

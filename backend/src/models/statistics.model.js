@@ -295,9 +295,9 @@ statisticsSchema.methods._calculateTrend = function(statsKey, number, currentCou
   if (statsKey === 'stats50' && this.stats500.hotNumbers.length > 0) {
     const long_term = this.stats500.hotNumbers.find(n => n.number === number);
     if (long_term) {
-      const ratio = currentPercentage / long_term.percentage;
-      if (ratio > 1.2) return 'increasing';
-      if (ratio < 0.8) return 'decreasing';
+      const ratio = long_term.percentage / currentPercentage;  
+      if (ratio > 1.2) return 'increasing';  
+      if (ratio < 0.8) return 'decreasing';  
     }
   }
   

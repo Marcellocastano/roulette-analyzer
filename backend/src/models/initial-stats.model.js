@@ -34,14 +34,9 @@ const initialStatsSchema = new mongoose.Schema({
   },
   zeroZoneNumbers: [{
     number: { type: Number, required: true },
-    trend: { 
-      type: String, 
-      enum: ['increasing', 'decreasing', 'stable'],
-      required: true 
-    },
-    shortTermPercentage: { type: Number, required: true },
-    longTermPercentage: { type: Number, required: true }
+    increasePercentage: { type: Number, required: true },
   }],
+  dozenDown: { type: Number, min: 1, max: 3 },  // 1, 2 o 3
   analysis: {
     tableStatus: {
       type: String,

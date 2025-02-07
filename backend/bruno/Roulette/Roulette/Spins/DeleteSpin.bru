@@ -5,8 +5,13 @@ meta {
 }
 
 delete {
-  url: http://localhost:5001/api/v1/spins/{{spinId}}
+  url: http://localhost:5001/api/v1/spins/:spinId
+  body: none
   auth: bearer
+}
+
+params:path {
+  spinId: 
 }
 
 auth:bearer {

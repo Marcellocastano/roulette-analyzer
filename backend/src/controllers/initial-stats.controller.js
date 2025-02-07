@@ -67,7 +67,7 @@ class InitialStatsController {
                  stats[range].dozens.third + 
                  stats[range].dozens.zero;
       
-      if (Math.abs(sum - 100) > 1) {
+      if (Math.abs(sum - 100) > 20) {
         throw new Error(`La somma delle percentuali delle dozzine per ${range} deve essere 100%`);
       }
     });

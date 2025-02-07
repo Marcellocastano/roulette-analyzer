@@ -10,10 +10,45 @@ class StatisticsRepository {
     return stats;
   }
 
-  async updateWithNewSpin(userId, number) {
+  async updateWithNewSpin(userId, spin) {
     const stats = await this.findOrCreateUserStats(userId);
-    stats.updateWithNewSpin(number);
+    stats.updateWithNewSpin(spin);
     await stats.save();
+    return stats;
+  }
+
+  async removeSpinFromHistory(userId, spinId) {
+    const stats = await this.findOrCreateUserStats(userId);
+    
+    // Trova l'indice dello spin da rimuovere
+    const spinIndex = stats.spinHistory.findIndex(spin => 
+      spin.foreignSpinId.toString() === spinId.toString()
+    );
+
+    if (spinIndex !== -1) {
+      // Rimuovi lo spin dalla storia
+      stats.spinHistory.splice(spinIndex, 1);
+
+      // Ricalcola le statistiche
+      const last50Spins = stats.spinHistory.slice(-50);
+      const last500Spins = stats.spinHistory;
+
+      // Resetta le statistiche
+      stats._resetStats('stats50');
+      stats._resetStats('stats500');
+
+      // Aggiorna le statistiche per ogni intervallo
+      last50Spins.forEach(spin => {
+        stats._updateStatsForRange('stats50', spin.number);
+      });
+
+      last500Spins.forEach(spin => {
+        stats._updateStatsForRange('stats500', spin.number);
+      });
+
+      await stats.save();
+    }
+
     return stats;
   }
 

@@ -23,10 +23,10 @@ class SpinsService {
         sessionId,
         metadata
       });
-
-      // Aggiorna le statistiche
-      await statisticsRepository.updateWithNewSpin(userId, number);
-
+      await statisticsRepository.updateWithNewSpin(userId, {
+        number,
+        foreignSpinId: spin._id
+      });
       return spin;
     } catch (error) {
       if (error instanceof AppError) throw error;
@@ -118,9 +118,7 @@ class SpinsService {
 
       await spinRepository.deleteOne({ _id: spinId });
 
-      // Ricalcola le statistiche
-      const stats = await statisticsRepository.findOrCreateUserStats(userId);
-      await stats.save();
+      await statisticsRepository.removeSpinFromHistory(userId, spinId);
 
       return true;
     } catch (error) {

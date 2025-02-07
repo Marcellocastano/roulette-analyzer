@@ -18,7 +18,12 @@ const statisticsSchema = new mongoose.Schema({
   },
   spinHistory: [{
     number: Number,
-    timestamp: { type: Date, default: Date.now }
+    timestamp: { type: Date, default: Date.now },
+    foreignSpinId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Spin',
+      required: true
+    }
   }],
   stats50: {
     dozens: {
@@ -144,8 +149,9 @@ statisticsSchema.methods.updateWithNewSpin = function(spin) {
 
   // Aggiungi lo spin alla storia
   this.spinHistory.push({
-    number: spin,
-    timestamp: new Date()
+    number: spin.number,
+    timestamp: new Date(),
+    foreignSpinId: spin.foreignSpinId
   });
 
   // Mantieni solo gli ultimi 500 spin

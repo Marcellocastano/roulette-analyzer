@@ -52,30 +52,6 @@ class StatisticsRepository {
     return stats;
   }
 
-  async getDozensStats(userId, spinRange = 500) {
-    const stats = await this.findOrCreateUserStats(userId);
-    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
-    return stats[statsKey].dozens;
-  }
-
-  async getZeroNeighborsStats(userId, spinRange = 500) {
-    const stats = await this.findOrCreateUserStats(userId);
-    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
-    return stats[statsKey].zeroNeighbors;
-  }
-
-  async getHotNumbers(userId, limit = 5, spinRange = 500) {
-    const stats = await this.findOrCreateUserStats(userId);
-    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
-    return stats[statsKey].hotNumbers.slice(0, limit);
-  }
-
-  async getColdNumbers(userId, limit = 5, spinRange = 500) {
-    const stats = await this.findOrCreateUserStats(userId);
-    const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';
-    return stats[statsKey].coldNumbers.slice(0, limit);
-  }
-
   async getSequences(userId, spinRange = 500) {
     const stats = await this.findOrCreateUserStats(userId);
     const statsKey = spinRange <= 50 ? 'stats50' : 'stats500';

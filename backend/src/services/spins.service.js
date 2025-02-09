@@ -93,9 +93,9 @@ class SpinsService {
       }
 
       // Verifica se l'utente ha accesso alla cronologia completa
-      if (user.subscription.plan !== 'premium') {
-        throw new AppError('Full history access requires premium subscription', 403);
-      }
+      // if (user.subscription.plan !== 'premium') {
+      //   throw new AppError('Full history access requires premium subscription', 403);
+      // }
 
       return await spinRepository.getSpinHistory(userId);
     } catch (error) {

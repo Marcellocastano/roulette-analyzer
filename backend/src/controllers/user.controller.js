@@ -47,19 +47,19 @@ class UserController {
     }
   };
 
-  subscribe = async (req, res, next) => {
-    try {
-      const { plan } = req.body;
-      const subscription = await this.userService.subscribe(req.user.id, plan);
+//   subscribe = async (req, res, next) => {
+//     try {
+//       const { plan } = req.body;
+//       const subscription = await this.userService.subscribe(req.user.id, plan);
       
-      res.status(200).json({
-        status: 'success',
-        data: subscription
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
+//       res.status(200).json({
+//         status: 'success',
+//         data: subscription
+//       });
+//     } catch (error) {
+//       next(error);
+//     }
+//   };
 }
 
 module.exports = UserController;

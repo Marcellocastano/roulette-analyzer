@@ -18,19 +18,6 @@ class StatsService {
     return await this.repository.updateWithNewSpin(userId, number);
   }
 
-  async getStatistics(userId) {
-    // Ottieni statistiche sia per 50 che per 500 spin
-    const [stats50, stats500] = await Promise.all([
-      this._getStatsForRange(userId, 50),
-      this._getStatsForRange(userId, 500)
-    ]);
-
-    return {
-      short_term: stats50,
-      long_term: stats500
-    };
-  }
-
   async getPredictions(userId) {
     // Verifica se esiste una sessione attiva
     const stats = await Statistics.findOne({ user: userId });
@@ -49,27 +36,8 @@ class StatsService {
     return { message: 'Sessione resettata con successo' };
   }
 
-  async _getStatsForRange(userId, spinRange) {
-    const [dozens, zeroNeighbors, hotNumbers, coldNumbers, sequences] = await Promise.all([
-      this.repository.getDozensStats(userId, spinRange),
-      this.repository.getZeroNeighborsStats(userId, spinRange),
-      this.repository.getHotNumbers(userId, 5, spinRange),
-      this.repository.getColdNumbers(userId, 5, spinRange),
-      this.repository.getSequences(userId, spinRange)
-    ]);
-
-    return {
-      dozens,
-      zeroNeighbors,
-      hotNumbers,
-      coldNumbers,
-      sequences,
-      spinRange
-    };
-  }
-
   _analyzeDozens(dozens) {
-    const SUFFERING_THRESHOLD = 28; // Percentuale minima per considerare una dozzina in sofferenza
+    const SUFFERING_THRESHOLD = 29; // Percentuale minima per considerare una dozzina in sofferenza
     let suffering = null;
     let minPercentage = 100;
 

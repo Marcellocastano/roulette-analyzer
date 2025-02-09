@@ -60,40 +60,40 @@ class UserService {
     }
   }
 
-  async subscribe(userId, plan) {
-    try {
-      const user = await userRepository.findById(userId);
-      if (!user) {
-        throw new AppError('User not found', 404);
-      }
+  // async subscribe(userId, plan) {
+  //   try {
+  //     const user = await userRepository.findById(userId);
+  //     if (!user) {
+  //       throw new AppError('User not found', 404);
+  //     }
 
-      // Verifica il piano
-      if (!['premium'].includes(plan)) {
-        throw new AppError('Invalid subscription plan', 400);
-      }
+  //     // Verifica il piano
+  //     if (!['premium'].includes(plan)) {
+  //       throw new AppError('Invalid subscription plan', 400);
+  //     }
 
-      // Prepara i dati dell'abbonamento
-      const subscriptionData = {
-        plan: 'premium',
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 giorni
-        status: 'active',
-        features: {
-          maxSpins: 500,
-          predictions: true,
-          advancedStats: true
-        }
-      };
+  //     // Prepara i dati dell'abbonamento
+  //     const subscriptionData = {
+  //       plan: 'premium',
+  //       startDate: new Date(),
+  //       endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 giorni
+  //       status: 'active',
+  //       features: {
+  //         maxSpins: 500,
+  //         predictions: true,
+  //         advancedStats: true
+  //       }
+  //     };
 
-      // Aggiorna l'abbonamento
-      const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
+  //     // Aggiorna l'abbonamento
+  //     const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
 
-      return updatedUser.subscription;
-    } catch (error) {
-      if (error instanceof AppError) throw error;
-      throw new AppError('Error processing subscription', 500);
-    }
-  }
+  //     return updatedUser.subscription;
+  //   } catch (error) {
+  //     if (error instanceof AppError) throw error;
+  //     throw new AppError('Error processing subscription', 500);
+  //   }
+  // }
 }
 
 module.exports = UserService;

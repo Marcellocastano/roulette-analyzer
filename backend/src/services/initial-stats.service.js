@@ -43,7 +43,7 @@ class InitialStatsService {
                 zeroZoneNumbers,
                 dozenDown: analysis.dozenDown,
                 analysis: {
-                    tableStatus: analysis.tableStatus,
+                    tableStatus: analysis.status,
                     reasons: analysis.reasons
                 }
             });
@@ -120,43 +120,61 @@ class InitialStatsService {
     }
 
     _analyzeTableConditions(stats) {
-        const reasons = [];
-        let status = 'recommended';
+        let status = 'not_recommended';
         let dozenDown = null;
+        let reasons = [];
+        const DOZEN_THRESHOLD = 29;
+        const ZERO_ZONE_THRESHOLD = 19;
 
-        // Analisi dozzine a 500 spin
-        const dozens500 = stats.stats500.dozens;
-        let lowestPercentage = 29;  // Soglia per considerare una dozzina in sofferenza
-        
         // Mappa per convertire il nome della dozzina in numero
-        const dozenToNumber = { first: 1, second: 2, third: 3 };
-        
+        const dozenToNumber = {
+            first: 1,
+            second: 2,
+            third: 3
+        };
+
+        // Analisi delle dozzine
+        const dozens500 = stats.stats500.dozens;
+        let minDozens = {
+            percentage: 100,
+            dozen: null
+        };
+
         Object.entries(dozens500).forEach(([dozen, percentage]) => {
-            if (dozen !== 'zero' && percentage < lowestPercentage) {
-                lowestPercentage = percentage;
-                dozenDown = dozenToNumber[dozen];
-                reasons.push(`Dozzina ${dozen} in sofferenza (${percentage.toFixed(1)}%)`);
+            if (dozen !== 'zero' && percentage < minDozens.percentage) {
+                minDozens.percentage = percentage;
+                minDozens.dozen = dozen;
             }
         });
 
-        if (!dozenDown) {
-            status = 'not_recommended';
-            reasons.push('Nessuna dozzina in sofferenza');
+        if (minDozens.percentage < DOZEN_THRESHOLD) {
+            status = 'recommended';
+            dozenDown = dozenToNumber[minDozens.dozen];
+            reasons.push(`La dozzina ${minDozens.dozen} è in sofferenza con ${minDozens.percentage}%`);
+        } else if (minDozens.percentage <= DOZEN_THRESHOLD + 1) {
+            status = 'borderline';
+            dozenDown = dozenToNumber[minDozens.dozen];
+            reasons.push(`La dozzina ${minDozens.dozen} è borderline con ${minDozens.percentage}%`);
         }
 
         // Analisi zona zero
         const zeroNeighbors500 = stats.stats500.zeroNeighbors;
-        if (zeroNeighbors500 < 20) {
+        if (zeroNeighbors500 < ZERO_ZONE_THRESHOLD) {
             if (status !== 'not_recommended') {
                 status = 'recommended';
             }
-            reasons.push(`Zona zero in sofferenza (${zeroNeighbors500.toFixed(1)}%)`);
+            reasons.push(`La zona zero è in sofferenza con ${zeroNeighbors500}%`);
+        } else if (zeroNeighbors500 <= ZERO_ZONE_THRESHOLD + 1) {
+            if (status === 'not_recommended') {
+                status = 'borderline';
+            }
+            reasons.push(`La zona zero è borderline con ${zeroNeighbors500}%`);
         }
 
         return {
-            tableStatus: status,
-            reasons,
-            dozenDown
+            status,
+            dozenDown,
+            reasons
         };
     }
 

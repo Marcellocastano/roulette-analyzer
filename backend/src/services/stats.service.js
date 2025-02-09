@@ -2,6 +2,7 @@ const statisticsRepository = require('../repositories/statistics.repository');
 const predictionService = require('./prediction.service');
 const spinsService = require('./spins.service');
 const Statistics = require('../models/statistics.model');
+const InitialStats = require('../models/initial-stats.model');
 
 class StatsService {
   constructor() {
@@ -42,10 +43,9 @@ class StatsService {
   }
 
   async resetSession(userId) {
-    // Rimuove le statistiche dell'utente
     await Statistics.deleteOne({ user: userId });
-    // Rimuove gli spin dell'utente
     await this.spinsService.deleteAllSpins(userId);
+    await InitialStats.deleteOne({ userId });
     return { message: 'Sessione resettata con successo' };
   }
 
@@ -99,7 +99,6 @@ class StatsService {
 
   _analyzeSequences(sequences) {
     const correlations = {};
-    
     sequences.forEach(seq => {
       const { trigger, number, count } = seq;
       if (!correlations[trigger]) {

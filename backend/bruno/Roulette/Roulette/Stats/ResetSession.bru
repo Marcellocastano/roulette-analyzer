@@ -1,12 +1,15 @@
 meta {
   name: Reset Session
   type: http
-  seq: 1
+  seq: 6
 }
 
 get {
-  url: {{baseUrl}}/stats/reset
-  headers {
-    Authorization: Bearer {{token}}
-  }
+  url: http://localhost:5001/api/v1/stats/reset
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }

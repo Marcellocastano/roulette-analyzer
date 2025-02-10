@@ -1,29 +1,36 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
+import ThemeToggle from './components/ThemeToggle.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <v-app>
+    <v-app-bar>
+      <v-container>
+        <v-spacer />
+        <ThemeToggle />
+      </v-container>
+    </v-app-bar>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <v-main>
+      <RouterView />
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.v-application {
+  width: 100vw !important;
+  min-height: 100vh !important;
+}
+
+.v-main {
+  padding: 0 !important;
+}
+
+.v-container {
+  max-width: none !important;
+  padding: 0 !important;
 }
 
 .logo {
@@ -57,17 +64,17 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
+  .logo {
+    margin: 0 2rem 0 0;
+  }
+
   header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
+  .wrapper {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
@@ -77,7 +84,6 @@ nav a:first-of-type {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
-
     padding: 1rem 0;
     margin-top: 1rem;
   }

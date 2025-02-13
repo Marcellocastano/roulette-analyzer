@@ -1,24 +1,31 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: '/dashboard'
+      component: DefaultLayout,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          redirect: '/dashboard'
+        },
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: () => import('../views/dashboard/DashboardView.vue')
+        }
+      ]
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('../views/login/LoginView.vue'),
       meta: { requiresAuth: false }
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('../views/dashboard/DashboardView.vue'),
-      meta: { requiresAuth: true }
     }
   ]
 })

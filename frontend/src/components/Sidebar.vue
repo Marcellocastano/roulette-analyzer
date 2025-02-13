@@ -61,29 +61,79 @@
           </a>
         </li>
       </ul>
-      <div class="sidebar-profileSection">
-        <img
-          src="https://assets.codepen.io/3306515/i-know.jpg"
-          width="40"
-          height="40"
-          alt="User Profile"
-        />
-        <span>User Profile</span>
-      </div>
+      <n-dropdown
+        :options="options"
+        trigger="click"
+        size="large"
+        @select="handleSelect"
+      >
+        <n-button round class="sidebar-profileSection">
+          <n-icon color="#f3aa14">
+            <UserCircle />
+          </n-icon>
+          <span class="sidebar-profileName">User profile</span>
+        </n-button>
+      </n-dropdown>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import StatsIcon from './icons/StatsIcon.vue';
-import DashboardIcon from './icons/DashboardIcon.vue';
-import { LayoutSidebarLeftCollapse as SidebarCollapse } from '@vicons/tabler'
+import { ref, h } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import StatsIcon from './icons/StatsIcon.vue'
+import DashboardIcon from './icons/DashboardIcon.vue'
+import { 
+  LayoutSidebarLeftCollapse as SidebarCollapse, 
+  UserCircle,
+  Settings as EditIcon,
+  Logout as LogoutIcon 
+} from '@vicons/tabler'
+import { NIcon, NDropdown, NButton } from 'naive-ui'
 
+const router = useRouter()
+const authStore = useAuthStore()
 const isShrinkView = ref(false)
 
 const handleSidebarView = () => {
   isShrinkView.value = !isShrinkView.value
+}
+
+const renderIcon = (icon: any) => {
+  return () => h(NIcon, null, { default: () => h(icon) })
+}
+
+const options = [
+  {
+    label: 'Profilo',
+    key: 'profile',
+    icon: renderIcon(UserCircle)
+  },
+  {
+    label: 'Impostazioni',
+    key: 'settings',
+    icon: renderIcon(EditIcon)
+  },
+  {
+    label: 'Logout',
+    key: 'logout',
+    icon: renderIcon(LogoutIcon)
+  }
+]
+
+const handleSelect = (key: string) => {
+  switch (key) {
+    case 'profile':
+      router.push('/profile')
+      break
+    case 'settings':
+      router.push('/settings')
+      break
+    case 'logout':
+      authStore.logout()
+      break
+  }
 }
 </script>
 
@@ -183,27 +233,15 @@ const handleSidebarView = () => {
   }
   
   &-profileSection {
-    display: flex;
-    align-items: center;
-    border: 1px solid var(--item-hover);
-    padding: 8px 10px;
-    border-radius: 28px;
-    overflow: hidden;
     height: 60px;
-    flex-shrink: 0;
     transition: background .3s ease-in-out;
-    cursor: pointer;
     margin-bottom: 15px;
     
     &:hover { background-color: var(--item-hover); }
-    
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
+
+    i {
       margin-right: 8px;
-      flex-shrink: 0;
+      font-size: 40px;
     }
     
     span {
@@ -213,8 +251,9 @@ const handleSidebarView = () => {
       color: var(--text-color);
     }
     
-    .shrink & span { display: none; }
-    .shrink & { border-radius: 50%; }
+    .shrink & .sidebar-profileName { display: none; }
+    .shrink & i { font-size: 30px; }
+    .shrink & { border-radius: 50%; padding: 15px; }
   }
   
   &-listItemText {

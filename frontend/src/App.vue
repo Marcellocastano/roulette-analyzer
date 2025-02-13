@@ -1,91 +1,72 @@
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
-import ThemeToggle from './components/ThemeToggle.vue'
-</script>
-
 <template>
-  <v-app>
-    <v-app-bar>
-      <v-container>
-        <v-spacer />
-        <ThemeToggle />
-      </v-container>
-    </v-app-bar>
-
-    <v-main>
-      <RouterView />
-    </v-main>
-  </v-app>
+  <n-config-provider :theme-overrides="currentTheme">
+    <div :style="{ backgroundColor: currentTheme.common?.bodyColor }">
+      <n-message-provider>
+        <n-loading-bar-provider>
+          <n-dialog-provider>
+            <n-notification-provider>
+              <router-view></router-view>
+            </n-notification-provider>
+          </n-dialog-provider>
+        </n-loading-bar-provider>
+      </n-message-provider>
+    </div>
+  </n-config-provider>
 </template>
 
-<style scoped>
-.v-application {
-  width: 100vw !important;
-  min-height: 100vh !important;
+<script setup lang="ts">
+import { ref } from 'vue';
+import { getThemeOverrides } from './stores/theme'; // Importa la logica del tema
+
+const currentTheme = ref(getThemeOverrides('dark'));
+</script>
+
+<style>
+:root {
+  --background-light: #ffffff;
+  --background-dark: #18181c;
+  --text-color-light: #333333;
+  --text-color-dark: #ffffff;
 }
 
-.v-main {
-  padding: 0 !important;
+html {
+  height: 100%;
 }
 
-.v-container {
-  max-width: none !important;
-  padding: 0 !important;
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--text-color-light);
+  background-color: var(--background-light);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+body.dark-theme {
+  color: var(--text-color-dark);
+  background-color: var(--background-dark);
 }
 
-nav {
+#app {
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.app-container {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  transition: all 0.3s ease;
+  background-color: inherit;
+  color: inherit;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
 }
 </style>

@@ -2,17 +2,19 @@
   <div class="dashboard">
     <div class="roulette-wheel">
       <svg 
-        @mouseup="stopDragging"
-        @mouseleave="stopDragging"
+      @mouseup="stopDragging"
+      @mouseleave="stopDragging"
       >
-        <!-- Coni della roulette -->
-        <g v-for="(number, index) in rouletteNumbers" :key="index">
+      <!-- Coni della roulette -->
+      <g v-for="(number, index) in rouletteNumbers" :key="index">
+          {{getConeAngle(index)}}
           <path
             :d="getConePath(index)"
             :class="['cone', { active: coneValues[index] > 0 }]"
             :style="{
               '--base-color': getNumberColor(number),
-              '--fill-height': `${(coneValues[index] / 20) * 100}%`
+              '--fill-height': `${100 - (coneValues[index] / 20) * 100}%`,
+              '--cone-angle': `${getConeAngle(index)}deg`
             }"
             @mousedown="startDragging(index, $event)"
             @mousemove="handleMouseMove($event, index)"
@@ -84,6 +86,14 @@ const getConePath = (index: number) => {
   return `M ${x1} ${y1} L ${x2} ${y2} A 190 190 0 0 1 ${x3} ${y3} L ${x4} ${y4} A 50 50 0 0 0 ${x1} ${y1}`
 }
 
+// Calcola l'angolo del cono per il gradiente
+const getConeAngle = (index: number) => {
+  const totalAngle = 120 // Angolo totale del ventaglio
+  const angle = -50 + (index * totalAngle) / 7 // Stesso calcolo usato in getConePath
+  // Ruotiamo l'angolo per allineare con la direzione verticale
+  return angle - 180
+}
+
 // Calcola la posizione del numero
 const getNumberPosition = (index: number) => {
   const totalAngle = 120 // Angolo totale del ventaglio
@@ -99,18 +109,18 @@ const getNumberPosition = (index: number) => {
 
 // Restituisce il colore in base al numero
 const getNumberColor = (number: number) => {
-  if (number === 0) return '#00ff00' // Verde per lo zero
+  if (number === 0) return '#016D29' // Verde per lo zero
   // Mappa dei colori della roulette
   const rouletteColors: { [key: number]: string } = {
-    32: '#ff0000', 15: '#000000', 19: '#ff0000', 4: '#000000',
-    21: '#ff0000', 2: '#000000', 25: '#ff0000', 17: '#000000',
-    34: '#ff0000', 6: '#000000', 27: '#ff0000', 13: '#000000',
-    36: '#ff0000', 11: '#000000', 30: '#ff0000', 8: '#000000',
-    23: '#ff0000', 10: '#000000', 5: '#ff0000', 24: '#000000',
-    16: '#ff0000', 33: '#000000', 1: '#ff0000', 20: '#000000',
-    14: '#ff0000', 31: '#000000', 9: '#ff0000', 22: '#000000',
-    18: '#ff0000', 29: '#000000', 7: '#ff0000', 28: '#000000',
-    12: '#ff0000', 35: '#000000', 3: '#ff0000', 26: '#000000'
+    32: '#E0080B', 15: '#000000', 19: '#E0080B', 4: '#000000',
+    21: '#E0080B', 2: '#000000', 25: '#E0080B', 17: '#000000',
+    34: '#E0080B', 6: '#000000', 27: '#E0080B', 13: '#000000',
+    36: '#E0080B', 11: '#000000', 30: '#E0080B', 8: '#000000',
+    23: '#E0080B', 10: '#000000', 5: '#E0080B', 24: '#000000',
+    16: '#E0080B', 33: '#000000', 1: '#E0080B', 20: '#000000',
+    14: '#E0080B', 31: '#000000', 9: '#E0080B', 22: '#000000',
+    18: '#E0080B', 29: '#000000', 7: '#E0080B', 28: '#000000',
+    12: '#E0080B', 35: '#000000', 3: '#E0080B', 26: '#000000'
   }
   return rouletteColors[number] || '#000000'
 }
@@ -183,7 +193,7 @@ const fillAllCones = () => {
 
 .roulette-wheel {
   width: 400px;
-  height: 300px;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,13 +208,13 @@ const fillAllCones = () => {
   cursor: pointer;
   position: relative;
   fill: var(--base-color);
-  stroke: rgba(255, 255, 255, 0.2);
+  stroke: rgba(255, 255, 255, 0.8);
   stroke-width: 1;
   transition: all 0.2s ease;
 
   &.active {
-    mask-image: linear-gradient(to top, #87CEEB var(--fill-height), transparent var(--fill-height));
-    -webkit-mask-image: linear-gradient(to top, #87CEEB var(--fill-height), transparent var(--fill-height));
+    mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #87CEEB var(--fill-height));
+    -webkit-mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #87CEEB var(--fill-height));
     fill: #87CEEB;
   }
 

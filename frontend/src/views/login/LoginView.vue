@@ -194,7 +194,7 @@ const handleSubmit = async () => {
 }
 
 .gold {
-  fill: #f3aa14;
+  fill: #F3C620;
 }
 
 .roulette {

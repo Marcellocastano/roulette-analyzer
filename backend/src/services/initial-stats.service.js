@@ -22,8 +22,7 @@ class InitialStatsService {
                     dozens: {
                         first: stats.stats50.dozens.first || 0,
                         second: stats.stats50.dozens.second || 0,
-                        third: stats.stats50.dozens.third || 0,
-                        zero: stats.stats50.dozens.zero || 0
+                        third: stats.stats50.dozens.third || 0
                     },
                     zeroNeighbors: {
                         percentage: stats.stats50.zeroNeighbors || 0
@@ -33,8 +32,7 @@ class InitialStatsService {
                     dozens: {
                         first: stats.stats500.dozens.first || 0,
                         second: stats.stats500.dozens.second || 0,
-                        third: stats.stats500.dozens.third || 0,
-                        zero: stats.stats500.dozens.zero || 0
+                        third: stats.stats500.dozens.third || 0
                     },
                     zeroNeighbors: {
                         percentage: stats.stats500.zeroNeighbors || 0
@@ -59,8 +57,7 @@ class InitialStatsService {
                 dozens: {
                     first: { count: 0, percentage: stats.stats50.dozens.first || 0 },
                     second: { count: 0, percentage: stats.stats50.dozens.second || 0 },
-                    third: { count: 0, percentage: stats.stats50.dozens.third || 0 },
-                    zero: { count: 0, percentage: stats.stats50.dozens.zero || 0 }
+                    third: { count: 0, percentage: stats.stats50.dozens.third || 0 }
                 },
                 zeroNeighbors: {
                     total: { count: 0, percentage: stats.stats50.zeroNeighbors || 0 },
@@ -76,8 +73,7 @@ class InitialStatsService {
                 dozens: {
                     first: { count: 0, percentage: stats.stats500.dozens.first || 0 },
                     second: { count: 0, percentage: stats.stats500.dozens.second || 0 },
-                    third: { count: 0, percentage: stats.stats500.dozens.third || 0 },
-                    zero: { count: 0, percentage: stats.stats500.dozens.zero || 0 }
+                    third: { count: 0, percentage: stats.stats500.dozens.third || 0 }
                 },
                 zeroNeighbors: {
                     total: { count: 0, percentage: stats.stats500.zeroNeighbors || 0 },

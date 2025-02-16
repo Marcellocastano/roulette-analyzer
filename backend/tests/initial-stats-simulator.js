@@ -34,8 +34,7 @@ async function simulateInitialStats() {
                 dozens: {
                     first: 25,
                     second: 35,
-                    third: 35,
-                    zero: 5
+                    third: 35
                 },
                 zeroNeighbors: 15,
                 numbers: {
@@ -52,8 +51,7 @@ async function simulateInitialStats() {
                 dozens: {
                     first: 26,
                     second: 35,
-                    third: 35,
-                    zero: 4
+                    third: 35
                 },
                 zeroNeighbors: 18,
                 numbers: {
@@ -79,8 +77,7 @@ async function simulateInitialStats() {
                 dozens: {
                     first: 35,
                     second: 25,
-                    third: 35,
-                    zero: 5
+                    third: 35
                 },
                 zeroNeighbors: 22,
                 numbers: {
@@ -97,8 +94,7 @@ async function simulateInitialStats() {
                 dozens: {
                     first: 35,
                     second: 26,
-                    third: 35,
-                    zero: 4
+                    third: 35
                 },
                 zeroNeighbors: 21,
                 numbers: {
@@ -123,8 +119,7 @@ async function simulateInitialStats() {
                 dozens: {
                     first: 32,
                     second: 32,
-                    third: 32,
-                    zero: 4
+                    third: 32
                 },
                 zeroNeighbors: 21,
                 numbers: {
@@ -141,8 +136,7 @@ async function simulateInitialStats() {
                 dozens: {
                     first: 32,
                     second: 32,
-                    third: 32,
-                    zero: 4
+                    third: 32
                 },
                 zeroNeighbors: 21,
                 numbers: {

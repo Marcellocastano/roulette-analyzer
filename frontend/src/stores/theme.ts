@@ -44,9 +44,9 @@ const themes = {
   },
   dark: {
     common: {
-      bodyColor: '#222222',  // Colore di sfondo del body
+      bodyColor: '#26533d',  // Colore di sfondo del body
       textColor1: '#ffffff',  // Colore del testo principale
-      textColor2: '#bbbbbb',  // Colore del testo secondario
+      textColor2: '#171717',  // Colore del testo secondario
       textColor3: '#999999',  // Colore di supporto del testo
     },
   },

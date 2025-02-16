@@ -56,19 +56,8 @@ class InitialStatsController {
       if (!stats[range].dozens || 
           !stats[range].dozens.first || 
           !stats[range].dozens.second || 
-          !stats[range].dozens.third || 
-          !stats[range].dozens.zero) {
+          !stats[range].dozens.third) {
         throw new Error(`Statistiche dozzine mancanti per ${range}`);
-      }
-
-      // Verifica che la somma sia circa 100%
-      const sum = stats[range].dozens.first + 
-                 stats[range].dozens.second + 
-                 stats[range].dozens.third + 
-                 stats[range].dozens.zero;
-      
-      if (Math.abs(sum - 100) > 20) {
-        throw new Error(`La somma delle percentuali delle dozzine per ${range} deve essere 100%`);
       }
     });
 

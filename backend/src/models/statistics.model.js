@@ -38,10 +38,6 @@ const statisticsSchema = new mongoose.Schema({
       third: {  // 25-36
         count: { type: Number, default: 0 },
         percentage: { type: Number, default: 0 }
-      },
-      zero: {
-        count: { type: Number, default: 0 },
-        percentage: { type: Number, default: 0 }
       }
     },
     zeroNeighbors: {
@@ -93,10 +89,6 @@ const statisticsSchema = new mongoose.Schema({
         percentage: { type: Number, default: 0 }
       },
       third: {  // 25-36
-        count: { type: Number, default: 0 },
-        percentage: { type: Number, default: 0 }
-      },
-      zero: {
         count: { type: Number, default: 0 },
         percentage: { type: Number, default: 0 }
       }
@@ -215,9 +207,7 @@ statisticsSchema.methods._updateStatsForRange = function(statsKey, spin) {
 
 statisticsSchema.methods._updateDozens = function(statsKey, spin, totalSpins) {
   let dozen;
-  if (spin === 0) {
-    dozen = 'zero';
-  } else if (spin <= 12) {
+  if (spin <= 12 && spin !== 0) {
     dozen = 'first';
   } else if (spin <= 24) {
     dozen = 'second';

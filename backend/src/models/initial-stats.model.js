@@ -15,7 +15,6 @@ const initialStatsSchema = new mongoose.Schema({
       first: { type: Number, required: true },  // 1-12
       second: { type: Number, required: true }, // 13-24
       third: { type: Number, required: true },  // 25-36
-      zero: { type: Number, required: true }    // 0
     },
     zeroNeighbors: {
       percentage: { type: Number, required: true }
@@ -26,7 +25,6 @@ const initialStatsSchema = new mongoose.Schema({
       first: { type: Number, required: true },
       second: { type: Number, required: true },
       third: { type: Number, required: true },
-      zero: { type: Number, required: true }
     },
     zeroNeighbors: {
       percentage: { type: Number, required: true }

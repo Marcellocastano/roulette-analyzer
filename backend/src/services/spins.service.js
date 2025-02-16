@@ -37,9 +37,7 @@ class SpinsService {
   _calculateSpinMetadata(number) {
     // Determina la dozzina
     let dozen;
-    if (number === 0) {
-      dozen = 'zero';
-    } else if (number <= 12) {
+    if (number <= 12 && number !== 0) {
       dozen = 'first';
     } else if (number <= 24) {
       dozen = 'second';

@@ -1,0 +1,185 @@
+<template>
+    <div class="roulette-container">
+      <svg viewBox="0 0 500 500" class="roulette-wheel">
+        <!-- Bordo esterno -->
+        <circle cx="250" cy="250" r="240" class="outer-rim"/>
+        
+        <!-- Settori della ruota -->
+        <g id="sectors">
+          <path 
+            v-for="(number, index) in numbers" 
+            :key="number"
+            :d="createSectorPath(index)"
+            :class="[
+              'sector',
+              `number-${number}`,
+              { 'green': number === 0 },
+              { 'highlighted': predictedNumbers.includes(number) }
+            ]"
+          />
+        </g>
+  
+        <!-- Numeri -->
+        <g id="numbers">
+          <text
+            v-for="(number, index) in numbers"
+            :key="number"
+            :transform="getNumberPosition(index)"
+            :class="[
+              'number-text',
+              { 'highlighted-text': predictedNumbers.includes(number) }
+            ]"
+            text-anchor="middle"
+            alignment-baseline="middle"
+          >{{ number }}</text>
+        </g>
+  
+        <!-- Centro decorativo -->
+        <g id="center-decoration">
+          <!-- Cerchio centrale -->
+          <circle cx="250" cy="250" r="100" class="center-circle"/>
+          <!-- Decorazione raggiata -->
+          <g id="spokes">
+            <line
+              v-for="i in 8"
+              :key="i"
+              :transform="`rotate(${i * 45} 250 250)`"
+              x1="250"
+              y1="150"
+              x2="250"
+              y2="350"
+              class="spoke"
+            />
+          </g>
+          <!-- Cerchio interno dorato -->
+          <circle cx="250" cy="250" r="30" class="inner-circle"/>
+        </g>
+      </svg>
+    </div>
+  </template>
+  
+  <script setup lang="ts">
+  interface Props {
+    predictedNumbers: number[]
+  }
+  
+  const props = defineProps<Props>()
+  
+  // Ordine corretto dei numeri nella roulette
+  const numbers = [
+    0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10,
+    5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+  ]
+  
+  // Funzione createSectorPath corretta
+  const createSectorPath = (index: number): string => {
+    const anglePerSector = 360 / numbers.length
+    // Sottraiamo mezzo settore invece di aggiungerlo per allineare correttamente
+    const startAngle = (index * anglePerSector) - 90 - (anglePerSector / 2)
+    const endAngle = startAngle + anglePerSector
+    
+    const start = polarToCartesian(250, 250, 240, startAngle)
+    const end = polarToCartesian(250, 250, 240, endAngle)
+    const innerStart = polarToCartesian(250, 250, 150, startAngle)
+    const innerEnd = polarToCartesian(250, 250, 150, endAngle)
+    
+    return `
+      M ${start.x} ${start.y}
+      A 240 240 0 0 1 ${end.x} ${end.y}
+      L ${innerEnd.x} ${innerEnd.y}
+      A 150 150 0 0 0 ${innerStart.x} ${innerStart.y}
+      Z
+    `
+  }
+  
+  // getNumberPosition rimane invariata
+  const getNumberPosition = (index: number): string => {
+    const anglePerSector = 360 / numbers.length
+    const angle = index * anglePerSector - 90
+    const radius = 210  // Aumentato da 195 a 225 per avvicinare i numeri al bordo
+    const point = polarToCartesian(250, 250, radius, angle)
+    return `translate(${point.x} ${point.y}) rotate(${angle + 90})`
+  }
+  
+  // Utility per convertire coordinate polari in cartesiane
+  const polarToCartesian = (centerX: number, centerY: number, radius: number, angle: number) => {
+    const angleInRadians = (angle) * Math.PI / 180
+    return {
+      x: centerX + (radius * Math.cos(angleInRadians)),
+      y: centerY + (radius * Math.sin(angleInRadians))
+    }
+  }
+  </script>
+  
+  <style scoped>
+  .roulette-container {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+  }
+  
+  .roulette-wheel {
+    width: 100%;
+    height: 100%;
+    transform: rotate(135deg);
+  }
+  
+  .outer-rim {
+    fill: none;
+    stroke: #CFB53B;
+    stroke-width: 3;
+  }
+  
+  .sector {
+    stroke: #444;
+    stroke-width: 1;
+  }
+  
+  .green {
+    fill: #007F00;
+  }
+  
+  .highlighted {
+    fill: #dec958;
+  }
+  
+  .number-text {
+    fill: white;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .highlighted-text {
+    fill: black;
+  }
+  
+  .center-circle {
+    fill: radial-gradient(#8B4513, #4A2500);
+    stroke: #CFB53B;
+    stroke-width: 2;
+  }
+  
+  .spoke {
+    stroke: #CFB53B;
+    stroke-width: 2;
+  }
+  
+  .inner-circle {
+    fill: #CFB53B;
+    stroke: #B8860B;
+    stroke-width: 1;
+  }
+  
+  /* Effetto sfumato per i settori */
+  .sector {
+    filter: url(#shadow);
+  }
+  
+  /* Effetto lucido */
+  .sector:hover {
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+  }
+  </style>
+  

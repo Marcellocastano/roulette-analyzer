@@ -5,7 +5,11 @@
         <n-loading-bar-provider>
           <n-dialog-provider>
             <n-notification-provider>
-              <router-view></router-view>
+              <div class="app">
+                <div class="app-wrapper" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
+                  <router-view></router-view>
+                </div>
+              </div>
             </n-notification-provider>
           </n-dialog-provider>
         </n-loading-bar-provider>
@@ -18,6 +22,7 @@
 import { ref } from 'vue';
 import { getThemeOverrides } from './stores/theme'; // Importa la logica del tema
 
+const isSidebarCollapsed = ref(false)
 const currentTheme = ref(getThemeOverrides('dark'));
 </script>
 
@@ -68,5 +73,21 @@ body.dark-theme {
   top: 1rem;
   right: 1rem;
   z-index: 1000;
+}
+
+.app {
+  min-height: 100vh;
+  background-color: var(--app-bg);
+  color: var(--text-color);
+}
+
+.app-wrapper {
+  min-height: 100vh;
+  padding-left: 250px;
+  transition: padding-left 0.3s ease;
+
+  &.sidebar-collapsed {
+    padding-left: 80px;
+  }
 }
 </style>

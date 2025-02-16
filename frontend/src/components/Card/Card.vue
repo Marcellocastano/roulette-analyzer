@@ -1,0 +1,135 @@
+<!-- GlassCard.vue -->
+<template>
+    <div class="glass-card" :class="{ 'image-left': imagePosition === 'left' }">
+        <div class="card-header">
+            <slot name="title">
+                <h3 class="card-title">{{ title }}</h3>
+            </slot>
+        </div>
+        <div class="card-body">
+            <div class="image-container" v-if="hasImageSlot">
+                <slot name="image"></slot>
+            </div>
+            <div class="content-container">
+                <slot name="content"></slot>
+            </div>
+        </div>
+        <div class="card-actions" v-if="hasActionsSlot">
+            <slot name="actions"></slot>
+        </div>
+    </div>
+</template>
+  
+<script setup lang="ts">
+import { useSlots, computed } from 'vue'
+
+interface Props {
+  title?: string
+  imagePosition?: 'left' | 'right'
+}
+
+// Define props with TypeScript
+const props = withDefaults(defineProps<Props>(), {
+  title: '',
+  imagePosition: 'right'
+})
+
+// Define emits
+const emit = defineEmits<{
+  (e: 'click'): void
+  (e: 'action', action: string): void
+}>()
+
+// Access slots
+const slots = useSlots()
+
+// Computed properties
+const hasImageSlot = computed(() => !!slots.image)
+const hasActionsSlot = computed(() => !!slots.actions)
+</script>
+  
+<style scoped>
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+  }
+  
+  .glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.2);
+  }
+  
+  .card-header {
+    margin-bottom: 16px;
+  }
+  
+  .card-title {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  .card-body {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .image-left .card-body {
+    flex-direction: row-reverse;
+  }
+  
+  .image-container {
+    flex: 0 0 auto;
+    max-width: 200px;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  
+  .content-container {
+    flex: 1;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .card-actions {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+  
+  /* Per bottoni nelle actions */
+  :deep(.action-button) {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  :deep(.action-button:hover) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  </style>
+  

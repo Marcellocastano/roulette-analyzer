@@ -19,7 +19,7 @@ const spinSchema = new mongoose.Schema({
   metadata: {
     dozen: {
       type: String,
-      enum: ['first', 'second', 'third', 'zero'],
+      enum: ['first', 'second', 'third'],
       required: true
     },
     isZeroNeighbor: {
@@ -49,9 +49,7 @@ spinSchema.index({ number: 1, user: 1, createdAt: -1 }); // Per statistiche sui 
 // Middleware pre-save per calcolare i metadati
 spinSchema.pre('save', function(next) {
   // Calcola la dozzina
-  if (this.number === 0) {
-    this.metadata.dozen = 'zero';
-  } else if (this.number <= 12) {
+  if (this.number <= 12 && this.number !== 0) {
     this.metadata.dozen = 'first';
   } else if (this.number <= 24) {
     this.metadata.dozen = 'second';

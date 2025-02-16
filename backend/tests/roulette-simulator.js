@@ -61,17 +61,14 @@ async function simulateRouletteSession() {
         console.log(`- Prima dozzina (1-12): ${currentStats.short_term.dozens.first.percentage.toFixed(1)}%`);
         console.log(`- Seconda dozzina (13-24): ${currentStats.short_term.dozens.second.percentage.toFixed(1)}%`);
         console.log(`- Terza dozzina (25-36): ${currentStats.short_term.dozens.third.percentage.toFixed(1)}%`);
-        console.log(`- Zero: ${currentStats.short_term.dozens.zero.percentage.toFixed(1)}%`);
 
         // Dozzine a 500 spin
         console.log('\nDozzine (ultimi 500 spin):');
         console.log(`- Prima dozzina (1-12): ${currentStats.long_term.dozens.first.percentage.toFixed(1)}%`);
         console.log(`- Seconda dozzina (13-24): ${currentStats.long_term.dozens.second.percentage.toFixed(1)}%`);
         console.log(`- Terza dozzina (25-36): ${currentStats.long_term.dozens.third.percentage.toFixed(1)}%`);
-        console.log(`- Zero: ${currentStats.long_term.dozens.zero.percentage.toFixed(1)}%`);
         
         // Zona zero
-        console.log('\nZona Zero:');
         console.log(`- Ultimi 50 spin: ${currentStats.short_term.zeroNeighbors.total.percentage.toFixed(1)}%`);
         console.log(`- Ultimi 500 spin: ${currentStats.long_term.zeroNeighbors.total.percentage.toFixed(1)}%`);
 

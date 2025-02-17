@@ -17,7 +17,7 @@
             :class="{ 'active': isRouteActive(route.path) }"
           >
             <component :is="route.icon" class="sidebar-listIcon" />
-            <n-gradient-text v-if="route.name === 'Play'" :size="18" type="success" class="sidebar-listItemText">
+            <n-gradient-text v-if="route.name === 'Play'" :size="18" type="error" class="sidebar-listItemText">
               <strong>Spin Lab</strong>
             </n-gradient-text>
             <span v-else class="sidebar-listItemText">{{ route.name }}</span>
@@ -179,7 +179,7 @@ const handleSelect = (key: string) => {
 .sidebar-collapseBtn {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-color-dark);
   cursor: pointer;
   padding: 0.5rem;
   display: flex;
@@ -206,17 +206,17 @@ const handleSelect = (key: string) => {
   display: flex;
   align-items: center;
   padding: 0.8rem 1rem;
-  color: #fff;
+  color: var(--text-color-dark);
   text-decoration: none;
   transition: background-color 0.2s;
   font-size: 16px;
 
   &:hover {
-    background-color: #2d2d2d;
+    background-color: rgb(158 204 163);
   }
 
   &.active {
-    background-color: #ffd743;
+    background-color: rgb(158 204 163);
     color: #1f1f1f;
 
     .sidebar-listIcon {
@@ -244,7 +244,7 @@ const handleSelect = (key: string) => {
   cursor: pointer;
   
   &:hover {
-    background-color: #2d2d2d;
+    background-color: rgb(232 247 231);
   }
 }
 

@@ -4,8 +4,12 @@
       <n-grid-item v-if="step === 1">
         <InitialStats @statisticsUpdated="handleStatisticsUpdate" />
       </n-grid-item>
-      <n-grid-item v-if="step === 2">
-        <WheelPredictor :predicted-numbers="predictedNumbers"/>
+      <n-grid-item >
+        <WheelPredictor
+          :primary-predicted-numbers="primaryPredictedNumbers"
+          :secondary-predicted-numbers="secondaryPredictedNumbers"
+          :special-predicted-numbers="specialPredictedNumbers"
+        />
         <Board @numberSelected="handleNumberSelection"/>
       </n-grid-item>
     </n-grid>
@@ -14,33 +18,53 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NGrid, NGridItem } from 'naive-ui'
-import WheelStatistics from '@/components/WheelStatistics/WheelStatistics.vue'
+import { NGrid, NGridItem, useMessage } from 'naive-ui'
 import Board from '@/components/Board/Board.vue'
 import WheelPredictor from '@/components/WheelPredictor/WheelPredictor.vue'
 import InitialStats from '@/components/InitialStats/InitialStats.vue'
+import { initialStatsApi, spinsApi, statsApi } from '@/api'
+import { InitialStatsPayload } from '@/api/types/initialStats'
 
-interface Statistics {
-  numbers: Record<string, number>
-}
-
-const wheelStatistics = ref<Statistics | null>(null)
-const predictedNumbers = ref<number[]>([])
+const primaryPredictedNumbers = ref<number[]>([])
+const secondaryPredictedNumbers = ref<number[]>([])
+const specialPredictedNumbers = ref<number[]>([])
 const step = ref<number>(1)
+const message = useMessage()
 
-const handleStatisticsUpdate = (statistics: Statistics) => {
-  wheelStatistics.value = statistics
+const handleStatisticsUpdate = async (statistics: InitialStatsPayload) => {
   console.log('Received statistics:', statistics)
-  // Aggiorna l'analisi statistica quando cambiano i dati della ruota
+  try {
+    await initialStatsApi.addInitialStats(statistics)
+    message.success('Statistiche iniziali salvate con successo')
+    step.value = 2 // Passa allo step successivo
+  } catch (error) {
+    console.error('Errore nel salvataggio delle statistiche:', error)
+    message.error('Errore nel salvataggio delle statistiche')
+  }
 }
 
 const selectedNumber = ref<number | null>(null)
 
-const handleNumberSelection = (number: number) => {
-  selectedNumber.value = number
-  predictedNumbers.value = [...predictedNumbers.value, number]
-  // Qui puoi aggiungere la logica per gestire la selezione del numero
-  console.log(`Numero selezionato: ${number}`)
+const handleNumberSelection = async (number: number) => {
+  try {
+    await spinsApi.addSpin({ number })
+    await getPredictions()
+  } catch (error) {
+    console.error('Errore nel salvataggio del spin:', error)
+    message.error('Errore nel salvataggio del spin')
+  }
+}
+
+const getPredictions = async () => {
+  try {
+    const resp = await statsApi.getPredictions()
+    console.log('Predictions:', resp.data)
+    primaryPredictedNumbers.value = resp.data.data.primary
+    secondaryPredictedNumbers.value = resp.data.data.secondary
+    specialPredictedNumbers.value = resp.data.data.special
+  } catch (error) {
+    console.error('Errore nel recupero delle previsioni:', error)
+  }
 }
 
 </script>

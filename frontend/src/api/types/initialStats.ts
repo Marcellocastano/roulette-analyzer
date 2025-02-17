@@ -1,4 +1,4 @@
-export interface InitialStats {
+export interface InitialStatsPayload {
     stats50: Stats
     stats500: Stats
 }
@@ -13,7 +13,6 @@ export interface Dozens {
     first: number
     second: number
     third: number
-    zero: number
 }
 
 export interface Numbers {

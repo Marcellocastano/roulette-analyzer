@@ -1,66 +1,72 @@
 <template>
     <div class="roulette-container">
-      <svg viewBox="0 0 500 500" class="roulette-wheel">
+        <svg viewBox="0 0 500 500" class="roulette-wheel">
         <!-- Bordo esterno -->
         <circle cx="250" cy="250" r="240" class="outer-rim"/>
         
         <!-- Settori della ruota -->
         <g id="sectors">
-          <path 
+            <path 
             v-for="(number, index) in numbers" 
             :key="number"
             :d="createSectorPath(index)"
             :class="[
-              'sector',
-              `number-${number}`,
-              { 'green': number === 0 },
-              { 'highlighted': predictedNumbers.includes(number) }
+                'sector',
+                `number-${number}`,
+                { 'green': number === 0 },
+                { 'highlighted-primary': primaryPredictedNumbers.includes(number) },
+                { 'highlighted-secondary': secondaryPredictedNumbers.includes(number) },
+                { 'highlighted-special': specialPredictedNumbers.includes(number) },
             ]"
-          />
+            />
         </g>
-  
+    
         <!-- Numeri -->
         <g id="numbers">
-          <text
+            <text
             v-for="(number, index) in numbers"
             :key="number"
             :transform="getNumberPosition(index)"
             :class="[
-              'number-text',
-              { 'highlighted-text': predictedNumbers.includes(number) }
+                'number-text',
+                { 'highlighted-text': primaryPredictedNumbers.includes(number) || secondaryPredictedNumbers.includes(number) || specialPredictedNumbers.includes(number) }
             ]"
             text-anchor="middle"
             alignment-baseline="middle"
-          >{{ number }}</text>
+            >{{ number }}</text>
         </g>
-  
+    
         <!-- Centro decorativo -->
         <g id="center-decoration">
-          <!-- Cerchio centrale -->
-          <circle cx="250" cy="250" r="100" class="center-circle"/>
-          <!-- Decorazione raggiata -->
-          <g id="spokes">
+            <!-- Cerchio centrale -->
+            <circle cx="250" cy="250" r="100" class="center-circle"/>
+            <!-- Decorazione raggiata -->
+            <g id="spokes">
             <line
-              v-for="i in 8"
-              :key="i"
-              :transform="`rotate(${i * 45} 250 250)`"
-              x1="250"
-              y1="150"
-              x2="250"
-              y2="350"
-              class="spoke"
+                v-for="i in 8"
+                :key="i"
+                :transform="`rotate(${i * 45} 250 250)`"
+                x1="250"
+                y1="150"
+                x2="250"
+                y2="350"
+                class="spoke"
             />
-          </g>
-          <!-- Cerchio interno dorato -->
-          <circle cx="250" cy="250" r="30" class="inner-circle"/>
+            </g>
+            <!-- Cerchio interno dorato -->
+            <circle cx="250" cy="250" r="30" class="inner-circle"/>
         </g>
-      </svg>
+        </svg>
     </div>
   </template>
   
   <script setup lang="ts">
+import Card from '../Card/Card.vue';
+
   interface Props {
-    predictedNumbers: number[]
+    primaryPredictedNumbers: number[]
+    secondaryPredictedNumbers: number[]
+    specialPredictedNumbers: number[]
   }
   
   const props = defineProps<Props>()
@@ -139,10 +145,17 @@
     fill: #007F00;
   }
   
-  .highlighted {
+  .highlighted-primary {
     fill: #dec958;
   }
   
+  .highlighted-secondary {
+    fill: #f78d60;
+  }
+  
+  .highlighted-special {
+    fill: #f73f2f;
+  }
   .number-text {
     fill: white;
     font-family: Arial, sans-serif;

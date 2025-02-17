@@ -64,7 +64,6 @@ const hasActionsSlot = computed(() => !!slots.actions)
   }
   
   .glass-card:hover {
-    transform: translateY(-2px);
     box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.2);
   }
   
@@ -73,7 +72,7 @@ const hasActionsSlot = computed(() => !!slots.actions)
   }
   
   .card-title {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-color-dark);
     font-size: 1.5rem;
     font-weight: 500;
     margin: 0;
@@ -102,7 +101,7 @@ const hasActionsSlot = computed(() => !!slots.actions)
   
   .content-container {
     flex: 1;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-color-dark);
     font-size: 1rem;
     line-height: 1.5;
   }

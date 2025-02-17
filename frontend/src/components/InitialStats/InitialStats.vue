@@ -92,38 +92,29 @@
     </div>
     <div>
         <n-button type="primary" @click="sendData">Invia Dati</n-button>
-        {{ stats50 }}
     </div>
   </template>
   
 <script setup lang="ts">
-// Importa Naive UI e WheelStatistics
 import { ref } from "vue";
 import WheelStatistics from "@/components/WheelStatistics/WheelStatistics.vue";
 import Card from "../Card/Card.vue";
 import * as InitialStats from "@/api/types/initialStats";
-  
-  // Tipi per i dati delle statistiche
+
+  const emit = defineEmits(['statistics-updated']);
   interface DozenResults {
     first: number;
     second: number;
     third: number;
   }
   
-  interface Statistics {
-    dozens: DozenResults;
-    zeroNeighbors: number;
-    numbers: Record<string, number>;
-  }
-  
-  // Stato per statistiche a 50 spin
   const stats50 = ref<InitialStats.Stats>({
     dozens: {
-      first: 0,
-      second: 0,
-      third: 0,
+      first: 31,
+      second: 31,
+      third: 31,
     },
-    zeroNeighbors: 0,
+    zeroNeighbors: 20,
     numbers: {
         0: 0,
         3: 0,
@@ -135,14 +126,13 @@ import * as InitialStats from "@/api/types/initialStats";
     },
   });
   
-  // Stato per statistiche a 500 spin
   const stats500 = ref<InitialStats.Stats>({
     dozens: {
-      first: 0,
-      second: 0,
-      third: 0,
+      first: 31,
+      second: 31,
+      third: 31,
     },
-    zeroNeighbors: 0,
+    zeroNeighbors: 20,
     numbers: {
         0: 0,
         3: 0,
@@ -171,21 +161,18 @@ import * as InitialStats from "@/api/types/initialStats";
   
   // Handler per inviare i dati al server
   const sendData = () => {
-    const requestBody = {
+    const requestBody: InitialStats.InitialStatsPayload = {
       stats50: stats50.value,
       stats500: stats500.value,
     };
   
-    console.log("Dati da inviare al server:", requestBody);
-  
-    // Invia i dati con Axios o Fetch
-    // Esempio: axios.post('/api/statistics', requestBody).then(...).catch(...)
+    emit('statistics-updated', requestBody);
   };
 </script>
   
 <style scoped>
 .statistics-card {
-    width: 800px;
+    width: 440px;
     margin: 0 auto;
 }
 
@@ -200,6 +187,7 @@ import * as InitialStats from "@/api/types/initialStats";
     gap: 50px;
     align-items: center;
     margin-bottom: 3rem;
+    flex-wrap: wrap;
 }
 
 .stats-container {

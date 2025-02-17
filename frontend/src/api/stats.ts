@@ -5,9 +5,12 @@ export interface AddSpinPayload {
 }
 
 export interface Prediction {
-  numbers: number[]
-  probability: number
-  reason: string
+  data: {
+    primary: number[]
+    secondary: number[]
+    special: number[]
+    lastNumber: number
+  }
 }
 
 export const statsApi = {
@@ -18,7 +21,7 @@ export const statsApi = {
 
   // Ottiene le previsioni basate sulle statistiche correnti
   getPredictions: () => {
-    return apiClient.get<Prediction[]>('/stats/predictions')
+    return apiClient.get<Prediction>('/stats/predictions')
   },
 
   // Resetta la sessione corrente

@@ -1,6 +1,6 @@
 <template>
   <n-config-provider :theme-overrides="currentTheme">
-    <div :style="{ backgroundColor: currentTheme.common?.bodyColor }">
+    <div :style="{ background: currentTheme.common?.bodyColor }">
       <n-message-provider>
         <n-loading-bar-provider>
           <n-dialog-provider>
@@ -31,7 +31,7 @@ const currentTheme = ref(getThemeOverrides('dark'));
   --background-light: #ffffff;
   --background-dark: #18181c;
   --text-color-light: #333333;
-  --text-color-dark: #ffffff;
+  --text-color-dark: #343434;
 }
 
 html {
@@ -43,13 +43,6 @@ body {
   padding: 0;
   min-height: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;
-  color: var(--text-color-light);
-  background-color: var(--background-light);
-}
-
-body.dark-theme {
-  color: var(--text-color-dark);
-  background-color: var(--background-dark);
 }
 
 #app {
@@ -78,7 +71,7 @@ body.dark-theme {
 .app {
   min-height: 100vh;
   background-color: var(--app-bg);
-  color: var(--text-color);
+  color: var(--text-color-dark);
 }
 
 .app-wrapper {

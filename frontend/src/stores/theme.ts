@@ -37,17 +37,13 @@ const themes = {
     common: {
       primaryColor: '#ff6700',
       bodyColor: '#ffffff',  // Colore di sfondo del body
-      textColor1: '#000000',  // Colore del testo principale
-      textColor2: '#555555',  // Colore del testo secondario
-      textColor3: '#999999',  // Colore di supporto del testo
     },
   },
   dark: {
     common: {
-      bodyColor: '#26533d',  // Colore di sfondo del body
-      textColor1: '#ffffff',  // Colore del testo principale
-      textColor2: '#171717',  // Colore del testo secondario
-      textColor3: '#999999',  // Colore di supporto del testo
+      // bodyColor: 'linear-gradient( 90.1deg,  rgba(8,81,98,1) 14.5%, rgba(198,231,249,1) 135.4% )',
+      // bodyColor: 'linear-gradient(to top, rgb(158 204 163) 0%, rgb(232 247 231) 100%)',
+      bodyColor: 'radial-gradient(circle at 10% 20%, rgb(48 127 99) 0.1%, rgb(117 187 158) 94.2%)',
     },
   },
 };

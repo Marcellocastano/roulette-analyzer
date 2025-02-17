@@ -103,7 +103,7 @@
     const totalAngle = 120 // Angolo totale del ventaglio
     const angle = -50 + (index * totalAngle) / 7 // Partiamo da -60 gradi
     const rad = (angle - 90) * Math.PI / 180
-    const r = 120 // Raggio per il posizionamento dei numeri
+    const r = 150 // Raggio per il posizionamento dei numeri
     
     return {
       x: 200 + r * Math.cos(rad),
@@ -198,7 +198,7 @@
   }
   .roulette-wheel {
     width: 400px;
-    height: 250px;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -218,10 +218,9 @@
     transition: all 0.2s ease;
   
     &.active {
-      mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #87CEEB var(--fill-height));
-      -webkit-mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #87CEEB var(--fill-height));
-      // il fill deve essere un gradiente da celeste chiaro a celeste scuro
-      fill: #87CEEB;
+      mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #ff9a44 var(--fill-height));
+      -webkit-mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #ff9a44 var(--fill-height));
+      fill: #ff9a44;
     }
   
     &:hover {
@@ -230,17 +229,12 @@
   }
   
   .number-text {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bold;
     pointer-events: none;
     user-select: none;
     fill: white;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  }
-  
-  .controls {
-    display: flex;
-    gap: 10px;
   }
   
   .debug-info {

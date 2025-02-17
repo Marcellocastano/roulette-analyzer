@@ -6,6 +6,8 @@
           <n-dialog-provider>
             <n-notification-provider>
               <div class="app">
+                <!-- <Navbar @toggle-sidebar="toggleSidebar" />
+                <Sidebar :is-collapsed="isSidebarCollapsed" /> -->
                 <div class="app-wrapper" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
                   <router-view></router-view>
                 </div>
@@ -20,18 +22,26 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { getThemeOverrides } from './stores/theme'; // Importa la logica del tema
+import { getThemeOverrides } from './stores/theme';
+import Navbar from '@/components/Navbar/Navbar.vue';
+import Sidebar from '@/components/Sidebar.vue';
 
 const isSidebarCollapsed = ref(false)
 const currentTheme = ref(getThemeOverrides('dark'));
+
+const toggleSidebar = () => {
+  isSidebarCollapsed.value = !isSidebarCollapsed.value;
+}
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --background-light: #ffffff;
   --background-dark: #18181c;
-  --text-color-light: #333333;
+  --text-color-light: #ffffff;
   --text-color-dark: #343434;
+  --sidebar-bg: rgb(48 127 99);
+  --highlight-orange-color: #fea82f;
 }
 
 html {
@@ -76,11 +86,15 @@ body {
 
 .app-wrapper {
   min-height: 100vh;
-  padding-left: 250px;
-  transition: padding-left 0.3s ease;
+  padding: 80px;
+  transition: all 0.3s ease;
 
   &.sidebar-collapsed {
-    padding-left: 80px;
+    padding-left: 0;
+  }
+
+  @media (max-width: 950px) {
+    padding: 80px 10px;
   }
 }
 </style>

@@ -1,13 +1,5 @@
 <template>
   <div class="sidebar" :class="{ 'sidebar-collapsed': isCollapsed }">
-    <div class="sidebar-header">
-      <h2 v-if="!isCollapsed">Roulette Analyzer</h2>
-      <n-button class="sidebar-collapseBtn" round @click="toggleCollapse">
-        <n-icon size="18">
-          <SidebarCollapse />
-        </n-icon>
-      </n-button>
-    </div>
     <nav class="sidebar-nav">
       <ul class="sidebar-list">
         <li v-for="route in routes" :key="route.path" class="sidebar-listItem">
@@ -32,7 +24,7 @@
         @select="handleSelect"
       >
         <div class="sidebar-profileSection">
-          <n-icon size="24">
+          <n-icon size="28" color="#fff">
             <UserCircle />
           </n-icon>
           <span class="sidebar-profileName">{{ authStore.user?.name || 'Utente' }}</span>
@@ -43,12 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, h, computed } from 'vue'
+import { ref, h } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import RouletteIcon from './icons/RouletteIcon.vue'
 import { 
-  LayoutSidebarLeftCollapse as SidebarCollapse, 
   UserCircle,
   Dashboard as DashboardIcon,
   Settings as EditIcon,
@@ -61,7 +52,10 @@ import { NIcon, NDropdown, NButton } from 'naive-ui'
 const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
-const isCollapsed = ref(false)
+
+defineProps<{
+  isCollapsed: boolean
+}>()
 
 const routes = [
   {
@@ -114,14 +108,6 @@ const options = [
   }
 ]
 
-function renderIcon(icon: any) {
-  return () => h(NIcon, null, { default: () => h(icon) })
-}
-
-const toggleCollapse = () => {
-  isCollapsed.value = !isCollapsed.value
-}
-
 const handleSelect = (key: string) => {
   if (key === 'logout') {
     authStore.logout()
@@ -132,62 +118,22 @@ const handleSelect = (key: string) => {
 
 <style lang="scss" scoped>
 .sidebar {
-  width: 250px;
-  height: 100vh;
+  width: 185px;
+  height: calc(100vh - 60px);
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
   background-color: var(--sidebar-bg);
   padding: 1rem;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  z-index: 1000;
+  z-index: 999;
 
   &-collapsed {
-    width: 80px;
-    .sidebar-listItemText,
-    .sidebar-profileName,
-    h2 {
-      display: none;
-    }
-  }
-}
-
-:deep(.app-wrapper) {
-  padding-left: 250px;
-  transition: padding-left 0.3s ease;
-
-  &.sidebar-collapsed {
-    padding-left: 80px;
-  }
-}
-
-.sidebar-header {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #2d2d2d;
-
-  h2 {
-    margin: 0;
-    font-size: 1.2rem;
-  }
-}
-
-.sidebar-collapseBtn {
-  background: none;
-  border: none;
-  color: var(--text-color-dark);
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background-color: #2d2d2d;
+    width: 0;
+    padding: 0;
+    overflow: hidden;
   }
 }
 
@@ -202,55 +148,61 @@ const handleSelect = (key: string) => {
   margin: 0;
 }
 
+.sidebar-listItem {
+  margin-bottom: 0.5rem;
+}
+
 .sidebar-link {
   display: flex;
   align-items: center;
-  padding: 0.8rem 1rem;
-  color: var(--text-color-dark);
+  padding: 0.75rem 1rem;
+  color: var(--text-color-light);
   text-decoration: none;
-  transition: background-color 0.2s;
-  font-size: 16px;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: rgb(158 204 163);
+    background-color: var(--highlight-orange-color);
   }
 
   &.active {
-    background-color: rgb(158 204 163);
-    color: #1f1f1f;
-
-    .sidebar-listIcon {
-      color: #1f1f1f;
-    }
+    background-color: var(--highlight-orange-color);
   }
 }
 
 .sidebar-listIcon {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.75rem;
+}
+
+.sidebar-listItemText {
+  font-size: 18px;
 }
 
 .sidebar-footer {
   padding: 1rem;
-  border-top: 1px solid #2d2d2d;
+  border-top: 1px solid var(--highlight-orange-color);
+  margin-bottom: 1rem;
 }
 
 .sidebar-profileSection {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem 1rem;
   cursor: pointer;
-  
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+
+
   &:hover {
-    background-color: rgb(232 247 231);
+    background-color: var(--highlight-orange-color);
   }
 }
 
 .sidebar-profileName {
-  flex: 1;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 18px;
+  color: var(--text-color-light);
 }
 </style>

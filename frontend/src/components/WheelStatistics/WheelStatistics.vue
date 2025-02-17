@@ -218,9 +218,9 @@
     transition: all 0.2s ease;
   
     &.active {
-      mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #ff9a44 var(--fill-height));
-      -webkit-mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), #ff9a44 var(--fill-height));
-      fill: #ff9a44;
+      mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), var(--highlight-orange-color) var(--fill-height));
+      -webkit-mask: linear-gradient(var(--cone-angle), #ffffff24 var(--fill-height), var(--highlight-orange-color) var(--fill-height));
+      fill: var(--highlight-orange-color);
     }
   
     &:hover {

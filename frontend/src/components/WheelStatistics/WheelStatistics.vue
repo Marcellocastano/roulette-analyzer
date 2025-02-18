@@ -1,8 +1,8 @@
 <template>
-    <div class="roulette-title">
+    <n-p class="roulette-title">
       Replica le statistiche visive della roulette <br/>
       trascina il mouse su un cono per modificare il valore
-    </div>
+    </n-p>
     <div class="roulette-wheel">
     <svg 
     @mouseup="stopDragging"

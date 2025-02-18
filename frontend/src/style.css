@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -19,6 +23,10 @@
   --text-color: #fff;
   --tooltip-bg: #251d33;
   --container-shadow: rgba(19, 28, 49, 0.2) 0px 7px 29px 0px;
+}
+
+button, [type='button'], [type='reset'], [type='submit'] {
+  background-color: var(--n-color) !important;
 }
 
 a {

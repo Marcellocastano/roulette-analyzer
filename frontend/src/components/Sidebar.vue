@@ -118,7 +118,7 @@ const handleSelect = (key: string) => {
 
 <style lang="scss" scoped>
 .sidebar {
-  width: 185px;
+  width: 220px;
   height: calc(100vh - 60px);
   position: fixed;
   top: 60px;
@@ -183,7 +183,6 @@ const handleSelect = (key: string) => {
 .sidebar-footer {
   padding: 1rem;
   border-top: 1px solid var(--highlight-orange-color);
-  margin-bottom: 1rem;
 }
 
 .sidebar-profileSection {

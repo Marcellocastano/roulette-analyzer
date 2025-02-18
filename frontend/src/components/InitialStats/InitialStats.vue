@@ -1,4 +1,5 @@
 <template>
+    <n-h1 class="mb-6">Statistiche iniziali</n-h1>
     <div class="initial-stats">
         <Card title="Statistiche a 50 spin" class="statistics-card">
             <template #content>
@@ -9,13 +10,13 @@
                         <div class="stats-input">
                             <div>
                                 <!-- Dozzine per 50 spin -->
-                                <label>1° dozzina %</label>
+                                <n-p>1° dozzina %</n-p>
                                 <n-input-number
                                     v-model:value="stats50.dozens.first"
                                     button-placement="both"
                                     placeholder="Prima Dozzina"
                                 />
-                                <label>2° dozzina %</label>
+                                <n-p>2° dozzina %</n-p>
                                 <n-input-number
                                     v-model:value="stats50.dozens.second"
                                     button-placement="both"
@@ -23,13 +24,13 @@
                                 />
                             </div>
                             <div>
-                                <label>3° dozzina %</label>
+                                <n-p>3° dozzina %</n-p>
                                 <n-input-number
                                     v-model:value="stats50.dozens.third"
                                     button-placement="both"
                                     placeholder="Terza Dozzina"
                                 />
-                                <label>Zona ZERO %</label>
+                                <n-p>Zona ZERO %</n-p>
                                 <n-input-number
                                     v-model:value="stats50.zeroNeighbors"
                                     button-placement="both"
@@ -54,13 +55,13 @@
                         <div class="stats-input">
                             <div>
                                 <!-- Dozzine per 500 spin -->
-                                <label>1° dozzina %</label>
+                                <n-p>1° dozzina %</n-p>
                                 <n-input-number
                                     v-model:value="stats500.dozens.first"
                                     button-placement="both"
                                     placeholder="Prima Dozzina"
                                 />
-                                <label>2° dozzina %</label>
+                                <n-p>2° dozzina %</n-p>
                                 <n-input-number
                                     v-model:value="stats500.dozens.second"
                                     button-placement="both"
@@ -68,13 +69,13 @@
                                 />
                             </div>
                             <div>
-                                <label>3° dozzina %</label>
+                                <n-p>3° dozzina %</n-p>
                                 <n-input-number
                                     v-model:value="stats500.dozens.third"
                                     button-placement="both"
                                     placeholder="Terza Dozzina"
                                 />
-                                <label>Zona ZERO %</label>
+                                <n-p>Zona ZERO %</n-p>
                                 <n-input-number
                                     v-model:value="stats500.zeroNeighbors"
                                     button-placement="both"

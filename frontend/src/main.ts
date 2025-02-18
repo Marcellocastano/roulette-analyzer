@@ -27,6 +27,12 @@ import {
   NIcon,
   NMessageProvider,
   NGradientText,
+  NH1,
+  NH2,
+  NH3,
+  NH4,
+  NText,
+  NP
 } from 'naive-ui'
 
 import './style.css'
@@ -50,7 +56,13 @@ const naive = create({
     NSwitch,
     NIcon,
     NMessageProvider,
-    NGradientText
+    NGradientText,
+    NH1,
+    NH2,
+    NH3,
+    NH4,
+    NText,
+    NP
   ]
 })
 

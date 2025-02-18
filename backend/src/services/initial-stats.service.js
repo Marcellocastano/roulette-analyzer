@@ -121,6 +121,7 @@ class InitialStatsService {
         let reasons = [];
         const DOZEN_THRESHOLD = 29;
         const ZERO_ZONE_THRESHOLD = 19;
+        const INCREASE_PERCENTAGE_THRESHOLD = 19;
 
         // Mappa per convertire il nome della dozzina in numero
         const dozenToNumber = {
@@ -129,7 +130,7 @@ class InitialStatsService {
             third: 3
         };
 
-        // Analisi delle dozzine
+        // 1. Analisi delle dozzine
         const dozens500 = stats.stats500.dozens;
         let minDozens = {
             percentage: 100,
@@ -143,28 +144,37 @@ class InitialStatsService {
             }
         });
 
-        if (minDozens.percentage < DOZEN_THRESHOLD) {
-            status = 'recommended';
+        // Condizione 1: Almeno una dozzina con percentuale inferiore a 29%
+        const isDozenConditionMet = minDozens.percentage < DOZEN_THRESHOLD;
+        if (isDozenConditionMet) {
             dozenDown = dozenToNumber[minDozens.dozen];
             reasons.push(`La dozzina ${minDozens.dozen} è in sofferenza con ${minDozens.percentage}%`);
-        } else if (minDozens.percentage <= DOZEN_THRESHOLD + 1) {
-            status = 'borderline';
-            dozenDown = dozenToNumber[minDozens.dozen];
-            reasons.push(`La dozzina ${minDozens.dozen} è borderline con ${minDozens.percentage}%`);
         }
 
-        // Analisi zona zero
+        // Condizione 2: Zona zero con percentuale inferiore a 19%
         const zeroNeighbors500 = stats.stats500.zeroNeighbors;
-        if (zeroNeighbors500 < ZERO_ZONE_THRESHOLD) {
-            if (status !== 'not_recommended') {
-                status = 'recommended';
-            }
+        const isZeroZoneConditionMet = zeroNeighbors500 < ZERO_ZONE_THRESHOLD;
+        if (isZeroZoneConditionMet) {
             reasons.push(`La zona zero è in sofferenza con ${zeroNeighbors500}%`);
-        } else if (zeroNeighbors500 <= ZERO_ZONE_THRESHOLD + 1) {
-            if (status === 'not_recommended') {
-                status = 'borderline';
-            }
-            reasons.push(`La zona zero è borderline con ${zeroNeighbors500}%`);
+        }
+
+        // Condizione 3: 2-3 numeri della zona zero con increasePercentage > 19%
+        const zeroZoneNumbers = this._analyzeZeroZoneNumbers(stats);
+        const numbersWithHighIncrease = zeroZoneNumbers.filter(
+            num => num.increasePercentage > INCREASE_PERCENTAGE_THRESHOLD
+        );
+        const isZeroNumbersConditionMet = numbersWithHighIncrease.length >= 2 && numbersWithHighIncrease.length <= 3;
+
+        if (isZeroNumbersConditionMet) {
+            const increasingNumbers = numbersWithHighIncrease
+                .map(num => `${num.number} (${num.increasePercentage.toFixed(1)}%)`)
+                .join(', ');
+            reasons.push(`${numbersWithHighIncrease.length} numeri della zona zero in crescita: ${increasingNumbers}`);
+        }
+
+        // Lo status è "recommended" solo se tutte e tre le condizioni sono soddisfatte
+        if (isDozenConditionMet && isZeroZoneConditionMet && isZeroNumbersConditionMet) {
+            status = 'recommended';
         }
 
         return {

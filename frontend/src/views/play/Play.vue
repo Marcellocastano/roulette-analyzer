@@ -4,7 +4,7 @@
       <n-grid-item v-if="step === 1">
         <InitialStats @statisticsUpdated="handleStatisticsUpdate" />
       </n-grid-item>
-      <n-grid-item >
+      <n-grid-item v-if="step === 2">
         <WheelPredictor
           :primary-predicted-numbers="primaryPredictedNumbers"
           :secondary-predicted-numbers="secondaryPredictedNumbers"
@@ -36,7 +36,7 @@ const handleStatisticsUpdate = async (statistics: InitialStatsPayload) => {
   try {
     await initialStatsApi.addInitialStats(statistics)
     message.success('Statistiche iniziali salvate con successo')
-    step.value = 2 // Passa allo step successivo
+    // step.value = 2 // Passa allo step successivo
   } catch (error) {
     console.error('Errore nel salvataggio delle statistiche:', error)
     message.error('Errore nel salvataggio delle statistiche')

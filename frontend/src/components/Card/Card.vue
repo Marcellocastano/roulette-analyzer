@@ -3,7 +3,7 @@
     <div class="glass-card" :class="{ 'image-left': imagePosition === 'left' }">
         <div class="card-header">
             <slot name="title">
-                <h3 class="card-title">{{ title }}</h3>
+                <n-h2 class="card-title">{{ title }}</n-h2>
             </slot>
         </div>
         <div class="card-body">
@@ -73,8 +73,6 @@ const hasActionsSlot = computed(() => !!slots.actions)
   
   .card-title {
     color: var(--text-color-dark);
-    font-size: 1.5rem;
-    font-weight: 500;
     margin: 0;
   }
   

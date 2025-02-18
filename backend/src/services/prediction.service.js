@@ -18,15 +18,13 @@ class PredictionService {
 
   _categorizeNumbers(sequenceNumbers, increasingNumbers, dozenDown) {
     const dozenNumbers = dozenDown ? this._getDozensNumbers()[dozenDown] : [];
-    
-    const increasingNumbersArray = increasingNumbers.map(n => n.number);
 
     const special = [];
     const primary = [];
     const secondary = [];
 
     sequenceNumbers.forEach(number => {
-      const isInIncreasing = increasingNumbersArray.includes(number);
+      const isInIncreasing = increasingNumbers.includes(number);
       const isInDozen = dozenNumbers.includes(number);
 
       if (isInIncreasing && isInDozen) {
@@ -76,14 +74,7 @@ class PredictionService {
       const sequenceNumbers = this._getSequenceNumbers(lastNumber);
       const initialStats = await initialStatsService.getLatestStats(userId);
       
-      const increasingNumbers = initialStats ? 
-        initialStats.zeroZoneNumbers
-          .filter(n => n.increasePercentage > 3)
-          .map(n => ({
-            number: n.number,
-            increasePercentage: n.increasePercentage
-          }))
-          .sort((a, b) => b.increasePercentage - a.increasePercentage) : [];
+      const increasingNumbers = initialStats?.analysis?.increasingNumbers || [];
 
       const categorizedNumbers = this._categorizeNumbers(
         sequenceNumbers, 

@@ -1,6 +1,15 @@
 const InitialStats = require('../models/initial-stats.model');
 const Statistics = require('../models/statistics.model');
 
+// Enum per i reason codes
+const ReasonCode = {
+    DOZEN_SUFFERING: 'DOZEN_SUFFERING',
+    DOZEN_THRESHOLD: 'DOZEN_THRESHOLD',
+    ZERO_ZONE_SUFFERING: 'ZERO_ZONE_SUFFERING',
+    ZERO_ZONE_THRESHOLD: 'ZERO_ZONE_THRESHOLD',
+    INCREASING_NUMBERS: 'INCREASING_NUMBERS'
+};
+
 class InitialStatsService {
     async addInitialStats(userId, stats) {
         try {
@@ -42,7 +51,9 @@ class InitialStatsService {
                 dozenDown: analysis.dozenDown,
                 analysis: {
                     tableStatus: analysis.status,
-                    reasons: analysis.reasons
+                    reasons: analysis.reasons,
+                    reasonCodes: analysis.reasonCodes,
+                    increasingNumbers: analysis.increasingNumbers
                 }
             });
 
@@ -138,7 +149,7 @@ class InitialStatsService {
         );
 
         // Determina lo status del tavolo e raccoglie le ragioni
-        const { status, reasons } = this._determineTableStatus({
+        const { status, reasons, reasonCodes } = this._determineTableStatus({
             isDozenConditionMet,
             isZeroZoneConditionMet,
             isZeroNumbersConditionMet,
@@ -154,7 +165,9 @@ class InitialStatsService {
         return {
             status,
             dozenDown: isDozenConditionMet ? this._dozenNameToNumber(minDozens.dozen) : null,
-            reasons
+            reasons,
+            reasonCodes,
+            increasingNumbers: numbersWithHighIncrease.map(num => num.number)
         };
     }
 
@@ -219,23 +232,27 @@ class InitialStatsService {
         stats
     }) {
         const reasons = [];
+        const reasonCodes = [];
         let status = 'not_recommended';
 
-        // Caso 1: Recommended - tutte le condizioni sono soddisfatte
+        // Controlla se tutte le condizioni sono soddisfatte per lo status "recommended"
         if (isDozenConditionMet && isZeroZoneConditionMet && isZeroNumbersConditionMet) {
             status = 'recommended';
             this._addRecommendedReasons(reasons, minDozens, zeroNeighborsAvg, numbersWithHighIncrease, stats);
+            reasonCodes.push(ReasonCode.DOZEN_SUFFERING);
+            reasonCodes.push(ReasonCode.ZERO_ZONE_SUFFERING);
+            if (numbersWithHighIncrease.length > 0) {
+                reasonCodes.push(ReasonCode.INCREASING_NUMBERS);
+            }
         }
-        // Caso 2: Borderline - due possibili scenari
-        else if (this._isBorderlineStatus({
-            isDozenConditionMet,
-            isZeroZoneConditionMet,
-            isZeroNumbersConditionMet,
-            minDozens,
-            zeroNeighborsAvg,
-            DOZEN_THRESHOLD,
-            ZERO_ZONE_THRESHOLD
-        })) {
+        // Controlla le condizioni per lo status "borderline"
+        else if (
+            // Caso 1: Una condizione al limite e numeri della zona zero in crescita
+            ((minDozens.percentage === DOZEN_THRESHOLD || zeroNeighborsAvg === ZERO_ZONE_THRESHOLD) && 
+             isZeroNumbersConditionMet) ||
+            // Caso 2: Entrambe le condizioni soddisfatte (dozzina e zona zero)
+            (isDozenConditionMet && isZeroZoneConditionMet)
+        ) {
             status = 'borderline';
             this._addBorderlineReasons(
                 reasons,
@@ -247,27 +264,26 @@ class InitialStatsService {
                 ZERO_ZONE_THRESHOLD,
                 stats
             );
+
+            // Aggiungi i reason codes appropriati
+            if (minDozens.percentage === DOZEN_THRESHOLD) {
+                reasonCodes.push(ReasonCode.DOZEN_THRESHOLD);
+            } else if (isDozenConditionMet) {
+                reasonCodes.push(ReasonCode.DOZEN_SUFFERING);
+            }
+
+            if (zeroNeighborsAvg === ZERO_ZONE_THRESHOLD) {
+                reasonCodes.push(ReasonCode.ZERO_ZONE_THRESHOLD);
+            } else if (isZeroZoneConditionMet) {
+                reasonCodes.push(ReasonCode.ZERO_ZONE_SUFFERING);
+            }
+
+            if (isZeroNumbersConditionMet) {
+                reasonCodes.push(ReasonCode.INCREASING_NUMBERS);
+            }
         }
 
-        return { status, reasons };
-    }
-
-    _isBorderlineStatus({
-        isDozenConditionMet,
-        isZeroZoneConditionMet,
-        isZeroNumbersConditionMet,
-        minDozens,
-        zeroNeighborsAvg,
-        DOZEN_THRESHOLD,
-        ZERO_ZONE_THRESHOLD
-    }) {
-        return (
-            // Scenario 1: Numeri zero in crescita + almeno una condizione al limite
-            (isZeroNumbersConditionMet &&
-                (minDozens.percentage === DOZEN_THRESHOLD || zeroNeighborsAvg === ZERO_ZONE_THRESHOLD)) ||
-            // Scenario 2: Entrambe le condizioni di sofferenza sono vere
-            (isDozenConditionMet && isZeroZoneConditionMet)
-        );
+        return { status, reasons, reasonCodes };
     }
 
     _addRecommendedReasons(reasons, minDozens, zeroNeighborsAvg, numbersWithHighIncrease, stats) {

@@ -116,22 +116,66 @@ class InitialStatsService {
     }
 
     _analyzeTableConditions(stats) {
-        let status = 'not_recommended';
-        let dozenDown = null;
-        let reasons = [];
         const DOZEN_THRESHOLD = 29;
         const ZERO_ZONE_THRESHOLD = 19;
         const INCREASE_PERCENTAGE_THRESHOLD = 19;
 
-        // Mappa per convertire il nome della dozzina in numero
-        const dozenToNumber = {
-            first: 1,
-            second: 2,
-            third: 3
+        // Calcola le medie tra stats50 e stats500
+        const averageStats = this._calculateAverageStats(stats);
+        
+        // Analisi delle dozzine usando le medie
+        const { minDozens, isDozenConditionMet } = this._analyzeDozens(averageStats.dozens, DOZEN_THRESHOLD);
+        
+        // Analisi della zona zero usando le medie
+        const zeroNeighborsAvg = averageStats.zeroNeighbors;
+        const isZeroZoneConditionMet = zeroNeighborsAvg < ZERO_ZONE_THRESHOLD;
+        const isZeroZoneAtThreshold = zeroNeighborsAvg === ZERO_ZONE_THRESHOLD;
+        
+        // Analisi dei numeri della zona zero in crescita
+        const { numbersWithHighIncrease, isZeroNumbersConditionMet } = this._analyzeZeroNumbersIncrease(
+            stats,
+            INCREASE_PERCENTAGE_THRESHOLD
+        );
+
+        // Determina lo status del tavolo e raccoglie le ragioni
+        const { status, reasons } = this._determineTableStatus({
+            isDozenConditionMet,
+            isZeroZoneConditionMet,
+            isZeroNumbersConditionMet,
+            isZeroZoneAtThreshold,
+            minDozens,
+            zeroNeighborsAvg,
+            numbersWithHighIncrease,
+            DOZEN_THRESHOLD,
+            ZERO_ZONE_THRESHOLD,
+            stats
+        });
+
+        return {
+            status,
+            dozenDown: isDozenConditionMet ? this._dozenNameToNumber(minDozens.dozen) : null,
+            reasons
+        };
+    }
+
+    _calculateAverageStats(stats) {
+        // Calcola la media delle dozzine
+        const dozens = {
+            first: (stats.stats50.dozens.first + stats.stats500.dozens.first) / 2,
+            second: (stats.stats50.dozens.second + stats.stats500.dozens.second) / 2,
+            third: (stats.stats50.dozens.third + stats.stats500.dozens.third) / 2
         };
 
-        // 1. Analisi delle dozzine
-        const dozens500 = stats.stats500.dozens;
+        // Calcola la media della zona zero
+        const zeroNeighbors = (stats.stats50.zeroNeighbors + stats.stats500.zeroNeighbors) / 2;
+
+        return {
+            dozens,
+            zeroNeighbors
+        };
+    }
+
+    _analyzeDozens(dozens500, threshold) {
         let minDozens = {
             percentage: 100,
             dozen: null
@@ -144,44 +188,149 @@ class InitialStatsService {
             }
         });
 
-        // Condizione 1: Almeno una dozzina con percentuale inferiore a 29%
-        const isDozenConditionMet = minDozens.percentage < DOZEN_THRESHOLD;
-        if (isDozenConditionMet) {
-            dozenDown = dozenToNumber[minDozens.dozen];
-            reasons.push(`La dozzina ${minDozens.dozen} è in sofferenza con ${minDozens.percentage}%`);
-        }
+        return {
+            minDozens,
+            isDozenConditionMet: minDozens.percentage < threshold
+        };
+    }
 
-        // Condizione 2: Zona zero con percentuale inferiore a 19%
-        const zeroNeighbors500 = stats.stats500.zeroNeighbors;
-        const isZeroZoneConditionMet = zeroNeighbors500 < ZERO_ZONE_THRESHOLD;
-        if (isZeroZoneConditionMet) {
-            reasons.push(`La zona zero è in sofferenza con ${zeroNeighbors500}%`);
-        }
-
-        // Condizione 3: 2-3 numeri della zona zero con increasePercentage > 19%
+    _analyzeZeroNumbersIncrease(stats, threshold) {
         const zeroZoneNumbers = this._analyzeZeroZoneNumbers(stats);
         const numbersWithHighIncrease = zeroZoneNumbers.filter(
-            num => num.increasePercentage > INCREASE_PERCENTAGE_THRESHOLD
+            num => num.increasePercentage > threshold
         );
-        const isZeroNumbersConditionMet = numbersWithHighIncrease.length >= 2 && numbersWithHighIncrease.length <= 3;
-
-        if (isZeroNumbersConditionMet) {
-            const increasingNumbers = numbersWithHighIncrease
-                .map(num => `${num.number} (${num.increasePercentage.toFixed(1)}%)`)
-                .join(', ');
-            reasons.push(`${numbersWithHighIncrease.length} numeri della zona zero in crescita: ${increasingNumbers}`);
-        }
-
-        // Lo status è "recommended" solo se tutte e tre le condizioni sono soddisfatte
-        if (isDozenConditionMet && isZeroZoneConditionMet && isZeroNumbersConditionMet) {
-            status = 'recommended';
-        }
 
         return {
-            status,
-            dozenDown,
-            reasons
+            numbersWithHighIncrease,
+            isZeroNumbersConditionMet: numbersWithHighIncrease.length >= 2 && numbersWithHighIncrease.length <= 3
         };
+    }
+
+    _determineTableStatus({
+        isDozenConditionMet,
+        isZeroZoneConditionMet,
+        isZeroNumbersConditionMet,
+        isZeroZoneAtThreshold,
+        minDozens,
+        zeroNeighborsAvg,
+        numbersWithHighIncrease,
+        DOZEN_THRESHOLD,
+        ZERO_ZONE_THRESHOLD,
+        stats
+    }) {
+        const reasons = [];
+        let status = 'not_recommended';
+
+        // Caso 1: Recommended - tutte le condizioni sono soddisfatte
+        if (isDozenConditionMet && isZeroZoneConditionMet && isZeroNumbersConditionMet) {
+            status = 'recommended';
+            this._addRecommendedReasons(reasons, minDozens, zeroNeighborsAvg, numbersWithHighIncrease, stats);
+        }
+        // Caso 2: Borderline - due possibili scenari
+        else if (this._isBorderlineStatus({
+            isDozenConditionMet,
+            isZeroZoneConditionMet,
+            isZeroNumbersConditionMet,
+            minDozens,
+            zeroNeighborsAvg,
+            DOZEN_THRESHOLD,
+            ZERO_ZONE_THRESHOLD
+        })) {
+            status = 'borderline';
+            this._addBorderlineReasons(
+                reasons,
+                minDozens,
+                zeroNeighborsAvg,
+                isDozenConditionMet,
+                isZeroZoneConditionMet,
+                DOZEN_THRESHOLD,
+                ZERO_ZONE_THRESHOLD,
+                stats
+            );
+        }
+
+        return { status, reasons };
+    }
+
+    _isBorderlineStatus({
+        isDozenConditionMet,
+        isZeroZoneConditionMet,
+        isZeroNumbersConditionMet,
+        minDozens,
+        zeroNeighborsAvg,
+        DOZEN_THRESHOLD,
+        ZERO_ZONE_THRESHOLD
+    }) {
+        return (
+            // Scenario 1: Numeri zero in crescita + almeno una condizione al limite
+            (isZeroNumbersConditionMet &&
+                (minDozens.percentage === DOZEN_THRESHOLD || zeroNeighborsAvg === ZERO_ZONE_THRESHOLD)) ||
+            // Scenario 2: Entrambe le condizioni di sofferenza sono vere
+            (isDozenConditionMet && isZeroZoneConditionMet)
+        );
+    }
+
+    _addRecommendedReasons(reasons, minDozens, zeroNeighborsAvg, numbersWithHighIncrease, stats) {
+        // Messaggio per la dozzina
+        reasons.push(`La ${this._getDozenName(minDozens.dozen)} è in sofferenza:`);
+        reasons.push(`• Media: ${minDozens.percentage.toFixed(1)}%`);
+        reasons.push(`• A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`);
+        reasons.push(`• A 500 spin: ${stats.stats500.dozens[minDozens.dozen].toFixed(1)}%`);
+        
+        // Messaggio per la zona zero
+        reasons.push(`\nLa zona zero è in sofferenza:`);
+        reasons.push(`• Media: ${zeroNeighborsAvg.toFixed(1)}%`);
+        reasons.push(`• A 50 spin: ${stats.stats50.zeroNeighbors.toFixed(1)}%`);
+        reasons.push(`• A 500 spin: ${stats.stats500.zeroNeighbors.toFixed(1)}%`);
+        
+        // Messaggio per i numeri in crescita
+        const increasingNumbers = numbersWithHighIncrease
+            .map(num => `${num.number} (${num.increasePercentage.toFixed(1)}%)`)
+            .join(', ');
+        reasons.push(`\n${numbersWithHighIncrease.length} numeri della zona zero in crescita: ${increasingNumbers}`);
+    }
+
+    _addBorderlineReasons(
+        reasons,
+        minDozens,
+        zeroNeighborsAvg,
+        isDozenConditionMet,
+        isZeroZoneConditionMet,
+        DOZEN_THRESHOLD,
+        ZERO_ZONE_THRESHOLD,
+        stats
+    ) {
+        reasons.push('⚠️ Situazione borderline rilevata:');
+        
+        // Messaggio per la dozzina
+        if (minDozens.percentage === DOZEN_THRESHOLD) {
+            reasons.push(`\n✓ La ${this._getDozenName(minDozens.dozen)} è al limite:`);
+            reasons.push(`  • Media: ${minDozens.percentage.toFixed(1)}%`);
+            reasons.push(`  • A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`);
+            reasons.push(`  • A 500 spin: ${stats.stats500.dozens[minDozens.dozen].toFixed(1)}%`);
+        } else if (isDozenConditionMet) {
+            reasons.push(`\n✓ La ${this._getDozenName(minDozens.dozen)} è in sofferenza:`);
+            reasons.push(`  • Media: ${minDozens.percentage.toFixed(1)}%`);
+            reasons.push(`  • A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`);
+            reasons.push(`  • A 500 spin: ${stats.stats500.dozens[minDozens.dozen].toFixed(1)}%`);
+        }
+        
+        // Messaggio per la zona zero
+        if (zeroNeighborsAvg === ZERO_ZONE_THRESHOLD) {
+            reasons.push(`\n✓ La zona zero è al limite:`);
+            reasons.push(`  • Media: ${zeroNeighborsAvg.toFixed(1)}%`);
+            reasons.push(`  • A 50 spin: ${stats.stats50.zeroNeighbors.toFixed(1)}%`);
+            reasons.push(`  • A 500 spin: ${stats.stats500.zeroNeighbors.toFixed(1)}%`);
+        } else if (isZeroZoneConditionMet) {
+            reasons.push(`\n✓ La zona zero è in sofferenza:`);
+            reasons.push(`  • Media: ${zeroNeighborsAvg.toFixed(1)}%`);
+            reasons.push(`  • A 50 spin: ${stats.stats50.zeroNeighbors.toFixed(1)}%`);
+            reasons.push(`  • A 500 spin: ${stats.stats500.zeroNeighbors.toFixed(1)}%`);
+        }
+    }
+
+    _dozenNameToNumber(dozen) {
+        return { first: 1, second: 2, third: 3 }[dozen] || null;
     }
 
     _analyzeZeroZoneNumbers(stats) {

@@ -32,7 +32,9 @@ import {
   NH3,
   NH4,
   NText,
-  NP
+  NP,
+  NResult,
+  NModal
 } from 'naive-ui'
 
 import './style.css'
@@ -62,7 +64,9 @@ const naive = create({
     NH3,
     NH4,
     NText,
-    NP
+    NP,
+    NResult,
+    NModal
   ]
 })
 

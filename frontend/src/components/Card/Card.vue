@@ -50,13 +50,13 @@ const hasActionsSlot = computed(() => !!slots.actions)
   
 <style scoped>
   .glass-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border:1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     padding: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
@@ -64,7 +64,7 @@ const hasActionsSlot = computed(() => !!slots.actions)
   }
   
   .glass-card:hover {
-    box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.2);
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.50);
   }
   
   .card-header {

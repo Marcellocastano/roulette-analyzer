@@ -2,10 +2,20 @@ import api from './config'
 import type {
   ApiResponse,
   AuthResponse,
-  LoginData,
+  // LoginData,
   RegisterData,
   User
 } from '@/types/auth'
+
+export interface LoginData {
+  email: string
+  password: string
+}
+
+export interface LoginResponse {
+  accessToken: string
+  user: User
+}
 
 export const authApi = {
   /**
@@ -13,8 +23,8 @@ export const authApi = {
    * @param data - Credenziali dell'utente
    * @returns Promise con i dati dell'utente e il token
    */
-  login: async (data: LoginData): Promise<AuthResponse> => {
-    const response = await api.post<ApiResponse<AuthResponse>>('/auth/login', data)
+  login: async (data: LoginData): Promise<LoginResponse> => {
+    const response = await api.post<ApiResponse<LoginResponse>>('/auth/login', data)
     return response.data.data
   },
   

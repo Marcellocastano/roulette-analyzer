@@ -108,7 +108,6 @@ const handleSubmit = async () => {
       password: formValue.value.password
     })
     
-    console.log('sgroda', formValue.value)
     // Verifica che l'autenticazione sia riuscita
     if (authStore.isAuthenticated) {
       message.success('Login effettuato con successo')

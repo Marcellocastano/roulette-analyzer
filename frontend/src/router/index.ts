@@ -42,13 +42,22 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
+
+  // Se la rotta non richiede autenticazione, procedi
+  if (!to.meta.requiresAuth) {
+    return next()
+  }
+
+  // Verifica lo stato dell'autenticazione
+  const isAuthenticated = await authStore.checkAuthStatus()
+
   // Se la rotta richiede autenticazione e l'utente non è autenticato
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+  if (to.meta.requiresAuth && !isAuthenticated) {
     return next('/login')
   }
   
   // Se l'utente è autenticato e prova ad accedere al login
-  if (to.path === '/login' && authStore.isAuthenticated) {
+  if (to.path === '/login' && isAuthenticated) {
     return next('/dashboard')
   }
   

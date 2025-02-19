@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { authApi } from '@/api/auth'
+import { userApi } from '@/api/user'
 import router from '@/router'
 import type { User, LoginData } from '@/types/auth'
 
@@ -36,12 +37,57 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const checkAuthStatus = async () => {
+    if (!token.value) {
+      return false
+    }
+
+    try {
+      const [profileResponse, subscriptionResponse] = await Promise.all([
+        userApi.getProfile(),
+        userApi.getSubscription()
+      ])
+
+      // Estraiamo i dati dalla risposta
+      const profileData = profileResponse.data.data
+      const subscriptionData = subscriptionResponse.data.data
+
+      const userData: User = {
+        id: profileData.id,
+        email: profileData.email,
+        name: profileData.name,
+        subscription: {
+          status: subscriptionData.status,
+          plan: subscriptionData.plan,
+          features: subscriptionData.features
+        }
+      }
+
+      setUser(userData)
+      return true
+    } catch (error: any) {
+      if (error.response?.status === 403) {
+        setToken(null)
+        setUser(null)
+        router.push('/login')
+      }
+      return false
+    }
+  }
+
   const login = async (credentials: LoginData) => {
     loading.value = true
     try {
       const response = await authApi.login(credentials)
+      console.log(response)
       setToken(response.accessToken)
-      setUser(response.user)
+      const userData = response.user
+      setUser({
+        id: userData.id,
+        email: userData.email,
+        name: userData.name,
+        subscription: userData.subscription
+      })
       return true
     } catch (error) {
       console.error('Login error:', error)
@@ -94,6 +140,7 @@ export const useAuthStore = defineStore('auth', () => {
     // Actions
     login,
     logout,
-    refreshToken
+    refreshToken,
+    checkAuthStatus
   }
 })

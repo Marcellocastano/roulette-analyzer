@@ -55,7 +55,8 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
 
 const handleReset = async () => {
   try {
-    statsAnalysis.value = null
+    await statsApi.resetSession()
+    statsAnalysis.value = null // Reset dello stato locale
     message.success('Statistiche resettate con successo')
   } catch (error) {
     console.error('Errore durante il reset delle statistiche:', error)

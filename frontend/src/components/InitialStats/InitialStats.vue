@@ -103,11 +103,6 @@ import Card from "../Card/Card.vue";
 import * as InitialStats from "@/api/types/initialStats";
 
   const emit = defineEmits(['statistics-updated']);
-  interface DozenResults {
-    first: number;
-    second: number;
-    third: number;
-  }
   
   const stats50 = ref<InitialStats.Stats>({
     dozens: {
@@ -117,13 +112,13 @@ import * as InitialStats from "@/api/types/initialStats";
     },
     zeroNeighbors: 20,
     numbers: {
-        0: 0,
-        3: 0,
-        12: 0,
-        15: 0,
-        32: 0,
-        35: 0,
-        26: 0,
+        '0': 0,
+        '3': 0,
+        '12': 0,
+        '15': 0,
+        '32': 0,
+        '35': 0,
+        '26': 0,
     },
   });
   
@@ -135,13 +130,13 @@ import * as InitialStats from "@/api/types/initialStats";
     },
     zeroNeighbors: 20,
     numbers: {
-        0: 0,
-        3: 0,
-        12: 0,
-        15: 0,
-        32: 0,
-        35: 0,
-        26: 0,
+        '0': 0,
+        '3': 0,
+        '12': 0,
+        '15': 0,
+        '32': 0,
+        '35': 0,
+        '26': 0,
     },
   });
   

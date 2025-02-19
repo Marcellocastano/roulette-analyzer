@@ -16,11 +16,8 @@ export interface Dozens {
 }
 
 export interface Numbers {
-    0: number
-    3: number
-    12: number
-    15: number
-    26: number
-    32: number
-    35: number
+    [key: string]: number
 }
+
+// Costante per i numeri della zona zero
+export const ZERO_ZONE_NUMBERS = ['12', '35', '3', '26', '0', '32', '15'];

@@ -49,11 +49,12 @@
   import { ref, computed, reactive } from 'vue'
   import { NButton } from 'naive-ui'
   import { Trash } from '@vicons/tabler'
+  import * as InitialStats from "@/api/types/initialStats";
   
   const emit = defineEmits(['update:statistics'])
   
   // Numeri della roulette in ordine (solo zona zero)
-  const rouletteNumbers = [12, 35, 3, 26, 0, 32, 15]
+  const rouletteNumbers = InitialStats.ZERO_ZONE_NUMBERS.map(Number);
   
   // Valori dei coni (0-40)
   const coneValues = reactive(new Array(7).fill(0))
@@ -183,12 +184,20 @@
   const confirmStatistics = () => {
     const statistics = rouletteNumbers.reduce((acc, number, index) => {
       if (coneValues[index] > 0) {
-        acc[number] = coneValues[index]
+        acc[number.toString()] = coneValues[index]
       }
       return acc
     }, {} as Record<string, number>)
     
-    emit('update:statistics', { numbers: statistics })
+    // Assicuriamoci che tutti i numeri della zona zero siano presenti con valore 0 se non specificati
+    const zeroZoneNumbers = [12, 35, 3, 26, 0, 32, 15];
+    zeroZoneNumbers.forEach(number => {
+      if (!(number.toString() in statistics)) {
+        statistics[number.toString()] = 0;
+      }
+    });
+    
+    emit('update:statistics', statistics);
   }
   </script>
   

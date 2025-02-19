@@ -14,7 +14,9 @@ export const useAuthStore = defineStore('auth', () => {
   // Getters
   const isAuthenticated = computed(() => !!token.value && !!user.value)
   const userSubscription = computed(() => user.value?.subscription)
-  const hasAdvancedFeatures = computed(() => userSubscription.value?.features.advancedStats ?? false)
+  const hasAdvancedFeatures = computed(
+    () => userSubscription.value?.features.advancedStats ?? false
+  )
   const hasPredictions = computed(() => userSubscription.value?.features.predictions ?? false)
   const maxSpins = computed(() => userSubscription.value?.features.maxSpins ?? 50)
 
@@ -45,7 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const [profileResponse, subscriptionResponse] = await Promise.all([
         userApi.getProfile(),
-        userApi.getSubscription()
+        userApi.getSubscription(),
       ])
 
       // Estraiamo i dati dalla risposta
@@ -59,8 +61,8 @@ export const useAuthStore = defineStore('auth', () => {
         subscription: {
           status: subscriptionData.status,
           plan: subscriptionData.plan,
-          features: subscriptionData.features
-        }
+          features: subscriptionData.features,
+        },
       }
 
       setUser(userData)
@@ -86,7 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
         id: userData.id,
         email: userData.email,
         name: userData.name,
-        subscription: userData.subscription
+        subscription: userData.subscription,
       })
       return true
     } catch (error) {
@@ -129,18 +131,18 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     token,
     loading,
-    
+
     // Getters
     isAuthenticated,
     userSubscription,
     hasAdvancedFeatures,
     hasPredictions,
     maxSpins,
-    
+
     // Actions
     login,
     logout,
     refreshToken,
-    checkAuthStatus
+    checkAuthStatus,
   }
 })

@@ -3,13 +3,18 @@
     <nav class="sidebar-nav">
       <ul class="sidebar-list">
         <li v-for="route in routes" :key="route.path" class="sidebar-listItem">
-          <router-link 
-            :to="route.path" 
+          <router-link
+            :to="route.path"
             class="sidebar-link"
-            :class="{ 'active': isRouteActive(route.path) }"
+            :class="{ active: isRouteActive(route.path) }"
           >
             <component :is="route.icon" class="sidebar-listIcon" />
-            <n-gradient-text v-if="route.name === 'Play'" :size="18" type="error" class="sidebar-listItemText">
+            <n-gradient-text
+              v-if="route.name === 'Play'"
+              :size="18"
+              type="error"
+              class="sidebar-listItemText"
+            >
               <strong>Spin Lab</strong>
             </n-gradient-text>
             <span v-else class="sidebar-listItemText">{{ route.name }}</span>
@@ -18,11 +23,7 @@
       </ul>
     </nav>
     <div class="sidebar-footer">
-      <n-dropdown
-        trigger="click"
-        :options="options"
-        @select="handleSelect"
-      >
+      <n-dropdown trigger="click" :options="options" @select="handleSelect">
         <div class="sidebar-profileSection">
           <n-icon size="28" color="#fff">
             <UserCircle />
@@ -39,7 +40,7 @@ import { ref, h } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import RouletteIcon from './icons/RouletteIcon.vue'
-import { 
+import {
   UserCircle,
   Dashboard as DashboardIcon,
   Settings as EditIcon,
@@ -61,23 +62,23 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    icon: DashboardIcon
+    icon: DashboardIcon,
   },
   {
     path: '/play',
     name: 'Play',
-    icon: RouletteIcon
+    icon: RouletteIcon,
   },
   {
     path: '/tutorial',
     name: 'Tutorial',
-    icon: TutorialIcon
+    icon: TutorialIcon,
   },
   {
     path: '/settings',
     name: 'Impostazioni',
-    icon: SettingsIcon
-  }
+    icon: SettingsIcon,
+  },
 ]
 
 const isRouteActive = (path: string) => {
@@ -104,8 +105,8 @@ const options = [
   {
     label: 'Logout',
     key: 'logout',
-    style: 'color: #FF4D4F; border-top: 1px solid #eee; margin-top: 4px; padding-top: 4px;'
-  }
+    style: 'color: #FF4D4F; border-top: 1px solid #eee; margin-top: 4px; padding-top: 4px;',
+  },
 ]
 
 const handleSelect = (key: string) => {
@@ -193,7 +194,6 @@ const handleSelect = (key: string) => {
   padding: 0.5rem;
   border-radius: 0.5rem;
   transition: background-color 0.2s ease;
-
 
   &:hover {
     background-color: var(--highlight-orange-color);

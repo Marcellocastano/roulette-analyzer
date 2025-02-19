@@ -25,7 +25,10 @@
   --container-shadow: rgba(19, 28, 49, 0.2) 0px 7px 29px 0px;
 }
 
-button, [type='button'], [type='reset'], [type='submit'] {
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
   background-color: var(--n-color) !important;
 }
 
@@ -110,7 +113,9 @@ button:focus-visible {
   }
 }
 
-.h1,.h2,.h3 {
+.h1,
+.h2,
+.h3 {
   color: var(--textColor1); /* Colore principale del testo */
 }
 
@@ -118,7 +123,9 @@ button:focus-visible {
   color: var(--textColor2); /* Colore secondario del testo */
 }
 
-.h4,.h5,.h6 {
+.h4,
+.h5,
+.h6 {
   color: var(--textColor3); /* Colore di supporto del testo */
 }
 

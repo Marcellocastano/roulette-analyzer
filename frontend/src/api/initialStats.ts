@@ -9,5 +9,5 @@ export const initialStatsApi = {
   // Ottiene le ultime statistiche
   getLatestStats: () => {
     return apiClient.get<InitialStatsPayload>('/initial-stats/latest')
-  }
+  },
 }

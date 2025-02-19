@@ -30,12 +30,12 @@
 //   }
 // })
 
-import { GlobalThemeOverrides } from 'naive-ui';
+import { GlobalThemeOverrides } from 'naive-ui'
 
 const themes = {
   light: {
     common: {
-      bodyColor: '#ffffff',  // Colore di sfondo del body
+      bodyColor: '#ffffff', // Colore di sfondo del body
     },
   },
   dark: {
@@ -48,8 +48,8 @@ const themes = {
       buttonColor: '#ffffff',
     },
   },
-};
+}
 
 export const getThemeOverrides = (themeName: 'light' | 'dark'): GlobalThemeOverrides => {
-  return themes[themeName];
-};
+  return themes[themeName]
+}

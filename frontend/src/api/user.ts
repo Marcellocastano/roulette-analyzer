@@ -38,5 +38,5 @@ export const userApi = {
   // Ottiene le informazioni sull'abbonamento
   getSubscription: () => {
     return apiClient.get<ApiResponse<UserSubscription>>('/users/subscription')
-  }
+  },
 }

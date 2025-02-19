@@ -27,5 +27,5 @@ export const statsApi = {
   // Resetta la sessione corrente
   resetSession: () => {
     return apiClient.get('/stats/reset')
-  }
+  },
 }

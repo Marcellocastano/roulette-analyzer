@@ -4,7 +4,7 @@ import type {
   AuthResponse,
   // LoginData,
   RegisterData,
-  User
+  User,
 } from '@/types/auth'
 
 export interface LoginData {
@@ -27,7 +27,7 @@ export const authApi = {
     const response = await api.post<ApiResponse<LoginResponse>>('/auth/login', data)
     return response.data.data
   },
-  
+
   /**
    * Registra un nuovo utente
    * @param data - Dati di registrazione dell'utente
@@ -37,14 +37,14 @@ export const authApi = {
     const response = await api.post<ApiResponse<AuthResponse>>('/auth/register', data)
     return response.data.data
   },
-  
+
   /**
    * Effettua il logout dell'utente
    */
   logout: async (): Promise<void> => {
     await api.post('/auth/logout')
   },
-  
+
   /**
    * Aggiorna il token di accesso
    * @returns Promise con il nuovo token
@@ -52,5 +52,5 @@ export const authApi = {
   refreshToken: async (): Promise<string> => {
     const response = await api.post<ApiResponse<{ accessToken: string }>>('/auth/refresh')
     return response.data.data.accessToken
-  }
+  },
 }

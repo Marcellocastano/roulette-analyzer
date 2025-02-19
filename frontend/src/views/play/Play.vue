@@ -2,10 +2,10 @@
   <div class="play-view">
     <n-grid x-gap="12" y-gap="12" :cols="1" :item-responsive="true">
       <n-grid-item v-if="step === 1">
-        <InitialStats 
-          @statistics-updated="handleStatisticsUpdate" 
+        <InitialStats
+          @statistics-updated="handleStatisticsUpdate"
           @reset-stats="handleReset"
-          :analysis="statsAnalysis" 
+          :analysis="statsAnalysis"
         />
       </n-grid-item>
       <n-grid-item v-if="step === 2">
@@ -14,7 +14,7 @@
           :secondary-predicted-numbers="secondaryPredictedNumbers"
           :special-predicted-numbers="specialPredictedNumbers"
         />
-        <Board @numberSelected="handleNumberSelection"/>
+        <Board @numberSelected="handleNumberSelection" />
       </n-grid-item>
     </n-grid>
   </div>
@@ -40,7 +40,7 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
   try {
     const response = await initialStatsApi.submitStats(payload)
     statsAnalysis.value = response.data.data
-    
+
     if (statsAnalysis.value.analysis.tableStatus === 'not_recommended') {
       message.error('Le statistiche attuali non sono favorevoli per il gioco')
     } else {
@@ -48,8 +48,8 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
       step.value = 2
     }
   } catch (error) {
-    console.error('Errore durante l\'invio delle statistiche:', error)
-    message.error('Si è verificato un errore durante l\'invio delle statistiche')
+    console.error("Errore durante l'invio delle statistiche:", error)
+    message.error("Si è verificato un errore durante l'invio delle statistiche")
   }
 }
 
@@ -86,7 +86,6 @@ const getPredictions = async () => {
     console.error('Errore nel recupero delle previsioni:', error)
   }
 }
-
 </script>
 
 <style scoped>

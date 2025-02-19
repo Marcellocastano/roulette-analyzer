@@ -4,8 +4,9 @@
       <div class="hero-content">
         <h1 class="creative-title">Come usare il software</h1>
         <p class="hero-description">
-          Il nostro software di analisi statistica ti permette di analizzare i pattern della roulette
-          e identificare le migliori opportunità di gioco, basandosi su dati storici e analisi in tempo reale.
+          Il nostro software di analisi statistica ti permette di analizzare i pattern della
+          roulette e identificare le migliori opportunità di gioco, basandosi su dati storici e
+          analisi in tempo reale.
         </p>
       </div>
     </section>
@@ -13,14 +14,13 @@
       <template #content>
         <p>Questo è il contenuto della card...</p>
       </template>
-      
     </glass-card>
 
     <section class="services-section">
       <h2 class="section-title">COSA <span class="highlight">FACCIAMO</span>?</h2>
       <p class="section-description">
-        Forniamo strumenti avanzati per l'analisi statistica del gioco della roulette,
-        permettendoti di prendere decisioni informate basate sui dati.
+        Forniamo strumenti avanzati per l'analisi statistica del gioco della roulette, permettendoti
+        di prendere decisioni informate basate sui dati.
       </p>
 
       <div class="services-grid">
@@ -29,7 +29,10 @@
             <ChartLineUpIcon />
           </n-icon>
           <h3>Analisi Statistica</h3>
-          <p>Monitoriamo le tendenze delle dozzine e delle zone per identificare opportunità di gioco.</p>
+          <p>
+            Monitoriamo le tendenze delle dozzine e delle zone per identificare opportunità di
+            gioco.
+          </p>
         </div>
 
         <div class="service-card">
@@ -94,24 +97,28 @@
 
     <n-card>
       <n-text>
-        La strategia si basa sulla legge dei grandi numeri: nel lungo periodo, i valori percentuali delle dozzine e delle zone della roulette tendono ad allinearsi a una media. Lo scostamento da questa media rappresenta un'opportunità di puntata.
+        La strategia si basa sulla legge dei grandi numeri: nel lungo periodo, i valori percentuali
+        delle dozzine e delle zone della roulette tendono ad allinearsi a una media. Lo scostamento
+        da questa media rappresenta un'opportunità di puntata.
       </n-text>
       <div class="tutorial-concept">
         <n-alert type="info" title="Concetto Chiave">
-          Una "dozzina sofferente" o "zona in sofferenza" è un'area di gioco con percentuali inferiori alla soglia attesa, che ha più probabilità di vedere i suoi numeri uscire nel breve periodo.
+          Una "dozzina sofferente" o "zona in sofferenza" è un'area di gioco con percentuali
+          inferiori alla soglia attesa, che ha più probabilità di vedere i suoi numeri uscire nel
+          breve periodo.
         </n-alert>
       </div>
     </n-card>
 
     <n-card>
       <n-space vertical>
-        <n-text>
-          Il monitoraggio avviene su due livelli temporali:
-        </n-text>
+        <n-text> Il monitoraggio avviene su due livelli temporali: </n-text>
         <n-list>
           <n-list-item>
             <n-tag type="success" round>500 spin</n-tag>
-            <span style="margin-left: 8px">Trend di lungo periodo (soglia di sofferenza: 27-28%)</span>
+            <span style="margin-left: 8px"
+              >Trend di lungo periodo (soglia di sofferenza: 27-28%)</span
+            >
           </n-list-item>
           <n-list-item>
             <n-tag type="warning" round>50 spin</n-tag>
@@ -123,7 +130,7 @@
 
     <n-card>
       <n-steps vertical>
-        <n-step 
+        <n-step
           title="Fase 1: Osservazione"
           description="Iniziare con puntate contenute per testare il tavolo"
           status="process"
@@ -172,7 +179,9 @@
         <n-text type="warning">Nota Importante</n-text>
       </template>
       <n-text>
-        Questo metodo non è una formula magica, ma un modello statistico che migliora le probabilità mantenendo un atteggiamento disciplinato. La fortuna rimane una componente ineliminabile del gioco.
+        Questo metodo non è una formula magica, ma un modello statistico che migliora le probabilità
+        mantenendo un atteggiamento disciplinato. La fortuna rimane una componente ineliminabile del
+        gioco.
       </n-text>
     </n-card>
   </div>
@@ -197,13 +206,13 @@ import {
   NCollapse,
   NCollapseItem,
   NImage,
-  NIcon
+  NIcon,
 } from 'naive-ui'
-import { 
+import {
   Database as DatabaseIcon,
   ChartBar as ChartBarIcon,
   Code as CodeIcon,
-  Brush as BrushIcon
+  Brush as BrushIcon,
 } from '@vicons/tabler'
 import GlassCard from '../../components/Card/Card.vue'
 
@@ -235,7 +244,8 @@ const handleAction = (action: string) => {
   margin-bottom: 6rem;
 }
 
-.creative-title, .creative-subtitle {
+.creative-title,
+.creative-subtitle {
   font-size: 3.5rem;
   font-weight: 700;
   margin: 0;
@@ -255,7 +265,7 @@ const handleAction = (action: string) => {
 
 .hero-image {
   position: relative;
-  
+
   .glow-effect {
     border-radius: 1rem;
     box-shadow: 0 0 30px rgba(0, 255, 179, 0.3);

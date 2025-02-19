@@ -12,32 +12,32 @@ const router = createRouter({
       children: [
         {
           path: '',
-          redirect: '/dashboard'
+          redirect: '/dashboard',
         },
         {
           path: 'dashboard',
           name: 'dashboard',
-          component: () => import('../views/dashboard/Dashboard.vue')
+          component: () => import('../views/dashboard/Dashboard.vue'),
         },
         {
           path: 'play',
           name: 'play',
-          component: () => import('../views/play/Play.vue')
+          component: () => import('../views/play/Play.vue'),
         },
         {
           path: 'tutorial',
           name: 'tutorial',
-          component: () => import('../views/tutorial/Tutorial.vue')
+          component: () => import('../views/tutorial/Tutorial.vue'),
         },
-      ]
+      ],
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('../views/login/LoginView.vue'),
-      meta: { requiresAuth: false }
-    }
-  ]
+      meta: { requiresAuth: false },
+    },
+  ],
 })
 
 router.beforeEach(async (to, from, next) => {
@@ -55,12 +55,12 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next('/login')
   }
-  
+
   // Se l'utente è autenticato e prova ad accedere al login
   if (to.path === '/login' && isAuthenticated) {
     return next('/dashboard')
   }
-  
+
   next()
 })
 

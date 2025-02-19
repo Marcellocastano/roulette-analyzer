@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import { getThemeOverrides } from './stores/theme';
+import { getThemeOverrides } from './stores/theme'
 
 // Naive UI
 import {
@@ -34,7 +34,7 @@ import {
   NText,
   NP,
   NResult,
-  NModal
+  NModal,
 } from 'naive-ui'
 
 import './style.css'
@@ -66,8 +66,8 @@ const naive = create({
     NText,
     NP,
     NResult,
-    NModal
-  ]
+    NModal,
+  ],
 })
 
 const app = createApp(App)

@@ -35,6 +35,9 @@ import {
   NP,
   NResult,
   NModal,
+  NList,
+  NListItem,
+  NThing,
 } from 'naive-ui'
 
 import './style.css'
@@ -67,6 +70,9 @@ const naive = create({
     NP,
     NResult,
     NModal,
+    NList,
+    NListItem,
+    NThing,
   ],
 })
 

@@ -1,0 +1,119 @@
+<template>
+  <n-h1 class="mb-6">Analisi del Tavolo</n-h1>
+  <div class="analysis-content">
+    <Card class="table-analysis" title="Dozzina in Sofferenza">
+      <template #content>
+        <div class="section">
+          <n-tag type="warning" size="large">
+            {{ getDozenDescription(dozenDown) }}
+          </n-tag>
+        </div>
+      </template>
+    </Card>
+
+    <Card class="table-analysis" title="Motivi Favorevoli">
+      <template #content>
+        <div class="section">
+          <n-tag v-for="reason in analysis.reasonCodes" :key="reason" type="warning" class="mb-2">
+            {{ getReasonDescription(reason) }}
+          </n-tag>
+        </div>
+      </template>
+    </Card>
+
+    <Card class="table-analysis" title="Numeri in Crescita">
+      <template #content>
+        <div class="section">
+          <div class="numbers-grid">
+            <div v-if="analysis.increasingNumbers?.length === 0" class="text-center w-full">
+              <n-tag type="error"> Nessuno </n-tag>
+            </div>
+            <n-tag
+              v-else
+              v-for="number in analysis.increasingNumbers"
+              :key="number"
+              :type="getNumberType(number)"
+              size="large"
+              round
+            >
+              {{ number }}
+            </n-tag>
+          </div>
+        </div>
+      </template>
+    </Card>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import Card from '@/components/Card/Card.vue'
+import { NH3, NTag, NUl, NLi } from 'naive-ui'
+import type { Analysis } from '@/api/types/initialStats'
+
+interface Props {
+  analysis: Analysis
+  dozenDown: number
+}
+
+const props = defineProps<Props>()
+
+// Mappa delle descrizioni per i reasonCodes
+const reasonDescriptions: { [key: string]: string } = {
+  DOZEN_SUFFERING: 'Dozzina in forte sofferenza',
+  ZERO_ZONE_SUFFERING: 'Zona zero in sofferenza',
+  NUMBERS_INCREASING: 'Numeri in crescita nella zona di interesse',
+  BALANCED_DISTRIBUTION: 'Distribuzione bilanciata dei numeri',
+}
+
+// Funzione per ottenere la descrizione di un reasonCode
+const getReasonDescription = (code: string) => {
+  return reasonDescriptions[code] || code
+}
+
+// Funzione per determinare il tipo di tag per i numeri
+const getNumberType = (number: number) => {
+  if (number === 0) return 'success'
+  return number % 2 === 0 ? 'error' : 'info'
+}
+
+// Funzione per ottenere la descrizione della dozzina
+const getDozenDescription = (dozen: number) => {
+  const dozenMap = {
+    1: 'Prima dozzina (1-12)',
+    2: 'Seconda dozzina (13-24)',
+    3: 'Terza dozzina (25-36)',
+  }
+  return dozenMap[dozen as keyof typeof dozenMap] || 'Dozzina sconosciuta'
+}
+</script>
+
+<style scoped>
+.table-analysis {
+  margin: 20px 0;
+  max-width: 300px;
+}
+
+.analysis-content {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.section {
+  margin-bottom: 15px;
+}
+
+.numbers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+:deep(.n-tag) {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+</style>

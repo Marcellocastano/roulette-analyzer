@@ -5,16 +5,22 @@
         <InitialStats
           @statistics-updated="handleStatisticsUpdate"
           @reset-stats="handleReset"
+          @proceed="handleProceed"
           :analysis="statsAnalysis"
         />
       </n-grid-item>
       <n-grid-item v-if="step === 2">
+        <TableAnalysis
+          v-if="statsAnalysis"
+          :analysis="statsAnalysis.analysis"
+          :dozen-down="statsAnalysis.dozenDown"
+        />
+        <Board @numberSelected="handleNumberSelection" />
         <WheelPredictor
           :primary-predicted-numbers="primaryPredictedNumbers"
           :secondary-predicted-numbers="secondaryPredictedNumbers"
           :special-predicted-numbers="specialPredictedNumbers"
         />
-        <Board @numberSelected="handleNumberSelection" />
       </n-grid-item>
     </n-grid>
   </div>
@@ -22,10 +28,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NGrid, NGridItem, useMessage } from 'naive-ui'
+import { useMessage } from 'naive-ui'
 import Board from '@/components/Board/Board.vue'
 import WheelPredictor from '@/components/WheelPredictor/WheelPredictor.vue'
 import InitialStats from '@/components/InitialStats/InitialStats.vue'
+import TableAnalysis from '@/components/TableAnalysis/TableAnalysis.vue'
 import type { InitialStatsPayload, InitialStatsResponse } from '@/api/types/initialStats'
 import { initialStatsApi, spinsApi, statsApi } from '@/api'
 
@@ -43,8 +50,10 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
 
     if (statsAnalysis.value.analysis.tableStatus === 'not_recommended') {
       message.error('Le statistiche attuali non sono favorevoli per il gioco')
+    } else if (statsAnalysis.value.analysis.tableStatus === 'borderline') {
+      message.warning('Le statistiche attuali mostrano condizioni al limite')
     } else {
-      message.success('Statistiche aggiornate con successo')
+      message.success('Statistiche inviate con successo')
       step.value = 2
     }
   } catch (error) {
@@ -87,11 +96,15 @@ const getPredictions = async () => {
     console.error('Errore nel recupero delle previsioni:', error)
   }
 }
+
+const handleProceed = () => {
+  message.info('Procedi con cautela')
+  step.value = 2
+}
 </script>
 
 <style scoped>
 .play-view {
-  padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }

@@ -110,6 +110,21 @@
       </template>
     </n-result>
   </n-modal>
+
+  <n-modal
+    v-model:show="showBorderlineModal"
+    preset="dialog"
+    title="Condizioni al Limite"
+    :positiveText="'Procedi'"
+    :negativeText="'Cambia Tavolo'"
+    @positive-click="handleProceed"
+    @negative-click="handleReset"
+  >
+    <n-result status="warning" title="Tavolo Borderline" size="large">
+      Le statistiche attuali mostrano condizioni al limite. Puoi scegliere se procedere con cautela
+      o analizzare un altro tavolo.
+    </n-result>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
@@ -124,16 +139,18 @@ const props = defineProps<{
 }>()
 
 const showErrorModal = ref(false)
+const showBorderlineModal = ref(false)
 
-// Osserva i cambiamenti dell'analisi per mostrare/nascondere la modale
+// Osserva i cambiamenti dell'analisi per mostrare/nascondere le modali
 watch(
   () => props.analysis?.analysis.tableStatus,
   newStatus => {
     showErrorModal.value = newStatus === 'not_recommended'
+    showBorderlineModal.value = newStatus === 'borderline'
   }
 )
 
-const emit = defineEmits(['statistics-updated', 'reset-stats'])
+const emit = defineEmits(['statistics-updated', 'reset-stats', 'proceed'])
 
 const stats50 = ref<InitialStats.Stats>({
   dozens: {
@@ -198,7 +215,14 @@ const sendData = () => {
 
 const handleReset = () => {
   showErrorModal.value = false
+  showBorderlineModal.value = false
   emit('reset-stats')
+}
+
+// Handler per procedere nonostante le condizioni borderline
+const handleProceed = () => {
+  showBorderlineModal.value = false
+  emit('proceed')
 }
 </script>
 

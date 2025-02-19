@@ -23,7 +23,7 @@ interface ZeroZoneNumber {
   _id: string
 }
 
-interface Analysis {
+export interface Analysis {
   tableStatus: TableStatus
   reasons?: string[]
   reasonCodes?: string[]

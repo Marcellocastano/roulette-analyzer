@@ -31,4 +31,10 @@ const toggleSidebar = () => {
   padding: 20px;
   overflow-y: auto;
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 0px;
+  }
+}
 </style>

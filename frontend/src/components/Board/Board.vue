@@ -1,6 +1,6 @@
 <template>
   <div class="board-container">
-    <div class="history-container">
+    <div class="history-container mb-4">
       <div class="number-balls">
         <div 
           v-for="(spin, index) in spins" 
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="roulette-board">
+    <div class="roulette-board mb-8">
       <div 
         class="number-cell zero"
         @click="handleNumberClick(0)"
@@ -75,10 +75,10 @@ const handleDelete = (id: string) => {
 .board-container {
   display: grid;
   gap: min(20px, 3vw);
-  padding: min(20px, 3vw);
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .history-container {
@@ -156,6 +156,8 @@ const handleDelete = (id: string) => {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   box-sizing: border-box;
+  aspect-ratio: 4/1;
+  max-width: 100%;
 }
 
 .number-cell {

@@ -10,23 +10,23 @@
         />
       </n-grid-item>
       <n-grid-item v-if="step === 2">
+        <div class="board-container">
+          <Board 
+          :spins="spins"
+          @number-selected="handleNumberSelection"
+          @delete-spin="handleSpinDelete"
+          />
+          <WheelPredictor
+          :primary-predicted-numbers="primaryPredictedNumbers"
+          :secondary-predicted-numbers="secondaryPredictedNumbers"
+          :special-predicted-numbers="specialPredictedNumbers"
+          />
+        </div>
         <TableAnalysis
           v-if="statsAnalysis"
           :analysis="statsAnalysis.analysis"
           :dozen-down="statsAnalysis.dozenDown"
         />
-        <div class="board-container">
-          <Board 
-            :spins="spins"
-            @number-selected="handleNumberSelection"
-            @delete-spin="handleSpinDelete"
-          />
-          <WheelPredictor
-            :primary-predicted-numbers="primaryPredictedNumbers"
-            :secondary-predicted-numbers="secondaryPredictedNumbers"
-            :special-predicted-numbers="specialPredictedNumbers"
-          />
-        </div>
       </n-grid-item>
     </n-grid>
   </div>
@@ -133,19 +133,41 @@ const handleProceed = () => {
 <style scoped>
 .play-view {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: min(20px, 3vw);
   position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.n-grid {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .n-grid-item {
   position: relative;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Contenitore per Board e WheelPredictor */
-.n-grid-item:has(> .board-container) {
+.board-container {
   position: relative;
   z-index: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 }
 
 /* Posizionamento del WheelPredictor */

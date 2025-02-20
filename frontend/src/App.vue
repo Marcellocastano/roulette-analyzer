@@ -21,16 +21,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { getThemeOverrides } from './stores/theme';
-import Navbar from '@/components/Navbar/Navbar.vue';
-import Sidebar from '@/components/Sidebar.vue';
+import { ref } from 'vue'
+import { getThemeOverrides } from './stores/theme'
+import Navbar from '@/components/Navbar/Navbar.vue'
+import Sidebar from '@/components/Sidebar.vue'
 
 const isSidebarCollapsed = ref(false)
-const currentTheme = ref(getThemeOverrides('dark'));
+const currentTheme = ref(getThemeOverrides('dark'))
 
 const toggleSidebar = () => {
-  isSidebarCollapsed.value = !isSidebarCollapsed.value;
+  isSidebarCollapsed.value = !isSidebarCollapsed.value
 }
 </script>
 
@@ -52,7 +52,9 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 #app {

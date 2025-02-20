@@ -1,14 +1,13 @@
 import apiClient from './config'
-import { InitialStatsPayload } from './types/initialStats'
+import type { InitialStatsPayload, InitialStatsApiResponse } from './types/initialStats'
 
 export const initialStatsApi = {
-  // Aggiunge statistiche iniziali
-  addInitialStats: (stats: InitialStatsPayload) => {
-    return apiClient.post('/initial-stats/add', stats)
+  submitStats: (stats: InitialStatsPayload) => {
+    return apiClient.post<InitialStatsApiResponse>('/initial-stats/add', stats)
   },
 
   // Ottiene le ultime statistiche
   getLatestStats: () => {
     return apiClient.get<InitialStatsPayload>('/initial-stats/latest')
-  }
+  },
 }

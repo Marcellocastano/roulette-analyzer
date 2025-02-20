@@ -5,22 +5,22 @@ const apiClient = axios.create({
   baseURL: '/api/v1', // Usiamo un path relativo invece dell'URL completo
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
+    Accept: 'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
   },
-  withCredentials: true // Importante per gestire i cookie di sessione
+  withCredentials: true, // Importante per gestire i cookie di sessione
 })
 
 // Interceptor per gestire i token di autenticazione
 apiClient.interceptors.request.use(
-  (config) => {
+  config => {
     const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },
-  (error) => {
+  error => {
     console.error('Request Error:', error)
     return Promise.reject(error)
   }
@@ -36,9 +36,9 @@ apiClient.interceptors.response.use(
     console.error('Response Error:', {
       status: error.response?.status,
       data: error.response?.data,
-      headers: error.response?.headers
+      headers: error.response?.headers,
     })
-    
+
     if (error.response?.status === 401) {
       // Gestione token scaduto
       localStorage.removeItem('token')

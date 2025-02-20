@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import { getThemeOverrides } from './stores/theme';
+import { getThemeOverrides } from './stores/theme'
 
 // Naive UI
 import {
@@ -27,6 +27,20 @@ import {
   NIcon,
   NMessageProvider,
   NGradientText,
+  NH1,
+  NH2,
+  NH3,
+  NH4,
+  NText,
+  NP,
+  NResult,
+  NModal,
+  NList,
+  NListItem,
+  NThing,
+  NCollapse,
+  NCollapseItem,
+  NTag,
 } from 'naive-ui'
 
 import './style.css'
@@ -50,8 +64,22 @@ const naive = create({
     NSwitch,
     NIcon,
     NMessageProvider,
-    NGradientText
-  ]
+    NGradientText,
+    NH1,
+    NH2,
+    NH3,
+    NH4,
+    NText,
+    NP,
+    NResult,
+    NModal,
+    NList,
+    NListItem,
+    NThing,
+    NCollapse,
+    NCollapseItem,
+    NTag,
+  ],
 })
 
 const app = createApp(App)

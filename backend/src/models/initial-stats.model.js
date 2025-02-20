@@ -41,9 +41,9 @@ const initialStatsSchema = new mongoose.Schema({
       enum: ['recommended', 'borderline', 'not_recommended'],
       required: true
     },
-    reasons: [{
-      type: String
-    }]
+    reasons: [{ type: String }],
+    reasonCodes: [{ type: String }],
+    increasingNumbers: [{ type: Number }]
   }
 });
 

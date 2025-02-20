@@ -11,12 +11,12 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar/Navbar.vue'
 import Sidebar from '@/components/Sidebar.vue'
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const isSidebarCollapsed = ref(false)
 
 const toggleSidebar = () => {
-  isSidebarCollapsed.value = !isSidebarCollapsed.value;
+  isSidebarCollapsed.value = !isSidebarCollapsed.value
 }
 </script>
 
@@ -30,4 +30,5 @@ const toggleSidebar = () => {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-}</style>
+}
+</style>

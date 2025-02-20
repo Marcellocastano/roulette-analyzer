@@ -1,19 +1,39 @@
 import apiClient from './config'
 
 export interface Spin {
-  id: string
+  _id: string
+  number: number
+  user: string
+  sessionId: string
+  metadata: {
+    dozen: 'first' | 'second' | 'third'
+    isZeroNeighbor: boolean
+    color: 'red' | 'black' | 'green'
+    isEven: boolean
+  }
+  createdAt: string
+  updatedAt: string
+}
+
+interface ApiResponse<T> {
+  status: 'success'
+  data: T
+}
+
+// Tipo per l'input di addSpin - solo il numero è richiesto
+interface AddSpinInput {
   number: number
 }
 
 export const spinsApi = {
   // Aggiunge un nuovo spin
-  addSpin: (spin: Omit<Spin, 'id'>) => {
-    return apiClient.post<Spin>('/spins', spin)
+  addSpin: (spin: AddSpinInput) => {
+    return apiClient.post<ApiResponse<Spin>>('/spins', spin)
   },
 
   // Ottiene gli spin recenti
-  getRecentSpins: () => {
-    return apiClient.get<Spin[]>('/spins/recent')
+  getLastSpin: () => {
+    return apiClient.get<ApiResponse<Spin>>('/spins/last')
   },
 
   // Ottiene la storia degli spin
@@ -23,7 +43,7 @@ export const spinsApi = {
 
   // Elimina uno spin
   deleteSpin: (id: string) => {
-    return apiClient.delete(`/spins/${id}`)
+    return apiClient.delete<ApiResponse<void>>(`/spins/${id}`)
   },
 
   // Ottiene gli spin di una sessione specifica

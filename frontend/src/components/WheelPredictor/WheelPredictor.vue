@@ -135,6 +135,7 @@ const polarToCartesian = (centerX: number, centerY: number, radius: number, angl
   width: 100%;
   height: 100%;
   transform: rotate(135deg);
+  pointer-events: none;
 }
 
 .outer-rim {
@@ -152,11 +153,11 @@ const polarToCartesian = (centerX: number, centerY: number, radius: number, angl
   fill: #007f00;
 }
 
-.highlighted-primary {
+.highlighted-secondary {
   fill: #dec958;
 }
 
-.highlighted-secondary {
+.highlighted-primary {
   fill: #f78d60;
 }
 

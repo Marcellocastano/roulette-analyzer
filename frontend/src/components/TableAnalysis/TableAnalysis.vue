@@ -1,54 +1,58 @@
 <template>
-  <n-h1 class="mb-6">Analisi del Tavolo</n-h1>
-  <div class="analysis-content">
-    <Card class="table-analysis" title="Dozzina in Sofferenza">
-      <template #content>
-        <div class="section">
-          <n-tag type="warning" size="large">
-            {{ getDozenDescription(dozenDown) }}
-          </n-tag>
-        </div>
+  <n-collapse arrow-placement="right">
+    <n-collapse-item class="text-center">
+      <template #header>
+        <n-h1 class="mb-0">Analisi del Tavolo</n-h1>
       </template>
-    </Card>
-
-    <Card class="table-analysis" title="Motivi Favorevoli">
-      <template #content>
-        <div class="section">
-          <n-tag v-for="reason in analysis.reasonCodes" :key="reason" type="warning" class="mb-2">
-            {{ getReasonDescription(reason) }}
-          </n-tag>
-        </div>
-      </template>
-    </Card>
-
-    <Card class="table-analysis" title="Numeri in Crescita">
-      <template #content>
-        <div class="section">
-          <div class="numbers-grid">
-            <div v-if="analysis.increasingNumbers?.length === 0" class="text-center w-full">
-              <n-tag type="error"> Nessuno </n-tag>
+      <div class="analysis-content">
+        <Card class="table-analysis" title="Dozzina in Sofferenza">
+          <template #content>
+            <div class="section">
+              <n-tag type="warning" size="large">
+                {{ getDozenDescription(dozenDown) }}
+              </n-tag>
             </div>
-            <n-tag
-              v-else
-              v-for="number in analysis.increasingNumbers"
-              :key="number"
-              :type="getNumberType(number)"
-              size="large"
-              round
-            >
-              {{ number }}
-            </n-tag>
-          </div>
-        </div>
-      </template>
-    </Card>
-  </div>
+          </template>
+        </Card>
+    
+        <Card class="table-analysis" title="Motivi Favorevoli">
+          <template #content>
+            <div class="section">
+              <n-tag v-for="reason in analysis.reasonCodes" :key="reason" type="warning" class="mb-2">
+                {{ getReasonDescription(reason) }}
+              </n-tag>
+            </div>
+          </template>
+        </Card>
+    
+        <Card class="table-analysis" title="Numeri in Crescita">
+          <template #content>
+            <div class="section">
+              <div class="numbers-grid">
+                <div v-if="analysis.increasingNumbers?.length === 0" class="text-center w-full">
+                  <n-tag type="error"> Nessuno </n-tag>
+                </div>
+                <n-tag
+                  v-else
+                  v-for="number in analysis.increasingNumbers"
+                  :key="number"
+                  :type="getNumberType(number)"
+                  size="large"
+                  round
+                >
+                  {{ number }}
+                </n-tag>
+              </div>
+            </div>
+          </template>
+        </Card>
+      </div>
+    </n-collapse-item>
+  </n-collapse>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import Card from '@/components/Card/Card.vue'
-import { NH3, NTag, NUl, NLi } from 'naive-ui'
 import type { Analysis } from '@/api/types/initialStats'
 
 interface Props {

@@ -15,12 +15,18 @@
           :analysis="statsAnalysis.analysis"
           :dozen-down="statsAnalysis.dozenDown"
         />
-        <Board @numberSelected="handleNumberSelection" />
-        <WheelPredictor
-          :primary-predicted-numbers="primaryPredictedNumbers"
-          :secondary-predicted-numbers="secondaryPredictedNumbers"
-          :special-predicted-numbers="specialPredictedNumbers"
-        />
+        <div class="board-container">
+          <Board 
+            :spins="spins"
+            @number-selected="handleNumberSelection"
+            @delete-spin="handleSpinDelete"
+          />
+          <WheelPredictor
+            :primary-predicted-numbers="primaryPredictedNumbers"
+            :secondary-predicted-numbers="secondaryPredictedNumbers"
+            :special-predicted-numbers="specialPredictedNumbers"
+          />
+        </div>
       </n-grid-item>
     </n-grid>
   </div>
@@ -34,6 +40,7 @@ import WheelPredictor from '@/components/WheelPredictor/WheelPredictor.vue'
 import InitialStats from '@/components/InitialStats/InitialStats.vue'
 import TableAnalysis from '@/components/TableAnalysis/TableAnalysis.vue'
 import type { InitialStatsPayload, InitialStatsResponse } from '@/api/types/initialStats'
+import type { Spin } from '@/types/spin'
 import { initialStatsApi, spinsApi, statsApi } from '@/api'
 
 const primaryPredictedNumbers = ref<number[]>([])
@@ -42,6 +49,7 @@ const specialPredictedNumbers = ref<number[]>([])
 const step = ref<number>(1)
 const statsAnalysis = ref<InitialStatsResponse | null>(null)
 const message = useMessage()
+const spins = ref<Pick<Spin, '_id' | 'number'>[]>([])
 
 const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
   try {
@@ -73,15 +81,34 @@ const handleReset = async () => {
   }
 }
 
-const selectedNumber = ref<number | null>(null)
-
 const handleNumberSelection = async (number: number) => {
   try {
-    await spinsApi.addSpin({ number })
+    const response = await spinsApi.addSpin({ number })
+    // Aggiungiamo il nuovo spin all'inizio dell'array usando _id e number dalla response
+    spins.value = [{ 
+      _id: response.data.data._id, 
+      number: response.data.data.number 
+    }, ...spins.value].slice(0, 5)
     await getPredictions()
   } catch (error) {
-    console.error('Errore nel salvataggio del spin:', error)
-    message.error('Errore nel salvataggio del spin')
+    console.error('Errore nel salvataggio dello spin:', error)
+    message.error('Errore nel salvataggio dello spin')
+  }
+}
+
+const handleSpinDelete = async (spinId: string) => {
+  try {
+    console.log('Deleting spin with id:', spinId)
+    if (!spinId) {
+      console.error('SpinId is undefined')
+      return
+    }
+    await spinsApi.deleteSpin(spinId)
+    spins.value = spins.value.filter(spin => spin._id !== spinId)
+    await getPredictions()
+  } catch (error) {
+    console.error('Errore durante l\'eliminazione dello spin:', error)
+    message.error('Errore durante l\'eliminazione dello spin')
   }
 }
 
@@ -107,5 +134,29 @@ const handleProceed = () => {
 .play-view {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+.n-grid-item {
+  position: relative;
+}
+
+/* Contenitore per Board e WheelPredictor */
+.n-grid-item:has(> .board-container) {
+  position: relative;
+  z-index: 0;
+}
+
+/* Posizionamento del WheelPredictor */
+:deep(.wheel-predictor) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+  max-height: 800px;
 }
 </style>

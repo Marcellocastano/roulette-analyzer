@@ -38,6 +38,9 @@ import {
   NList,
   NListItem,
   NThing,
+  NCollapse,
+  NCollapseItem,
+  NTag,
 } from 'naive-ui'
 
 import './style.css'
@@ -73,6 +76,9 @@ const naive = create({
     NList,
     NListItem,
     NThing,
+    NCollapse,
+    NCollapseItem,
+    NTag,
   ],
 })
 

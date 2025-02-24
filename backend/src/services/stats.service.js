@@ -32,7 +32,7 @@ class StatsService {
   async resetSession(userId) {
     await Statistics.deleteOne({ user: userId });
     await this.spinsService.deleteAllSpins(userId);
-    await InitialStats.deleteOne({ userId });
+    await InitialStats.deleteMany({ userId });
     return { message: 'Sessione resettata con successo' };
   }
 

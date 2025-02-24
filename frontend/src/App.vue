@@ -8,7 +8,7 @@
               <div class="app">
                 <!-- <Navbar @toggle-sidebar="toggleSidebar" />
                 <Sidebar :is-collapsed="isSidebarCollapsed" /> -->
-                <div class="app-wrapper" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
+                <div class="app-wrapper">
                   <router-view></router-view>
                 </div>
               </div>
@@ -23,27 +23,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getThemeOverrides } from './stores/theme'
-import Navbar from '@/components/Navbar/Navbar.vue'
-import Sidebar from '@/components/Sidebar.vue'
 
-const isSidebarCollapsed = ref(false)
 const currentTheme = ref(getThemeOverrides('dark'))
-
-const toggleSidebar = () => {
-  isSidebarCollapsed.value = !isSidebarCollapsed.value
-}
 </script>
 
 <style lang="scss">
-:root {
-  --background-light: #ffffff;
-  --background-dark: #18181c;
-  --text-color-light: #ffffff;
-  --text-color-dark: #343434;
-  --sidebar-bg: rgb(48 127 99);
-  --highlight-orange-color: #fea82f;
-}
-
 html {
   height: 100%;
 }

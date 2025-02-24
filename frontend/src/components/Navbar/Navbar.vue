@@ -4,28 +4,168 @@
       <div class="logo">
         <img src="/assets/images/logo.png" alt="Roulette Analyzer Logo" />
       </div>
-      <n-button strong secondary type="info" class="menu-toggle" @click="toggleSidebar">
+    </div>
+
+    <!-- Menu Desktop -->
+    <div class="navbar-center hidden md:flex">
+      <ul class="nav-list">
+        <li v-for="route in routes" :key="route.path" class="nav-item">
+          <router-link
+            :to="route.path"
+            class="nav-link"
+            :class="{ active: isRouteActive(route.path) }"
+          >
+            <component :is="route.icon" class="nav-icon" />
+            <n-gradient-text
+              v-if="route.name === 'Play'"
+              :size="17"
+              type="error"
+            >
+              <strong>Spin Lab</strong>
+            </n-gradient-text>
+            <span v-else>{{ route.name }}</span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+
+    <div class="navbar-right">
+      <!-- Menu Mobile Toggle -->
+      <n-button class="flex md:hidden menu-toggle" @click="toggleMobileMenu">
         <n-icon size="24">
-          <LayoutSidebarLeftExpand v-if="isCollapsed" />
-          <LayoutSidebarLeftCollapse v-else />
+          <Menu v-if="!isMobileMenuOpen" />
+          <X v-else />
         </n-icon>
       </n-button>
+
+      <!-- User Menu -->
+      <n-dropdown trigger="click" :options="options" @select="handleSelect">
+        <div class="user-profile">
+          <n-icon size="32" color="#fff">
+            <UserCircle />
+          </n-icon>
+          <!-- <span class="hidden md:inline">{{ authStore.user?.name || 'Utente' }}</span> -->
+        </div>
+      </n-dropdown>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div 
+      v-show="isMobileMenuOpen" 
+      class="mobile-menu md:hidden"
+      :class="{ 'mobile-menu-open': isMobileMenuOpen }"
+    >
+      <ul class="nav-list">
+        <li v-for="route in routes" :key="route.path" class="nav-item">
+          <router-link
+            :to="route.path"
+            class="nav-link"
+            :class="{ active: isRouteActive(route.path) }"
+            @click="closeMobileMenu"
+          >
+            <component :is="route.icon" class="nav-icon" />
+            <n-gradient-text
+              v-if="route.name === 'Play'"
+              :size="18"
+              type="error"
+            >
+              <strong>Spin Lab</strong>
+            </n-gradient-text>
+            <span v-else>{{ route.name }}</span>
+          </router-link>
+        </li>
+      </ul>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { LayoutSidebarLeftCollapse, LayoutSidebarLeftExpand } from '@vicons/tabler'
-import { NButton, NIcon } from 'naive-ui'
+import { ref, h } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import RouletteIcon from '../icons/RouletteIcon.vue'
+import {
+  UserCircle,
+  Menu,
+  X,
+  Dashboard as DashboardIcon,
+  Settings as EditIcon,
+  Logout as LogoutIcon,
+  Settings as SettingsIcon,
+  Book as TutorialIcon,
+} from '@vicons/tabler'
+import { NIcon, NDropdown, NButton, NGradientText } from 'naive-ui'
 
-defineProps<{
-  isCollapsed: boolean
-}>()
+const router = useRouter()
+const route = useRoute()
+const authStore = useAuthStore()
+const isMobileMenuOpen = ref(false)
 
-const emit = defineEmits(['toggle-sidebar'])
+const routes = [
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    icon: DashboardIcon,
+  },
+  {
+    path: '/play',
+    name: 'Play',
+    icon: RouletteIcon,
+  },
+  {
+    path: '/tutorial',
+    name: 'Tutorial',
+    icon: TutorialIcon,
+  },
+  {
+    path: '/settings',
+    name: 'Impostazioni',
+    icon: SettingsIcon,
+  },
+]
 
-const toggleSidebar = () => {
-  emit('toggle-sidebar')
+const options = [
+  {
+    label: 'Piano',
+    key: 'plan',
+  },
+  {
+    label: 'Account',
+    key: 'account',
+  },
+  {
+    label: 'Sviluppatori',
+    key: 'developers',
+  },
+  {
+    type: 'divider',
+  },
+  {
+    label: 'Logout',
+    key: 'logout',
+    icon: () => h(NIcon, null, { default: () => h(LogoutIcon) }),
+  },
+]
+
+const isRouteActive = (path: string) => {
+  return route.path === path
+}
+
+const handleSelect = (key: string) => {
+  if (key === 'logout') {
+    authStore.logout()
+    router.push('/login')
+  } else {
+    router.push(`/${key}`)
+  }
+}
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false
 }
 </script>
 
@@ -33,9 +173,11 @@ const toggleSidebar = () => {
 .navbar {
   height: 85px;
   width: 100%;
-  background-color: var(--sidebar-bg);
+  // background-color: var(--sidebar-bg);
+  background: var(--secondary-color);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 1rem;
   position: fixed;
   top: 0;
@@ -49,11 +191,74 @@ const toggleSidebar = () => {
     gap: 1rem;
   }
 
+  &-center {
+    flex: 1;
+    justify-content: center;
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .logo {
     img {
       height: 75px;
       width: auto;
       object-fit: contain;
+    }
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.1rem;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-color-light);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--primary-color);
+    }
+
+    &.active {
+      background-color: var(--primary-color);
+    }
+  }
+
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    color: var(--text-color-light);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--primary-color);
     }
   }
 
@@ -63,12 +268,45 @@ const toggleSidebar = () => {
     color: var(--text-color-light);
     cursor: pointer;
     padding: 0.5rem;
-    display: flex;
     align-items: center;
     justify-content: center;
 
     &:hover {
-      background-color: var(--highlight-orange-color);
+      background-color: var(--primary-color);
+    }
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 85px;
+    left: 0;
+    right: 0;
+    background-color: var(--sidebar-bg);
+    padding: 1rem;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+
+    &-open {
+      transform: translateY(0);
+    }
+
+    .nav-list {
+      flex-direction: column;
+    }
+
+    .nav-link {
+      padding: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 0.5rem;
+
+    .logo img {
+      height: 60px;
     }
   }
 }

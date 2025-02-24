@@ -1,5 +1,8 @@
 <template>
   <div class="login-container">
+    <n-gradient-text type="warning">
+      <!-- <h1 class="mb-4">Roulette Destroyer</h1> -->
+    </n-gradient-text>
     <div class="roulette">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-370 248.3 100 125">
         <path
@@ -27,30 +30,31 @@
         />
       </svg>
     </div>
-    <n-gradient-text type="warning">
-      <h1>Roulette Analyzer</h1>
-    </n-gradient-text>
-    <n-card class="login-card">
-      <template #header>
-        <h1 class="login-title">Login</h1>
+    <Card class="login-card max-w-[400px]">
+      <template #title>
+        <n-h1 class="login-title">Login</n-h1>
       </template>
-      <n-form ref="formRef" :model="formValue" :rules="rules">
-        <n-form-item path="email" label="Email">
-          <n-input v-model:value="formValue.email" placeholder="Inserisci email" />
-        </n-form-item>
-        <n-form-item path="password" label="Password">
-          <n-input
-            v-model:value="formValue.password"
-            type="password"
-            placeholder="Inserisci password"
-            @keyup.enter="handleSubmit"
-          />
-        </n-form-item>
-        <div class="submit-container">
-          <n-button :loading="loading" type="primary" @click="handleSubmit"> Accedi </n-button>
-        </div>
-      </n-form>
-    </n-card>
+      <template #content>
+        <n-form ref="formRef" :model="formValue" :rules="rules">
+          <n-form-item path="email" label="Email">
+            <n-input v-model:value="formValue.email" size="large" round placeholder="Inserisci email" />
+          </n-form-item>
+          <n-form-item path="password" label="Password">
+            <n-input
+              v-model:value="formValue.password"
+              type="password"
+              size="large"
+              round
+              placeholder="Inserisci password"
+              @keyup.enter="handleSubmit"
+            />
+          </n-form-item>
+          <div class="submit-container">
+            <n-button :loading="loading" type="primary" @click="handleSubmit"> Accedi </n-button>
+          </div>
+        </n-form>
+      </template>
+    </Card>
   </div>
 </template>
 
@@ -61,6 +65,7 @@ import { useMessage } from 'naive-ui'
 import { NCard, NButton, NForm, NFormItem, NInput } from 'naive-ui'
 import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
+import Card from '@/components/Card/Card.vue'
 
 const formRef = ref<FormInst | null>(null)
 const loading = ref(false)
@@ -136,21 +141,18 @@ const handleSubmit = async () => {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: var(--n-color);
-  color: var(--n-text-color);
   transition: all 0.3s ease;
 }
 
 .login-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px!important;
   margin: 0 20px;
 }
 
 .login-title {
   margin: 0;
   font-size: 1.5rem;
-  color: var(--n-text-color);
   text-align: center;
 }
 
@@ -163,7 +165,6 @@ const handleSubmit = async () => {
 }
 
 :deep(.n-form-item-label) {
-  color: var(--n-text-color);
 }
 
 :deep(.n-input) {

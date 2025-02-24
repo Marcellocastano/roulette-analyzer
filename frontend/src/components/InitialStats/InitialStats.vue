@@ -39,7 +39,10 @@
                 </div>
               </div>
               <!-- Raccolta numeri con WheelStatistics -->
-              <WheelStatistics @update:statistics="update50Statistics" />
+              <WheelStatistics 
+                :initial-values="stats50.numbers"
+                @update:statistics="update50Statistics" 
+              />
             </div>
           </n-form-item>
         </n-form>
@@ -82,7 +85,10 @@
                 </div>
               </div>
               <!-- Raccolta numeri con WheelStatistics -->
-              <WheelStatistics @update:statistics="update500Statistics" />
+              <WheelStatistics 
+                :initial-values="stats500.numbers"
+                @update:statistics="update500Statistics" 
+              />
             </div>
           </n-form-item>
         </n-form>
@@ -95,14 +101,14 @@
 
   <n-modal
     v-model:show="showErrorModal"
-    preset="card"
-    style="width: 500px"
+    preset="dialog"
     :mask-closable="false"
     :closable="false"
   >
     <n-result
       status="error"
       title="Statistiche Non Raccomandate"
+      size="large"
       description="Le statistiche attuali non mostrano condizioni favorevoli per il gioco. Si consiglia di resettare e cambiare tavolo."
     >
       <template #footer>
@@ -119,11 +125,14 @@
     :negativeText="'Cambia Tavolo'"
     @positive-click="handleProceed"
     @negative-click="handleReset"
-  >
-    <n-result status="warning" title="Tavolo Borderline" size="large">
-      Le statistiche attuali mostrano condizioni al limite. Puoi scegliere se procedere con cautela
-      o analizzare un altro tavolo.
-    </n-result>
+    >
+    <n-result
+      status="warning"
+      title="Tavolo Borderline"
+      size="large"
+      description="Le statistiche attuali mostrano condizioni al limite. Puoi scegliere se procedere con cautela
+      o analizzare un altro tavolo."
+    />
   </n-modal>
 </template>
 
@@ -160,13 +169,13 @@ const stats50 = ref<InitialStats.Stats>({
   },
   zeroNeighbors: 20,
   numbers: {
-    '0': 0,
-    '3': 0,
-    '12': 0,
-    '15': 0,
-    '32': 0,
-    '35': 0,
-    '26': 0,
+    '0': 10,
+    '3': 15,
+    '12': 15,
+    '15': 15,
+    '32': 15,
+    '35': 15,
+    '26': 15,
   },
 })
 
@@ -178,13 +187,13 @@ const stats500 = ref<InitialStats.Stats>({
   },
   zeroNeighbors: 20,
   numbers: {
-    '0': 0,
-    '3': 0,
-    '12': 0,
-    '15': 0,
-    '32': 0,
-    '35': 0,
-    '26': 0,
+    '0': 20,
+    '3': 20,
+    '12': 20,
+    '15': 20,
+    '32': 20,
+    '35': 20,
+    '26': 20,
   },
 })
 

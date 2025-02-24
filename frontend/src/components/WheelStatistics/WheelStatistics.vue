@@ -43,10 +43,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, watch, onMounted } from 'vue'
 import { NButton } from 'naive-ui'
 import { Trash } from '@vicons/tabler'
 import * as InitialStats from '@/api/types/initialStats'
+
+interface InitialValues {
+  [key: number]: number
+}
+
+const props = defineProps<{
+  initialValues?: InitialValues
+}>()
 
 const emit = defineEmits(['update:statistics'])
 
@@ -59,10 +67,26 @@ const isDragging = ref(false)
 const currentCone = ref(-1)
 const lastUpdatedCone = ref<number | null>(null)
 
+// Inizializza i valori dei coni quando cambiano gli initialValues
+watch(() => props.initialValues, (newValues) => {
+  if (newValues) {
+    rouletteNumbers.forEach((number, index) => {
+      coneValues[index] = newValues[number] || 0
+    })
+  }
+}, { immediate: true })
+
 // Funzione per aggiornare il valore di un cono
 const updateConeValue = (index: number, value: number) => {
   coneValues[index] = value
   lastUpdatedCone.value = index
+  
+  // Emetti l'evento con i valori aggiornati
+  const statistics: InitialValues = {}
+  rouletteNumbers.forEach((number, i) => {
+    statistics[number] = coneValues[i]
+  })
+  emit('update:statistics', statistics)
 }
 
 // Calcola il path SVG per ogni cono
@@ -116,36 +140,6 @@ const getNumberColor = (number: number) => {
   const rouletteColors: { [key: number]: string } = {
     32: '#E0080B',
     15: '#000000',
-    19: '#E0080B',
-    4: '#000000',
-    21: '#E0080B',
-    2: '#000000',
-    25: '#E0080B',
-    17: '#000000',
-    34: '#E0080B',
-    6: '#000000',
-    27: '#E0080B',
-    13: '#000000',
-    36: '#E0080B',
-    11: '#000000',
-    30: '#E0080B',
-    8: '#000000',
-    23: '#E0080B',
-    10: '#000000',
-    5: '#E0080B',
-    24: '#000000',
-    16: '#E0080B',
-    33: '#000000',
-    1: '#E0080B',
-    20: '#000000',
-    14: '#E0080B',
-    31: '#000000',
-    9: '#E0080B',
-    22: '#000000',
-    18: '#E0080B',
-    29: '#000000',
-    7: '#E0080B',
-    28: '#000000',
     12: '#E0080B',
     35: '#000000',
     3: '#E0080B',
@@ -192,39 +186,14 @@ const handleMouseMove = (event: MouseEvent, index: number) => {
   if (coneValues[index] !== value) {
     updateConeValue(index, value)
   }
-  confirmStatistics()
 }
 
 // Reset dei coni
 const resetCones = () => {
-  for (let i = 0; i < coneValues.length; i++) {
-    coneValues[i] = 0
-  }
-  lastUpdatedCone.value = null
-  confirmStatistics()
-}
-
-// Funzione per confermare le statistiche
-const confirmStatistics = () => {
-  const statistics = rouletteNumbers.reduce(
-    (acc, number, index) => {
-      if (coneValues[index] > 0) {
-        acc[number.toString()] = coneValues[index]
-      }
-      return acc
-    },
-    {} as Record<string, number>
-  )
-
-  // Assicuriamoci che tutti i numeri della zona zero siano presenti con valore 0 se non specificati
-  const zeroZoneNumbers = [12, 35, 3, 26, 0, 32, 15]
-  zeroZoneNumbers.forEach(number => {
-    if (!(number.toString() in statistics)) {
-      statistics[number.toString()] = 0
-    }
+  rouletteNumbers.forEach((_, index) => {
+    coneValues[index] = 0
   })
-
-  emit('update:statistics', statistics)
+  emit('update:statistics', {})
 }
 </script>
 
@@ -257,18 +226,18 @@ const confirmStatistics = () => {
     mask: linear-gradient(
       var(--cone-angle),
       #ffffff24 var(--fill-height),
-      var(--highlight-orange-color) var(--fill-height)
+      var(--secondary-color) var(--fill-height)
     );
     -webkit-mask: linear-gradient(
       var(--cone-angle),
       #ffffff24 var(--fill-height),
-      var(--highlight-orange-color) var(--fill-height)
+      var(--secondary-color) var(--fill-height)
     );
-    fill: var(--highlight-orange-color);
+    fill: var(--secondary-color);
   }
 
   &:hover {
-    stroke: rgba(255, 255, 255, 0.4);
+    stroke: var(--accent-hover-color);
   }
 }
 
@@ -279,11 +248,5 @@ const confirmStatistics = () => {
   user-select: none;
   fill: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.debug-info {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #666;
 }
 </style>

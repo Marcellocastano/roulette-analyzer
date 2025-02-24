@@ -9,20 +9,22 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--secondary-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --main-bg: #18181c;
-  --item-hover: #1c2339;
-  --secondary-bg: #36415e;
-  --main-container-bg: #131c31;
-  --text-color: #fff;
-  --tooltip-bg: #251d33;
-  --container-shadow: rgba(19, 28, 49, 0.2) 0px 7px 29px 0px;
+  --primary-color: #669eb3;
+  --secondary-color: #171d35;
+  --text-color-dark: #171d35;
+  --text-color-light: #f6f5f5;
+  --n-color: #ff9500;
+  --card-color: #f6f5f5;
+  --alert-color: #1a293b;
+  --accent-color: #FFB200;
+  --accent-hover-color: #EB5B00;
 }
 
 button,
@@ -30,6 +32,10 @@ button,
 [type='reset'],
 [type='submit'] {
   background-color: var(--n-color) !important;
+
+  &:hover {
+    background-color: var(--accent-hover-color);
+  }
 }
 
 a {
@@ -67,15 +73,19 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background-color: var(--secondary-color);
 }
 
 .card {
   padding: 2em;
+}
+
+.n-dialog{
+ background-color: var(--card-color);
+}
+
+.n-alert{
+  background-color: var(--alert-color);
 }
 
 #app {

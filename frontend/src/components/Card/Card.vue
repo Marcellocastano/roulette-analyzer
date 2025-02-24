@@ -72,7 +72,6 @@ const hasActionsSlot = computed(() => !!slots.actions)
 }
 
 .card-title {
-  color: var(--text-color-dark);
   margin: 0;
 }
 

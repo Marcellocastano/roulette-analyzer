@@ -1,4 +1,5 @@
 import apiClient from './config'
+import type { ApiResponse } from './user'
 
 export interface Spin {
   _id: string
@@ -13,11 +14,6 @@ export interface Spin {
   }
   createdAt: string
   updatedAt: string
-}
-
-interface ApiResponse<T> {
-  status: 'success'
-  data: T
 }
 
 // Tipo per l'input di addSpin - solo il numero è richiesto
@@ -38,7 +34,7 @@ export const spinsApi = {
 
   // Ottiene la storia degli spin
   getSpinHistory: () => {
-    return apiClient.get<Spin[]>('/spins/history')
+    return apiClient.get<ApiResponse<Spin[]>>('/spins/history')
   },
 
   // Elimina uno spin
@@ -48,16 +44,16 @@ export const spinsApi = {
 
   // Ottiene gli spin di una sessione specifica
   getSessionSpins: (sessionId: string) => {
-    return apiClient.get<Spin[]>(`/spins/session/${sessionId}`)
+    return apiClient.get<ApiResponse<Spin[]>>(`/spins/session/${sessionId}`)
   },
 
   // Ottiene le statistiche delle dozzine
   getDozensStats: () => {
-    return apiClient.get('/spins/stats/dozens')
+    return apiClient.get<ApiResponse<any>>('/spins/stats/dozens')
   },
 
   // Ottiene le statistiche dei vicini dello zero
   getZeroNeighborsStats: () => {
-    return apiClient.get('/spins/stats/zero-neighbors')
-  },
+    return apiClient.get<ApiResponse<any>>('/spins/stats/zero-neighbors')
+  }
 }

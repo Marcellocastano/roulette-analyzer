@@ -1,5 +1,25 @@
 <template>
   <div class="play-view">
+    <n-alert
+      v-if="hasActiveSession && step === 1"
+      type="info"
+      class="mb-4"
+      closable
+      @close="hideActiveSessionBanner"
+    >
+      <template #header>
+        <div class="flex items-center justify-between">
+          <span>Hai una sessione attiva</span>
+          <n-button type="primary" size="small" @click="goToActiveSession">
+            Continua sessione
+          </n-button>
+        </div>
+      </template>
+      <template #default>
+        È stata rilevata una sessione di analisi attiva. Puoi continuare da dove ti eri fermato o iniziare una nuova sessione.
+      </template>
+    </n-alert>
+
     <n-grid x-gap="12" y-gap="12" :cols="1" :item-responsive="true">
       <n-grid-item v-if="step === 1">
         <InitialStats
@@ -11,6 +31,12 @@
       </n-grid-item>
       <n-grid-item v-if="step === 2">
         <div class="board-container">
+          <div class="flex mb-4 justify-between w-full items-center">
+            <n-h2 class="mb-0">Gioca</n-h2>
+            <n-button type="primary" size="small" @click="handleReset">
+              Resetta
+            </n-button>
+          </div>
           <Board 
           :spins="spins"
           @number-selected="handleNumberSelection"
@@ -33,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useMessage } from 'naive-ui'
 import Board from '@/components/Board/Board.vue'
 import WheelPredictor from '@/components/WheelPredictor/WheelPredictor.vue'
@@ -41,6 +67,7 @@ import InitialStats from '@/components/InitialStats/InitialStats.vue'
 import TableAnalysis from '@/components/TableAnalysis/TableAnalysis.vue'
 import type { InitialStatsPayload, InitialStatsResponse } from '@/api/types/initialStats'
 import type { Spin } from '@/types/spin'
+import type { ApiResponse } from '@/api/user'
 import { initialStatsApi, spinsApi, statsApi } from '@/api'
 
 const primaryPredictedNumbers = ref<number[]>([])
@@ -50,23 +77,34 @@ const step = ref<number>(1)
 const statsAnalysis = ref<InitialStatsResponse | null>(null)
 const message = useMessage()
 const spins = ref<Pick<Spin, '_id' | 'number'>[]>([])
+const hasActiveSession = ref(false)
+
+// Verifica sessione attiva al mounted
+onMounted(async () => {
+  try {
+    const { data: response } = await initialStatsApi.getLatestStats()
+    if (response.status === 'success' && response.data) {
+      hasActiveSession.value = true
+      statsAnalysis.value = response.data
+    }
+  } catch (error) {
+    console.error('Errore nel recupero della sessione:', error)
+  }
+})
 
 const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
   try {
-    const response = await initialStatsApi.submitStats(payload)
-    statsAnalysis.value = response.data.data
-
-    if (statsAnalysis.value.analysis.tableStatus === 'not_recommended') {
-      message.error('Le statistiche attuali non sono favorevoli per il gioco')
-    } else if (statsAnalysis.value.analysis.tableStatus === 'borderline') {
-      message.warning('Le statistiche attuali mostrano condizioni al limite')
-    } else {
-      message.success('Statistiche inviate con successo')
-      step.value = 2
+    const { data: response } = await initialStatsApi.submitStats(payload)
+    if (response.status === 'success' && response.data) {
+      statsAnalysis.value = response.data
+      // Passa allo step 2 solo se il tavolo non è borderline o not_recommended
+      if (response.data.analysis.tableStatus === 'recommended') {
+        step.value = 2
+      }
     }
   } catch (error) {
-    console.error("Errore durante l'invio delle statistiche:", error)
-    message.error("Si è verificato un errore durante l'invio delle statistiche")
+    console.error('Errore durante l\'aggiornamento delle statistiche:', error)
+    message.error('Errore durante l\'aggiornamento delle statistiche')
   }
 }
 
@@ -74,6 +112,7 @@ const handleReset = async () => {
   try {
     await statsApi.resetSession()
     statsAnalysis.value = null // Reset dello stato locale
+    step.value = 1
     message.success('Statistiche resettate con successo')
   } catch (error) {
     console.error('Errore durante il reset delle statistiche:', error)
@@ -83,11 +122,11 @@ const handleReset = async () => {
 
 const handleNumberSelection = async (number: number) => {
   try {
-    const response = await spinsApi.addSpin({ number })
+    const { data: response } = await spinsApi.addSpin({ number })
     // Aggiungiamo il nuovo spin all'inizio dell'array usando _id e number dalla response
     spins.value = [{ 
-      _id: response.data.data._id, 
-      number: response.data.data.number 
+      _id: response.data._id, 
+      number: response.data.number 
     }, ...spins.value].slice(0, 5)
     await getPredictions()
   } catch (error) {
@@ -114,11 +153,11 @@ const handleSpinDelete = async (spinId: string) => {
 
 const getPredictions = async () => {
   try {
-    const resp = await statsApi.getPredictions()
-    console.log('Predictions:', resp.data)
-    primaryPredictedNumbers.value = resp.data.data.primary
-    secondaryPredictedNumbers.value = resp.data.data.secondary
-    specialPredictedNumbers.value = resp.data.data.special
+    const { data: resp } = await statsApi.getPredictions()
+    console.log('Predictions:', resp)
+    primaryPredictedNumbers.value = resp.data.primary
+    secondaryPredictedNumbers.value = resp.data.secondary
+    specialPredictedNumbers.value = resp.data.special
   } catch (error) {
     console.error('Errore nel recupero delle previsioni:', error)
   }
@@ -127,6 +166,27 @@ const getPredictions = async () => {
 const handleProceed = () => {
   message.info('Procedi con cautela')
   step.value = 2
+}
+
+const hideActiveSessionBanner = () => {
+  hasActiveSession.value = false
+}
+
+const goToActiveSession = async () => {
+  if (statsAnalysis.value) {
+    try {
+      const { data: response } = await spinsApi.getSpinHistory()
+      if (response.status === 'success' && response.data) {
+        spins.value = response.data.map(spin => ({ _id: spin._id, number: spin.number }))
+        await getPredictions()
+        step.value = 2
+        message.success('Sessione ripristinata con successo')
+      }
+    } catch (error) {
+      console.error('Errore nel recupero degli spin:', error)
+      message.error('Errore nel ripristino della sessione')
+    }
+  }
 }
 </script>
 

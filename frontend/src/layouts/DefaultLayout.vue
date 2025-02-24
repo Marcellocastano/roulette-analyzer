@@ -1,7 +1,6 @@
 <template>
   <div class="layout">
-    <Navbar @toggle-sidebar="toggleSidebar" :is-collapsed="isSidebarCollapsed" />
-    <Sidebar :is-collapsed="isSidebarCollapsed" />
+    <Navbar />
     <main class="main-content">
       <router-view />
     </main>
@@ -10,31 +9,26 @@
 
 <script setup lang="ts">
 import Navbar from '@/components/Navbar/Navbar.vue'
-import Sidebar from '@/components/Sidebar.vue'
-import { ref } from 'vue'
-
-const isSidebarCollapsed = ref(false)
-
-const toggleSidebar = () => {
-  isSidebarCollapsed.value = !isSidebarCollapsed.value
-}
 </script>
 
 <style lang="scss" scoped>
 .layout {
-  display: flex;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content {
   flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
+  margin-top: 30px;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  min-height: calc(100vh - 85px);
+  width: 100%;
+  transition: all 0.3s ease;
 
-@media (max-width: 768px) {
-  .main-content {
-    padding: 0px;
+  @media (max-width: 768px) {
+    padding: 1rem;
   }
 }
 </style>

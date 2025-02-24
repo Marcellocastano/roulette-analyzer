@@ -1,6 +1,6 @@
 <template>
   <div class="board-container">
-    <div class="history-container mb-4">
+    <div v-if="spins.length > 0" class="history-container mb-4">
       <div class="number-balls">
         <div 
           v-for="(spin, index) in spins" 

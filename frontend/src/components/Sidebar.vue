@@ -163,11 +163,11 @@ const handleSelect = (key: string) => {
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: var(--highlight-orange-color);
+    background-color: var(--n-color);
   }
 
   &.active {
-    background-color: var(--highlight-orange-color);
+    background-color: var(--n-color);
   }
 }
 
@@ -183,7 +183,7 @@ const handleSelect = (key: string) => {
 
 .sidebar-footer {
   padding: 1rem;
-  border-top: 1px solid var(--highlight-orange-color);
+  border-top: 1px solid var(--n-color);
 }
 
 .sidebar-profileSection {
@@ -196,7 +196,7 @@ const handleSelect = (key: string) => {
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: var(--highlight-orange-color);
+    background-color: var(--n-color);
   }
 }
 

@@ -3,7 +3,7 @@
     <n-alert
       v-if="hasActiveSession && step === 1"
       type="info"
-      class="mb-4"
+      class="alert-session mb-8"
       closable
       @close="hideActiveSessionBanner"
     >

@@ -6,7 +6,6 @@
       </div>
     </div>
 
-    <!-- Menu Desktop -->
     <div class="navbar-center hidden md:flex">
       <ul class="nav-list">
         <li v-for="route in routes" :key="route.path" class="nav-item">
@@ -30,7 +29,6 @@
     </div>
 
     <div class="navbar-right">
-      <!-- Menu Mobile Toggle -->
       <n-button class="flex md:hidden menu-toggle" @click="toggleMobileMenu">
         <n-icon size="24">
           <Menu v-if="!isMobileMenuOpen" />
@@ -38,13 +36,11 @@
         </n-icon>
       </n-button>
 
-      <!-- User Menu -->
       <n-dropdown trigger="click" :options="options" @select="handleSelect">
         <div class="user-profile">
           <n-icon size="32" color="#fff">
             <UserCircle />
           </n-icon>
-          <!-- <span class="hidden md:inline">{{ authStore.user?.name || 'Utente' }}</span> -->
         </div>
       </n-dropdown>
     </div>
@@ -173,17 +169,15 @@ const closeMobileMenu = () => {
 .navbar {
   height: 85px;
   width: 100%;
-  // background-color: var(--sidebar-bg);
   background: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &-left {
     display: flex;
@@ -194,6 +188,8 @@ const closeMobileMenu = () => {
   &-center {
     flex: 1;
     justify-content: center;
+    height: 100%;
+    align-items: center;
   }
 
   &-right {
@@ -212,11 +208,12 @@ const closeMobileMenu = () => {
 
   .nav-list {
     display: flex;
-    gap: 1rem;
     list-style: none;
     margin: 0;
     padding: 0;
     font-size: 1.1rem;
+    height: 100%;
+    padding-top: 20px;
   }
 
   .nav-item {
@@ -230,15 +227,43 @@ const closeMobileMenu = () => {
     padding: 0.5rem 1rem;
     color: var(--text-color-light);
     text-decoration: none;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    border-radius: 0.5rem 0.5rem 0 0;
+    height: 100%;
+    transition: all 0.5s ease;
 
     &:hover {
       background-color: var(--primary-color);
+      transition: all 0.5s ease;
     }
 
     &.active {
       background-color: var(--primary-color);
+
+      &::after {
+        content: "";
+        position: absolute;
+        background-color: transparent;
+        bottom: 0px;
+        height: 45px;
+        width: 25px;
+        border-top-left-radius: 25px;
+        box-shadow: 0 -25px 0 0 var(--primary-color);
+        right: -25px;
+        transform: rotateX(180deg);
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: transparent;
+        bottom: 0px;
+        height: 45px;
+        width: 25px;
+        border-top-left-radius: 25px;
+        box-shadow: 0 -25px 0 0 var(--primary-color);
+        left: -25px;
+        transform: rotateZ(180deg);
+      }
     }
   }
 

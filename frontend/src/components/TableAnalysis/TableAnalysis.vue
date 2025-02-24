@@ -9,9 +9,14 @@
           <Card class="table-analysis" title="Dozzina in Sofferenza">
             <template #content>
               <div class="section">
-                <n-tag type="warning" size="large">
+                <n-gradient-text
+                  :gradient="{
+                    from: 'var(--secondary-color)',
+                    to: '#13215a',
+                  }"
+                >
                   {{ getDozenDescription(dozenDown) }}
-                </n-tag>
+                </n-gradient-text>
               </div>
             </template>
           </Card>
@@ -19,9 +24,17 @@
           <Card class="table-analysis" title="Motivi Favorevoli">
             <template #content>
               <div class="section">
-                <n-tag v-for="reason in analysis.reasonCodes" :key="reason" type="warning" class="mb-2">
+                <n-gradient-text
+                  v-for="reason in analysis.reasonCodes"
+                  :gradient="{
+                    from: 'var(--secondary-color)',
+                    to: '#13215a',
+                  }"
+                  class="mb-2"
+                  :key="reason"
+                >
                   {{ getReasonDescription(reason) }}
-                </n-tag>
+                </n-gradient-text>
               </div>
             </template>
           </Card>
@@ -31,7 +44,14 @@
               <div class="section">
                 <div class="numbers-grid">
                   <div v-if="analysis.increasingNumbers?.length === 0" class="text-center w-full">
-                    <n-tag type="error"> Nessuno </n-tag>
+                    <n-gradient-text
+                      :gradient="{
+                        from: 'var(--secondary-color)',
+                        to: '#13215a',
+                      }"
+                    >
+                      Nessuno
+                    </n-gradient-text>
                   </div>
                   <n-tag
                     v-else

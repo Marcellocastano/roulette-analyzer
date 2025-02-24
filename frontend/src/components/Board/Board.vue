@@ -151,7 +151,7 @@ const handleDelete = (id: string) => {
   width: 100%;
   grid-template-columns: min(60px, 8vw) repeat(12, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: min(10px, 1.5vw);
+  gap: min(3px, 1.5vw);
   padding: min(20px, 3vw);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
@@ -178,15 +178,15 @@ const handleDelete = (id: string) => {
   grid-row: 1 / span 3;
   grid-column: 1;
   aspect-ratio: auto;
-  background: rgba(0, 128, 0, 0.5);
+  background: rgba(0, 128, 0, 0.9);
 }
 
 .red {
-  background: rgba(220, 53, 69, 0.5);
+  background: rgba(220, 53, 69, 0.9);
 }
 
 .black {
-  background: rgba(33, 37, 41, 0.5);
+  background: rgba(33, 37, 41, 0.9);
 }
 
 .number-cell:hover {

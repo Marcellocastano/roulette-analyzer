@@ -32,7 +32,7 @@
       <n-grid-item v-if="step === 2">
         <div class="board-container">
           <div class="flex mb-4 justify-between w-full items-center">
-            <n-h2 class="mb-0">Gioca</n-h2>
+            <n-h2 class="mb-0">Inserisci i numeri</n-h2>
             <n-button type="primary" size="small" @click="handleReset">
               Resetta
             </n-button>
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useMessage } from 'naive-ui'
 import Board from '@/components/Board/Board.vue'
 import WheelPredictor from '@/components/WheelPredictor/WheelPredictor.vue'
@@ -97,7 +97,6 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
     const { data: response } = await initialStatsApi.submitStats(payload)
     if (response.status === 'success' && response.data) {
       statsAnalysis.value = response.data
-      // Passa allo step 2 solo se il tavolo non è borderline o not_recommended
       if (response.data.analysis.tableStatus === 'recommended') {
         step.value = 2
       }
@@ -188,6 +187,13 @@ const goToActiveSession = async () => {
     }
   }
 }
+
+// Watch per gestire hasActiveSession quando cambia lo step
+watch(step, (newStep) => {
+  if (newStep === 1) {
+    hasActiveSession.value = false
+  }
+})
 </script>
 
 <style scoped>

@@ -149,14 +149,23 @@ const props = defineProps<{
 
 const showErrorModal = ref(false)
 const showBorderlineModal = ref(false)
+const hasSubmittedStats = ref(false)
+const isInitialLoad = ref(true)
 
 // Osserva i cambiamenti dell'analisi per mostrare/nascondere le modali
 watch(
-  () => props.analysis?.analysis.tableStatus,
-  newStatus => {
-    showErrorModal.value = newStatus === 'not_recommended'
-    showBorderlineModal.value = newStatus === 'borderline'
-  }
+  () => props.analysis,
+  (newAnalysis) => {
+    if (newAnalysis && !isInitialLoad.value) {
+      hasSubmittedStats.value = true
+      const status = newAnalysis.analysis.tableStatus
+      showErrorModal.value = status === 'not_recommended'
+      showBorderlineModal.value = status === 'borderline'
+    }
+    // Dopo il primo caricamento, imposta isInitialLoad a false
+    isInitialLoad.value = false
+  },
+  { deep: true }
 )
 
 const emit = defineEmits(['statistics-updated', 'reset-stats', 'proceed'])
@@ -170,12 +179,12 @@ const stats50 = ref<InitialStats.Stats>({
   zeroNeighbors: 20,
   numbers: {
     '0': 10,
-    '3': 15,
-    '12': 15,
-    '15': 15,
-    '32': 15,
-    '35': 15,
-    '26': 15,
+    '3': 10,
+    '12': 10,
+    '15': 10,
+    '32': 10,
+    '35': 10,
+    '26': 10,
   },
 })
 
@@ -219,12 +228,15 @@ const sendData = () => {
     stats500: stats500.value,
   }
 
+  isInitialLoad.value = false // Assicuriamoci che non sia più considerato caricamento iniziale
   emit('statistics-updated', requestBody)
 }
 
 const handleReset = () => {
   showErrorModal.value = false
   showBorderlineModal.value = false
+  hasSubmittedStats.value = false
+  isInitialLoad.value = true // Resettiamo anche isInitialLoad
   emit('reset-stats')
 }
 

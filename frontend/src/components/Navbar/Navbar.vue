@@ -227,7 +227,7 @@ const closeMobileMenu = () => {
     padding: 0.5rem 1rem;
     color: var(--text-color-light);
     text-decoration: none;
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: 1rem 1rem 0 0;
     height: 100%;
     transition: all 0.5s ease;
 
@@ -306,7 +306,7 @@ const closeMobileMenu = () => {
     top: 85px;
     left: 0;
     right: 0;
-    background-color: var(--sidebar-bg);
+    background-color: var(--secondary-color);
     padding: 1rem;
     transform: translateY(-100%);
     transition: transform 0.3s ease;
@@ -322,6 +322,13 @@ const closeMobileMenu = () => {
 
     .nav-link {
       padding: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .active {
+      &::after, &::before {
+        display: none;
+      }
     }
   }
 }

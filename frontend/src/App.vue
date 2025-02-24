@@ -71,8 +71,7 @@ body {
 }
 
 .app-wrapper {
-  min-height: 100vh;
-  padding: 80px;
+  padding: 80px 40px 0;
   transition: all 0.3s ease;
 
   &.sidebar-collapsed {

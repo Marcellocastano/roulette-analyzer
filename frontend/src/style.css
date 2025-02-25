@@ -80,7 +80,10 @@ button:hover {
 
 #app {
   margin: 0 auto;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-layout {

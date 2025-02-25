@@ -1,10 +1,11 @@
 const InitialStats = require('../models/initial-stats.model');
 const Statistics = require('../models/statistics.model');
+const { DOZEN_MIN_THRESHOLD, DOZEN_MAX_THRESHOLD, ZERO_ZONE_THRESHOLD, INCREASE_PERCENTAGE_THRESHOLD } = require('../config/roulette.thresholds');
 
 // Enum per i reason codes
 const ReasonCode = {
     DOZEN_SUFFERING: 'DOZEN_SUFFERING',
-    DOZEN_THRESHOLD: 'DOZEN_THRESHOLD',
+    DOZEN_MIN_THRESHOLD: 'DOZEN_MIN_THRESHOLD',
     ZERO_ZONE_SUFFERING: 'ZERO_ZONE_SUFFERING',
     ZERO_ZONE_THRESHOLD: 'ZERO_ZONE_THRESHOLD',
     INCREASING_NUMBERS: 'INCREASING_NUMBERS'
@@ -49,6 +50,7 @@ class InitialStatsService {
                 },
                 zeroZoneNumbers,
                 dozenDown: analysis.dozenDown,
+                dozenUp: analysis.dozenUp,
                 analysis: {
                     tableStatus: analysis.status,
                     reasons: analysis.reasons,
@@ -127,15 +129,11 @@ class InitialStatsService {
     }
 
     _analyzeTableConditions(stats) {
-        const DOZEN_THRESHOLD = 29;
-        const ZERO_ZONE_THRESHOLD = 19;
-        const INCREASE_PERCENTAGE_THRESHOLD = 19;
-
         // Calcola le medie tra stats50 e stats500
         const averageStats = this._calculateAverageStats(stats);
         
         // Analisi delle dozzine usando le medie
-        const { minDozens, isDozenConditionMet } = this._analyzeDozens(averageStats.dozens, DOZEN_THRESHOLD);
+        const { minDozens, isMinDozenConditionMet, maxDozens, isMaxDozenConditionMet } = this._analyzeDozens(averageStats.dozens, DOZEN_MIN_THRESHOLD, DOZEN_MAX_THRESHOLD);
         
         // Analisi della zona zero usando le medie
         const zeroNeighborsAvg = averageStats.zeroNeighbors;
@@ -150,21 +148,25 @@ class InitialStatsService {
 
         // Determina lo status del tavolo e raccoglie le ragioni
         const { status, reasons, reasonCodes } = this._determineTableStatus({
-            isDozenConditionMet,
+            isMinDozenConditionMet,
+            isMaxDozenConditionMet,
             isZeroZoneConditionMet,
             isZeroNumbersConditionMet,
             isZeroZoneAtThreshold,
             minDozens,
+            maxDozens,
             zeroNeighborsAvg,
             numbersWithHighIncrease,
-            DOZEN_THRESHOLD,
+            DOZEN_MIN_THRESHOLD,
+            DOZEN_MAX_THRESHOLD,
             ZERO_ZONE_THRESHOLD,
             stats
         });
 
         return {
             status,
-            dozenDown: isDozenConditionMet ? this._dozenNameToNumber(minDozens.dozen) : null,
+            dozenDown: isMinDozenConditionMet ? this._dozenNameToNumber(minDozens.dozen) : null,
+            dozenUp: isMaxDozenConditionMet ? this._dozenNameToNumber(maxDozens.dozen) : null,
             reasons,
             reasonCodes,
             increasingNumbers: numbersWithHighIncrease.map(num => num.number)
@@ -188,9 +190,13 @@ class InitialStatsService {
         };
     }
 
-    _analyzeDozens(dozens500, threshold) {
+    _analyzeDozens(dozens500, minThreshold, maxThreshold) {
         let minDozens = {
             percentage: 100,
+            dozen: null
+        };
+        let maxDozens = {
+            percentage: 0,
             dozen: null
         };
 
@@ -201,9 +207,18 @@ class InitialStatsService {
             }
         });
 
+        Object.entries(dozens500).forEach(([dozen, percentage]) => {
+            if (dozen !== 'zero' && percentage > maxDozens.percentage) {
+                maxDozens.percentage = percentage;
+                maxDozens.dozen = dozen;
+            }
+        });
+
         return {
             minDozens,
-            isDozenConditionMet: minDozens.percentage < threshold
+            isMinDozenConditionMet: minDozens.percentage < minThreshold,
+            maxDozens,
+            isMaxDozenConditionMet: maxDozens.percentage > maxThreshold
         };
     }
 
@@ -215,19 +230,19 @@ class InitialStatsService {
 
         return {
             numbersWithHighIncrease,
-            isZeroNumbersConditionMet: numbersWithHighIncrease.length >= 2 && numbersWithHighIncrease.length <= 3
+            isZeroNumbersConditionMet: numbersWithHighIncrease.length >= 2 && numbersWithHighIncrease.length <= 4
         };
     }
 
     _determineTableStatus({
-        isDozenConditionMet,
+        isMinDozenConditionMet,
         isZeroZoneConditionMet,
         isZeroNumbersConditionMet,
         isZeroZoneAtThreshold,
         minDozens,
         zeroNeighborsAvg,
         numbersWithHighIncrease,
-        DOZEN_THRESHOLD,
+        DOZEN_MIN_THRESHOLD,
         ZERO_ZONE_THRESHOLD,
         stats
     }) {
@@ -236,7 +251,7 @@ class InitialStatsService {
         let status = 'not_recommended';
 
         // Controlla se tutte le condizioni sono soddisfatte per lo status "recommended"
-        if (isDozenConditionMet && isZeroZoneConditionMet && isZeroNumbersConditionMet) {
+        if (isMinDozenConditionMet && isZeroZoneConditionMet && isZeroNumbersConditionMet) {
             status = 'recommended';
             this._addRecommendedReasons(reasons, minDozens, zeroNeighborsAvg, numbersWithHighIncrease, stats);
             reasonCodes.push(ReasonCode.DOZEN_SUFFERING);
@@ -248,27 +263,27 @@ class InitialStatsService {
         // Controlla le condizioni per lo status "borderline"
         else if (
             // Caso 1: Una condizione al limite e numeri della zona zero in crescita
-            ((minDozens.percentage === DOZEN_THRESHOLD || zeroNeighborsAvg === ZERO_ZONE_THRESHOLD) && 
+            ((minDozens.percentage === DOZEN_MIN_THRESHOLD || zeroNeighborsAvg === ZERO_ZONE_THRESHOLD) && 
              isZeroNumbersConditionMet) ||
             // Caso 2: Entrambe le condizioni soddisfatte (dozzina e zona zero)
-            (isDozenConditionMet && isZeroZoneConditionMet)
+            (isMinDozenConditionMet && isZeroZoneConditionMet)
         ) {
             status = 'borderline';
             this._addBorderlineReasons(
                 reasons,
                 minDozens,
                 zeroNeighborsAvg,
-                isDozenConditionMet,
+                isMinDozenConditionMet,
                 isZeroZoneConditionMet,
-                DOZEN_THRESHOLD,
+                DOZEN_MIN_THRESHOLD,
                 ZERO_ZONE_THRESHOLD,
                 stats
             );
 
             // Aggiungi i reason codes appropriati
-            if (minDozens.percentage === DOZEN_THRESHOLD) {
-                reasonCodes.push(ReasonCode.DOZEN_THRESHOLD);
-            } else if (isDozenConditionMet) {
+            if (minDozens.percentage === DOZEN_MIN_THRESHOLD) {
+                reasonCodes.push(ReasonCode.DOZEN_MIN_THRESHOLD);
+            } else if (isMinDozenConditionMet) {
                 reasonCodes.push(ReasonCode.DOZEN_SUFFERING);
             }
 
@@ -310,21 +325,21 @@ class InitialStatsService {
         reasons,
         minDozens,
         zeroNeighborsAvg,
-        isDozenConditionMet,
+        isMinDozenConditionMet,
         isZeroZoneConditionMet,
-        DOZEN_THRESHOLD,
+        DOZEN_MIN_THRESHOLD,
         ZERO_ZONE_THRESHOLD,
         stats
     ) {
         reasons.push('⚠️ Situazione borderline rilevata:');
         
         // Messaggio per la dozzina
-        if (minDozens.percentage === DOZEN_THRESHOLD) {
+        if (minDozens.percentage === DOZEN_MIN_THRESHOLD) {
             reasons.push(`\n✓ La ${this._getDozenName(minDozens.dozen)} è al limite:`);
             reasons.push(`  • Media: ${minDozens.percentage.toFixed(1)}%`);
             reasons.push(`  • A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`);
             reasons.push(`  • A 500 spin: ${stats.stats500.dozens[minDozens.dozen].toFixed(1)}%`);
-        } else if (isDozenConditionMet) {
+        } else if (isMinDozenConditionMet) {
             reasons.push(`\n✓ La ${this._getDozenName(minDozens.dozen)} è in sofferenza:`);
             reasons.push(`  • Media: ${minDozens.percentage.toFixed(1)}%`);
             reasons.push(`  • A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`);

@@ -16,17 +16,17 @@
                     button-placement="both"
                     placeholder="Prima Dozzina"
                   />
-                  <n-p><strong>2° dozzina %</strong></n-p>
-                  <n-input-number
-                    v-model:value="stats50.dozens.second"
-                    button-placement="both"
-                    placeholder="Seconda Dozzina"
-                  />
-                </div>
-                <div>
                   <n-p><strong>3° dozzina %</strong></n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.third"
+                    button-placement="both"
+                    placeholder="Terza Dozzina"
+                  />
+                </div>
+                <div>
+                  <n-p><strong>2° dozzina %</strong></n-p>
+                  <n-input-number
+                    v-model:value="stats50.dozens.second"
                     button-placement="both"
                     placeholder="Terza Dozzina"
                   />
@@ -62,19 +62,19 @@
                     button-placement="both"
                     placeholder="Prima Dozzina"
                   />
-                  <n-p><strong>2° dozzina %</strong></n-p>
-                  <n-input-number
-                    v-model:value="stats500.dozens.second"
-                    button-placement="both"
-                    placeholder="Seconda Dozzina"
-                  />
-                </div>
-                <div>
                   <n-p><strong>3° dozzina %</strong></n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.third"
                     button-placement="both"
                     placeholder="Terza Dozzina"
+                  />
+                </div>
+                <div>
+                  <n-p><strong>2° dozzina %</strong></n-p>
+                  <n-input-number
+                    v-model:value="stats500.dozens.second"
+                    button-placement="both"
+                    placeholder="Seconda Dozzina"
                   />
                   <n-p><strong>Zona ZERO %</strong></n-p>
                   <n-input-number

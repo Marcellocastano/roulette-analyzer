@@ -74,12 +74,12 @@ const userSchema = new mongoose.Schema({
 // Indici
 userSchema.index({ 'subscription.endDate': 1 });
 
-// Hash password prima del salvataggio
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   
   try {
-    this.password = await bcrypt.hash(this.password, 12);
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error) {
     next(error);
@@ -88,7 +88,13 @@ userSchema.pre('save', async function(next) {
 
 // Metodo per verificare la password
 userSchema.methods.verifyPassword = async function(candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+  try {
+    const isValid = await bcrypt.compare(candidatePassword, this.password);
+    return isValid;
+  } catch (error) {
+    console.error('Error verifying password:', error);
+    return false;
+  }
 };
 
 // Metodo per verificare se l'abbonamento è attivo

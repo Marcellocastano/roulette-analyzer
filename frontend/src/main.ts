@@ -41,7 +41,10 @@ import {
   NCollapse,
   NCollapseItem,
   NTag,
-  NAlert
+  NAlert,
+  NStep,
+  NSteps,
+  NImage
 } from 'naive-ui'
 
 import './style.css'
@@ -80,7 +83,10 @@ const naive = create({
     NCollapse,
     NCollapseItem,
     NTag,
-    NAlert
+    NAlert,
+    NStep,
+    NSteps,
+    NImage
   ],
 })
 

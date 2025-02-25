@@ -126,13 +126,11 @@ const polarToCartesian = (centerX: number, centerY: number, radius: number, angl
 
 <style scoped>
 .roulette-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  aspect-ratio: 1;
+  width: 85%;
   max-width: min(100%, 500px);
-  max-height: min(100%, 500px);
-  margin: 0 auto;
+  background: #3a3a3a;
+  border-radius: 16rem;
+  padding: 5px;
 }
 
 .roulette-wheel {
@@ -146,8 +144,8 @@ const polarToCartesian = (centerX: number, centerY: number, radius: number, angl
 
 .outer-rim {
   fill: none;
-  stroke: #cfb53b;
-  stroke-width: 3;
+  stroke: #ffb707;
+  stroke-width: 10px;
 }
 
 .sector {
@@ -182,20 +180,20 @@ const polarToCartesian = (centerX: number, centerY: number, radius: number, angl
 }
 
 .center-circle {
-  fill: radial-gradient(#8b4513, #4a2500);
-  stroke: #cfb53b;
-  stroke-width: 2;
+  fill: #2b2b2b;
+  stroke: #720909;
+  stroke-width: 4;
 }
 
 .spoke {
-  stroke: #cfb53b;
-  stroke-width: 2;
+  stroke: #ffb707;
+  stroke-width: 4;
 }
 
 .inner-circle {
-  fill: #cfb53b;
-  stroke: #b8860b;
-  stroke-width: 1;
+  fill: #720909;
+  stroke: #ffb707;
+  stroke-width: 2px;
 }
 
 /* Effetto sfumato per i settori */

@@ -41,13 +41,6 @@ body {
     color 0.3s ease;
 }
 
-#app {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .app-container {
   flex: 1;
   width: 100%;
@@ -71,7 +64,7 @@ body {
 }
 
 .app-wrapper {
-  padding: 80px 40px 0;
+  padding: 0px 40px;
   transition: all 0.3s ease;
 
   &.sidebar-collapsed {

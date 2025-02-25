@@ -35,6 +35,7 @@ const initialStatsSchema = new mongoose.Schema({
     increasePercentage: { type: Number, required: true },
   }],
   dozenDown: { type: Number, min: 1, max: 3 },  // 1, 2 o 3
+  dozenUp: { type: Number, min: 1, max: 3 },  // 1, 2 o 3
   analysis: {
     tableStatus: {
       type: String,

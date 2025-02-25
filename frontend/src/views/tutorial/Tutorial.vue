@@ -1,231 +1,117 @@
 <template>
   <div class="tutorial-container">
+    <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-content">
-        <h1 class="creative-title">Come usare il software</h1>
+        <n-h1 class="hero-title">Come Usare il Software</n-h1>
         <p class="hero-description">
-          Il nostro software di analisi statistica ti permette di analizzare i pattern della
-          roulette e identificare le migliori opportunità di gioco, basandosi su dati storici e
-          analisi in tempo reale.
+          Ricorda che questo non è un generatore di numeri magici, ma uno strumento che grazie allo studio delle statistiche ti permette di giocare con un metodo testato e consolidato.
         </p>
       </div>
     </section>
-    <glass-card title="Il mio titolo" image-position="right" @action="handleAction">
-      <template #content>
-        <p>Questo è il contenuto della card...</p>
-      </template>
-    </glass-card>
 
-    <section class="services-section">
-      <h2 class="section-title">COSA <span class="highlight">FACCIAMO</span>?</h2>
-      <p class="section-description">
-        Forniamo strumenti avanzati per l'analisi statistica del gioco della roulette, permettendoti
-        di prendere decisioni informate basate sui dati.
-      </p>
+    <!-- Two Column Cards -->
+    <div class="text-center mb-6">
+      <n-h2 class="mb-0">Concetti Base</n-h2>
+      <n-p class="mb-0 fontSizeHuge">A grandi linee il concetto fondamentale su cui si basa la strategia è una serie di fattori messi insieme, tra cui:</n-p>
+    </div>
+    <section class="three-column-section">
+      <n-card class="feature-card">
+        <n-h3>Legge dei grandi numeri</n-h3>
+        <n-p>Nel contesto della roulette, questo significa che, su un numero molto alto di spin, <strong>le probabilità di uscita dei vari numeri e delle diverse zone del tavolo <u>tenderanno ad equilibrarsi</u></strong>. Questo ovviamente non significa andare a constatare la dozzina "in difetto" e puntare su quei numeri. È importante sottolineare che la legge dei grandi numeri si applica solo su un numero elevato di osservazioni. Pertanto, la strategia non garantisce la vincita, ma aumenta le probabilità di successo se applicata correttamente e con una <strong>gestione oculata del budget</strong></n-p>
+      </n-card>
+      <n-card class="feature-card">
+        <n-h3>Zona Zero</n-h3>
+        <n-p>La strategia è sviluppata per funzionare al meglio sfruttando la zona ZERO della roulette, cioè quei numeri che vanno da 12 al 15. Se la percentuale di uscita della zona zero è <strong>inferiore alla media (20%)</strong> sia a 50 che a 500 spin, si considera che la zona sia "<strong>in difetto</strong>". Questo suggerisce che la zona è in ritardo e che potrebbe essere il momento di puntare sui suoi numeri. Il ritardo nella zona zero indica che i numeri in quella zona non stanno uscendo con la frequenza attesa, creando uno squilibrio rispetto alla legge dei grandi numeri</n-p>
+      </n-card>
+      <n-card class="feature-card">
+        <n-h3>Crescita dei numeri della zona Zero</n-h3>
+        <n-p>Si confrontano le statistiche a 50 spin con quelle a 500 spin per individuare i numeri che mostrano una <strong>tendenza positiva</strong>. I numeri in crescita sono quelli che a 50 spin, mostrano un <strong>aumento della frequenza di uscita</strong> se si considera un periodo più ampio, fino a 500 spin. Questi numeri sono considerati promettenti perchè il loro aumento suggerisce che stanno iniziando a "recuperare" il ritardo e che potrebbero diventare più frequenti nei prossimi spin</n-p>
+      </n-card>
+    </section>
 
-      <div class="services-grid">
-        <div class="service-card">
-          <n-icon size="48" class="service-icon">
-            <ChartLineUpIcon />
-          </n-icon>
-          <h3>Analisi Statistica</h3>
-          <p>
-            Monitoriamo le tendenze delle dozzine e delle zone per identificare opportunità di
-            gioco.
-          </p>
+    <div class="text-center mb-6">
+      <n-h2 class="mb-0">Inserimento delle statistiche</n-h2>
+    </div>
+    <section class="steps-section">
+      <div class="two-column-section">
+        <div class="column">
+          <img src="/assets/images/statistics/dozens.png" alt="Dozens statistics" />
+          <n-p>Le input riguardanti le dozzine vanno popolate inserendo le percentuali presenti nelle statistiche del tavolo. Invece per quanto riguarda l'input Zona ZERO % va presa la percentuale della sezione "ZERO" e non quella dove c'è il numero 0. Sia a 50 che a 500 spin. Nell'immagin di esempio le statistiche sono a 50 spin, per visualizzare le statistiche a 500 spin basta fare lo slide verso destra.</n-p>
+          <img src="/assets/images/statistics/dozens-statistics-50.png" alt="Dozens statistics" />
         </div>
-
-        <div class="service-card">
-          <n-icon size="48" class="service-icon">
-            <DatabaseIcon />
-          </n-icon>
-          <h3>Gestione Dati</h3>
-          <p>Tracciamo e analizziamo i dati storici per prevedere tendenze future.</p>
-        </div>
-
-        <div class="service-card">
-          <n-icon size="48" class="service-icon">
-            <ChartBarIcon />
-          </n-icon>
-          <h3>Monitoraggio Real-time</h3>
-          <p>Visualizza statistiche in tempo reale e ricevi suggerimenti immediati.</p>
-        </div>
-
-        <div class="service-card">
-          <n-icon size="48" class="service-icon">
-            <BrainIcon />
-          </n-icon>
-          <h3>Strategia Intelligente</h3>
-          <p>Suggerimenti basati su algoritmi avanzati e analisi dei pattern.</p>
+        <div class="column">
+          <img src="/assets/images/statistics/wheel-statistics.png" alt="Wheel statistics" />
+          <n-p>La mezza ruota tenta di replicare la ruota delle statistiche del tavolo da gioco. In questa fase bisogna regolare il riempimento dei coni in modo che risultino simili a quelle del tavolo. Le due immagini spiegano la pratica su come regolare il riempimento dei coni. Anche in questo caso facendo lo slide verso destra, si va ai 500 spin e si procede nuovamente alle regolazione dei coni tentando di replicare il più fedelmente possibile le statistiche del tavolo.</n-p>
+          <img src="/assets/images/statistics/increase-numbers-50.png" alt="Wheel statistics" />
         </div>
       </div>
     </section>
-
-    <section class="about-section">
-      <h2 class="section-title">CHI <span class="highlight">SIAMO</span>?</h2>
-      <div class="about-content">
-        <div class="about-image">
-          <n-image
-            src="/images/about-image.jpg"
-            :preview-disabled="true"
-            object-fit="cover"
-            class="glow-effect"
-          />
-        </div>
-        <div class="about-features">
-          <div class="feature">
-            <n-icon size="32" class="feature-icon">
-              <CodeIcon />
-            </n-icon>
-            <div class="feature-content">
-              <h3>Codice Pulito</h3>
-              <p>Software ottimizzato per prestazioni eccellenti</p>
-            </div>
-          </div>
-          <div class="feature">
-            <n-icon size="32" class="feature-icon">
-              <BrushIcon />
-            </n-icon>
-            <div class="feature-content">
-              <h3>Design Moderno</h3>
-              <p>Interfaccia intuitiva e piacevole da utilizzare</p>
-            </div>
-          </div>
-        </div>
+    <!-- Two Column Section -->
+    <section class="two-column-section">
+      <div class="column">
+        <n-h2>Statistiche</n-h2>
+        <n-p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-p>
+      </div>
+      <div class="column">
+        <n-h2>Andamento dei numeri</n-h2>
+        <n-p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-p>
       </div>
     </section>
 
-    <n-card>
-      <n-text>
-        La strategia si basa sulla legge dei grandi numeri: nel lungo periodo, i valori percentuali
-        delle dozzine e delle zone della roulette tendono ad allinearsi a una media. Lo scostamento
-        da questa media rappresenta un'opportunità di puntata.
-      </n-text>
-      <div class="tutorial-concept">
-        <n-alert type="info" title="Concetto Chiave">
-          Una "dozzina sofferente" o "zona in sofferenza" è un'area di gioco con percentuali
-          inferiori alla soglia attesa, che ha più probabilità di vedere i suoi numeri uscire nel
-          breve periodo.
-        </n-alert>
+    <!-- Full Width Key Concept -->
+    <section class="key-concept-section">
+      <n-card class="concept-card">
+        <n-h2>Consigli di gioco e osservazioni</n-h2>
+        <n-p>
+        </n-p>
+      </n-card>
+    </section>
+
+    <!-- Image and Content Section -->
+    <section class="image-content-section">
+      <div class="image-container">
+        <n-image src="placeholder.jpg" object-fit="cover" />
       </div>
-    </n-card>
+      <div class="content">
+        <n-h2>Strategia di Base</n-h2>
+        <n-p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-p>
+      </div>
+    </section>
 
-    <n-card>
-      <n-space vertical>
-        <n-text> Il monitoraggio avviene su due livelli temporali: </n-text>
-        <n-list>
-          <n-list-item>
-            <n-tag type="success" round>500 spin</n-tag>
-            <span style="margin-left: 8px"
-              >Trend di lungo periodo (soglia di sofferenza: 27-28%)</span
-            >
-          </n-list-item>
-          <n-list-item>
-            <n-tag type="warning" round>50 spin</n-tag>
-            <span style="margin-left: 8px">Andamento recente e conferma del trend</span>
-          </n-list-item>
-        </n-list>
-      </n-space>
-    </n-card>
-
-    <n-card>
+    <!-- Full Width Steps -->
+    <section class="steps-section">
       <n-steps vertical>
-        <n-step
-          title="Fase 1: Osservazione"
-          description="Iniziare con puntate contenute per testare il tavolo"
-          status="process"
-        />
-        <n-step
-          title="Fase 2: Conferma"
-          description="Aumentare gradualmente le puntate se la tendenza si conferma"
-          status="process"
-        />
-        <n-step
-          title="Fase 3: Gestione"
-          description="Mantenere il controllo del bankroll e definire limiti chiari"
-          status="process"
-        />
+        <n-step title="Passo 1" description="Lorem ipsum dolor sit amet" />
+        <n-step title="Passo 2" description="Consectetur adipiscing elit" />
+        <n-step title="Passo 3" description="Sed do eiusmod tempor" />
       </n-steps>
-    </n-card>
+    </section>
 
-    <n-card>
-      <n-space vertical>
-        <n-statistic label="Budget Iniziale Consigliato">
-          <n-number-animation
-            ref="numberAnimation"
-            :from="0"
-            :to="300"
-            :duration="3000"
-            :active="true"
-          >
-            <template #prefix>€</template>
-          </n-number-animation>
-        </n-statistic>
-        <n-collapse>
-          <n-collapse-item title="Regole Fondamentali" name="1">
-            <n-list>
-              <n-list-item>✓ Stabilire un budget iniziale fisso</n-list-item>
-              <n-list-item>✓ Incrementare le puntate solo in trend favorevole</n-list-item>
-              <n-list-item>✓ Definire obiettivi di vincita realistici</n-list-item>
-              <n-list-item>✓ Saper interrompere al momento giusto</n-list-item>
-            </n-list>
-          </n-collapse-item>
-        </n-collapse>
-      </n-space>
-    </n-card>
+    <!-- Image and Content Reversed -->
+    <section class="image-content-section reverse">
+      <div class="content">
+        <n-h2>Analisi Avanzata</n-h2>
+        <n-p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-p>
+      </div>
+      <div class="image-container">
+        <n-image src="placeholder.jpg" object-fit="cover" />
+      </div>
+    </section>
 
-    <n-card class="tutorial-footer">
-      <template #header>
-        <n-text type="warning">Nota Importante</n-text>
-      </template>
-      <n-text>
-        Questo metodo non è una formula magica, ma un modello statistico che migliora le probabilità
-        mantenendo un atteggiamento disciplinato. La fortuna rimane una componente ineliminabile del
-        gioco.
-      </n-text>
-    </n-card>
+    <!-- Final Call to Action -->
+    <section class="cta-section">
+      <n-card class="cta-card">
+        <n-h2>Pronto per Iniziare?</n-h2>
+        <n-p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</n-p>
+        <n-button type="primary" size="large">Inizia Ora</n-button>
+      </n-card>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  NCard,
-  NTimeline,
-  NTimelineItem,
-  NText,
-  NGradientText,
-  NSpace,
-  NList,
-  NListItem,
-  NTag,
-  NAlert,
-  NSteps,
-  NStep,
-  NStatistic,
-  NNumberAnimation,
-  NCollapse,
-  NCollapseItem,
-  NImage,
-  NIcon,
-} from 'naive-ui'
-import {
-  Database as DatabaseIcon,
-  ChartBar as ChartBarIcon,
-  Code as CodeIcon,
-  Brush as BrushIcon,
-} from '@vicons/tabler'
-import GlassCard from '../../components/Card/Card.vue'
-
-const handleAction = (action: string) => {
-  switch (action) {
-    case 'edit':
-      console.log('edit')
-      break
-    case 'delete':
-      console.log('delete')
-      break
-  }
-}
+import { NCard, NButton, NSteps, NStep, NImage } from 'naive-ui'
 </script>
 
 <style lang="scss" scoped>
@@ -233,144 +119,139 @@ const handleAction = (action: string) => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  color: #fff;
 }
 
+// Hero Section
 .hero-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  margin-bottom: 6rem;
-}
+  text-align: center;
+  margin-bottom: 4rem;
 
-.creative-title,
-.creative-subtitle {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin: 0;
-  line-height: 1.2;
-}
+  .hero-title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
 
-.highlight {
-  color: #0ff0b3;
-}
-
-.hero-description {
-  margin-top: 2rem;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #a0a0a0;
-}
-
-.hero-image {
-  position: relative;
-
-  .glow-effect {
-    border-radius: 1rem;
-    box-shadow: 0 0 30px rgba(0, 255, 179, 0.3);
+  .hero-description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--text-color-light);
   }
 }
 
-.services-section {
-  margin-bottom: 6rem;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.section-description {
-  color: #a0a0a0;
-  margin-bottom: 3rem;
-}
-
-.services-grid {
+// Two Column Layout
+.two-column-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  margin-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+.three-column-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+// Key Concept Section
+.key-concept-section {
+  margin-bottom: 4rem;
+
+  .concept-card {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+  }
 }
 
-.service-card {
+// Image and Content Section
+.image-content-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  margin-bottom: 4rem;
+  align-items: center;
+
+  &.reverse {
+    direction: rtl;
+    .content {
+      direction: ltr;
+    }
+    .image-container {
+      direction: ltr;
+    }
+  }
+
+  .image-container {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .content {
+    h2 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    &.reverse {
+      direction: ltr;
+    }
+  }
+}
+
+// Feature Cards
+.feature-card {
+  height: 100%;
   background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border-radius: 1rem;
   transition: transform 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
   }
 
-  .service-icon {
-    color: #0ff0b3;
-    margin-bottom: 1rem;
-  }
-
   h3 {
-    margin: 1rem 0;
-    font-size: 1.3rem;
+    font-size: 1.23rem;
   }
-
   p {
-    color: #a0a0a0;
-    line-height: 1.5;
+    font-size: 1rem;
   }
 }
 
-.about-section {
-  .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
-
-  .about-image {
-    .glow-effect {
-      border-radius: 1rem;
-      box-shadow: 0 0 30px rgba(0, 255, 179, 0.3);
-    }
-  }
-
-  .feature {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 2rem;
-
-    .feature-icon {
-      color: #0ff0b3;
-    }
-
-    .feature-content {
-      h3 {
-        margin: 0 0 0.5rem 0;
-      }
-
-      p {
-        color: #a0a0a0;
-        margin: 0;
-      }
-    }
-  }
+// Steps Section
+.steps-section {
+  margin-bottom: 4rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
 }
 
-@media (max-width: 768px) {
-  .hero-section,
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+// CTA Section
+.cta-section {
+  text-align: center;
+  margin-bottom: 4rem;
 
-  .creative-title,
-  .creative-subtitle {
-    font-size: 2.5rem;
-  }
+  .cta-card {
+    padding: 3rem;
+    background: linear-gradient(45deg, var(--primary-color-dark), var(--secondary-color-dark));
 
-  .services-grid {
-    grid-template-columns: 1fr;
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 2rem;
+    }
   }
 }
 </style>

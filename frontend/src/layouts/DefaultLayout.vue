@@ -20,8 +20,8 @@ import Navbar from '@/components/Navbar/Navbar.vue'
 
 .main-content {
   flex: 1;
-  margin-top: 30px;
-  padding: 2rem;
+  margin-top: 50px;
+  padding: 4rem 1rem;
   background-color: var(--bg-color);
   min-height: calc(100vh - 85px);
   width: 100%;

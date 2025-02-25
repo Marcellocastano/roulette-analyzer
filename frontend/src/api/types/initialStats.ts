@@ -36,6 +36,7 @@ export interface InitialStatsResponse {
   stats500: SpinStats
   zeroZoneNumbers: ZeroZoneNumber[]
   dozenDown: number
+  dozenUp: number
   analysis: Analysis
   _id: string
   timestamp: string

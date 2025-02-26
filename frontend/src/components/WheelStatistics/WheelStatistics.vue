@@ -68,19 +68,23 @@ const currentCone = ref(-1)
 const lastUpdatedCone = ref<number | null>(null)
 
 // Inizializza i valori dei coni quando cambiano gli initialValues
-watch(() => props.initialValues, (newValues) => {
-  if (newValues) {
-    rouletteNumbers.forEach((number, index) => {
-      coneValues[index] = newValues[number] || 0
-    })
-  }
-}, { immediate: true })
+watch(
+  () => props.initialValues,
+  newValues => {
+    if (newValues) {
+      rouletteNumbers.forEach((number, index) => {
+        coneValues[index] = newValues[number] || 0
+      })
+    }
+  },
+  { immediate: true }
+)
 
 // Funzione per aggiornare il valore di un cono
 const updateConeValue = (index: number, value: number) => {
   coneValues[index] = value
   lastUpdatedCone.value = index
-  
+
   // Emetti l'evento con i valori aggiornati
   const statistics: InitialValues = {}
   rouletteNumbers.forEach((number, i) => {

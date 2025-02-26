@@ -37,7 +37,12 @@
       <template #content>
         <n-form ref="formRef" :model="formValue" :rules="rules">
           <n-form-item path="email" label="Email">
-            <n-input v-model:value="formValue.email" size="large" round placeholder="Inserisci email" />
+            <n-input
+              v-model:value="formValue.email"
+              size="large"
+              round
+              placeholder="Inserisci email"
+            />
           </n-form-item>
           <n-form-item path="password" label="Password">
             <n-input
@@ -146,7 +151,7 @@ const handleSubmit = async () => {
 
 .login-card {
   width: 100%;
-  max-width: 450px!important;
+  max-width: 450px !important;
   margin: 0 20px;
 }
 

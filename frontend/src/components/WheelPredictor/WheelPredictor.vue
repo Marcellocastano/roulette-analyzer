@@ -1,69 +1,85 @@
 <template>
-  <div class="roulette-container">
-    <svg viewBox="0 0 500 500" class="roulette-wheel">
-      <!-- Bordo esterno -->
-      <circle cx="250" cy="250" r="240" class="outer-rim" />
+  <div class="flex w-full flex-col items-center">
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color special"></div>
+        <span>Special</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color primary"></div>
+        <span>Primary</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color secondary"></div>
+        <span>Secondary</span>
+      </div>
+    </div>
+    <div class="roulette-container">
+      <svg viewBox="0 0 500 500" class="roulette-wheel">
+        <!-- Bordo esterno -->
+        <circle cx="250" cy="250" r="240" class="outer-rim" />
 
-      <!-- Settori della ruota -->
-      <g id="sectors">
-        <path
-          v-for="(number, index) in numbers"
-          :key="number"
-          :d="createSectorPath(index)"
-          :class="[
-            'sector',
-            `number-${number}`,
-            { green: number === 0 },
-            { 'highlighted-primary': primaryPredictedNumbers.includes(number) },
-            { 'highlighted-secondary': secondaryPredictedNumbers.includes(number) },
-            { 'highlighted-special': specialPredictedNumbers.includes(number) },
-          ]"
-        />
-      </g>
-
-      <!-- Numeri -->
-      <g id="numbers">
-        <text
-          v-for="(number, index) in numbers"
-          :key="number"
-          :transform="getNumberPosition(index)"
-          :class="[
-            'number-text',
-            {
-              'highlighted-text':
-                primaryPredictedNumbers.includes(number) ||
-                secondaryPredictedNumbers.includes(number) ||
-                specialPredictedNumbers.includes(number),
-            },
-          ]"
-          text-anchor="middle"
-          alignment-baseline="middle"
-        >
-          {{ number }}
-        </text>
-      </g>
-
-      <!-- Centro decorativo -->
-      <g id="center-decoration">
-        <!-- Cerchio centrale -->
-        <circle cx="250" cy="250" r="100" class="center-circle" />
-        <!-- Decorazione raggiata -->
-        <g id="spokes">
-          <line
-            v-for="i in 8"
-            :key="i"
-            :transform="`rotate(${i * 45} 250 250)`"
-            x1="250"
-            y1="150"
-            x2="250"
-            y2="350"
-            class="spoke"
+        <!-- Settori della ruota -->
+        <g id="sectors">
+          <path
+            v-for="(number, index) in numbers"
+            :key="number"
+            :d="createSectorPath(index)"
+            :class="[
+              'sector',
+              `number-${number}`,
+              { green: number === 0 },
+              { 'highlighted-primary': primaryPredictedNumbers.includes(number) },
+              { 'highlighted-secondary': secondaryPredictedNumbers.includes(number) },
+              { 'highlighted-special': specialPredictedNumbers.includes(number) },
+            ]"
           />
         </g>
-        <!-- Cerchio interno dorato -->
-        <circle cx="250" cy="250" r="30" class="inner-circle" />
-      </g>
-    </svg>
+
+        <!-- Numeri -->
+        <g id="numbers">
+          <text
+            v-for="(number, index) in numbers"
+            :key="number"
+            :transform="getNumberPosition(index)"
+            :class="[
+              'number-text',
+              {
+                'highlighted-text':
+                  primaryPredictedNumbers.includes(number) ||
+                  secondaryPredictedNumbers.includes(number) ||
+                  specialPredictedNumbers.includes(number),
+              },
+            ]"
+            text-anchor="middle"
+            alignment-baseline="middle"
+          >
+            {{ number }}
+          </text>
+        </g>
+
+        <!-- Centro decorativo -->
+        <g id="center-decoration">
+          <!-- Cerchio centrale -->
+          <circle cx="250" cy="250" r="100" class="center-circle" />
+          <!-- Decorazione raggiata -->
+          <g id="spokes">
+            <line
+              v-for="i in 8"
+              :key="i"
+              :transform="`rotate(${i * 45} 250 250)`"
+              x1="250"
+              y1="150"
+              x2="250"
+              y2="350"
+              class="spoke"
+            />
+          </g>
+          <!-- Cerchio interno dorato -->
+          <circle cx="250" cy="250" r="30" class="inner-circle" />
+        </g>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -205,5 +221,39 @@ const polarToCartesian = (centerX: number, centerY: number, radius: number, angl
 .sector:hover {
   opacity: 0.9;
   transition: opacity 0.3s ease;
+}
+
+/* Legenda */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: min(20px, 3vw);
+  margin-top: min(10px, 2vw);
+  margin-bottom: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  border: 1px solid white;
+}
+
+.legend-color.special {
+  background-color: #f73f2f;
+}
+
+.legend-color.primary {
+  background-color: #f78d60;
+}
+
+.legend-color.secondary {
+  background-color: #dec958;
 }
 </style>

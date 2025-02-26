@@ -39,9 +39,9 @@
                 </div>
               </div>
               <!-- Raccolta numeri con WheelStatistics -->
-              <WheelStatistics 
+              <WheelStatistics
                 :initial-values="stats50.numbers"
-                @update:statistics="update50Statistics" 
+                @update:statistics="update50Statistics"
               />
             </div>
           </n-form-item>
@@ -85,9 +85,9 @@
                 </div>
               </div>
               <!-- Raccolta numeri con WheelStatistics -->
-              <WheelStatistics 
+              <WheelStatistics
                 :initial-values="stats500.numbers"
-                @update:statistics="update500Statistics" 
+                @update:statistics="update500Statistics"
               />
             </div>
           </n-form-item>
@@ -99,12 +99,7 @@
     <n-button type="primary" @click="sendData">Invia Dati</n-button>
   </div>
 
-  <n-modal
-    v-model:show="showErrorModal"
-    preset="dialog"
-    :mask-closable="false"
-    :closable="false"
-  >
+  <n-modal v-model:show="showErrorModal" preset="dialog" :mask-closable="false" :closable="false">
     <n-result
       status="error"
       title="Statistiche Non Raccomandate"
@@ -125,7 +120,7 @@
     :negativeText="'Cambia Tavolo'"
     @positive-click="handleProceed"
     @negative-click="handleReset"
-    >
+  >
     <n-result
       status="warning"
       title="Tavolo Borderline"
@@ -155,7 +150,7 @@ const isInitialLoad = ref(true)
 // Osserva i cambiamenti dell'analisi per mostrare/nascondere le modali
 watch(
   () => props.analysis,
-  (newAnalysis) => {
+  newAnalysis => {
     if (newAnalysis && !isInitialLoad.value) {
       hasSubmittedStats.value = true
       const status = newAnalysis.analysis.tableStatus

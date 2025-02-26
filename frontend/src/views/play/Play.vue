@@ -16,7 +16,8 @@
         </div>
       </template>
       <template #default>
-        È stata rilevata una sessione di analisi attiva. Puoi continuare da dove ti eri fermato o iniziare una nuova sessione.
+        È stata rilevata una sessione di analisi attiva. Puoi continuare da dove ti eri fermato o
+        iniziare una nuova sessione.
       </template>
     </n-alert>
 
@@ -30,22 +31,25 @@
         />
       </n-grid-item>
       <n-grid-item v-if="step === 2">
-        <div class="board-container">
+        <div class="board-container gap-5">
           <div class="flex mb-4 justify-between w-full items-center">
             <n-h2 class="mb-0">Inserisci i numeri</n-h2>
-            <n-button type="primary" size="small" @click="handleReset">
-              Resetta
-            </n-button>
+            <n-button type="primary" size="small" @click="handleReset"> Resetta </n-button>
           </div>
-          <Board 
-          :spins="spins"
-          @number-selected="handleNumberSelection"
-          @delete-spin="handleSpinDelete"
+          <Board
+            :spins="spins"
+            @number-selected="handleNumberSelection"
+            @delete-spin="handleSpinDelete"
           />
           <WheelPredictor
-          :primary-predicted-numbers="primaryPredictedNumbers"
-          :secondary-predicted-numbers="secondaryPredictedNumbers"
-          :special-predicted-numbers="specialPredictedNumbers"
+            :primary-predicted-numbers="primaryPredictedNumbers"
+            :secondary-predicted-numbers="secondaryPredictedNumbers"
+            :special-predicted-numbers="specialPredictedNumbers"
+          />
+          <BoardPredictor
+            :primary-predicted-numbers="primaryPredictedNumbers"
+            :secondary-predicted-numbers="secondaryPredictedNumbers"
+            :special-predicted-numbers="specialPredictedNumbers"
           />
         </div>
         <TableAnalysis
@@ -67,8 +71,8 @@ import InitialStats from '@/components/InitialStats/InitialStats.vue'
 import TableAnalysis from '@/components/TableAnalysis/TableAnalysis.vue'
 import type { InitialStatsPayload, InitialStatsResponse } from '@/api/types/initialStats'
 import type { Spin } from '@/types/spin'
-import type { ApiResponse } from '@/api/user'
 import { initialStatsApi, spinsApi, statsApi } from '@/api'
+import BoardPredictor from '@/components/BoardPredictor/BoardPredictor.vue'
 
 const primaryPredictedNumbers = ref<number[]>([])
 const secondaryPredictedNumbers = ref<number[]>([])
@@ -102,8 +106,8 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
       }
     }
   } catch (error) {
-    console.error('Errore durante l\'aggiornamento delle statistiche:', error)
-    message.error('Errore durante l\'aggiornamento delle statistiche')
+    console.error("Errore durante l'aggiornamento delle statistiche:", error)
+    message.error("Errore durante l'aggiornamento delle statistiche")
   }
 }
 
@@ -123,10 +127,13 @@ const handleNumberSelection = async (number: number) => {
   try {
     const { data: response } = await spinsApi.addSpin({ number })
     // Aggiungiamo il nuovo spin all'inizio dell'array usando _id e number dalla response
-    spins.value = [{ 
-      _id: response.data._id, 
-      number: response.data.number 
-    }, ...spins.value].slice(0, 5)
+    spins.value = [
+      {
+        _id: response.data._id,
+        number: response.data.number,
+      },
+      ...spins.value,
+    ].slice(0, 5)
     await getPredictions()
   } catch (error) {
     console.error('Errore nel salvataggio dello spin:', error)
@@ -145,8 +152,8 @@ const handleSpinDelete = async (spinId: string) => {
     spins.value = spins.value.filter(spin => spin._id !== spinId)
     await getPredictions()
   } catch (error) {
-    console.error('Errore durante l\'eliminazione dello spin:', error)
-    message.error('Errore durante l\'eliminazione dello spin')
+    console.error("Errore durante l'eliminazione dello spin:", error)
+    message.error("Errore durante l'eliminazione dello spin")
   }
 }
 
@@ -189,7 +196,7 @@ const goToActiveSession = async () => {
 }
 
 // Watch per gestire hasActiveSession quando cambia lo step
-watch(step, (newStep) => {
+watch(step, newStep => {
   if (newStep === 1) {
     hasActiveSession.value = false
   }

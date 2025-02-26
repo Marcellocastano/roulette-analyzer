@@ -44,7 +44,7 @@ import {
   NAlert,
   NStep,
   NSteps,
-  NImage
+  NImage,
 } from 'naive-ui'
 
 import './style.css'
@@ -86,7 +86,7 @@ const naive = create({
     NAlert,
     NStep,
     NSteps,
-    NImage
+    NImage,
   ],
 })
 

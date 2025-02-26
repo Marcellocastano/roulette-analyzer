@@ -19,7 +19,7 @@ const themes = {
       textColor1: 'var(--text-color-dark)',
       textColor2: 'var(--text-color-dark)',
       textColor3: 'var(--text-color-dark)',
-      fontSize: '16px'
+      fontSize: '16px',
     },
   },
 }

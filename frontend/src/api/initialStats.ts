@@ -1,5 +1,9 @@
 import apiClient from './config'
-import type { InitialStatsPayload, InitialStatsApiResponse, InitialStatsResponse } from './types/initialStats'
+import type {
+  InitialStatsPayload,
+  InitialStatsApiResponse,
+  InitialStatsResponse,
+} from './types/initialStats'
 import type { ApiResponse } from './user'
 
 export const initialStatsApi = {

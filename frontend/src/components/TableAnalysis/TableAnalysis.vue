@@ -20,7 +20,7 @@
               </div>
             </template>
           </Card>
-      
+
           <Card class="table-analysis" title="Motivi Favorevoli">
             <template #content>
               <div class="section">
@@ -38,7 +38,7 @@
               </div>
             </template>
           </Card>
-      
+
           <Card class="table-analysis" title="Numeri in Crescita">
             <template #content>
               <div class="section">
@@ -88,8 +88,8 @@ const props = defineProps<Props>()
 const reasonDescriptions: { [key: string]: string } = {
   DOZEN_SUFFERING: 'Dozzina in forte sofferenza',
   ZERO_ZONE_SUFFERING: 'Zona zero in sofferenza',
-  NUMBERS_INCREASING: 'Numeri in crescita nella zona di interesse',
   BALANCED_DISTRIBUTION: 'Distribuzione bilanciata dei numeri',
+  INCREASING_NUMBERS: 'Numeri in crescita nella zona zero',
 }
 
 // Funzione per ottenere la descrizione di un reasonCode

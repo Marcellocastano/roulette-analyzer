@@ -15,11 +15,7 @@
             :class="{ active: isRouteActive(route.path) }"
           >
             <component :is="route.icon" class="nav-icon" />
-            <n-gradient-text
-              v-if="route.name === 'Play'"
-              :size="17"
-              type="error"
-            >
+            <n-gradient-text v-if="route.name === 'Play'" :size="17" type="error">
               <strong>Spin Lab</strong>
             </n-gradient-text>
             <span v-else>{{ route.name }}</span>
@@ -46,8 +42,8 @@
     </div>
 
     <!-- Menu Mobile -->
-    <div 
-      v-show="isMobileMenuOpen" 
+    <div
+      v-show="isMobileMenuOpen"
       class="mobile-menu md:hidden"
       :class="{ 'mobile-menu-open': isMobileMenuOpen }"
     >
@@ -60,11 +56,7 @@
             @click="closeMobileMenu"
           >
             <component :is="route.icon" class="nav-icon" />
-            <n-gradient-text
-              v-if="route.name === 'Play'"
-              :size="18"
-              type="error"
-            >
+            <n-gradient-text v-if="route.name === 'Play'" :size="18" type="error">
               <strong>Spin Lab</strong>
             </n-gradient-text>
             <span v-else>{{ route.name }}</span>
@@ -240,7 +232,7 @@ const closeMobileMenu = () => {
       background-color: var(--primary-color);
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         background-color: transparent;
         bottom: 0px;
@@ -253,7 +245,7 @@ const closeMobileMenu = () => {
       }
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         background-color: transparent;
         bottom: 0px;
@@ -326,7 +318,8 @@ const closeMobileMenu = () => {
     }
 
     .active {
-      &::after, &::before {
+      &::after,
+      &::before {
         display: none;
       }
     }

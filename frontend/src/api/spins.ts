@@ -55,5 +55,5 @@ export const spinsApi = {
   // Ottiene le statistiche dei vicini dello zero
   getZeroNeighborsStats: () => {
     return apiClient.get<ApiResponse<any>>('/spins/stats/zero-neighbors')
-  }
+  },
 }

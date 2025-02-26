@@ -1,12 +1,12 @@
 <template>
   <div class="board-container">
-    <div v-if="spins.length > 0" class="history-container mb-4">
+    <div v-if="spins.length > 0" class="history-container">
       <div class="number-balls">
-        <div 
-          v-for="(spin, index) in spins" 
+        <div
+          v-for="(spin, index) in spins"
           :key="spin._id"
           class="number-ball"
-          :class="[getNumberColor(spin.number), { 'deletable': index === 0 }]"
+          :class="[getNumberColor(spin.number), { deletable: index === 0 }]"
           @click="index === 0 ? handleDelete(spin._id) : null"
         >
           {{ spin.number }}
@@ -14,9 +14,10 @@
       </div>
     </div>
 
-    <div class="roulette-board mb-8">
-      <div 
+    <div class="roulette-board">
+      <div
         class="number-cell zero"
+        :class="{ 'last-selected': spins.length > 0 && spins[0].number === 0 }"
         @click="handleNumberClick(0)"
       >
         0
@@ -24,7 +25,11 @@
       <div
         v-for="number in gridNumbers"
         :key="number"
-        :class="['number-cell', getNumberColor(number)]"
+        :class="[
+          'number-cell',
+          getNumberColor(number),
+          { 'last-selected': spins.length > 0 && spins[0].number === number },
+        ]"
         @click="handleNumberClick(number)"
       >
         {{ number }}
@@ -113,7 +118,7 @@ const handleDelete = (id: string) => {
 }
 
 .number-ball.red {
-  background-color: #DC3545;
+  background-color: #dc3545;
 }
 
 .number-ball.black {
@@ -152,7 +157,7 @@ const handleDelete = (id: string) => {
   grid-template-columns: min(60px, 8vw) repeat(12, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: min(3px, 1.5vw);
-  padding: min(20px, 3vw);
+  padding: min(12px, 3vw);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   box-sizing: border-box;
@@ -191,5 +196,11 @@ const handleDelete = (id: string) => {
 
 .number-cell:hover {
   opacity: 0.8;
+}
+
+.last-selected {
+  border: 3px solid var(--accent-color);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+  z-index: 1;
 }
 </style>

@@ -1,15 +1,13 @@
 <template>
-  <n-h1 class="mb-8">Statistiche iniziali</n-h1>
+  <n-h1 class="mb-8 text-center">Statistiche iniziali</n-h1>
   <div class="initial-stats">
     <Card title="Statistiche a 50 spin" class="statistics-card">
       <template #content>
         <n-form @submit.prevent="handleSubmit">
-          <!-- Statistiche per 50 spin -->
           <n-form-item>
             <div class="stats-container">
               <div class="stats-input">
                 <div>
-                  <!-- Dozzine per 50 spin -->
                   <n-p><strong>1° dozzina %</strong></n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.first"
@@ -38,7 +36,6 @@
                   />
                 </div>
               </div>
-              <!-- Raccolta numeri con WheelStatistics -->
               <WheelStatistics
                 :initial-values="stats50.numbers"
                 @update:statistics="update50Statistics"
@@ -55,7 +52,6 @@
             <div class="stats-container">
               <div class="stats-input">
                 <div>
-                  <!-- Dozzine per 500 spin -->
                   <n-p><strong>1° dozzina %</strong></n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.first"
@@ -84,7 +80,6 @@
                   />
                 </div>
               </div>
-              <!-- Raccolta numeri con WheelStatistics -->
               <WheelStatistics
                 :initial-values="stats500.numbers"
                 @update:statistics="update500Statistics"
@@ -95,7 +90,7 @@
       </template>
     </Card>
   </div>
-  <div>
+  <div class="text-center">
     <n-button type="primary" @click="sendData">Invia Dati</n-button>
   </div>
 
@@ -129,6 +124,21 @@
       o analizzare un altro tavolo."
     />
   </n-modal>
+
+  <n-modal
+    v-model:show="showRecommendedModal"
+    preset="dialog"
+    title="Condizioni Raccomandate"
+    :positiveText="'Procedi'"
+    @positive-click="handleProceed"
+  >
+    <n-result
+      status="success"
+      title="Tavolo Raccomandato"
+      size="large"
+      description="Le statistiche attuali mostrano condizioni favorevoli. Procedi sempre con attenzione, inizia con puntate basse per poi aumentarle in caso di vincita."
+    />
+  </n-modal>
 </template>
 
 <script setup lang="ts">
@@ -144,6 +154,7 @@ const props = defineProps<{
 
 const showErrorModal = ref(false)
 const showBorderlineModal = ref(false)
+const showRecommendedModal = ref(false)
 const hasSubmittedStats = ref(false)
 const isInitialLoad = ref(true)
 
@@ -156,6 +167,7 @@ watch(
       const status = newAnalysis.analysis.tableStatus
       showErrorModal.value = status === 'not_recommended'
       showBorderlineModal.value = status === 'borderline'
+      showRecommendedModal.value = status === 'recommended'
     }
     // Dopo il primo caricamento, imposta isInitialLoad a false
     isInitialLoad.value = false
@@ -230,6 +242,7 @@ const sendData = () => {
 const handleReset = () => {
   showErrorModal.value = false
   showBorderlineModal.value = false
+  showRecommendedModal.value = false
   hasSubmittedStats.value = false
   isInitialLoad.value = true // Resettiamo anche isInitialLoad
   emit('reset-stats')
@@ -238,6 +251,7 @@ const handleReset = () => {
 // Handler per procedere nonostante le condizioni borderline
 const handleProceed = () => {
   showBorderlineModal.value = false
+  showRecommendedModal.value = false
   emit('proceed')
 }
 </script>

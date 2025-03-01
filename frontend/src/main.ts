@@ -45,6 +45,8 @@ import {
   NStep,
   NSteps,
   NImage,
+  NGrid,
+  NGridItem,
 } from 'naive-ui'
 
 import './style.css'
@@ -87,6 +89,8 @@ const naive = create({
     NStep,
     NSteps,
     NImage,
+    NGrid,
+    NGridItem,
   ],
 })
 

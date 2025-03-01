@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { authApi } from '@/api/auth'
 import { userApi } from '@/api/user'
 import router from '@/router'
-import type { User, LoginData } from '@/types/auth'
+import type { User, LoginData, RegisterData } from '@/types/auth'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -101,6 +101,19 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const register = async (data: RegisterData) => {
+    loading.value = true
+    try {
+      const response = await authApi.register(data)
+      return response
+    } catch (error) {
+      console.error('Registration error:', error)
+      throw error
+    } finally {
+      loading.value = false
+    }
+  }
+
   const logout = async () => {
     try {
       await authApi.logout()
@@ -141,6 +154,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     // Actions
     login,
+    register,
     logout,
     refreshToken,
     checkAuthStatus,

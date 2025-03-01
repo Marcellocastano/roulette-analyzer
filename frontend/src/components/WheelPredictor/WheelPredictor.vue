@@ -142,7 +142,7 @@ const polarToCartesian = (centerX: number, centerY: number, radius: number, angl
 
 <style scoped>
 .roulette-container {
-  width: 85%;
+  width: 75%;
   max-width: min(100%, 500px);
   background: #3a3a3a;
   border-radius: 16rem;

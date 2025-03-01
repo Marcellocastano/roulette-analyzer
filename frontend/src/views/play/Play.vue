@@ -31,13 +31,15 @@
         />
       </n-grid-item>
       <n-grid-item v-if="step === 2">
-        <div class="board-container gap-5">
-          <div class="flex mb-4 justify-between w-full items-center">
-            <n-h2 class="mb-0">Inserisci i numeri</n-h2>
-            <n-button type="primary" size="small" @click="handleReset"> Resetta </n-button>
+        <n-h2 class="mb-8 text-center">
+          Fai il resize dello schermo e affianca questa finestra al tavolo da gioco
+        </n-h2>
+        <div class="board-container-main gap-5">
+          <div class="flex mb-4 justify-center w-full items-center">
+            <n-button type="danger" size="small" @click="handleReset"> Resetta sessione </n-button>
           </div>
           <Board
-            :spins="spins"
+            :spins="spins.slice(0, 5)"
             @number-selected="handleNumberSelection"
             @delete-spin="handleSpinDelete"
           />
@@ -101,9 +103,6 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
     const { data: response } = await initialStatsApi.submitStats(payload)
     if (response.status === 'success' && response.data) {
       statsAnalysis.value = response.data
-      if (response.data.analysis.tableStatus === 'recommended') {
-        step.value = 2
-      }
     }
   } catch (error) {
     console.error("Errore durante l'aggiornamento delle statistiche:", error)
@@ -133,7 +132,7 @@ const handleNumberSelection = async (number: number) => {
         number: response.data.number,
       },
       ...spins.value,
-    ].slice(0, 5)
+    ]
     await getPredictions()
   } catch (error) {
     console.error('Errore nel salvataggio dello spin:', error)
@@ -208,7 +207,6 @@ watch(step, newStep => {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: min(20px, 3vw);
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
@@ -231,16 +229,29 @@ watch(step, newStep => {
 }
 
 /* Contenitore per Board e WheelPredictor */
-.board-container {
+.board-container-main {
   position: relative;
   z-index: 0;
   width: 100%;
-  max-width: 100%;
+  max-width: 650px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+  margin: 0 auto;
+}
+
+@media (min-width: 630px) {
+  .board-container-main {
+    border: 2px solid var(--accent-color);
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .play-view {
+    padding: min(20px, 3vw);
+  }
 }
 
 /* Posizionamento del WheelPredictor */

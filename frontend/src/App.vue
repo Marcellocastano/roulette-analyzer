@@ -64,7 +64,7 @@ body {
 }
 
 .app-wrapper {
-  padding: 0px 40px;
+  // padding: 0px 40px;
   transition: all 0.3s ease;
 
   &.sidebar-collapsed {

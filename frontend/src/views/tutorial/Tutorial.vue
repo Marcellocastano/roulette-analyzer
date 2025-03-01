@@ -4,10 +4,10 @@
     <section class="hero-section">
       <div class="hero-content">
         <n-h1 class="hero-title">Come Usare il Software</n-h1>
-        <p class="hero-description">
+        <n-p class="hero-description">
           Ricorda che questo non è un generatore di numeri magici, ma uno strumento che grazie allo
           studio delle statistiche ti permette di giocare con un metodo testato e consolidato.
-        </p>
+        </n-p>
       </div>
     </section>
 
@@ -47,7 +47,7 @@
         >
       </n-card>
       <n-card class="feature-card">
-        <n-h3>Crescita dei numeri della zona Zero</n-h3>
+        <n-h3>Crescita dei numeri</n-h3>
         <n-p
           >Si confrontano le statistiche a 50 spin con quelle a 500 spin per individuare i numeri
           che mostrano una <strong>tendenza positiva</strong>. I numeri in crescita sono quelli che
@@ -172,6 +172,16 @@ import { NCard, NButton, NSteps, NStep, NImage } from 'naive-ui'
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+
+  p {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
 }
 
 // Hero Section
@@ -266,18 +276,18 @@ import { NCard, NButton, NSteps, NStep, NImage } from 'naive-ui'
 // Feature Cards
 .feature-card {
   height: 100%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.4);
   transition: transform 0.3s ease;
+  border-radius: 20px;
+  border-color: var(--accent-color);
 
   &:hover {
     transform: translateY(-5px);
   }
 
   h3 {
-    font-size: 1.23rem;
-  }
-  p {
-    font-size: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
   }
 }
 

@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="overlay"></div>
     <n-gradient-text type="warning">
-      <h1 class="mb-4">Roulette Destroyer</h1>
+      <!-- <h1 class="mb-4">Roulette Destroyer</h1> -->
     </n-gradient-text>
     <div class="roulette">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-370 248.3 100 125">
@@ -33,10 +33,18 @@
     </div>
     <Card class="login-card max-w-[400px]">
       <template #title>
-        <n-h1 class="login-title">Login</n-h1>
+        <n-h1 class="login-title">Registrati</n-h1>
       </template>
       <template #content>
         <n-form ref="formRef" :model="formValue" :rules="rules">
+          <n-form-item path="name" label="Nome">
+            <n-input
+              v-model:value="formValue.name"
+              size="large"
+              round
+              placeholder="Inserisci il tuo nome"
+            />
+          </n-form-item>
           <n-form-item path="email" label="Email">
             <n-input
               v-model:value="formValue.email"
@@ -56,10 +64,12 @@
             />
           </n-form-item>
           <div class="submit-container text-center">
-            <n-button :loading="loading" type="primary" @click="handleSubmit"> Accedi </n-button>
+            <n-button :loading="loading" type="primary" @click="handleSubmit">
+              Registrati
+            </n-button>
           </div>
           <div class="mt-4 text-center">
-            <n-button text @click="router.push('/signup')">Non hai un account? Registrati</n-button>
+            <n-button text @click="router.push('/login')">Hai già un account? Accedi</n-button>
           </div>
         </n-form>
       </template>
@@ -83,16 +93,25 @@ const message = useMessage()
 const authStore = useAuthStore()
 
 interface FormValue {
+  name: string
   email: string
   password: string
 }
 
 const formValue = ref<FormValue>({
+  name: '',
   email: '',
   password: '',
 })
 
 const rules: FormRules = {
+  name: [
+    {
+      required: true,
+      message: 'Inserisci il tuo nome',
+      trigger: ['blur', 'input'],
+    },
+  ],
   email: [
     {
       required: true,
@@ -114,31 +133,29 @@ const rules: FormRules = {
   ],
 }
 
-const handleSubmit = async () => {
-  try {
-    await formRef.value?.validate()
-    loading.value = true
-    await authStore.login({
-      email: formValue.value.email,
-      password: formValue.value.password,
-    })
+const handleSubmit = () => {
+  if (!formRef.value) return
 
-    // Verifica che l'autenticazione sia riuscita
-    if (authStore.isAuthenticated) {
-      message.success('Login effettuato con successo')
-      // Aspetta un momento prima di reindirizzare
-      setTimeout(() => {
-        router.push('/dashboard')
-      }, 500)
-    } else {
-      message.error('Errore di autenticazione')
+  formRef.value.validate(async errors => {
+    if (errors) {
+      return
     }
-  } catch (error) {
-    console.error('Errore durante il login:', error)
-    message.error('Errore durante il login. Verifica le tue credenziali.')
-  } finally {
-    loading.value = false
-  }
+
+    try {
+      loading.value = true
+      await authStore.register({
+        name: formValue.value.name,
+        email: formValue.value.email,
+        password: formValue.value.password,
+      })
+      message.success('Registrazione effettuata con successo')
+      router.push('/login')
+    } catch (error: any) {
+      message.error(error.message || 'Errore durante la registrazione')
+    } finally {
+      loading.value = false
+    }
+  })
 }
 </script>
 
@@ -165,7 +182,6 @@ const handleSubmit = async () => {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: all 0.3s ease;
   position: relative;
 }
 
@@ -215,10 +231,6 @@ const handleSubmit = async () => {
   border: 1px solid var(--secondary-color);
 }
 
-:deep(.n-button) {
-  margin-top: 1rem;
-}
-
 .container {
   align-items: center;
   background-color: #202027;
@@ -243,12 +255,12 @@ const handleSubmit = async () => {
 }
 
 .roulette {
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 2;
   display: flex;
   justify-content: center;
   max-width: 500px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 
   svg {
     fill: #b2ab46;

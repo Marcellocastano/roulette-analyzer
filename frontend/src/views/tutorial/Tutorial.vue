@@ -155,46 +155,150 @@
     <section class="key-concept-section">
       <n-card class="concept-card">
         <n-h2>Consigli di gioco e osservazioni</n-h2>
-        <n-p>
-          Una volta comprese e assimilate queste informazioni, è possibile fare una
-          <strong>scrematura in autonomia</strong>
-          delle statistiche di ogni tavolo. Questo ti permetterà di
-          <strong>perdere meno tempo</strong>
-          per la compilazione delle statistiche, in quanto riuscirete a trovare al primo colpo un
-          tavolo con condizioni favorevoli (o al limite borderline).
-          <br />
-          Quando osservate un tavolo fate anche
-          <strong>molta attenzione a come effettua lo spin in croupier</strong>
-          . Lo spin va fatto facendo partire la pallina (più o meno) all'
-          <strong>altezza dell'ultimo numero estratto</strong>
-          . Se ad esempio l'ultimo numero estratto è un 5, il croupier dovrebbe invertire il giro
-          della ruota, prendere la pallina e farla ripartire all'altezza del 5. Se dovesse, invece,
-          perdere tempo e far partire la pallina all'altezza di un numero molto distante dal 5
-          influirebbe decisamente sulle sequenze.
-          <strong>
-            In questi casi il tavolo è da evitare, anche in condizioni potenzialmente favorevoli.
-          </strong>
-          <br />
-          Il budget consigliato da predisporre per ogni sessione è di 300€.
-          <strong>Prefissatevi sempre un attivo da raggiungere</strong>
-          e una volta raggiunto, smettete di giocare.
-          <strong>In caso di perdita</strong>
-          , lasciate il tavolo e smettete di giocare. Continuare ad insistere potrebbe essere molto
-          deleterio per voi e per le vostre finanze. Ci saranno sempre dei tavoli con condizioni
-          ottimali,
-          <strong>bisogna avere la pazienza di trovarli e provare nuovamente.</strong>
-          <br />
-          Come
-          <strong>provider di gioco</strong>
-          , consiglio i tavoli di
-          <strong>Evolution</strong>
-          , in quanto in base al sito hanno un gran numero di tavoli, inoltre le statistiche sono
-          facilmente consultabili sia a 50 che a 500 spin. Invece non consiglio
-          <strong>Playtech</strong>
-          perché mostra le statistiche solo a 100 e 1000 spin, il che non è ottimale per la
-          strategia su cui si fonda il software.
-        </n-p>
+        <n-steps vertical class="stepper">
+          <n-step title="Gestione del budget" description="Disciplina di gioco">
+            <template #default>
+              <n-p>
+                Il budget consigliato da predisporre per ogni sessione è di 300€.
+                <strong>Prefissatevi sempre un attivo da raggiungere</strong>
+                e una volta raggiunto, smettete di giocare.
+                <br />
+                Iniziate a giocare con puntate piccole, per testare il tavolo e in caso di vincita
+                aumentate gradualmente. I numeri generati dal software saranno colorati in maniera
+                differente e
+                <strong>
+                  le puntate devono essere gestite in proporzione in base al livello di intensità:
+                  giallo, arancione e rosso.
+                </strong>
+                Giallo corrisponde alla puntata più bassa, rosso alla puntata più alta. Ad esempio
+                si può pensare di puntare 1€ per ogni numero giallo, 3€ per ogni numero arancione e
+                5€ per ogni numero rosso. Se si dovesse andare in vincita si aumenta la puntata.
+                Questo perché
+                <strong>
+                  i numeri con lo sfondo rosso sono quelli caldi identificati dal software.
+                </strong>
+                , invece quelli gialli servono per recuperare la puntata e ottenere un piccolo
+                attivo.
+                <strong>In caso di perdita</strong>
+                vi consiglio caldamente di smettere di giocare per quel giorno, perché continuare ad
+                insistere potrebbe essere molto deleterio per voi e per le vostre finanze. Ogni
+                giorno ci saranno dei tavoli con condizioni ottimali,
+                <strong>bisogna avere la pazienza di trovarli e provare nuovamente.</strong>
+              </n-p>
+            </template>
+          </n-step>
+
+          <n-step title="Attenzione al croupier" description="Tecnica di lancio">
+            <template #default>
+              <n-p>
+                Quando osservate un tavolo fate anche
+                <strong>molta attenzione a come effettua lo spin in croupier.</strong>
+                Lo spin va fatto facendo partire la pallina (più o meno) all'
+                <strong>altezza dell'ultimo numero estratto.</strong>
+                Se ad esempio l'ultimo numero estratto è un 5, il croupier dovrebbe invertire il
+                giro della ruota, prendere la pallina e farla ripartire all'altezza del 5. Se
+                dovesse, invece, perdere tempo e far partire la pallina all'altezza di un numero
+                molto distante dal 5 influirebbe decisamente sulle sequenze.
+                <strong>
+                  In questi casi il tavolo è da evitare, anche in condizioni potenzialmente
+                  favorevoli.
+                </strong>
+              </n-p>
+            </template>
+          </n-step>
+
+          <n-step title="Provider consigliati" description="Selezione dei tavoli">
+            <template #default>
+              <n-p>
+                Come
+                <strong>provider di gioco</strong>
+                , consiglio i tavoli di
+                <strong>Evolution</strong>
+                , in quanto in base al sito hanno un gran numero di tavoli, inoltre le statistiche
+                sono facilmente consultabili sia a 50 che a 500 spin. Invece non consiglio
+                <strong>Playtech</strong>
+                perché mostra le statistiche solo a 100 e 1000 spin, il che non è ottimale per la
+                strategia su cui si fonda il software.
+              </n-p>
+            </template>
+          </n-step>
+
+          <n-step title="Scrematura dei tavoli">
+            <template #default>
+              <n-p>
+                Una volta comprese e assimilate queste informazioni, è possibile fare una
+                <strong>scrematura in autonomia</strong>
+                delle statistiche di ogni tavolo. Questo ti permetterà di
+                <strong>perdere meno tempo</strong>
+                per la compilazione delle statistiche, in quanto riuscirete a trovare al primo colpo
+                un tavolo con condizioni favorevoli (o al limite borderline).
+              </n-p>
+            </template>
+          </n-step>
+        </n-steps>
       </n-card>
+    </section>
+
+    <div class="text-center mb-6">
+      <n-h2 class="mb-0">Come puntare velocemente</n-h2>
+    </div>
+    <section class="bets-section">
+      <div class="two-column-section">
+        <div class="column">
+          <n-p>
+            Una delle cose più complicate sulle quali potrete imbattervi nel selezionare i numeri da
+            puntare è la questione
+            <strong>tempo.</strong>
+            Infatti il tempo per fare la puntata è relativamente breve, ma ovviamente c'è il modo
+            per effettuare puntate più veloci invece di cliccare direttamente sui numeri sulla
+            board. Sui tavoli
+            <strong>Evolution</strong>
+            basta cliccare sull'icona della
+            <strong>telecamera</strong>
+            in alto a destra:
+          </n-p>
+          <img
+            src="/assets/images/statistics/change-view.png"
+            alt="Change view"
+            width="70%"
+            class="m-auto"
+          />
+          <n-p>
+            Dopo aver cliccato cambierà la visuale del tavolo, che mettarà in risalto l'
+            <strong>ellisse dei numeri</strong>
+            e la
+            <strong>ruota.</strong>
+            Useremo questi due strumenti per
+            <strong>puntare velocemente.</strong>
+            Infatti la piccola seziona in basso a destra (vedi immagine) con il numero 1, significa
+            che cliccando su un numero sull'ellisse dei numeri accanto,
+            <strong>
+              verrà effettuata la puntata su quel numero e al primo numero subito sopra e subito
+              sotto.
+            </strong>
+            Se il numero è 2 verrà effettuata la puntata sul numero selezionato e ai primi 2 numeri
+            subito sopra e sotto. E quindi via..
+            <br />
+            Invece cliccando sul
+            <strong>cono di un numero della</strong>
+            ruota sopra l'ellisse dei numeri, verrà
+            <strong>effettuata la puntata solo su quel numero.</strong>
+            Dopo un po' di pratica capirete perché questo è il metodo più veloce, perché
+            <strong>
+              a colpo d'occhio riuscirete a replicare la puntata suggerita dal software
+            </strong>
+            visto che la ruota è nella stessa posizione.
+          </n-p>
+        </div>
+        <div class="column">
+          <img
+            src="/assets/images/statistics/best-way-bet.png"
+            alt="Change view"
+            width="90%"
+            class="m-auto"
+          />
+        </div>
+      </div>
     </section>
 
     <!-- Final Call to Action -->
@@ -282,7 +386,7 @@
   margin-bottom: 4rem;
 
   .concept-card {
-    background: rgba(255, 255, 255, 0.50);
+    background: rgba(255, 255, 255, 0.4);
     padding: 2rem;
     border-radius: 20px;
   }
@@ -334,7 +438,6 @@
   background: rgba(255, 255, 255, 0.4);
   transition: transform 0.3s ease;
   border-radius: 20px;
-  border: 2px solid var(--accent-color-dark);
 
   &:hover {
     transform: translateY(-5px);
@@ -347,7 +450,7 @@
 }
 
 // Steps Section
-.steps-section {
+.steps-section, .bets-section {
   margin-bottom: 4rem;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.05);

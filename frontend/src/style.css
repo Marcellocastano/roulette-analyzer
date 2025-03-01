@@ -37,6 +37,20 @@ button,
   }
 }
 
+.n-step-indicator {
+  background-color: var(--accent-color-dark) !important;
+  box-shadow: 0 0 0 1px var(--accent-color-dark) !important;
+}
+
+.n-step-splitor {
+  background-color: var(--accent-color-dark) !important;
+}
+
+.n-step-content-header__title{
+  font-weight: 700;
+  font-size: 18px;
+}
+
 .bg-accent-dark {
   background-color: var(--accent-color-dark) !important;
 }

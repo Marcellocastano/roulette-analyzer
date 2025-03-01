@@ -14,11 +14,23 @@
             class="nav-link"
             :class="{ active: isRouteActive(route.path) }"
           >
-            <component :is="route.icon" class="nav-icon" />
-            <n-gradient-text v-if="route.name === 'Play'" :size="17" type="error">
-              <strong>Spin Lab</strong>
-            </n-gradient-text>
-            <span v-else>{{ route.name }}</span>
+            <div v-if="route.name === 'Play'" class="play-nav-link">
+              <component :is="route.icon" class="nav-icon" />
+              <n-gradient-text
+                :size="17"
+                :gradient="{
+                deg: 90,
+                from: 'var(--accent-color-dark)',
+                to: '#ffcf00',
+              }"
+              >
+                <strong>Roulette Destroyer</strong>
+              </n-gradient-text>
+            </div>
+            <span v-else class="flex items-center gap-2">
+              <component :is="route.icon" class="nav-icon" />
+              {{ route.name }}
+            </span>
           </router-link>
         </li>
       </ul>
@@ -96,14 +108,14 @@ const routes = [
     icon: DashboardIcon,
   },
   {
-    path: '/play',
-    name: 'Play',
-    icon: RouletteIcon,
-  },
-  {
     path: '/tutorial',
     name: 'Tutorial',
     icon: TutorialIcon,
+  },
+  {
+    path: '/play',
+    name: 'Play',
+    icon: RouletteIcon,
   },
   {
     path: '/settings',
@@ -208,6 +220,15 @@ const closeMobileMenu = () => {
     position: relative;
   }
 
+  .play-nav-link {
+    padding: 10px;
+    background-color: #103664;
+    border-radius: 10px;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
   .nav-link {
     display: flex;
     align-items: center;
@@ -217,7 +238,7 @@ const closeMobileMenu = () => {
     text-decoration: none;
     border-radius: 1rem 1rem 0 0;
     height: 100%;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 
     &:hover {
       background-color: var(--primary-color);

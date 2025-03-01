@@ -49,7 +49,9 @@
         </n-input>
       </n-form-item>
       <div class="submit-container text-center">
-        <n-button :loading="loading" type="primary" @click="handleSubmit"> Registrati </n-button>
+        <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
+          Registrati
+        </n-button>
       </div>
       <div class="mt-4 text-center">
         <n-button text @click="router.push('/login')">Hai già un account? Accedi</n-button>

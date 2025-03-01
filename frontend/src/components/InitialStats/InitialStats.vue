@@ -1,5 +1,5 @@
 <template>
-  <n-h1 class="mb-8 text-center">Statistiche iniziali</n-h1>
+  <n-h1 class="mb-8 text-center">Inserisci le statistiche del tavolo</n-h1>
   <div class="initial-stats">
     <Card title="Statistiche a 50 spin" class="statistics-card">
       <template #content>
@@ -91,7 +91,7 @@
     </Card>
   </div>
   <div class="text-center">
-    <n-button type="primary" @click="sendData">Invia Dati</n-button>
+    <n-button type="primary" @click="sendData">Controlla il tavolo</n-button>
   </div>
 
   <n-modal v-model:show="showErrorModal" preset="dialog" :mask-closable="false" :closable="false">
@@ -102,7 +102,7 @@
       description="Le statistiche attuali non mostrano condizioni favorevoli per il gioco. Si consiglia di resettare e cambiare tavolo."
     >
       <template #footer>
-        <n-button type="primary" @click="handleReset"> Resetta Statistiche </n-button>
+        <n-button type="primary" @click="handleReset">Resetta Statistiche</n-button>
       </template>
     </n-result>
   </n-modal>

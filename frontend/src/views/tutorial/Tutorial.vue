@@ -88,7 +88,12 @@
             <strong>lo swipe verso destra</strong>
             .
           </n-p>
-          <img src="/assets/images/statistics/dozens-statistics-50.png" alt="Dozens statistics" />
+          <img
+            src="/assets/images/statistics/dozens-statistics-50.png"
+            alt="Dozens statistics"
+            width="70%"
+            class="m-auto"
+          />
         </div>
         <div class="column">
           <img
@@ -109,7 +114,12 @@
             questo caso, facendo lo swipe verso destra, si arriva ai 500 spin e si ripete il
             procedimento.
           </n-p>
-          <img src="/assets/images/statistics/increase-numbers-500.png" alt="Wheel statistics" />
+          <img
+            src="/assets/images/statistics/increase-numbers-500.png"
+            alt="Wheel statistics"
+            width="70%"
+            class="m-auto"
+          />
         </div>
       </div>
     </section>
@@ -173,6 +183,16 @@
           deleterio per voi e per le vostre finanze. Ci saranno sempre dei tavoli con condizioni
           ottimali,
           <strong>bisogna avere la pazienza di trovarli e provare nuovamente.</strong>
+          <br />
+          Come
+          <strong>provider di gioco</strong>
+          , consiglio i tavoli di
+          <strong>Evolution</strong>
+          , in quanto in base al sito hanno un gran numero di tavoli, inoltre le statistiche sono
+          facilmente consultabili sia a 50 che a 500 spin. Invece non consiglio
+          <strong>Playtech</strong>
+          perché mostra le statistiche solo a 100 e 1000 spin, il che non è ottimale per la
+          strategia su cui si fonda il software.
         </n-p>
       </n-card>
     </section>
@@ -189,7 +209,7 @@
           <strong><u>gioca solo i soldi che puoi permetterti di perdere!</u></strong>
         </n-p>
         <router-link to="/play">
-          <n-button type="primary" size="large">Gioca</n-button>
+          <n-button type="primary" size="large" class="bg-accent-dark">Gioca</n-button>
         </router-link>
       </n-card>
     </section>
@@ -263,7 +283,7 @@
 
   .concept-card {
     background: rgba(255, 255, 255, 0.50);
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 20px;
   }
 }
@@ -314,7 +334,7 @@
   background: rgba(255, 255, 255, 0.4);
   transition: transform 0.3s ease;
   border-radius: 20px;
-  border-color: var(--accent-color);
+  border: 2px solid var(--accent-color-dark);
 
   &:hover {
     transform: translateY(-5px);

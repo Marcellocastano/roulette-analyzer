@@ -23,6 +23,7 @@
   --n-color: #ff9500;
   --accent-color: #f1a903;
   --accent-hover-color: #eb5b00;
+  --accent-color-dark: #df4b4b;
 }
 
 button,
@@ -34,6 +35,10 @@ button,
   &:hover {
     background-color: var(--accent-hover-color);
   }
+}
+
+.bg-accent-dark {
+  background-color: var(--accent-color-dark) !important;
 }
 
 a {

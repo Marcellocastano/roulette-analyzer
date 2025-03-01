@@ -24,7 +24,9 @@
         </n-input>
       </n-form-item>
       <div class="submit-container text-center">
-        <n-button :loading="loading" type="primary" @click="handleSubmit"> Accedi </n-button>
+        <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
+          Accedi
+        </n-button>
       </div>
       <div class="mt-4 text-center">
         <n-button text @click="router.push('/signup')">Non hai un account? Registrati</n-button>

@@ -1,10 +1,18 @@
 <template>
   <div class="auth-container">
     <div class="overlay"></div>
-    <n-gradient-text type="warning">
-      <h1 class="mb-4">Roulette Destroyer</h1>
+    <n-gradient-text
+      type="warning"
+      class="z-10"
+      :gradient="{
+        deg: 90,
+        from: 'var(--accent-color-dark)',
+        to: '#ffcf00',
+      }"
+    >
+      <h1 class="mb-4 title">Roulette Destroyer</h1>
     </n-gradient-text>
-    <div class="roulette">
+    <div class="roulette z-10">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-370 248.3 100 125">
         <path
           class="table"
@@ -45,11 +53,12 @@
 </template>
 
 <script setup lang="ts">
-import { NCard } from 'naive-ui'
 import Card from '@/components/Card/Card.vue'
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap');
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -74,6 +83,12 @@ import Card from '@/components/Card/Card.vue'
   background-repeat: no-repeat;
   transition: all 0.3s ease;
   position: relative;
+
+  .title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 3rem;
+  }
 }
 
 .overlay {
@@ -134,16 +149,17 @@ import Card from '@/components/Card/Card.vue'
   display: flex;
   justify-content: center;
   max-width: 500px;
-}
 
-.roulette svg {
-  fill: #b2ab46;
-  max-width: 100px;
-  height: auto;
+  svg {
+    fill: var(--accent-color);
+    font-size: 32px;
+    height: 150px;
+    width: 150px;
+  }
 }
 
 .table {
-  stroke: #b2ab46;
+  stroke: #ffcf00;
   animation: draw 4s ease-in-out infinite alternate;
 }
 
@@ -153,7 +169,7 @@ import Card from '@/components/Card/Card.vue'
 }
 
 .gold {
-  fill: #b2ab46;
+  fill: var(--accent-color-dark);
 }
 
 @keyframes draw {

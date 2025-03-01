@@ -122,10 +122,6 @@ const options = [
     key: 'account',
   },
   {
-    label: 'Sviluppatori',
-    key: 'developers',
-  },
-  {
     type: 'divider',
   },
   {

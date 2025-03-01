@@ -5,5 +5,9 @@
   "trailingComma": "es5",
   "printWidth": 100,
   "bracketSpacing": true,
-  "arrowParens": "avoid"
+  "htmlWhitespaceSensitivity": "ignore",
+  "vueIndentScriptAndStyle": false,
+  "proseWrap": "never",
+  "embeddedLanguageFormatting": "off",
+  "singleAttributePerLine": false
 }

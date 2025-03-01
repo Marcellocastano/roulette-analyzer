@@ -1,7 +1,8 @@
 <template>
   <n-p class="roulette-title">
-    Replica le statistiche visive della roulette <br />
-    trascina il mouse su un cono per modificare il valore
+    Replica nella maniera <strong>più fedele possibile</strong> le statistiche dei numeri sulla
+    ruota. Trascina il mouse su un cono per modificarne il valore. Leggi il
+    <router-link to="/tutorial#statistics" target="_blank">tutorial</router-link> se hai dubbi.
   </n-p>
   <div class="roulette-wheel">
     <svg @mouseup="stopDragging" @mouseleave="stopDragging">
@@ -43,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, watch, onMounted } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { NButton } from 'naive-ui'
 import { Trash } from '@vicons/tabler'
 import * as InitialStats from '@/api/types/initialStats'

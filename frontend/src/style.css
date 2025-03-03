@@ -18,6 +18,7 @@
 
   --primary-color: #669eb3;
   --secondary-color: #171d35;
+  --secondary-color-light: #103664;
   --text-color-dark: #171d35;
   --text-color-light: #f6f5f5;
   --n-color: #ff9500;
@@ -39,7 +40,7 @@ button,
 
 .n-step-indicator {
   background-color: var(--accent-color-dark) !important;
-  box-shadow: 0 0 0 1px var(--accent-color-dark) !important;
+    box-shadow: 0 0 0 1px var(--accent-color-dark) !important;
 }
 
 .n-step-splitor {

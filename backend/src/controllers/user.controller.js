@@ -47,6 +47,33 @@ class UserController {
     }
   };
 
+  changePassword = async (req, res, next) => {
+    try {
+      const { oldPassword, newPassword } = req.body;
+      
+      // Validazione dei dati di input
+      if (!oldPassword || !newPassword) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Sia la vecchia che la nuova password sono richieste'
+        });
+      }
+
+      const result = await this.userService.changePassword(
+        req.user.id,
+        oldPassword,
+        newPassword
+      );
+      
+      res.status(200).json({
+        status: 'success',
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
 //   subscribe = async (req, res, next) => {
 //     try {
 //       const { plan } = req.body;

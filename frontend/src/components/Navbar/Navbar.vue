@@ -20,8 +20,8 @@
                 :size="17"
                 :gradient="{
                 deg: 90,
-                from: 'var(--accent-color-dark)',
-                to: '#ffcf00',
+                from: isRouteActive(route.path) ? '#14660c' : 'var(--accent-color-dark)',
+                to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
               }"
               >
                 <strong>Roulette Destroyer</strong>
@@ -93,6 +93,7 @@ import {
   Logout as LogoutIcon,
   Settings as SettingsIcon,
   Book as TutorialIcon,
+  CreditCard as PianoIcon
 } from '@vicons/tabler'
 import { NIcon, NDropdown, NButton, NGradientText } from 'naive-ui'
 
@@ -118,20 +119,22 @@ const routes = [
     icon: RouletteIcon,
   },
   {
-    path: '/settings',
-    name: 'Impostazioni',
-    icon: SettingsIcon,
+    path: '/pricing',
+    name: 'Abbonamento',
+    icon: PianoIcon,
   },
+  // {
+  //   path: '/settings',
+  //   name: 'Impostazioni',
+  //   icon: SettingsIcon,
+  // },
 ]
 
 const options = [
   {
-    label: 'Piano',
-    key: 'plan',
-  },
-  {
     label: 'Account',
     key: 'account',
+    icon: () => h(NIcon, null, { default: () => h(UserCircle) }),
   },
   {
     type: 'divider',
@@ -169,7 +172,7 @@ const closeMobileMenu = () => {
 .navbar {
   height: 85px;
   width: 100%;
-  background: var(--secondary-color);
+  background: var(--secondary-color-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -221,9 +224,6 @@ const closeMobileMenu = () => {
   }
 
   .play-nav-link {
-    padding: 10px;
-    background-color: #103664;
-    border-radius: 10px;
     display: flex;
     gap: 0.5rem;
     align-items: center;

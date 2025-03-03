@@ -35,6 +35,14 @@ export const userApi = {
     return apiClient.put<ApiResponse<UserProfile>>('/users/profile', profile)
   },
 
+  // Cambia la password dell'utente
+  changePassword: (oldPassword: string, newPassword: string) => {
+    return apiClient.post<ApiResponse<{ message: string }>>('/users/change-password', {
+      oldPassword,
+      newPassword
+    })
+  },
+
   // Ottiene le informazioni sull'abbonamento
   getSubscription: () => {
     return apiClient.get<ApiResponse<UserSubscription>>('/users/subscription')

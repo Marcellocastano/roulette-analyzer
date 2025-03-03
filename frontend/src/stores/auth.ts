@@ -139,6 +139,21 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const updateUserInfo = (userData: any) => {
+    if (!user.value) return
+    
+    // Aggiorna solo i campi forniti
+    const updatedUser: User = {
+      ...user.value,
+      name: userData.name || user.value.name,
+      email: userData.email || user.value.email,
+      // Mantieni la subscription esistente
+      subscription: user.value.subscription
+    }
+    
+    setUser(updatedUser)
+  }
+
   return {
     // State
     user,
@@ -158,5 +173,6 @@ export const useAuthStore = defineStore('auth', () => {
     logout,
     refreshToken,
     checkAuthStatus,
+    updateUserInfo,
   }
 })

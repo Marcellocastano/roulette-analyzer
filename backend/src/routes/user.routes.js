@@ -12,6 +12,7 @@ router.use(authenticateToken);
 router.get('/profile', userController.getProfile);
 router.put('/profile', userController.updateProfile);
 router.get('/subscription', userController.getSubscription);
+router.post('/change-password', userController.changePassword);
 // router.post('/subscribe', userController.subscribe);
 
 module.exports = router;

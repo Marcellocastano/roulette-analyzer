@@ -24,9 +24,15 @@ class UserService {
 
   async updateProfile(userId, updateData) {
     try {
+      // Rimuovi la password dai dati di aggiornamento se presente
+      const safeUpdateData = { ...updateData };
+      if ('password' in safeUpdateData) {
+        delete safeUpdateData.password;
+      }
+
       const updatedUser = await userRepository.findOneAndUpdate(
         { _id: userId },
-        { $set: updateData },
+        { $set: safeUpdateData },
         { new: true }
       );
 
@@ -57,6 +63,35 @@ class UserService {
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Error fetching subscription details', 500);
+    }
+  }
+
+  async changePassword(userId, oldPassword, newPassword) {
+    try {
+      // Ottieni l'utente con la password (normalmente è esclusa dalle query)
+      const user = await userRepository.model.findById(userId).select('+password');
+      
+      if (!user) {
+        throw new AppError('Utente non trovato', 404);
+      }
+
+      // Verifica che la vecchia password sia corretta
+      const isPasswordCorrect = await user.verifyPassword(oldPassword);
+      
+      if (!isPasswordCorrect) {
+        throw new AppError('Password attuale non corretta', 401);
+      }
+
+      // Aggiorna la password
+      user.password = newPassword;
+      await user.save(); // Usa save() per attivare il middleware di hashing della password
+
+      return {
+        message: 'Password aggiornata con successo'
+      };
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Errore durante l\'aggiornamento della password', 500);
     }
   }
 

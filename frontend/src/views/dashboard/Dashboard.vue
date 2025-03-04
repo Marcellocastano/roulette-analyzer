@@ -74,6 +74,46 @@
         </n-card>
       </div>
 
+      <!-- Sezione Tutorial -->
+      <div class="flex w-full justify-center">
+        <n-card class="tutorial-card" size="small">
+          <template #header>
+            <div class="card-header">
+              <div class="header-title">
+                <n-icon size="20">
+                  <Book />
+                </n-icon>
+                <span>Leggi il Tutorial</span>
+              </div>
+            </div>
+          </template>
+
+          <div class="tutorial-content">
+            <div class="tutorial-icon">
+              <n-icon size="40" color="#ffbc00">
+                <AlertCircle />
+              </n-icon>
+            </div>
+            <div class="tutorial-text">
+              <p class="tutorial-title">Prima di iniziare a giocare</p>
+              <p class="tutorial-description">
+                È
+                <strong>fondamentale</strong>
+                leggere attentamente il tutorial per comprendere il metodo statistico utilizzato dal
+                software. Solo così potrai sfruttare al massimo le potenzialità dell'analisi e
+                aumentare le probabilità di successo.
+              </p>
+              <router-link to="/tutorial" class="tutorial-link">
+                <span>Vai al Tutorial</span>
+                <n-icon size="16">
+                  <ArrowRight />
+                </n-icon>
+              </router-link>
+            </div>
+          </div>
+        </n-card>
+      </div>
+
       <div class="flex w-full justify-center">
         <!-- Numeri fortunati -->
         <n-card class="lucky-numbers-card" size="small">
@@ -83,7 +123,7 @@
                 <n-icon size="20">
                   <BuildingCarousel />
                 </n-icon>
-                <span>I Tuoi Numeri Fortunati</span>
+                <span>I tuoi numeri fortunati</span>
               </div>
               <n-button
                 quaternary
@@ -145,7 +185,9 @@ import {
   TrendingUp,
   TrendingDown,
   UserCircle,
-  Bolt
+  Bolt,
+  AlertCircle,
+  ArrowRight
 } from '@vicons/tabler'
 import { useAuthStore } from '@/stores/auth'
 import RouletteIcon from '@/components/icons/RouletteIcon.vue'
@@ -488,6 +530,59 @@ onMounted(() => {
 
   .action-arrow {
     color: #999;
+  }
+}
+
+.tutorial-card {
+  border-radius: 12px;
+  height: 100%;
+  max-width: 600px;
+  margin-top: 1rem;
+}
+
+.tutorial-content {
+  display: flex;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.tutorial-icon {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.5rem;
+}
+
+.tutorial-text {
+  flex: 1;
+
+  .tutorial-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .tutorial-description {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+
+    strong {
+      color: var(--accent-color-dark);
+    }
+  }
+}
+
+.tutorial-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0099ff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #4db8ff;
   }
 }
 

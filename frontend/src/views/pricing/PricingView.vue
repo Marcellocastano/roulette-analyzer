@@ -1,4 +1,21 @@
 <template>
+  <n-alert
+    v-if="paymentInstructions"
+    type="info"
+    title="Richiesta di abbonamento in corso"
+    style="margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;"
+    closable
+  >
+    <template #icon>
+      <n-icon>
+        <InfoCircle />
+      </n-icon>
+    </template>
+    Hai una richiesta di abbonamento in attesa di pagamento.
+    <n-button text class="text-btn" @click="showSavedPaymentInstructions">
+      Visualizza dettagli pagamento
+    </n-button>
+  </n-alert>
   <div class="pricing-container">
     <n-card class="pricing-card">
       <template #header>
@@ -38,7 +55,14 @@
             </div>
           </div>
 
-          <n-button type="primary" round class="subscribe-button">Acquista</n-button>
+          <n-button
+            type="primary"
+            round
+            class="subscribe-button"
+            @click="requestSubscription('premium', 'monthly')"
+          >
+            Acquista
+          </n-button>
         </n-card>
 
         <n-card class="plan-card annual">
@@ -89,18 +113,146 @@
             </div>
           </div>
 
-          <n-button type="primary" round class="subscribe-button premium-button">
+          <n-button
+            type="primary"
+            round
+            class="subscribe-button premium-button"
+            @click="requestSubscription('premium', 'annual')"
+          >
             Risparmia il 50%
           </n-button>
         </n-card>
       </div>
     </n-card>
   </div>
+
+  <!-- Modale per le istruzioni di pagamento -->
+  <n-modal
+    v-model:show="showPaymentModal"
+    preset="card"
+    title="Istruzioni per il Pagamento"
+    style="width: 500px; max-width: 90%"
+    :mask-closable="false"
+  >
+    <n-space vertical>
+      <n-text>
+        Grazie per aver richiesto l'abbonamento. Per completare la procedura, effettua il pagamento
+        seguendo queste istruzioni:
+      </n-text>
+
+      <n-divider />
+
+      <n-space vertical>
+        <n-text>
+          <strong>Email PayPal:</strong>
+          {{ paymentInstructions?.paypalEmail }}
+        </n-text>
+        <n-text>
+          <strong>Importo:</strong>
+          {{ paymentInstructions?.amount }} {{ paymentInstructions?.currency }}
+        </n-text>
+        <n-text>
+          <strong>Riferimento:</strong>
+          {{ paymentInstructions?.reference }}
+        </n-text>
+      </n-space>
+
+      <n-divider />
+
+      <n-text type="warning">
+        Importante: Includi il riferimento nella descrizione del pagamento per consentirci di
+        identificare la tua transazione.
+      </n-text>
+
+      <n-space justify="end">
+        <n-button @click="cancelSubscriptionRequest" :loading="isLoading">
+          Annulla richiesta
+        </n-button>
+        <n-button type="primary" @click="closeModal">Ho capito</n-button>
+      </n-space>
+    </n-space>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
-import { NButton, NCard, NH1, NH2, NP, NIcon } from 'naive-ui'
-import { Check } from '@vicons/tabler'
+import { NButton, NCard, NH1, NH2, NP, NIcon, NModal, NSpace, NText, NDivider, NAlert } from 'naive-ui'
+import { Check, InfoCircle } from '@vicons/tabler'
+import { ref, onMounted } from 'vue'
+import { h } from 'vue'
+import { useMessage } from 'naive-ui'
+import { useRouter } from 'vue-router'
+import { userApi } from '@/api/user'
+import type { PaymentInstructions } from '@/api/user'
+
+const message = useMessage()
+const router = useRouter()
+const isLoading = ref(false)
+const showPaymentModal = ref(false)
+const paymentInstructions = ref<PaymentInstructions | null>(null)
+
+// Controlla se ci sono informazioni di pagamento salvate nel sessionStorage
+onMounted(() => {
+  const savedPaymentInfo = sessionStorage.getItem('paymentInstructions')
+  if (savedPaymentInfo) {
+    paymentInstructions.value = JSON.parse(savedPaymentInfo)
+  }
+})
+
+const requestSubscription = async (plan: string, duration: string) => {
+  try {
+    isLoading.value = true
+
+    const response = await userApi.requestSubscription(plan, duration)
+
+    message.success('Richiesta di sottoscrizione inviata con successo')
+
+    // Salva le istruzioni di pagamento e mostra la modale
+    paymentInstructions.value = response.data.data.paymentInstructions
+
+    // Salva le informazioni nel sessionStorage
+    sessionStorage.setItem('paymentInstructions', JSON.stringify(paymentInstructions.value))
+
+    showPaymentModal.value = true
+
+  } catch (error) {
+    console.error('Errore durante la richiesta di sottoscrizione:', error)
+    message.error('Si è verificato un errore durante la richiesta di sottoscrizione. Riprova più tardi.')
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const closeModal = () => {
+  showPaymentModal.value = false
+}
+
+const showSavedPaymentInstructions = () => {
+  if (paymentInstructions.value) {
+    showPaymentModal.value = true
+  }
+}
+
+const cancelSubscriptionRequest = async () => {
+  try {
+    isLoading.value = true
+
+    // Chiamata API per annullare la richiesta di sottoscrizione
+    await userApi.cancelSubscriptionRequest()
+
+    // Rimuovi le informazioni dal sessionStorage
+    sessionStorage.removeItem('paymentInstructions')
+    paymentInstructions.value = null
+    showPaymentModal.value = false
+
+    message.success('Richiesta di sottoscrizione annullata con successo')
+
+  } catch (error) {
+    console.error('Errore durante l\'annullamento della richiesta:', error)
+    message.error('Si è verificato un errore durante l\'annullamento della richiesta. Riprova più tardi.')
+  } finally {
+    isLoading.value = false
+  }
+}
 </script>
 
 <style scoped>
@@ -149,6 +301,10 @@ import { Check } from '@vicons/tabler'
   color: #e0e0e0;
 }
 
+.text-btn {
+  color: var(--accent-color-dark);
+  font-size: 16px;
+}
 .plan-card :deep(h2) {
   color: #e0e0e0;
 }

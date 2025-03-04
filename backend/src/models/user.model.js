@@ -37,26 +37,23 @@ const userSchema = new mongoose.Schema({
       enum: ['free', 'premium'],
       default: 'free'
     },
-    startDate: Date,
-    endDate: Date,
+    duration: {
+      type: String,
+      enum: ['monthly', 'annual'],
+      default: null
+    },
+    startDate: {
+      type: Date,
+      default: null
+    },
+    endDate: {
+      type: Date,
+      default: null
+    },
     status: {
       type: String,
-      enum: ['active', 'expired', 'cancelled'],
-      default: 'active'
-    },
-    features: {
-      maxSpins: {
-        type: Number,
-        default: 50
-      },
-      predictions: {
-        type: Boolean,
-        default: false
-      },
-      advancedStats: {
-        type: Boolean,
-        default: false
-      }
+      enum: ['unset', 'active', 'expired', 'pending'],
+      default: 'unset'
     }
   },
   lastLogin: Date,

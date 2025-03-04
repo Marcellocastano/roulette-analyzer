@@ -21,7 +21,14 @@ export interface UserSubscription {
     advancedStats: boolean
   }
   plan: 'free' | 'premium' | 'pro'
-  status: 'active' | 'inactive' | 'expired'
+  status: 'active' | 'inactive' | 'expired' | 'pending'
+}
+
+export interface PaymentInstructions {
+  paypalEmail: string
+  amount: number
+  currency: string
+  reference: string
 }
 
 export const userApi = {
@@ -46,5 +53,18 @@ export const userApi = {
   // Ottiene le informazioni sull'abbonamento
   getSubscription: () => {
     return apiClient.get<ApiResponse<UserSubscription>>('/users/subscription')
+  },
+  
+  // Richiede un nuovo abbonamento
+  requestSubscription: (plan: string, duration: string) => {
+    return apiClient.post<ApiResponse<{ paymentInstructions: PaymentInstructions }>>('/users/subscription/request', {
+      plan,
+      duration
+    })
+  },
+  
+  // Annulla una richiesta di abbonamento
+  cancelSubscriptionRequest: () => {
+    return apiClient.post<ApiResponse<{ message: string }>>('/users/subscription/cancel')
   },
 }

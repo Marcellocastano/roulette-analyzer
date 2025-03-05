@@ -15,13 +15,11 @@ export interface UserProfile {
 }
 
 export interface UserSubscription {
-  features: {
-    maxSpins: number
-    predictions: boolean
-    advancedStats: boolean
-  }
-  plan: 'free' | 'premium' | 'pro'
-  status: 'active' | 'inactive' | 'expired' | 'pending'
+  plan: 'free' | 'premium'
+  status: 'active' | 'unset' | 'expired' | 'pending'
+  duration: 'monthly' | 'annual' | null
+  startDate: string | null
+  endDate: string | null
 }
 
 export interface PaymentInstructions {

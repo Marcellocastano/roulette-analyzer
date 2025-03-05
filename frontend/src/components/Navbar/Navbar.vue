@@ -12,24 +12,27 @@
           <router-link
             :to="route.path"
             class="nav-link"
-            :class="{ active: isRouteActive(route.path) }"
+            :class="{ active: isRouteActive(route.path), 'premium-item': route.premium && !authStore.isPremiumUser }"
+            @click="checkPremiumAccess($event, route.path)"
           >
             <div v-if="route.name === 'Play'" class="play-nav-link">
               <component :is="route.icon" class="nav-icon" />
               <n-gradient-text
                 :size="17"
                 :gradient="{
-                deg: 90,
-                from: isRouteActive(route.path) ? '#14660c' : 'var(--accent-color-dark)',
-                to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
-              }"
+                  deg: 90,
+                  from: isRouteActive(route.path) ? '#14660c' : 'var(--accent-color-dark)',
+                  to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
+                }"
               >
                 <strong>Roulette Destroyer</strong>
               </n-gradient-text>
+              <premium-badge v-if="route.premium" />
             </div>
             <span v-else class="flex items-center gap-2">
               <component :is="route.icon" class="nav-icon" />
               {{ route.name }}
+              <premium-badge v-if="route.premium" />
             </span>
           </router-link>
         </li>
@@ -64,7 +67,7 @@
           <router-link
             :to="route.path"
             class="nav-link"
-            :class="{ active: isRouteActive(route.path) }"
+            :class="{ active: isRouteActive(route.path), 'premium-item': route.premium && !authStore.isPremiumUser }"
             @click="closeMobileMenu"
           >
             <component :is="route.icon" class="nav-icon" />
@@ -83,7 +86,9 @@
 import { ref, h } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useMessage } from 'naive-ui'
 import RouletteIcon from '../icons/RouletteIcon.vue'
+import PremiumBadge from '../PremiumBadge.vue'
 import {
   UserCircle,
   Menu,
@@ -100,6 +105,7 @@ import { NIcon, NDropdown, NButton, NGradientText } from 'naive-ui'
 const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
+const message = useMessage()
 const isMobileMenuOpen = ref(false)
 
 const routes = [
@@ -107,27 +113,26 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     icon: DashboardIcon,
+    premium: false
   },
   {
     path: '/tutorial',
     name: 'Tutorial',
     icon: TutorialIcon,
+    premium: true
   },
   {
     path: '/play',
     name: 'Play',
     icon: RouletteIcon,
+    premium: true
   },
   {
     path: '/pricing',
     name: 'Abbonamento',
     icon: PianoIcon,
+    premium: false
   },
-  // {
-  //   path: '/settings',
-  //   name: 'Impostazioni',
-  //   icon: SettingsIcon,
-  // },
 ]
 
 const options = [
@@ -165,6 +170,16 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
+}
+
+const checkPremiumAccess = (e: any, routePath: string) => {
+  const routeInfo = routes.find(r => r.path === routePath);
+
+  if (routeInfo?.premium && !authStore.isPremiumUser) {
+    e.preventDefault();
+    message.warning('Questa funzionalità è disponibile solo per gli utenti con abbonamento Premium attivo.');
+    router.push('/pricing');
+  }
 }
 </script>
 
@@ -272,6 +287,15 @@ const closeMobileMenu = () => {
         box-shadow: 0 -25px 0 0 var(--primary-color);
         left: -25px;
         transform: rotateZ(180deg);
+      }
+    }
+
+    &.premium-item {
+      opacity: 0.7;
+      position: relative;
+
+      &:hover {
+        opacity: 1;
       }
     }
   }

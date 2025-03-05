@@ -14,11 +14,10 @@ export const useAuthStore = defineStore('auth', () => {
   // Getters
   const isAuthenticated = computed(() => !!token.value && !!user.value)
   const userSubscription = computed(() => user.value?.subscription)
-  const hasAdvancedFeatures = computed(
-    () => userSubscription.value?.features.advancedStats ?? false
-  )
-  const hasPredictions = computed(() => userSubscription.value?.features.predictions ?? false)
-  const maxSpins = computed(() => userSubscription.value?.features.maxSpins ?? 50)
+  const isPremiumUser = computed(() => {
+    if (!user.value?.subscription) return false
+    return user.value.subscription.plan === 'premium' && user.value.subscription.status === 'active'
+  })
 
   // Actions
   const setToken = (newToken: string | null) => {
@@ -61,7 +60,9 @@ export const useAuthStore = defineStore('auth', () => {
         subscription: {
           status: subscriptionData.status,
           plan: subscriptionData.plan,
-          features: subscriptionData.features,
+          duration: subscriptionData.duration,
+          startDate: subscriptionData.startDate,
+          endDate: subscriptionData.endDate,
         },
       }
 
@@ -163,9 +164,7 @@ export const useAuthStore = defineStore('auth', () => {
     // Getters
     isAuthenticated,
     userSubscription,
-    hasAdvancedFeatures,
-    hasPredictions,
-    maxSpins,
+    isPremiumUser,
 
     // Actions
     login,

@@ -14,8 +14,6 @@ const ReasonCode = {
 class InitialStatsService {
     async addInitialStats(userId, stats) {
         try {
-            console.log('Dati ricevuti:', JSON.stringify(stats, null, 2));
-
             // Verifica che i dati necessari siano presenti
             if (!stats.stats50 || !stats.stats500) {
                 throw new Error('Mancano le statistiche a 50 o 500 spin');

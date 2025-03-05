@@ -174,7 +174,14 @@ class AuthService {
         id: user._id,
         email: user.email,
         role: user.role,
-        subscription: user.subscription.plan
+        subscription: {
+          plan: user.subscription.plan,
+          features: user.subscription.features,
+          status: user.subscription.status,
+          duration: user.subscription.duration,
+          startDate: user.subscription.startDate,
+          endDate: user.subscription.endDate
+        }
       },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }

@@ -95,40 +95,74 @@ class UserService {
     }
   }
 
-  // async subscribe(userId, plan) {
-  //   try {
-  //     const user = await userRepository.findById(userId);
-  //     if (!user) {
-  //       throw new AppError('User not found', 404);
-  //     }
+  async requestSubscription(userId, plan, duration) {
+    try {
+      const user = await userRepository.findById(userId);
+      if (!user) {
+        throw new AppError('Utente non trovato', 404);
+      }
 
-  //     // Verifica il piano
-  //     if (!['premium'].includes(plan)) {
-  //       throw new AppError('Invalid subscription plan', 400);
-  //     }
+      // Calcola la data di fine in base alla durata
+      const now = new Date();
+      let endDate;
+      
+      if (duration === 'monthly') {
+        endDate = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+      } else if (duration === 'annual') {
+        endDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+      } else {
+        throw new AppError('Durata non valida', 400);
+      }
 
-  //     // Prepara i dati dell'abbonamento
-  //     const subscriptionData = {
-  //       plan: 'premium',
-  //       startDate: new Date(),
-  //       endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 giorni
-  //       status: 'active',
-  //       features: {
-  //         maxSpins: 500,
-  //         predictions: true,
-  //         advancedStats: true
-  //       }
-  //     };
+      // Prepara i dati dell'abbonamento
+      const subscriptionData = {
+        plan: plan,
+        duration: duration,
+        startDate: now,
+        endDate: endDate,
+        status: 'pending' // Imposta lo stato come pending
+      };
 
-  //     // Aggiorna l'abbonamento
-  //     const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
+      // Aggiorna l'abbonamento
+      const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
 
-  //     return updatedUser.subscription;
-  //   } catch (error) {
-  //     if (error instanceof AppError) throw error;
-  //     throw new AppError('Error processing subscription', 500);
-  //   }
-  // }
+      return updatedUser.subscription;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Errore durante l\'elaborazione della richiesta di sottoscrizione', 500);
+    }
+  }
+
+  async cancelSubscriptionRequest(userId) {
+    try {
+      const user = await userRepository.findById(userId);
+      if (!user) {
+        throw new AppError('Utente non trovato', 404);
+      }
+
+      // Verifica che ci sia una richiesta di abbonamento in corso
+      if (!user.subscription || user.subscription.status !== 'pending') {
+        throw new AppError('Nessuna richiesta di abbonamento in corso', 400);
+      }
+
+      // Prepara i dati dell'abbonamento
+      const subscriptionData = {
+        plan: 'free',
+        duration: null,
+        startDate: null,
+        endDate: null,
+        status: 'unset'
+      };
+
+      // Aggiorna l'abbonamento
+      const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
+
+      return updatedUser.subscription;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Errore durante l\'annullamento della richiesta di sottoscrizione', 500);
+    }
+  }
 }
 
 module.exports = UserService;

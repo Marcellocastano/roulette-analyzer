@@ -1,11 +1,9 @@
 export interface Subscription {
-  features: {
-    maxSpins: number
-    predictions: boolean
-    advancedStats: boolean
-  }
-  plan: 'free' | 'premium' | 'pro'
-  status: 'active' | 'inactive' | 'expired'
+  plan: 'free' | 'premium'
+  duration: 'monthly' | 'annual' | null
+  startDate: string | null
+  endDate: string | null
+  status: 'unset' | 'active' | 'expired' | 'pending'
 }
 
 export interface User {

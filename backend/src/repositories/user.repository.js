@@ -20,10 +20,10 @@ class UserRepository extends BaseRepository {
       { 
         $set: { 
           'subscription.plan': subscriptionData.plan,
+          'subscription.duration': subscriptionData.duration,
           'subscription.startDate': subscriptionData.startDate,
           'subscription.endDate': subscriptionData.endDate,
-          'subscription.status': subscriptionData.status,
-          'subscription.features': subscriptionData.features
+          'subscription.status': subscriptionData.status
         }
       }
     );

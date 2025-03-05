@@ -27,6 +27,24 @@ const checkRole = (roles = []) => {
   };
 };
 
+/**
+ * Middleware che verifica se l'utente ha un abbonamento premium attivo
+ * Blocca l'accesso alle risorse premium se l'utente non ha un abbonamento valido
+ */
+const requirePremium = (req, res, next) => {
+  // Verifica se l'utente esiste e ha un abbonamento premium attivo
+  if (!req.user || 
+      !req.user.subscription || 
+      req.user.subscription.plan !== 'premium' || 
+      req.user.subscription.status !== 'active' ||
+      new Date(req.user.subscription.endDate) <= new Date()) {
+    return next(new AppError('This feature requires an active Premium subscription', 403));
+  }
+  
+  next();
+};
+
+// Manteniamo il vecchio middleware per retrocompatibilità
 const checkSubscription = (req, res, next) => {
   if (!req.user.subscription || req.user.subscription === 'free') {
     if (req.originalUrl.includes('/premium')) {
@@ -39,5 +57,6 @@ const checkSubscription = (req, res, next) => {
 module.exports = {
   authenticateToken,
   checkRole,
-  checkSubscription
+  checkSubscription,
+  requirePremium
 };

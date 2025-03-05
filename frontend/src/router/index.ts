@@ -23,11 +23,13 @@ const router = createRouter({
           path: 'play',
           name: 'play',
           component: () => import('../views/play/Play.vue'),
+          meta: { requiresPremium: true },
         },
         {
           path: 'tutorial',
           name: 'tutorial',
           component: () => import('../views/tutorial/Tutorial.vue'),
+          meta: { requiresPremium: true },
         },
         {
           path: 'account',
@@ -87,6 +89,15 @@ router.beforeEach(async (to, from, next) => {
   // Se l'utente è autenticato e prova ad accedere al login
   if (to.path === '/login' && isAuthenticated) {
     return next('/dashboard')
+  }
+
+  // Controllo accesso per rotte premium
+  if (to.meta.requiresPremium && !authStore.isPremiumUser) {
+    // Reindirizza alla dashboard se l'utente non ha un abbonamento premium attivo
+    return next({ 
+      path: '/dashboard', 
+      query: { from: 'premium', route: to.name?.toString() } 
+    })
   }
 
   next()

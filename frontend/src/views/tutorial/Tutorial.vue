@@ -14,7 +14,7 @@
     <!-- Two Column Cards -->
     <div class="text-center mb-6">
       <n-h2 class="mb-0">Concetti Base</n-h2>
-      <n-p class="mb-0 fontSizeHuge">
+      <n-p class="mb-0">
         A grandi linee il concetto fondamentale su cui si basa la strategia è una serie di fattori
         messi insieme, tra cui:
       </n-p>
@@ -60,7 +60,7 @@
           se si considera un periodo più ampio, fino a 500 spin. Questi numeri sono considerati
           promettenti perchè il loro aumento suggerisce che stanno iniziando a "
           <strong>recuperare</strong>
-          il ritardo e che potrebbero diventare più frequenti nei prossimi spin.
+          " il ritardo e che potrebbero diventare più frequenti nei prossimi spin.
         </n-p>
       </n-card>
     </section>
@@ -347,10 +347,14 @@
 .hero-section {
   text-align: center;
   margin-bottom: 4rem;
+  padding: 2rem;
+  border-radius: 20px;
+  background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
 
   .hero-title {
     font-size: 3rem;
     margin-bottom: 2rem;
+    color: #f4f4f4;
   }
 
   .hero-description {
@@ -450,7 +454,8 @@
 }
 
 // Steps Section
-.steps-section, .bets-section {
+.steps-section,
+.bets-section {
   margin-bottom: 4rem;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.05);

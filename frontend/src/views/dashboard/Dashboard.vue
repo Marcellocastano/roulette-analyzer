@@ -8,9 +8,8 @@
       </div>
     </div>
 
-    <div class="dashboard-content">
-      <!-- Statistiche in formato compatto -->
-      <div class="stats-grid">
+    <div v-if="authStore.isPremiumUser" class="dashboard-content">
+      <!-- <div class="stats-grid">
         <n-card class="stat-card sessions-card" size="small">
           <div class="stat-header">
             <div class="stat-icon">
@@ -72,7 +71,7 @@
             <span>{{ balanceTrend > 0 ? '+' : '' }}{{ balanceTrend }}% questo mese</span>
           </div>
         </n-card>
-      </div>
+      </div> -->
 
       <!-- Sezione Tutorial -->
       <div class="flex w-full justify-center">
@@ -159,19 +158,58 @@
         </n-card>
       </div>
     </div>
+    <div v-else class="tutorial">
+      <div class="text-center mb-6">
+        <n-h2 class="mb-0">Concetti Base in sintesi</n-h2>
+        <n-p class="mb-0 fontSizeHuge">
+          Per scoprire la strategia in dettaglio, acquista un abbonamento.
+        </n-p>
+      </div>
+      <section class="three-column-section">
+        <n-card class="feature-card">
+          <n-h3>Legge dei grandi numeri</n-h3>
+          <n-p>
+            Nel contesto della roulette, questo significa che, su un numero molto alto di spin,
+            <strong
+              >le probabilità di uscita dei vari numeri e delle diverse zone del tavolo
+              <u>tenderanno ad equilibrarsi</u> </strong
+            >. Questo ovviamente non significa andare a constatare la dozzina "in difetto" e puntare
+            su quei numeri. Ma questo insieme agli altri concetti forma le fondamenta della
+            strategia.
+          </n-p>
+        </n-card>
+        <n-card class="feature-card">
+          <n-h3>Zona Zero</n-h3>
+          <n-p>
+            La strategia è sviluppata per funzionare al meglio sfruttando la zona ZERO della
+            roulette, cioè quei numeri che vanno da 12 al 15. Se la percentuale di uscita della zona
+            zero è
+            <strong>inferiore alla media (20%)</strong>
+            sia a 50 che a 500 spin, si considera che la zona sia "
+            <strong>in difetto</strong>
+            ". Questo suggerisce che la zona è in ritardo e che potrebbe essere il momento di
+            puntare sui suoi numeri.
+          </n-p>
+        </n-card>
+        <n-card class="feature-card">
+          <n-h3>Crescita dei numeri</n-h3>
+          <n-p>
+            Si confrontano le statistiche a 50 spin con quelle a 500 spin per individuare i numeri
+            che mostrano una
+            <strong>tendenza positiva</strong>
+            . I numeri in crescita sono quelli che a 50 spin, mostrano un
+            <strong>aumento della frequenza di uscita</strong>
+            nel tempo e giocano un ruolo fondamentale per l'applicazione della strategia.
+          </n-p>
+        </n-card>
+      </section>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import {
-  NCard,
-  NIcon,
-  NH1,
-  NP,
-  NProgress,
-  NButton
-} from 'naive-ui'
+import { NCard, NIcon, NH1, NP, NProgress, NButton } from 'naive-ui'
 import {
   Calendar,
   History,
@@ -224,7 +262,7 @@ const accuracyRailColor = computed(() => {
 const formattedBalance = computed(() => {
   return new Intl.NumberFormat('it-IT', {
     style: 'currency',
-    currency: 'EUR'
+    currency: 'EUR',
   }).format(balance.value)
 })
 
@@ -308,7 +346,6 @@ onMounted(() => {
 
 .dashboard-content {
   display: flex;
-  flex-direction: column;
   gap: 2rem;
 }
 
@@ -330,7 +367,9 @@ onMounted(() => {
 .stat-card {
   border-radius: 12px;
   padding: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   background: #2a2a2a;
   border-color: #2a2a2a;
 
@@ -450,7 +489,8 @@ onMounted(() => {
   }
 }
 
-.lucky-numbers-card, .quick-actions-card {
+.lucky-numbers-card,
+.quick-actions-card {
   border-radius: 12px;
   height: 100%;
   max-width: 600px;
@@ -542,7 +582,6 @@ onMounted(() => {
   border-radius: 12px;
   height: 100%;
   max-width: 600px;
-  margin-top: 1rem;
 }
 
 .tutorial-content {
@@ -591,6 +630,46 @@ onMounted(() => {
   }
 }
 
+.three-column-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature-card {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s ease;
+  border-radius: 20px;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+.tutorial {
+  p {
+    font-size: 1rem;
+  }
+  .fontSizeHuge {
+    font-size: 1.7rem;
+  }
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+}
 @media (max-width: 768px) {
   .welcome-section {
     flex-direction: column;

@@ -47,6 +47,7 @@ import {
   NImage,
   NGrid,
   NGridItem,
+  NDropdown
 } from 'naive-ui'
 
 import './style.css'
@@ -91,6 +92,7 @@ const naive = create({
     NImage,
     NGrid,
     NGridItem,
+    NDropdown
   ],
 })
 

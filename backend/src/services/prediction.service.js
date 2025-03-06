@@ -60,7 +60,19 @@ class PredictionService {
 
   _getSequenceNumbers(lastNumber) {
     const numbers = new Set();
-
+    
+    // 1. Aggiungi sempre il gruppo ZERO_NEIGHBORS
+    const zeroNeighbors = expandGroups(['ZERO_NEIGHBORS']);
+    zeroNeighbors.forEach(num => numbers.add(num));
+    
+    // 2. Aggiungi il numero estratto e i suoi adiacenti sulla ruota
+    numbers.add(parseInt(lastNumber)); // Aggiungi il numero stesso
+    
+    // Aggiungi i numeri adiacenti sulla ruota
+    const neighbors = this._getNeighborsOnWheel(parseInt(lastNumber));
+    neighbors.forEach(num => numbers.add(num));
+    
+    // 3. Aggiungi le sequenze predefinite per il numero
     if (SEQUENCES[lastNumber]) {
       const expanded = expandGroups(SEQUENCES[lastNumber]);
       expanded.forEach(num => numbers.add(num));

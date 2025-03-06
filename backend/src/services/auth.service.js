@@ -130,7 +130,7 @@ class AuthService {
       await userRepository.setPasswordResetToken(
         email,
         hashedToken,
-        new Date(Date.now() + 10 * 60 * 1000) // 10 minuti di validità
+        new Date(Date.now() + 12 * 60 * 60 * 1000) // 12 ore di validità
       );
 
       // TODO: Inviare email con il token

@@ -94,13 +94,11 @@ import {
   Menu,
   X,
   Dashboard as DashboardIcon,
-  Settings as EditIcon,
   Logout as LogoutIcon,
-  Settings as SettingsIcon,
   Book as TutorialIcon,
   CreditCard as PianoIcon
 } from '@vicons/tabler'
-import { NIcon, NDropdown, NButton, NGradientText } from 'naive-ui'
+import { NIcon } from 'naive-ui'
 
 const router = useRouter()
 const route = useRoute()

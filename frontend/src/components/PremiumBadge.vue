@@ -1,8 +1,12 @@
 <template>
-  <div class="premium-badge">
+  <div v-if="!authStore.isPremiumUser" class="premium-badge">
     <span>PREMIUM</span>
   </div>
 </template>
+<script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
+</script>
 
 <style scoped>
 .premium-badge {

@@ -1,7 +1,7 @@
 const statisticsRepository = require('../repositories/statistics.repository');
 const initialStatsService = require('./initial-stats.service');
 const { expandGroups } = require('../config/roulette.groups');
-const { SEQUENCES, ZONE_ZERO_NUMBERS } = require('../config/roulette.sequences');
+const { SEQUENCES, ZONE_ZERO_NUMBERS, DIRECT_SEQUENCES } = require('../config/roulette.sequences');
 const { ROULETTE_WHEEL } = require('../config/roulette.numbers');
 const { SURPLUS_THRESHOLD, INCREASE_PERCENTAGE_THRESHOLD } = require('../config/roulette.thresholds');
 
@@ -141,7 +141,6 @@ class PredictionService {
     // Identifichiamo la dozzina sofferente e quella in surplus
     const sufferingDozen = dozenDown;
     const surplusDozen = dozenUp;
-  
     // 1. Partiamo dalla base: i numeri di sequenza
     let refined = new Set(sequenceNumbers);
   
@@ -164,25 +163,50 @@ class PredictionService {
   
     // 3. Aggiungiamo i "vicini" dei numeri se appartengono alla dozzina sofferente o sono in zona zero
     const neighborsToAdd = [];
+
+    // Raccogli tutti i potenziali vicini da aggiungere
     for (let num of refined) {
       const neighbors = this._getNeighborsOnWheel(num);
+      
       neighbors.forEach(n => {
-        const isInSufferingDozen = this._isNumberInDozen(n, sufferingDozen);
-        const isZeroNumber = this._isZeroNumber(n);
-        const isInGrowth = increasingNumbers.includes(n);
-  
-        if (
-          (isInSufferingDozen) ||
-          (zeroZoneIsSuffering && isZeroNumber) ||
-          (isInGrowth)
-        ) {
-          neighborsToAdd.push(n);
+        // Verifica se il vicino è già presente in refined
+        if (!refined.has(n)) {
+          const isInSufferingDozen = this._isNumberInDozen(n, sufferingDozen);
+          const isZeroNumber = this._isZeroNumber(n);
+          const isInGrowth = increasingNumbers.includes(n);
+          
+          if (
+            (isInSufferingDozen) ||
+            (zeroZoneIsSuffering && isZeroNumber) ||
+            (isInGrowth)
+          ) {
+            neighborsToAdd.push(n);
+          }
         }
       });
     }
-    
-    // Aggiungiamo i vicini
-    neighborsToAdd.forEach(n => refined.add(n));
+
+    // Calcola quanti elementi possiamo ancora aggiungere
+    const currentSize = refined.size;
+    const availableSlots = Math.max(0, 15 - currentSize);
+
+    // Se abbiamo spazio disponibile e ci sono vicini da aggiungere
+    if (availableSlots > 0 && neighborsToAdd.length > 0) {
+      // Se abbiamo più vicini di quelli che possiamo aggiungere, ne scegliamo alcuni casualmente
+      if (neighborsToAdd.length > availableSlots) {
+        // Mescola l'array di vicini per selezionare casualmente
+        for (let i = neighborsToAdd.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [neighborsToAdd[i], neighborsToAdd[j]] = [neighborsToAdd[j], neighborsToAdd[i]];
+        }
+        
+        // Prendi solo il numero di vicini che possiamo aggiungere
+        neighborsToAdd.length = availableSlots;
+      }
+      
+      // Aggiungi i vicini selezionati
+      neighborsToAdd.forEach(n => refined.add(n));
+    }
     
     // 4. Assicuriamoci che tutti i numeri della zona zero siano inclusi
     ZONE_ZERO_NUMBERS.forEach(n => refined.add(n));
@@ -191,7 +215,7 @@ class PredictionService {
     return Array.from(refined).sort((a, b) => a - b);
   }
   
-  _classifyNumbers(refinedNumbers, initialStats) {
+  _classifyNumbers(refinedNumbers, initialStats, lastNumber) {
     const { dozenDown, analysis } = initialStats || {};
     const { increasingNumbers = [] } = analysis || {};
   
@@ -203,15 +227,13 @@ class PredictionService {
       const isInIncreasing = increasingNumbers.includes(number);
       const isInDozenDown = this._isNumberInDozen(number, dozenDown);
       const isZeroGrowing = this._isZeroNumberInGrowth(number, initialStats);
-  
-      // SPECIAL: se (zona zero in crescita) E (dozzina sofferente)
-      // (Oppure la definisci come preferisci)
-      if (isZeroGrowing && isInDozenDown) {
+      const isInDirectSequence = DIRECT_SEQUENCES[lastNumber].includes(number);
+      // SPECIAL: se (zona zero in crescita) E (dozzina sofferente) OPPURE se è lo 0 ed è in crescita
+      if ((isZeroGrowing && isInDozenDown && isInIncreasing) || (number === 0 && isZeroGrowing)) {
         special.push(number);
       }
-      // PRIMARY: se è in dozzina sofferente O in crescita O in zona zero sofferente
-      // (ma NON soddisfa i criteri di special)
-      else if (isInIncreasing || isInDozenDown || isZeroGrowing) {
+      // PRIMARY: se è in una sequenza diretta E (appartiene alla dozzina sofferente OPPURE è in crescita e in aumento)
+      else if ((isInDirectSequence && isInDozenDown) || (isZeroGrowing && (isInIncreasing || isInDozenDown))) {
         primary.push(number);
       }
       // SECONDARY: tutti gli altri (che non rientrano in special/primary)
@@ -368,7 +390,7 @@ class PredictionService {
       const refinedNumbers = this._refineSequenceNumbers(sequenceNumbers, initialStats);
   
       // 4. Classificazione
-      const categorized = this._classifyNumbers(refinedNumbers, initialStats);
+      const categorized = this._classifyNumbers(refinedNumbers, initialStats, lastNumber);
   
       return {
         lastNumber,

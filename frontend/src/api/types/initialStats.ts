@@ -51,14 +51,14 @@ export interface InitialStatsPayload {
 
 export interface Stats {
   dozens: Dozens
-  zeroNeighbors: number
+  zeroNeighbors: number | null
   numbers: Numbers
 }
 
 export interface Dozens {
-  first: number
-  second: number
-  third: number
+  first: number | null
+  second: number | null
+  third: number | null
 }
 
 export interface Numbers {

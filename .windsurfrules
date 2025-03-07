@@ -1,267 +1,53 @@
-Parlami in italiano.
-Voglio creare un software per la generazione di numeri della roulette sulla base di una strategia di gioco statistica, L'algoritmo non è un predittore infallibile, ma piuttosto uno strumento che fornisce indicazioni sulle aree del tavolo da gioco dove è più probabile che la pallina si fermi, basandosi su dati storici e recenti. Analisi delle statistiche: Il punto di partenza è l'osservazione delle statistiche relative alle uscite dei numeri. Si analizzano principalmente: Le dozzine: Si cerca una dozzina che a 500 spin sia in sofferenza, ovvero che abbia una percentuale di uscita inferiore al 27-28%. Questo indica che i numeri di quella dozzina hanno una maggiore probabilità di uscire nel breve periodo per riequilibrare le statistiche. La zona zero e vicini: Questa zona, composta da 7 numeri (dal 12 al 15), è monitorata per individuare squilibri. Si osserva la sua percentuale di uscita sia a 50 che a 500 spin, cercando situazioni in cui la percentuale è inferiore al 20%. Numeri caldi e freddi: Si osservano i numeri che sono usciti più frequentemente (caldi) e quelli che sono usciti meno (freddi) sia a 50 che a 500 spin. Si cerca di capire se i numeri caldi sono concentrati in particolari zone della ruota. Andamento dei numeri: Si monitora come i numeri "salgono" o "scendono" spostando il cursore da 50 a 500 spin, cioè si controlla come variano le frequenze di uscita di ogni singolo numero. I numeri che aumentano la loro frequenza sono considerati "in crescita". Sequenze: Si tiene conto delle sequenze di numeri, ovvero quei numeri che tendono a uscire dopo un determinato numero. Queste sequenze sono state individuate attraverso anni di studio e osservazione. Entrata in gioco: L'ingresso in gioco avviene quando si individua una situazione di squilibrio, ad esempio una dozzina o una zona sofferente. Si inizia con puntate basse per testare il tavolo e capire l'andamento delle uscite. Applicazione della strategia: La strategia si sviluppa su diversi livelli: Identificazione dei "focal": Sulla base dell'analisi statistica, si identificano 2-3 numeri "focal" su cui concentrare la maggior parte delle puntate. Questi numeri sono generalmente quelli della zona o della dozzina sofferente che mostrano una tendenza in crescita. Puntate mirate: Si punta una cifra maggiore sui numeri focal, mentre si punta una cifra minore sugli altri numeri per coprire più caselle e rientrare dell'investimento, se escono numeri non focali. Utilizzo delle sequenze: Si gioca anche sui numeri che seguono le sequenze dei numeri usciti, tenendo conto delle zone che appaiono sofferenti. Gestione del budget: Si entra con un budget prefissato (generalmente €200-€300) e si gestisce in modo da non bruciaro rapidamente. Si punta di più quando si è in vincita e si riducono le puntate quando si perde. Fermarsi al momento giusto: È fondamentale fermarsi quando si è ottenuto un utile soddisfacente. Più si rimane al tavolo, maggiore è il rischio di perdere. Osservare anche quando ci si ferma: Continuare a monitorare l'andamento dei numeri anche dopo essersi fermati, aiuta a capire la dinamica delle partite e ad imparare per le sessioni future. Cosa Rende una Situazione Profittevole o Meno: Situazione Profittevole:Una dozzina o zona in sofferenza a 500 spin. Numeri in crescita nella zona sofferente. Numeri caldi concentrati nella zona sofferente. Utilizzo corretto delle sequenze. Gestione oculata del budget. Capacità di fermarsi al momento giusto. Situazione Meno Profittevole:Equilibrio tra le dozzine e le zone a 500 spin. Numeri caldi distribuiti in modo casuale. Assenza di numeri in crescita nella zona sofferente. Puntate eccessive in base al proprio budget. Incapacità di fermarsi anche dopo aver ottenuto un utile. In Sintesi: L'algoritmo e la strategia descritti nelle fonti non sono una "formula magica" per vincere sempre alla roulette, ma piuttosto un metodo per analizzare statisticamente il gioco e cercare di identificare situazioni favorevoli. La chiave del successo è la capacità di osservare, analizzare, adattarsi e gestire il proprio budget con disciplina e consapevolezza. La componente della fortuna è sempre presente, ma l'approccio descritto nelle fonti mira a ridurre l'impatto del caso e ad aumentare le probabilità di vincita nel lungo periodo. Queste sono le sequenze note: [16,32] [0,17] [35,11] [15,13] [2,4] [31,16,33] [19,13] [19,4,15,36,27,13] [27,23,25] [12,24,5,10,23] [4,2,21,20,14] [7,36,13] [0,32,26] -> [34,6,17,24,16,33,5,10,23,zero] # Concetti fondamentali Individuare una dozzina sofferente a 500 spin e monitorare fin quando non si riequilibra. Tenere d'occhio la zona zero se è in sofferenza In base alle sequenze porre il focus sui numeri della dozzina sofferente **Legge dei Grandi Numeri:** Si parte dal principio che, su un numero elevato di spin (circa 500), le dozzine, le zone e altre categorie di numeri tendono ad equilibrarsi, avvicinandosi a una percentuale media di circa il 30% per le dozzine. Squilibri: La strategia si concentra sull'individuazione di tavoli dove le statistiche non sono equilibrate, in particolare quando una dozzina o una zona specifica mostrano una percentuale di uscita inferiore alla media, definita "sofferente". Questo squilibrio suggerisce che quella zona potrebbe essere più propensa a "riequilibrarsi" nel breve termine. Analisi delle Zone: Si osserva in particolare la zona dello zero e i suoi vicini (i sette numeri dal 12 al 15 sulla ruota). Quando questa zona mostra una bassa percentuale di uscita, viene considerata sofferente. Numeri "Caldi" e "Freddi": Si individuano i numeri che sono usciti più frequentemente (caldi) o meno frequentemente (freddi) negli ultimi 50 e 500 spin. L'analisi comparativa di questi numeri aiuta a identificare quali numeri, all'interno di una zona sofferente, potrebbero essere più propensi ad uscire. Sequenze: Si tiene conto delle sequenze di numeri che tendono a ripetersi, basate sull'esperienza di gioco. Per esempio, dopo il 35, è frequente che esca l'11. Focalizzazione: Si scelgono due o tre numeri all'interno di una zona sofferente che si presume usciranno, chiamati "focal", sui quali puntare di più. Si aggiungono poi i numeri delle sequenze, o altri numeri sofferenti o che hanno una connessione con quelli "focal". Condizioni Ideali per la Scelta del Tavolo Le condizioni ideali per la scelta di un tavolo sono: • Dozzina Sofferente: Un tavolo con una dozzina che mostra una percentuale di uscita significativamente inferiore al 30% a 500 spin. L'ideale è quando la percentuale è inferiore al 27% o 28%. • Zona Zero Sofferente: La zona dello zero e dei suoi vicini con una bassa percentuale di uscita, inferiore al 20-25% sia a 50 che a 500 spin. • Squilibrio nella Zona Zero: A 50 spin, la percentuale della zona zero dovrebbe essere data dall'uscita di pochi numeri, indicando che altri numeri della zona sono "freddi". • Andamento dei Numeri: I numeri all'interno della zona sofferente dovrebbero mostrare una tendenza a salire da 50 a 500 spin. Cioè, se a 50 spin un numero è freddo, a 500 dovrebbe essere più caldo (o in crescita). # Lezioni Estratto video 13 Novembre: In questo momento c'è la zona dello zero e vicini che è sofferente. Come vedete io sto puntando, ma parto dal da quelli che sono i numeri più caldi a 50 spin. Dove mi concentro? Ecco. sullo zero perché è quello che in questo momento soffre un po' di più e il 26 e il 3. Perché partendo da 50 spin, andando verso i 500, lo 0, il 26 e il 3 sono quelli che stanno crescendo di più, mentre a 50 spin escono di meno. Quindi diciamo che tutto ciò che riguarda lo studio fatto da me nel tempo porta a pensare che usciranno. Lo studio che viene fatto delle statistiche riguarda quelle zone che possono essere o una dozzina sofferente che, come ho già spiegato nei grandi numeri, poi va ad equilibrarsi. Quindi se troviamo una dozzina che sta sotto il 28% 27%. Lì bisogna capire di quella dozzina quale numeri sono in quel momento vicini a quelli che stanno uscendo più frequentemente. Questo già l'ho spiegato. Un altro metodo, cioè lo stesso metodo, un'altra lettura delle statistiche è quello di andare a vedere delle zone e quindi zone circoscritte, quindi possono essere gli orfanelli o zero e vicini dove se la situazione non è equilibrata tenderà ad equilibrarsi e quindi Andiamo a giocarci quei numeri o a puntare quei numeri cercando di concentrarci su due o tre numeri e poi ecco, questo è il risultato. Estratto video 17 novembre: Vado alla ricerca di un tavolo che abbia le condizioni di sofferenza o di una dozzina o della zona zero e vicini o comunque di una situazione non di equilibrio. Zona 0 10% a 50 spin e 19% a 500 spin con la terza dozzina leggermente in sofferenza(29%) a 500 spin. Quindi andiamo a vedere un attimino quale sono i numeri. Allora, dal 15 al 12 quello che è diventato caldo a 500 spin è il 3, il 12 aumenta(cresce), perché vedete tornando nuovamente a 500 spin, il 32 e il 15 salgono(crescono). Salgono vuol dire che a 500 spin tenderanno a diventare caldi. Non subito, non lo sappiamo, insomma, non è che c'abbiamo la palla di vetro. Estratto video sessione demo con budget minimo Vediamo subito la percentuale a 50 spin della zona zero:22% e 19% a 500 spin. No, secondo me non è il caso. Ma proviamo a vedere come crescono i numeri: il 22% è dato dal 3. Andando verso i 500 spin tutti i numeri della zona 0 salgono tutti in modo omogeneo, quindi non va bene. Andiamo su un altro tavolo, allora a 50 spin la zona 0 è al 10%. Ok, vediamo. A 500 spin 16%, buona. Vediamo un po' i numeri come sono messi. Allora, a 50 spin è uscito solo il 35. Andando verso i 500 spin salgono il 26 e il 32. Perfetto. Salgono ma non diventano caldi. Vediamo un attimino le percentuali. La terza dozzina al 26% a 50 spin, quindi va bene giocare qui. Lo scopo che voglio raggiungere è creare una Web App che in base a questo metodo implementi un algoritmo che generi dei numeri seguendo il ragionamento descritto. Devi aiutarmi in questo Acquisizione dei dati iniziali Percentuale dozzine a 50 e 500 spin, percentuale zona zero a 50 e 500 spin, variazione dei numeri della zona zero tramite misuramento da web app come descritto prima (senza rilevamento di numeri da immagine ma rilevando i dati manualmente) Identificazione di anomalie statistiche Qui l'algoritmo individua gli squilibri più marcati: Numeri in crescita: quelli che negli ultimi 50-100 spin hanno un’impennata rispetto alla media globale. Dozzine in sofferenza: se una dozzina è molto sotto la sua media teorica, potrebbe recuperare nel breve periodo. Numeri della zona zero in sofferenza: se la zona zero (vicini dello zero) non esce da molto, è da tenere d’occhio. Numeri “freddi” estremi: se un numero non esce da tantissimi spin, può essere più probabile un recupero. Calcolo dei numeri "probabili" L'algoritmo assegna un punteggio di probabilità a ciascun numero. 📊 Formula di calcolo del punteggio Ogni numero avrà un punteggio basato su: Frequenza recente (+x punti) → Più è alto il ritmo di uscita, più è probabile che continui. Sofferenza della dozzina (+y punti) → Se la sua dozzina è molto in ritardo, il numero guadagna probabilità. Sofferenza della zona (+z punti) → Se appartiene a una zona che non esce da molto, ha un boost. Ritardo assoluto (+w punti) → Se un numero è in ritardo estremo, aumenta la probabilità. Una formula possibile: 𝑃 ( 𝑁 ) = ( 𝐴 ⋅ 𝐹 𝑛 ) + ( 𝐵 ⋅ 𝐷 𝑛 ) + ( 𝐶 ⋅ 𝑍 𝑛 ) + ( 𝐷 ⋅ 𝑅 𝑛 ) P(N)=(A⋅F n ​ )+(B⋅D n ​ )+(C⋅Z n ​ )+(D⋅R n ​ ) Dove: 𝐹 𝑛 F n ​ = Frequenza recente del numero 𝐷 𝑛 D n ​ = Penalità se la sua dozzina è molto sopra o boost se è sotto media 𝑍 𝑛 Z n ​ = Boost se la sua zona è in sofferenza 𝑅 𝑛 R n ​ = Boost se il numero è in forte ritardo rispetto alla sua media I pesi 𝐴 , 𝐵 , 𝐶 , 𝐷 A,B,C,D vanno tarati in base ai dati storici. Generazione della giocata finale Selezioni i top 10-15 numeri con il punteggio più alto. Se noti cluster in una dozzina o una zona specifica, puoi aggiustare la strategia. Se trovi numeri "doppiamente favoriti" (es. sia per sofferenza della zona sia per ritardo), potrebbero essere i più interessanti. 
-Idee di webapp
+Voglio creare una webapp per aiutare i giocatori di roulette. il software dovrà in un certo senso "predire" quale numero uscirà in base alla spiegazione descritta qui sotto. Ho bisogno che mi aiuti a capire come strutturare la webapp, quale linguaggio di programmazione è più appropriato e come posso trasformare l'algoritmo in logica
 
-Rilevamento dati nella prima fase: Input con la selezione delle percentuali delle dozzine a 500 spin
+Analisi Preliminare del Tavolo
+Ricerca di squilibri: L'obiettivo principale è individuare tavoli dove le statistiche non sono in equilibrio. In particolare, si cerca una "dozzina sofferente", ovvero una delle tre dozzine (1-12, 13-24, 25-36) che ha una percentuale di uscita inferiore alla media, che è di circa il 30% a 500 spin.
 
-Input con la selezione delle percentuali della zona zero a 500 e 50 spin
+Analisi della zona "zero e vicini": Si monitora la percentuale di uscita della zona "zero e vicini" (i numeri dal 12 al 15 più lo 0). Si confrontano le percentuali a 50 e 500 spin. Una percentuale bassa a 50 spin e in crescita a 500 spin è considerata un segnale di potenziale interesse.
 
-Input per la rilevazione dell’andamento della zona zero da 50 a 500 spin, mostrata graficamente come nella ruota delle statistiche, quindi con dei coni. Per ogni numero l’utente “riempie” il cono per come lo vede nelle statistiche del tavolo, e ad ogni unità riempita del cono viene attribuito un valore. Lo stesso procedimento verrà eseguito nelle statistiche a 500 spin, e alla fine si potrà calcolare con dei dati l’andamento dei numeri della zona zero per determinare i numeri in crescita. Una crescita graduale di tutti i numeri non è una buona situazione, lo è invece se ci sono 2 o 3 numeri che salgono più di altri, e quelli saranno considerati numeri caldi.
+Identificazione dei numeri caldi: Si cercano i numeri usciti più frequentemente, sia a 50 che a 500 spin. Se i numeri caldi si concentrano in una stessa area della ruota sia a 50 che a 500 spin, questa zona è di particolare interesse.
 
-Una volta inseriti questi primi dati il software li analizzerà e dirà se ci sono le condizioni ideali per giocare, se le condizioni non sono ottimali e se è sconsigliato giocare.
+Selezione dei Numeri su Cui Puntare
+Numeri della dozzina sofferente: Si dà priorità ai numeri della dozzina "sofferente", specialmente quelli che stanno diventando "caldi". L'idea è che, per riequilibrare le statistiche, i numeri di questa dozzina tenderanno a uscire più frequentemente.
 
-Una volta che l’utente avrà accettato di proseguire si inizia ad alimentare l’algoritmo inserendo gli ultimi 10 numeri usciti in ordina di uscita dal meno recente al più recente. Dopo di ciò il software inizierà a consigliare i numeri con una raffigurazione grafica sia sul tavolo con i numeri ordinati sia sulla ruota, sia su una spirale di numeri. Sostanzialmente si andrà a replicare le 3 tipologie di raffigurazioni che ci sono sul tavolo da gioco in modo da facilitare l’utente per puntare più velocemente. La ruota presenterà una leggenda dove con determinati colori verranno indicati i numeri caldi su cui bisognerà puntare di più. La ruota su cui compariranno i numeri sarà possibile girarla per adattarla a quella presente al tavolo in cui si gioca, in questo modo il giocatore avrà subito il colpo d’occhio su quali numeri puntare.
+Numeri della zona "zero e vicini": Si considerano i numeri di questa zona quando essa è in sofferenza. Ci si concentra in particolare su quei numeri della zona che, nel passaggio da 50 a 500 spin, stanno crescendo di più.
 
-Ogni numero uscito verrà selezionato nella griglia dei numeri e il software continuerà a consigliare i numeri. Il software dovrebbe mostrare delle tip come ad esempio il fatto che bisogna continuare a monitorare le statistiche per capire quando fermarsi. Dopo n numeri presi il software dovrebbe consigliare di smettere di giocare e ritirare la vincita.
+Utilizzo delle sequenze: Si implementano le sequenze numeriche, schemi di numeri che statisticamente tendono a ripetersi. Ad esempio, dopo il 35 spesso esce l'11. Le sequenze aiutano a identificare i numeri successivi a quelli appena usciti.
 
-Trasformazione del riempimento dei coni in dati numerici
+Numeri freddi: Si monitorano i numeri "freddi", ovvero quelli usciti meno frequentemente. In particolare, si tiene d'occhio lo zero, che ha una statistica a sé e che spesso viene giocato quando è rimasto a lungo "freddo".
 
-Per assegnare un valore ai coni riempiti dall'utente e stabilire la crescita/decrescita/stabilità dei numeri, possiamo adottare questo sistema:
+Gestione delle Puntate
+Iniziare con puntate basse: Si inizia con puntate basse per monitorare l'andamento e preservare il budget. Questo permette di capire come si comporta il tavolo senza rischiare subito grandi somme.
 
-Suddivisione in livelli:
+Aumentare le puntate: Quando si è in vincita o si individuano numeri o zone con alta probabilità di uscita, si aumentano le puntate, concentrandosi su due o tre numeri specifici. L'aumento delle puntate è proporzionale alla sicurezza che si ha sulla base dell'analisi delle statistiche e delle sequenze.
 
-Ogni cono è diviso in 20 livelli di riempimento (0-19, ad esempio).
+Coprire più numeri: Si coprono più numeri per aumentare le probabilità di vincita, anche se di importo minore. Si punta non solo sui numeri su cui ci si concentra, ma anche su numeri di "copertura" per minimizzare le perdite.
 
-Il livello di riempimento è scelto dall’utente trascinando il riempimento nel software.
+Bilanciare le puntate: Si bilanciano le puntate tra numeri su cui ci si concentra e numeri di "copertura", per minimizzare le perdite.
 
-Possiamo attribuire un punteggio a ogni livello, ad esempio:
+Monitoraggio Continuo e Adattamento
+Osservazione costante: Si monitorano costantemente le statistiche (dozzine, zona zero, numeri caldi) per adattare la strategia. L'analisi dei dati non è statica, ma dinamica.
 
-0% riempito → 0 punti
+Aggiustare la selezione dei numeri: Si cambiano i numeri puntati in base all'evoluzione delle statistiche e all'uscita dei numeri. Se le condizioni cambiano, si cambia di conseguenza la propria strategia.
 
-5% riempito → 1 punto
+Gestione del budget: Ci si ferma quando si è raggiunto un utile soddisfacente o in caso di perdita del budget iniziale. E importante non rimanere al tavolo troppo a lungo, perché aumenta la probabilità di perdita.
 
-10% riempito → 2 punti
+Implementazione nel Software
 
-15% riempito → 3 punti
+Il software dovrebbe implementare questi passaggi:
 
-20% riempito → 4 punti
+Acquisizione dati: Importare in tempo reale i dati relativi ai numeri usciti (input manuale o API).
 
-e così via fino al 100% riempito.
+Calcolo statistiche: Calcolare le percentuali di uscita di dozzine, zona zero e numeri singoli.
 
-Raccolta e confronto tra 50 e 500 spin:
+Identificazione squilibri: Evidenziare le dozzine "sofferenti", le zone calde/fredde e le sequenze numeriche.
 
-L’utente compila due set di dati: uno per 50 spin e uno per 500 spin.
+Suggerimento numeri: Implementare le logiche descritte nell'algoritmo per suggerire i numeri su cui puntare, dando la possibilità di personalizzare i suggerimenti.
 
-Ogni numero ottiene quindi due punteggi (uno per 50 spin e uno per 500 spin).
+Gestione del Budget: Offrire funzionalità per impostare un budget iniziale e monitorare le puntate e suggerire l'importo delle puntate in base alla strategia.
 
-La variazione del punteggio indica l’andamento del numero:
+Interfaccia utente: Creare un'interfaccia chiara e facile da usare, visualizzando i dati in modo comprensibile.
 
-Se il punteggio aumenta, il numero è in crescita.
+Spiegazione del metodo
 
-Se il punteggio diminuisce, il numero è in decrescita.
-
-Se il punteggio è stabile, il numero è neutrale.
-
-Formula per il trend del numero:T=P50−P500
-
-T=P50−P500T = P_{50} - P_{500}
-
-Se T > 1, il numero è in crescita.
-
-Se T < -1, il numero è in decrescita.
-
-Se 1 ≤ T ≤ 1, il numero è stabile.
-
-Questo metodo assegna un valore numerico oggettivo basato sulla percezione dell’utente e lo rende elaborabile dal software.
-Devi aiutarmi ad implementare le formule matematiche da applicare a codice per la generazione del backend e che faccia i calcoli corretti in base alle statistiche fornite.
-
-Ecco un’idea su come **evolvere** l’algoritmo da un semplice “motore di sequenze” a un sistema più **“intelligente”** e dinamico, che prenda in considerazione:
-
-1. **Sequenze predefinite** (il tuo attuale “motore di sequenze”).  
-2. **Distribuzione delle dozzine** (sofferenza vs. sovra-rappresentazione).  
-3. **Zona zero** (sofferenza, numeri in crescita).  
-4. **Posizione dei numeri sulla ruota** (vicini, zone, ecc.).  
-5. **Evoluzione delle percentuali** man mano che nuovi numeri vengono estratti.  
-
-Di seguito troverai uno **schema** di come implementare la nuova logica e un **esempio di formula** per calcolare un punteggio dinamico (score) per ciascun numero, in modo da ordinare le previsioni e generare i consigli “primary, secondary, special” in modo molto più mirato.
-
----
-
-## 1. **Struttura Generale dell’Algoritmo**
-
-### **Fase A – Acquisizione e Analisi Iniziale**
-1. **Statistiche di base (initialStats)**:  
-   - Percentuali dozzine a 50 e 500 spin.  
-   - Percentuale zona zero a 50 e 500 spin.  
-   - Numeri della zona zero con `increasePercentage`.  
-   - Identificazione della “dozzina in sofferenza” e, se presente, della “dozzina in surplus” (quella più alta).  
-   - Identificazione di 2-3 numeri in crescita (zona zero e/o dozzina sofferente).
-
-2. **Costruzione di una mappa** di tutti i numeri (0-36) con:  
-   - **Dozzina** di appartenenza (1°, 2°, 3°).  
-   - **Zona** (se fa parte di zona zero, orfanelli, vicini, ecc.).  
-   - **Posizione** sulla ruota (per sapere quali numeri sono vicini).  
-
-3. **Set di sequenze**:  
-   - Per ogni numero \( x \), sai quali numeri tendono a seguirlo (es. [16,32], [0,17], etc.).  
-   - Eventualmente, tieni un “peso” anche per la sequenza (alcune sequenze sono più frequenti di altre).
-
----
-
-### **Fase B – Aggiornamento in tempo reale**
-Ogni volta che l’utente inserisce **un nuovo numero estratto**, l’algoritmo:
-
-1. **Aggiorna le statistiche** delle dozzine e della zona zero (una stima veloce: incrementa la frequenza della dozzina corrispondente al nuovo numero, ricalcola le percentuali).
-2. **Verifica se la dozzina in sofferenza** rimane tale o se si sta riequilibrando.  
-3. **Controlla se il nuovo numero appartiene a una sequenza** e quali numeri potenzialmente dovrebbero seguirlo.  
-4. **Ricalcola i punteggi** per ogni numero della ruota (0-36), in base a una formula che tiene conto di:  
-   - Sequenza (connessione con l’ultimo numero estratto).  
-   - Dozzina sofferente / dozzina in surplus.  
-   - Zona zero in sofferenza.  
-   - Numeri in crescita.  
-   - Vicinanza al numero appena estratto (se vuoi implementare una logica di “vicini” sulla ruota).
-
-5. **Ordina i numeri** in base al nuovo punteggio.  
-6. **Restituisce i consigli** (primary, secondary, special, ecc.) in base alla **classifica** data dal punteggio.
-
----
-
-## 2. **Formula di Calcolo del Punteggio Dinamico**
-
-Definiamo un punteggio \( S(n) \) per ciascun numero \( n \). L’idea è di **sommare** (o **sottrarre**) contributi da vari fattori:
-
-\[
-S(n) = w_{seq} \cdot Seq(n) + w_{doz} \cdot Doz(n) + w_{zero} \cdot Zero(n) + w_{inc} \cdot Inc(n) + w_{vic} \cdot Vic(n) + \dots
-\]
-
-Dove i singoli termini possono essere:
-
-1. **\( Seq(n) \)**: Punteggio di sequenza  
-   - Se \( n \) è uno dei numeri che “seguono” l’ultimo estratto (in base alle tue sequenze note), assegni un punteggio positivo.  
-   - Esempio: Se l’ultimo numero è 0, e la sequenza [0, 17] è considerata “forte”, allora \( Seq(17) = +1 \) o +2.  
-
-2. **\( Doz(n) \)**: Fattore dozzina sofferente/sovra-rappresentata  
-   - Se la dozzina di \( n \) è sofferente (sotto 28%), aggiungi +1 o +2.  
-   - Se la dozzina di \( n \) è in surplus (es. sopra 35%), assegni un malus (es. -1 o -2).  
-
-3. **\( Zero(n) \)**: Zona zero sofferente  
-   - Se la zona zero è sofferente e \( n \) ne fa parte, assegna un boost (es. +1).  
-   - Se la zona zero non è in sofferenza, puoi lasciare 0.  
-
-4. **\( Inc(n) \)**: Fattore di crescita (50 vs 500 spin)  
-   - Se \( n \) ha un `increasePercentage` positivo e sopra una soglia (es. 10 unità), aggiungi +1.  
-   - Se è negativo, lascia 0 o penalizza leggermente.  
-
-5. **\( Vic(n) \)**: Vicinanza all’ultimo numero estratto (opzionale)  
-   - Se vuoi dare un peso a numeri “vicini” sulla ruota, potresti aggiungere +1 a quei numeri che distano, ad esempio, 2 posizioni dal numero appena uscito.  
-
-> **Esempio** di punteggi parziali:
-> - \( w_{seq} = 2 \)  
-> - \( w_{doz} = 2 \)  
-> - \( w_{zero} = 1 \)  
-> - \( w_{inc} = 1 \)  
-> - \( w_{vic} = 0.5 \)
-
-**Totale**:
-\[
-S(n) = 2 \cdot Seq(n) + 2 \cdot Doz(n) + 1 \cdot Zero(n) + 1 \cdot Inc(n) + 0.5 \cdot Vic(n)
-\]
-
----
-
-## 3. **Esempio di Assegnazione dei Valori**
-Vediamo come potresti assegnare i valori a ogni termine:
-
-- **\( Seq(n) \)**:
-  - \( = 1 \) se \( n \) appartiene a una sequenza che segue l’ultimo estratto,  
-  - \( = 0 \) altrimenti.
-
-- **\( Doz(n) \)**:
-  - \( = +1 \) se la dozzina di \( n \) è sofferente (sotto 28%),  
-  - \( = -1 \) se la dozzina di \( n \) è in surplus (sopra 35%),  
-  - \( = 0 \) altrimenti.
-
-- **\( Zero(n) \)**:
-  - \( = 1 \) se \( n \) è nella zona zero sofferente,  
-  - \( = 0 \) altrimenti.
-
-- **\( Inc(n) \)**:
-  - \( = 1 \) se `increasePercentage` \( \ge 10 \),  
-  - \( = 0 \) se `increasePercentage` < 10 (o negativo).
-
-- **\( Vic(n) \)** (opzionale):
-  - \( = 1 \) se \( n \) è a 2 posizioni di distanza sull’anello della ruota rispetto all’ultimo estratto,  
-  - \( = 2 \) se è a 1 posizione di distanza,  
-  - \( = 0 \) altrimenti.
-
----
-
-## 4. **Generazione delle Previsioni (Primary, Secondary, Special)**
-Dopo aver calcolato \( S(n) \) per tutti i numeri (0-36):
-
-1. **Ordina i numeri** in base al punteggio decrescente.  
-2. **Identifica i cluster** (ad es. se la dozzina sofferente è la 2ª, i numeri della 2ª dozzina saranno più in alto).  
-3. **Applica la tua logica di classificazione**:
-   - **Special**: numeri con punteggio molto alto (ad es. \( S(n) \ge 4 \)) e che appartengono a *entrambe* le categorie “crescita” e “dozzina sofferente” e/o “zona zero sofferente”.  
-   - **Primary**: numeri con punteggio alto (ad es. \( S(n) \ge 2 \)) che soddisfano **solo una** delle condizioni (dozzina sofferente *o* in crescita *o* parte di una sequenza).  
-   - **Secondary**: numeri che hanno punteggio \( S(n) \ge 1 \) ma non rientrano nei criteri “special” o “primary”.  
-   - **Esclusi**: numeri con punteggio negativo o molto basso.
-
-Naturalmente puoi adattare queste soglie in base ai risultati dei test (A/B test, simulazioni, ecc.).
-
----
-
-## 5. **Esempio di Flusso in Codice (Pseudo-JS o Pseudo-Python)**
-```pseudo
-numbers = range(0, 37)  // 0..36
-
-function computeScores(numbers, lastExtracted, dozzineStats, zeroStats, sequencesMap, growthData) {
-    let scores = {}
-    for n in numbers:
-        let seqTerm = sequencesMap[lastExtracted].contains(n) ? 1 : 0
-        let dozTerm = 0
-        if dozzineStats.sofferente.includes(n)  // se n è nella dozzina sofferente
-            dozTerm = 1
-        else if dozzineStats.surplus.includes(n)
-            dozTerm = -1
-        
-        let zeroTerm = zeroStats.sofferente && zeroStats.numbers.includes(n) ? 1 : 0
-        let incTerm = growthData[n] >= 10 ? 1 : 0
-        let vicTerm = // calcolo della distanza sulla ruota
-
-        // Somma pesata
-        let S = (2 * seqTerm) + (2 * dozTerm) + (1 * zeroTerm) + (1 * incTerm) + (0.5 * vicTerm)
-        scores[n] = S
-    endfor
-
-    // Ordina per punteggio
-    let sortedNumbers = sortByValueDesc(scores)
-
-    // Classifica i numeri (special, primary, secondary)
-    let predictions = categorizeNumbers(sortedNumbers, scores)
-
-    return predictions
-}
-```
-
----
-
-## 6. **Gestione Dinamica col Nuovo Numero Estratto**
-- Ogni volta che arriva un **nuovo numero**:
-  1. Aggiorni la frequenza della sua dozzina e la % della zona zero se il numero appartiene a quell’area.  
-  2. Ricalcoli `dozzineStats` e `zeroStats`.  
-  3. Verifichi se il nuovo numero è in una sequenza: se sì, aggiungi un piccolo boost ai numeri che solitamente lo seguono.  
-  4. Ricalcoli i punteggi \( S(n) \).  
-  5. Riconsegni la nuova lista di predictions.
-
-In questo modo, l’algoritmo **si adatta** in tempo reale al variare delle uscite.
-
----
-
-## 7. **Conclusione**
-Con questo approccio:
-
-1. **Parti dalle sequenze** come base.  
-2. **Integri** le informazioni di dozzine sofferenti/sovra-rappresentate, zona zero in sofferenza, numeri in crescita.  
-3. **Dai un peso** a ciascun fattore (sequenza, dozzina, zona zero, crescita, vicinanza).  
-4. **Ottieni un punteggio** complessivo per ciascun numero.  
-5. **Consigli** i numeri in base ai punteggi più alti e li etichetti come special, primary, secondary, o esclusi.  
-6. **Aggiorni dinamicamente** man mano che i nuovi numeri vengono estratti.
-
-Questo rende il tuo sistema **più “intelligente”** rispetto a un semplice generatore di sequenze, perché:
-
-- Tiene conto del **riequilibrio statistico** (escludendo o penalizzando i numeri di dozzine che stanno “dominando” troppo).  
-- Premia i numeri **in crescita** o **appartenenti** a zone/dozzine sofferenti.  
-- Rimane comunque **aperto** alle sequenze che già conosci.  
-
-**Sperimenta e affina** i pesi e le soglie per ottenere i risultati più soddisfacenti! Spero che questa struttura ti aiuti a progettare il tuo algoritmo “intelligente” basato sui principi e le statistiche che hai illustrato. Buon lavoro!
+Il metodo si basa sull'idea che, nonostante la casualità del gioco della roulette, esistono squilibri statistici che possono essere sfruttati. L'obiettivo è identificare questi squilibri (dozzine sofferenti, zone zero in sofferenza, numeri caldi) e utilizzare le sequenze numeriche per prevedere i possibili numeri vincenti. Il metodo non garantisce la vittoria, ma, se applicato correttamente e con disciplina nella gestione del budget, può migliorare le probabilità di successo. L'uso di un software che automatizzi l'analisi statistica è cruciale per applicare il metodo in modo efficiente.

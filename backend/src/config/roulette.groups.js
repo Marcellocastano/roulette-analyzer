@@ -14,7 +14,6 @@ const NUMBER_GROUPS = {
   NEAR_9: [9,31,22],
   NEAR_19: [19,2,21,4],
   NEAR_8: [8,30,23],
-  NEAR_29: [29,7,18],
 };
 
 // Funzione helper per unire più gruppi di numeri

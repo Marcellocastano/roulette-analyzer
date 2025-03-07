@@ -1,5 +1,5 @@
 <template>
-  <div class="board-container">
+  <div class="w-full">
     <div class="roulette-board mb-8">
       <div
         class="number-cell zero"
@@ -66,14 +66,6 @@ const getNumberColor = (number: number): string => {
 </script>
 
 <style scoped>
-.board-container {
-  display: grid;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
 .roulette-board {
   display: grid;
   width: 100%;

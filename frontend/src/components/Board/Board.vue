@@ -13,26 +13,27 @@
         </div>
       </div>
     </div>
-
-    <div class="roulette-board">
-      <div
-        class="number-cell zero"
-        :class="{ 'last-selected': spins.length > 0 && spins[0].number === 0 }"
-        @click="handleNumberClick(0)"
-      >
-        0
-      </div>
-      <div
-        v-for="number in gridNumbers"
-        :key="number"
-        :class="[
-          'number-cell',
-          getNumberColor(number),
-          { 'last-selected': spins.length > 0 && spins[0].number === number },
-        ]"
-        @click="handleNumberClick(number)"
-      >
-        {{ number }}
+    <div>
+      <div class="roulette-board">
+        <div
+          class="number-cell zero"
+          :class="{ 'last-selected': spins.length > 0 && spins[0].number === 0 }"
+          @click="handleNumberClick(0)"
+        >
+          0
+        </div>
+        <div
+          v-for="number in gridNumbers"
+          :key="number"
+          :class="[
+            'number-cell',
+            getNumberColor(number),
+            { 'last-selected': spins.length > 0 && spins[0].number === number },
+          ]"
+          @click="handleNumberClick(number)"
+        >
+          {{ number }}
+        </div>
       </div>
     </div>
   </div>

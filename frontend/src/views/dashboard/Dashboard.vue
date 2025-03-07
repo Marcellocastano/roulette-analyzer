@@ -347,6 +347,10 @@ onMounted(() => {
 .dashboard-content {
   display: flex;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 // Nuova griglia per le statistiche

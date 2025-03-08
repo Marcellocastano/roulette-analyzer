@@ -84,6 +84,12 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await authApi.login(credentials)
       console.log(response)
       setToken(response.accessToken)
+      
+      // Salva il refresh token nel localStorage
+      if (response.refreshToken) {
+        localStorage.setItem('refreshToken', response.refreshToken)
+      }
+      
       const userData = response.user
       setUser({
         id: userData.id,
@@ -123,19 +129,35 @@ export const useAuthStore = defineStore('auth', () => {
     } finally {
       setToken(null)
       setUser(null)
+      localStorage.removeItem('refreshToken') // Rimuovi anche il refresh token
       router.push('/login')
     }
   }
 
   const refreshToken = async () => {
     try {
-      const newToken = await authApi.refreshToken()
-      setToken(newToken)
+      const storedRefreshToken = localStorage.getItem('refreshToken')
+      if (!storedRefreshToken) {
+        console.error('Refresh token non trovato nel localStorage')
+        setToken(null)
+        setUser(null)
+        return false
+      }
+      
+      const response = await authApi.refreshToken(storedRefreshToken)
+      setToken(response.accessToken)
+      
+      // Salva il nuovo refresh token se presente
+      if (response.refreshToken) {
+        localStorage.setItem('refreshToken', response.refreshToken)
+      }
+      
       return true
     } catch (error) {
       console.error('Token refresh error:', error)
       setToken(null)
       setUser(null)
+      localStorage.removeItem('refreshToken')
       return false
     }
   }

@@ -21,10 +21,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { getThemeOverrides } from './stores/theme'
+import { initTokenRefresh } from './services/tokenService'
 
 const currentTheme = ref(getThemeOverrides('dark'))
+
+onMounted(() => {
+  // Inizializza il servizio di refresh del token
+  if (localStorage.getItem('token')) {
+    initTokenRefresh()
+  }
+})
 </script>
 
 <style lang="scss">

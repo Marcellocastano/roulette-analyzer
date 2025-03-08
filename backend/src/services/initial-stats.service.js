@@ -1,6 +1,7 @@
 const InitialStats = require('../models/initial-stats.model');
 const Statistics = require('../models/statistics.model');
 const { DOZEN_MIN_THRESHOLD, DOZEN_MAX_THRESHOLD, ZERO_ZONE_THRESHOLD, INCREASE_PERCENTAGE_THRESHOLD } = require('../config/roulette.thresholds');
+const { Spin } = require('../models');
 
 // Enum per i reason codes
 const ReasonCode = {
@@ -12,8 +13,27 @@ const ReasonCode = {
 };
 
 class InitialStatsService {
+    constructor() {
+        this._startInactiveCheck();
+    }
+
+    _startInactiveCheck() {
+        setInterval(async () => {
+            const fourHoursAgo = new Date(Date.now() - 4 * 60 * 60 * 1000);
+            await InitialStats.updateMany(
+                { timestamp: { $lte: fourHoursAgo }, active: true },
+                { $set: { active: false } }
+            );
+        }, 60000);
+    }
+
     async addInitialStats(userId, stats) {
         try {
+            // Cancella tutte le statistiche associate
+            await InitialStats.deleteMany({ userId });
+            await Statistics.deleteOne({ user: userId });
+            await Spin.deleteMany({ user: userId });
+
             // Verifica che i dati necessari siano presenti
             if (!stats.stats50 || !stats.stats500) {
                 throw new Error('Mancano le statistiche a 50 o 500 spin');
@@ -147,12 +167,10 @@ class InitialStatsService {
         // Determina lo status del tavolo e raccoglie le ragioni
         const { status, reasons, reasonCodes } = this._determineTableStatus({
             isMinDozenConditionMet,
-            isMaxDozenConditionMet,
             isZeroZoneConditionMet,
             isZeroNumbersConditionMet,
             isZeroZoneAtThreshold,
             minDozens,
-            maxDozens,
             zeroNeighborsAvg,
             numbersWithHighIncrease,
             DOZEN_MIN_THRESHOLD,

@@ -14,6 +14,7 @@ export interface LoginData {
 
 export interface LoginResponse {
   accessToken: string
+  refreshToken: string
   user: User
 }
 
@@ -47,10 +48,14 @@ export const authApi = {
 
   /**
    * Aggiorna il token di accesso
-   * @returns Promise con il nuovo token
+   * @param refreshToken - Il token di refresh
+   * @returns Promise con il nuovo token di accesso e opzionalmente un nuovo token di refresh
    */
-  refreshToken: async (): Promise<string> => {
-    const response = await api.post<ApiResponse<{ accessToken: string }>>('/auth/refresh')
-    return response.data.data.accessToken
+  refreshToken: async (refreshToken: string): Promise<{ accessToken: string; refreshToken?: string }> => {
+    const response = await api.post<ApiResponse<{ accessToken: string; refreshToken?: string }>>(
+      '/auth/refresh',
+      { refreshToken }
+    )
+    return response.data.data
   },
 }

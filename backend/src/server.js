@@ -1,17 +1,16 @@
 const app = require('./app');
 const mongoose = require('mongoose');
+const config = require('./config/config');
 
-const PORT = process.env.PORT || 5000;
-
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
+// Connect to MongoDB and start server
+mongoose.connect(config.mongoUri)
     .then(() => {
-        console.log('Connected to MongoDB');
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+        console.log('Connesso a MongoDB');
+        app.listen(config.port, () => {
+            console.log(`Server avviato in modalità ${process.env.NODE_ENV || 'development'} sulla porta ${config.port}`);
         });
     })
-    .catch((error) => {
-        console.error('MongoDB connection error:', error);
+    .catch(err => {
+        console.error('Errore di connessione MongoDB:', err);
         process.exit(1);
     });

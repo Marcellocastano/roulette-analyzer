@@ -40,6 +40,7 @@ export interface InitialStatsResponse {
   analysis: Analysis
   _id: string
   timestamp: string
+  active: boolean
 }
 
 export type InitialStatsApiResponse = ApiResponse<InitialStatsResponse>

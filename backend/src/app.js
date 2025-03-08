@@ -4,11 +4,15 @@ const morgan = require('morgan');
 const routes = require('./routes');
 const { errorHandler } = require('./middlewares/errorHandler');
 require('dotenv').config();
+const config = require('./config/config');
 
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: config.corsOrigin,
+    credentials: true
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 

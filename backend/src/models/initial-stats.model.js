@@ -10,6 +10,7 @@ const initialStatsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  active: { type: Boolean, default: true },
   stats50: {
     dozens: {
       first: { type: Number, required: true },  // 1-12

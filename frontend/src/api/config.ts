@@ -41,8 +41,40 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401) {
       // Gestione token scaduto
-      localStorage.removeItem('token')
-      window.location.href = '/login'
+      const refreshToken = localStorage.getItem('refreshToken')
+      
+      // Se abbiamo un refresh token, proviamo a rinnovare il token
+      if (refreshToken) {
+        return apiClient.post('/auth/refresh', { refreshToken })
+          .then(response => {
+            if (response.data && response.data.accessToken) {
+              // Salva il nuovo token
+              localStorage.setItem('token', response.data.accessToken)
+              
+              // Se c'è un nuovo refresh token, salviamolo
+              if (response.data.refreshToken) {
+                localStorage.setItem('refreshToken', response.data.refreshToken)
+              }
+              
+              // Riprova la richiesta originale con il nuovo token
+              const originalRequest = error.config
+              originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`
+              return axios(originalRequest)
+            }
+          })
+          .catch(refreshError => {
+            console.error('Errore nel refresh del token:', refreshError)
+            // Se il refresh fallisce, reindirizza al login
+            localStorage.removeItem('token')
+            localStorage.removeItem('refreshToken')
+            window.location.href = '/login'
+            return Promise.reject(refreshError)
+          })
+      } else {
+        // Se non abbiamo un refresh token, reindirizza al login
+        localStorage.removeItem('token')
+        window.location.href = '/login'
+      }
     }
     return Promise.reject(error)
   }

@@ -89,7 +89,7 @@ const hasActiveSession = ref(false)
 onMounted(async () => {
   try {
     const { data: response } = await initialStatsApi.getLatestStats()
-    if (response.status === 'success' && response.data) {
+    if (response.status === 'success' && response.data.active) {
       hasActiveSession.value = true
       statsAnalysis.value = response.data
     }

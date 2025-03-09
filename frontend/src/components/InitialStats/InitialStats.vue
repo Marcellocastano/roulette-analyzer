@@ -97,7 +97,7 @@
   <n-modal v-model:show="showErrorModal" preset="dialog" :mask-closable="false" :closable="false">
     <n-result
       status="error"
-      title="Statistiche Non Raccomandate"
+      title="Statistiche non raccomandate"
       size="large"
       description="Le statistiche attuali non mostrano condizioni favorevoli per il gioco. Si consiglia di resettare e cambiare tavolo."
     >
@@ -110,7 +110,7 @@
   <n-modal
     v-model:show="showBorderlineModal"
     preset="dialog"
-    title="Condizioni al Limite"
+    title="Condizioni al limite"
     :positiveText="'Procedi'"
     :negativeText="'Cambia Tavolo'"
     @positive-click="handleProceed"
@@ -118,7 +118,7 @@
   >
     <n-result
       status="warning"
-      title="Tavolo Borderline"
+      title="Tavolo borderline"
       size="large"
       description="Le statistiche attuali mostrano condizioni al limite. Puoi scegliere se procedere con cautela
       o analizzare un altro tavolo."
@@ -128,13 +128,13 @@
   <n-modal
     v-model:show="showRecommendedModal"
     preset="dialog"
-    title="Condizioni Raccomandate"
+    title="Condizioni raccomandate"
     :positiveText="'Procedi'"
     @positive-click="handleProceed"
   >
     <n-result
       status="success"
-      title="Tavolo Raccomandato"
+      title="Tavolo raccomandato"
       size="large"
       description="Le statistiche attuali mostrano condizioni favorevoli. Procedi sempre con attenzione, inizia con puntate basse per poi aumentarle in caso di vincita."
     />

@@ -21,16 +21,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { getThemeOverrides } from './stores/theme'
 import { initTokenRefresh } from './services/tokenService'
+import env from './config/env'
 
 const currentTheme = ref(getThemeOverrides('dark'))
 
+// Imposta il titolo dinamico dell'applicazione in base all'ambiente
 onMounted(() => {
   // Inizializza il servizio di refresh del token
   if (localStorage.getItem('token')) {
     initTokenRefresh()
+  }
+  
+  // Imposta il titolo del documento in base all'ambiente
+  document.title = env.appTitle
+  
+  // Log dell'ambiente corrente (solo in sviluppo)
+  if (env.isDevelopment) {
+    console.log(`Ambiente: ${env.appEnv}`)
+    console.log(`API Base URL: ${env.apiBaseUrl}`)
   }
 })
 </script>

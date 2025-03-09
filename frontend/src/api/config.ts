@@ -1,8 +1,12 @@
 // Configurazione base per axios
 import axios from 'axios'
+import env from '../config/env'
+
+// Costruisci l'URL base in base all'ambiente
+const baseURL = `${env.apiBaseUrl}/v1`
 
 const apiClient = axios.create({
-  baseURL: '/api/v1', // Usiamo un path relativo invece dell'URL completo
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

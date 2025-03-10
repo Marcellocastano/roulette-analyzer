@@ -260,6 +260,7 @@ const handleProceed = () => {
 .statistics-card {
   width: 440px;
   margin: 0 auto;
+  background-color: #8dbc8d87;
 }
 
 .input-item {

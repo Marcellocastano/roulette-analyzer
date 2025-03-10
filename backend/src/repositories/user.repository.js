@@ -23,7 +23,8 @@ class UserRepository extends BaseRepository {
           'subscription.duration': subscriptionData.duration,
           'subscription.startDate': subscriptionData.startDate,
           'subscription.endDate': subscriptionData.endDate,
-          'subscription.status': subscriptionData.status
+          'subscription.status': subscriptionData.status,
+          'subscription.newRequest': subscriptionData.newRequest
         }
       }
     );

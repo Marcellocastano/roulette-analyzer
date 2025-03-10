@@ -4,7 +4,7 @@ import type {
   InitialStatsApiResponse,
   InitialStatsResponse,
 } from './types/initialStats'
-import type { ApiResponse } from './user'
+import type { ApiResponse } from '@/types/api'
 
 export const initialStatsApi = {
   submitStats: (stats: InitialStatsPayload) => {

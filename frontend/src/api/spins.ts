@@ -1,5 +1,5 @@
 import apiClient from './config'
-import type { ApiResponse } from './user'
+import type { ApiResponse } from '@/types/api'
 
 export interface Spin {
   _id: string

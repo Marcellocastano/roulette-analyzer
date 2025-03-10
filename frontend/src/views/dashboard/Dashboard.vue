@@ -233,11 +233,6 @@ import RouletteIcon from '@/components/icons/RouletteIcon.vue'
 const authStore = useAuthStore()
 const user = computed(() => authStore.user)
 
-// Verifica se la sottoscrizione è in attesa
-const subscriptionPending = computed(() => {
-  // return user.value?.subscription?.status === 'pending'
-})
-
 // Statistiche (dati di esempio)
 const sessionCount = ref(24)
 const sessionTrend = ref(12)

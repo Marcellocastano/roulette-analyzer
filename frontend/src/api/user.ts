@@ -1,15 +1,12 @@
 import apiClient from './config'
 import type { User } from '@/types/auth'
-
-export interface ApiResponse<T> {
-  status: 'success' | 'error'
-  data: T
-}
+import type { ApiResponse } from '@/types/api'
 
 export interface UserProfile {
-  id: string
+  _id: string
   email: string
   name: string
+  role: 'admin' | 'user'
   lastLogin?: string
   preferences?: Record<string, any>
 }
@@ -20,6 +17,10 @@ export interface UserSubscription {
   duration: 'monthly' | 'annual' | null
   startDate: string | null
   endDate: string | null
+  newRequest: {
+    status: 'unset' | 'active' | 'pending'
+    duration: 'monthly' | 'annual'
+  } | null
 }
 
 export interface PaymentInstructions {

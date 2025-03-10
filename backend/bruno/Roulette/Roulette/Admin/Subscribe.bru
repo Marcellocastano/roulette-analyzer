@@ -1,0 +1,21 @@
+meta {
+  name: Subscribe
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:5001/api/v1/users/subscribe
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "plan": "premium"
+  }
+}

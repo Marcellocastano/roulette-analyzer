@@ -71,8 +71,16 @@
             @click="closeMobileMenu"
           >
             <component :is="route.icon" class="nav-icon" />
-            <n-gradient-text v-if="route.name === 'Play'" :size="18" type="error">
-              <strong>Spin Lab</strong>
+            <n-gradient-text
+                v-if="route.name === 'Play'"
+                :size="17"
+                :gradient="{
+                  deg: 90,
+                  from: isRouteActive(route.path) ? '#14660c' : 'var(--accent-color-dark)',
+                  to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
+                }"
+              >
+                <strong>Roulette Destroyer</strong>
             </n-gradient-text>
             <span v-else>{{ route.name }}</span>
           </router-link>
@@ -96,7 +104,8 @@ import {
   Dashboard as DashboardIcon,
   Logout as LogoutIcon,
   Book as TutorialIcon,
-  CreditCard as PianoIcon
+  CreditCard as PianoIcon,
+  Sitemap
 } from '@vicons/tabler'
 import { NIcon } from 'naive-ui'
 
@@ -142,6 +151,12 @@ const options = [
   {
     type: 'divider',
   },
+  // Mostra la voce Admin solo se l'utente è amministratore
+  ...(authStore.isAuthAdmin ? [{
+    label: 'Admin',
+    key: 'admin',
+    icon: () => h(NIcon, null, { default: () => h(Sitemap) }),
+  }] : []),
   {
     label: 'Logout',
     key: 'logout',
@@ -185,7 +200,7 @@ const checkPremiumAccess = (e: any, routePath: string) => {
 .navbar {
   height: 85px;
   width: 100%;
-  background: var(--secondary-color-light);
+  background: #171717;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -234,12 +249,24 @@ const checkPremiumAccess = (e: any, routePath: string) => {
 
   .nav-item {
     position: relative;
+
+    @media (min-width: 768px) {
+      span {
+        margin-top: -15px;
+      }
+    }
   }
 
   .play-nav-link {
     display: flex;
     gap: 0.5rem;
     align-items: center;
+
+    @media (min-width: 768px) {
+      svg {
+        margin-top: -15px;
+      }
+    }
   }
 
   .nav-link {

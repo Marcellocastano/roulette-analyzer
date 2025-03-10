@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-content">
-        <n-h1 class="hero-title">Come Usare il Software</n-h1>
+        <n-h1 class="hero-title">Come usare il software</n-h1>
         <n-p class="hero-description">
           Ricorda che questo non è un generatore di numeri magici, ma uno strumento che grazie allo
           studio delle statistiche ti permette di giocare con un metodo testato e consolidato.
@@ -13,7 +13,7 @@
 
     <!-- Two Column Cards -->
     <div class="text-center mb-6">
-      <n-h2 class="mb-0">Concetti Base</n-h2>
+      <n-h2 class="mb-0">Concetti base</n-h2>
       <n-p class="mb-0">
         A grandi linee il concetto fondamentale su cui si basa la strategia è una serie di fattori
         messi insieme, tra cui:
@@ -225,7 +225,7 @@
   margin-bottom: 4rem;
   padding: 2rem;
   border-radius: 20px;
-  background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+  background-image: linear-gradient(15deg, #4d6647 0%, #5b9a7c 100%);
 
   .hero-title {
     font-size: 3rem;
@@ -346,7 +346,7 @@
   .cta-card {
     padding: 2rem;
     border-radius: 20px;
-    background-image: linear-gradient(45deg, var(--secondary-color), #00a1ff);
+    background-image: linear-gradient(45deg, #fad225, var(--accent-color-dark));
     background-size: 200% 200%;
     background-position: 0% 0%;
     transition: background-position 0.5s ease;

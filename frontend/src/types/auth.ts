@@ -4,13 +4,20 @@ export interface Subscription {
   startDate: string | null
   endDate: string | null
   status: 'unset' | 'active' | 'expired' | 'pending'
+  newRequest: {
+    status: 'unset' | 'active' | 'expired' | 'pending'
+  } | null
 }
 
 export interface User {
-  id: string
+  _id: string
   email: string
   name: string
   subscription: Subscription
+  role: 'admin' | 'user'
+  // createdAt: string
+  // updatedAt: string
+  // lastLogin: string
 }
 
 export interface LoginData {

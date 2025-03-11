@@ -6,7 +6,6 @@
           <n-h1>Il tuo Account</n-h1>
         </div>
       </template>
-      
       <n-tabs type="line">
         <n-tab-pane name="profile" tab="Profilo">
           <n-form ref="profileFormRef" :model="profileForm" :rules="profileRules">

@@ -54,6 +54,20 @@ const userSchema = new mongoose.Schema({
       type: String,
       enum: ['unset', 'active', 'expired', 'pending'],
       default: 'unset'
+    },
+    newRequest: {
+      default: null,
+      type: Object,
+      duration: {
+        type: String,
+        enum: ['monthly', 'annual'],
+        default: null
+      },
+      status: {
+        type: String,
+        enum: ['unset', 'active', 'pending'],
+        default: 'unset'
+      }
     }
   },
   lastLogin: Date,

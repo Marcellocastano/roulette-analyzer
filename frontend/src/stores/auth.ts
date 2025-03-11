@@ -13,6 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Getters
   const isAuthenticated = computed(() => !!token.value && !!user.value)
+  const isAuthAdmin = computed(() => user.value?.role === 'admin')
   const userSubscription = computed(() => user.value?.subscription)
   const isPremiumUser = computed(() => {
     if (!user.value?.subscription) return false
@@ -54,15 +55,17 @@ export const useAuthStore = defineStore('auth', () => {
       const subscriptionData = subscriptionResponse.data.data
 
       const userData: User = {
-        id: profileData.id,
+        _id: profileData._id,
         email: profileData.email,
         name: profileData.name,
+        role: profileData.role,
         subscription: {
           status: subscriptionData.status,
           plan: subscriptionData.plan,
           duration: subscriptionData.duration,
           startDate: subscriptionData.startDate,
           endDate: subscriptionData.endDate,
+          newRequest: subscriptionData.newRequest
         },
       }
 
@@ -92,10 +95,11 @@ export const useAuthStore = defineStore('auth', () => {
       
       const userData = response.user
       setUser({
-        id: userData.id,
+        _id: userData._id,
         email: userData.email,
         name: userData.name,
         subscription: userData.subscription,
+        role: userData.role
       })
       return true
     } catch (error) {
@@ -187,6 +191,7 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     userSubscription,
     isPremiumUser,
+    isAuthAdmin,
 
     // Actions
     login,

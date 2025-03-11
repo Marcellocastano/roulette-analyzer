@@ -13,8 +13,10 @@ class UserService {
         id: user._id,
         email: user.email,
         name: user.name,
+        role: user.role,
         subscription: user.subscription,
-        lastLogin: user.lastLogin
+        lastLogin: user.lastLogin,
+        newRequest: user.newRequest,
       };
     } catch (error) {
       if (error instanceof AppError) throw error;
@@ -101,31 +103,42 @@ class UserService {
       if (!user) {
         throw new AppError('Utente non trovato', 404);
       }
-
-      // Calcola la data di fine in base alla durata
-      const now = new Date();
-      let endDate;
-      
-      if (duration === 'monthly') {
-        endDate = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
-      } else if (duration === 'annual') {
-        endDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+  
+      let subscriptionData = {};
+  
+      if (user.subscription.plan === 'free') {
+        // Caso piano free
+        const now = new Date();
+        let endDate;
+        
+        if (duration === 'monthly') {
+          endDate = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+        } else if (duration === 'annual') {
+          endDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+        } else {
+          throw new AppError('Durata non valida', 400);
+        }
+  
+        subscriptionData = {
+          plan: plan,
+          duration: duration,
+          startDate: now,
+          endDate: endDate,
+          status: 'pending'
+        };
+      } else if (user.subscription.plan === 'premium' && user.subscription.status === 'active') {
+        // Caso piano premium attivo
+        subscriptionData = {
+          newRequest: {
+            duration: duration,
+            status: 'pending'
+          }
+        };
       } else {
-        throw new AppError('Durata non valida', 400);
+        throw new AppError('Impossibile processare la richiesta di sottoscrizione', 400);
       }
-
-      // Prepara i dati dell'abbonamento
-      const subscriptionData = {
-        plan: plan,
-        duration: duration,
-        startDate: now,
-        endDate: endDate,
-        status: 'pending' // Imposta lo stato come pending
-      };
-
-      // Aggiorna l'abbonamento
+  
       const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
-
       return updatedUser.subscription;
     } catch (error) {
       if (error instanceof AppError) throw error;

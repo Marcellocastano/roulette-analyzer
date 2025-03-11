@@ -41,6 +41,19 @@ const router = createRouter({
           name: 'pricing',
           component: () => import('../views/pricing/PricingView.vue'),
         },
+        {
+          path: '/admin',
+          name: 'admin',
+          component: () => import('../views/admin/AdminView.vue'),
+          meta: { requiresAuth: true, requiresAdmin: true },
+          children: [
+            {
+              path: 'user/:id',
+              name: 'userDetail',
+              component: () => import('../views/admin/id/UserDetail.vue'),
+            },
+          ],
+        },
       ],
     },
     {
@@ -80,15 +93,21 @@ router.beforeEach(async (to, from, next) => {
 
   // Verifica lo stato dell'autenticazione
   const isAuthenticated = await authStore.checkAuthStatus()
-
+  
   // Se la rotta richiede autenticazione e l'utente non è autenticato
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next('/login')
   }
-
+  
   // Se l'utente è autenticato e prova ad accedere al login
   if (to.path === '/login' && isAuthenticated) {
     return next('/dashboard')
+  }
+
+  if (to.meta.requiresAdmin) {
+    if (!authStore.isAuthenticated || !authStore.isAuthAdmin) {
+      return next('/dashboard')
+    }
   }
 
   // Controllo accesso per rotte premium

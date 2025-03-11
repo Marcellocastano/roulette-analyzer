@@ -1,4 +1,4 @@
-import type { ApiResponse } from '../user'
+import type { ApiResponse } from '@/types/api'
 
 export type TableStatus = 'recommended' | 'not_recommended' | 'borderline'
 

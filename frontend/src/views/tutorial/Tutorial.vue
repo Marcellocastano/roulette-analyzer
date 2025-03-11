@@ -5,8 +5,7 @@
       <div class="hero-content">
         <n-h1 class="hero-title">Come usare il software</n-h1>
         <n-p class="hero-description">
-          Ricorda che questo non è un generatore di numeri magici, ma uno strumento che grazie allo
-          studio delle statistiche ti permette di giocare con un metodo testato e consolidato.
+          Ricorda che questo strumento non è un generatore di numeri magici, ma un supporto progettato per aiutarti a giocare con una strategia basata su statistiche testate e consolidate. L’obiettivo è aumentare le probabilità di successo, ma è fondamentale applicare il metodo con attenzione e gestire il budget in modo responsabile.
         </n-p>
       </div>
     </section>
@@ -15,37 +14,26 @@
     <div class="text-center mb-6">
       <n-h2 class="mb-0">Concetti base</n-h2>
       <n-p class="mb-0">
-        A grandi linee il concetto fondamentale su cui si basa la strategia è una serie di fattori
-        messi insieme, tra cui:
+        La strategia si fonda su una serie di principi fondamentali che sfruttano logiche statistiche. Tra i concetti più importanti troviamo:
       </n-p>
     </div>
     <section class="three-column-section">
       <n-card class="feature-card">
         <n-h3>Legge dei grandi numeri</n-h3>
         <n-p>
-          Nel contesto della roulette, questo significa che, su un numero molto alto di spin,
-          <strong>
-            le probabilità di uscita dei vari numeri e delle diverse zone del tavolo
-            <u>tenderanno ad equilibrarsi</u>
-          </strong>. Questo ovviamente non significa andare a constatare la dozzina "in difetto" e puntare su
-          quei numeri. È importante sottolineare che la legge dei grandi numeri si applica solo su
-          un numero elevato di osservazioni. Pertanto, la strategia non garantisce la vincita, ma
-          aumenta le probabilità di successo se applicata correttamente e con una
-          <strong>gestione oculata del budget</strong>
+          La legge dei grandi numeri applicata alla roulette significa che, su un altissimo numero di spin, la frequenza di uscita dei numeri o delle varie zone del tavolo tende a bilanciarsi. Questo, però, non va interpretato come un invito a puntare sulle "dozzine in difetto", perché la legge funziona solo su lunghissimi periodi. La strategia, quindi, consente di migliorare le probabilità di successo quando applicata correttamente insieme agli altri principi.
         </n-p>
       </n-card>
       <n-card class="feature-card">
         <n-h3>Zona Zero</n-h3>
         <n-p>
-          La strategia è sviluppata per funzionare al meglio sfruttando la zona ZERO della roulette,
-          cioè quei numeri che vanno da 12 al 15. Se la percentuale di uscita della zona zero è <strong>inferiore alla media (20%)</strong> sia a 50 che a 500 spin, si considera che la zona sia "<strong>in difetto</strong>". Questo suggerisce che la zona è in ritardo e che potrebbe essere il momento di puntare sui suoi numeri. Il ritardo nella zona zero indica che i numeri in quella zona non stanno uscendo con la frequenza attesa, creando uno squilibrio rispetto alla legge dei grandi numeri
+          Il metodo si concentra principalmente sulla "zona ZERO", ovvero i numeri compresi tra il 12 e il 15. Se la percentuale di uscita di questa zona è inferiore alla media (20%) sia a 50 che a 500 spin, la zona si considera "in ritardo". Un ritardo indica che questi numeri non stanno uscendo come atteso, creando uno squilibrio secondo la legge dei grandi numeri: potrebbe quindi essere il momento ideale per puntarci.
         </n-p>
       </n-card>
       <n-card class="feature-card">
         <n-h3>Crescita dei numeri</n-h3>
         <n-p>
-          Si confrontano le statistiche a 50 spin con quelle a 500 spin per individuare i numeri che
-          mostrano una <strong>tendenza positiva</strong>. I numeri in crescita sono quelli che a 50 spin, mostrano un <strong>aumento della frequenza di uscita</strong> se si considera un periodo più ampio, fino a 500 spin. Questi numeri sono considerati promettenti perchè il loro aumento suggerisce che stanno iniziando a "<strong>recuperare</strong>" il ritardo e che potrebbero diventare più frequenti nei prossimi spin.
+          Le statistiche a 50 spin vengono confrontate con quelle a 500 spin per identificare i numeri "in crescita". I numeri che, partendo da una scarsa frequenza nei primi 50 spin, iniziano a recuperare nei successivi 500 sono da tenere in considerazione: questa crescita suggerisce che tenderanno a bilanciarsi nel tempo e potrebbero essere più frequenti nei prossimi spin.
         </n-p>
       </n-card>
     </section>
@@ -58,7 +46,7 @@
         <div class="column">
           <img src="/assets/images/statistics/dozens.png" alt="Dozens statistics" />
           <n-p>
-            Le input riguardanti le dozzine vanno popolate inserendo le <strong>percentuali presenti nelle statistiche del tavolo</strong>. Invece per quanto riguarda l'input <strong>Zona ZERO %</strong> va presa la percentuale della sezione <strong>ZERO</strong> e <u>non quella dove c'è il numero 0</u>. <strong>Sia a 50 che a 500 spin.</strong> Nell'immagine di esempio le statistiche sono a 50 spin, per visualizzare le statistiche a 500 spin è necessario fare <strong>lo swipe verso destra</strong>.
+            Per le dozzine, inserisci le <strong>percentuali riportate nelle statistiche del tavolo da gioco</strong>. Per la <strong>Zona ZERO %</strong> prendi la percentuale della sezione che include i numeri della zona (tra il 12 e il 15), non quella che comprende semplicemente il numero 0. Anche qui, verifica i dati sia sui 50 che sui 500 spin. Nell'immagine di esempio le statistiche sono a 50 spin, per visualizzare le statistiche a 500 spin è necessario fare <strong>lo swipe verso destra</strong>.
           </n-p>
           <img
             src="/assets/images/statistics/dozens-statistics-50.png"
@@ -75,8 +63,7 @@
             class="m-auto"
           />
           <n-p>
-            La mezza ruota vuole replicare la ruota delle statistiche del tavolo da gioco. In questa
-            fase bisogna <strong>regolare il riempimento dei coni</strong> in modo che risultino il più simili possibili a quelle del tavolo. Per fare ciò fai <strong>lo click all'interno di un cono</strong> e regola il livello di riempimento <strong>postando il cursore in alto e in basso</strong>. Le due immagini spiegano la pratica su come regolare il riempimento dei coni. Anche in questo caso, facendo lo swipe verso destra, si arriva ai 500 spin e si ripete il procedimento.
+            La mezza ruota del software ti permette di replicare graficamente le statistiche del tavolo da gioco. Per regolare il riempimento dei coni, clicca su uno di essi e muovi il cursore per adattare il livello di riempimento alle statistiche osservate sul tavolo. Ripeti il procedimento anche per le statistiche dei 500 spin.
           </n-p>
           <img
             src="/assets/images/statistics/increase-numbers-500.png"
@@ -92,13 +79,13 @@
       <div class="column">
         <n-h2>Sequenze</n-h2>
         <n-p>
-          La strategia posa le sue fondamenta su un <strong>sistema di sequenze analizzato e monitorato</strong> negli anni. Ho notato nel tempo che in determinate condizioni statistiche del tavolo, si presentavano spesso determinate sequenze. L'algoritmo quindi calcola <strong>in automatico</strong> e in base alle statistiche quali numeri consigliare.
+          La strategia si basa su anni di analisi delle sequenze che si presentano in particolari condizioni statistiche. L'algoritmo rileva automaticamente quali numeri sono più favoriti in base alle statistiche attuali.
         </n-p>
       </div>
       <div class="column">
         <n-h2>Andamento dei numeri</n-h2>
         <n-p>
-          L'algoritmo tiene in considerazione l'<strong>andamento dei numeri</strong> della zona zero da 50 a 500 spin. Le condizioni ottimali si avranno quando ci saranno <strong>2 o 3 numeri in crescita</strong> rispetto agli altri. In crescita significa che presentano un basso numero di uscita nei 50 spin, ma un alto numero nei 500 spin. Questa statistica indica che questi numeri <strong>tenderanno ad equilibrarsi</strong> e per questo motivo sono quelli da tenere in maggiore considerazione rispetto agli altri.
+          Un fattore chiave è il monitoraggio dell’andamento dei numeri della "zona ZERO" (da 50 a 500 spin). L’ideale è individuare 2 o 3 numeri in crescita rispetto agli altri. "In crescita" significa che questi numeri hanno una bassa frequenza nei primi 50 spin, ma mostrano un incremento nei successivi 500. Questi numeri tendono a bilanciarsi nel lungo periodo e sono quindi quelli da considerare maggiormente.
         </n-p>
       </div>
     </section>
@@ -111,10 +98,13 @@
           <n-step title="Gestione del budget" description="Disciplina di gioco">
             <template #default>
               <n-p>
-                Il budget consigliato da predisporre per ogni sessione è di 300€. <strong>Prefissatevi sempre un attivo da raggiungere</strong> e una volta raggiunto, smettete di giocare.
+                Parti con un budget di almeno 300€ per sessione. Stabilisci un obiettivo realistico di guadagno e smetti di giocare una volta raggiunto.
                 <br />
-                Iniziate a giocare con puntate piccole, per testare il tavolo e in caso di vincita aumentate gradualmente. I numeri generati dal software saranno colorati in maniera differente e <strong>le puntate devono essere gestite in proporzione in base al livello di intensità: giallo, arancione e rosso.</strong> Giallo corrisponde alla puntata più bassa, rosso alla puntata più alta. Ad esempio si può pensare di puntare 1€ per ogni numero giallo, 3€ per ogni numero arancione e 5€ per ogni numero rosso. Se si dovesse andare in vincita si aumenta la puntata.
-                Questo perché <strong>i numeri con lo sfondo rosso sono quelli caldi identificati dal software</strong>, invece quelli gialli servono per recuperare la puntata e ottenere un piccolo attivo. <strong>In caso di perdita</strong> vi consiglio caldamente di smettere di giocare per quel giorno, perché continuare ad insistere potrebbe essere molto deleterio per voi e per le vostre finanze. Ogni giorno ci saranno dei tavoli con condizioni ottimali, <strong>bisogna avere la pazienza di trovarli e provare nuovamente.</strong>
+                Inizia puntando piccole somme per testare il tavolo e aumenta gradualmente in caso di vincite. I numeri generati dal software sono suddivisi in tre intensità di puntata: giallo (più basso), arancione (intermedio) e rosso (più alto).
+                <br />
+                Ad esempio: 1€ per ogni numero giallo, 3€ per i numeri arancioni e 5€ per quelli rossi. In caso di vincite, puoi aumentare gradualmente le puntate.
+                <br />
+                Evita di continuare a giocare in caso di perdite: insistere potrebbe causare ulteriori danni alle tue finanze. Gioca solo i soldi che puoi permetterti di perdere.
               </n-p>
             </template>
           </n-step>
@@ -122,8 +112,7 @@
           <n-step title="Attenzione al croupier" description="Tecnica di lancio">
             <template #default>
               <n-p>
-                Quando osservate un tavolo fate anche <strong>molta attenzione a come effettua lo spin in croupier.</strong> Lo spin va fatto facendo partire la pallina (più o meno) all'
-                <strong>altezza dell'ultimo numero estratto</strong>. Se ad esempio l'ultimo numero estratto è un 5, il croupier dovrebbe invertire il giro della ruota, prendere la pallina e farla ripartire all'altezza del 5. Se dovesse, invece, perdere tempo e far partire la pallina all'altezza di un numero molto distante dal 5 influirebbe decisamente sulle sequenze. <strong>In questi casi il tavolo è da evitare, anche in condizioni potenzialmente favorevoli.</strong>
+                Quando osservate un tavolo fate anche <strong>molta attenzione a come effettua lo spin il croupier</strong>. Lo spin va fatto facendo ripartire la pallina (più o meno) all'<strong>altezza dell'ultimo numero estratto</strong>. Se ad esempio l'ultimo numero estratto è un 5, il croupier dovrebbe invertire il giro della ruota, prendere la pallina e farla ripartire all'altezza del 5. Se lancia la pallina troppo distante dall’ultimo numero estratto o tarda nell’avviare lo spin, potrebbe compromettere le sequenze statistiche. <strong>In questi casi, il tavolo è da evitare, anche se le condizioni sembrano favorevoli.</strong>
               </n-p>
             </template>
           </n-step>
@@ -131,7 +120,7 @@
           <n-step title="Provider consigliati" description="Selezione dei tavoli">
             <template #default>
               <n-p>
-                Come <strong>provider di gioco</strong>, consiglio i tavoli di <strong>Evolution</strong>, in quanto in base al sito hanno un gran numero di tavoli, inoltre le statistiche sono facilmente consultabili sia a 50 che a 500 spin. Invece non consiglio <strong>Playtech</strong> perché mostra le statistiche solo a 100 e 1000 spin, il che non è ottimale per la strategia su cui si fonda il software.
+                Consiglio i tavoli Evolution, che offrono statistiche sia a 50 che a 500 spin, perfettamente compatibili con questa strategia. Sconsiglio invece i tavoli Playtech, poiché mostrano le statistiche solo a 100 e 1000 spin, meno utili per questo metodo. A dimostrazione del fatto che anche i provider si stanno adattando per contrastare la nostra strategia.
               </n-p>
             </template>
           </n-step>
@@ -139,7 +128,7 @@
           <n-step title="Scrematura dei tavoli">
             <template #default>
               <n-p>
-                Una volta comprese e assimilate queste informazioni, è possibile fare una <strong>scrematura in autonomia</strong> delle statistiche di ogni tavolo. Questo ti permetterà di <strong>perdere meno tempo</strong> per la compilazione delle statistiche, in quanto riuscirete a trovare al primo colpo un tavolo con condizioni favorevoli (o al limite borderline).
+                Impara a individuare rapidamente un tavolo favorevole (o almeno borderline) analizzando le statistiche autonomamente. Questo ti farà risparmiare tempo nella compilazione e ti aiuterà a scegliere tavoli con condizioni ottimali.
               </n-p>
             </template>
           </n-step>
@@ -154,7 +143,7 @@
       <div class="two-column-section">
         <div class="column">
           <n-p>
-            Una delle cose più complicate sulle quali potrete imbattervi nel selezionare i numeri da puntare è la questione <strong>tempo</strong>. Infatti il tempo per fare la puntata è relativamente breve, ma ovviamente c'è il modo per effettuare puntate più veloci invece di cliccare direttamente sui numeri sulla board. Sui tavoli <strong>Evolution</strong> basta cliccare sull'icona della <strong>telecamera</strong> in alto a destra:
+            Su tavoli Evolution, clicca sull’icona della telecamera in alto a destra per cambiare visuale: potrai selezionare velocemente i numeri utilizzando l’ellisse dei numeri o la ruota.
           </n-p>
           <img
             src="/assets/images/statistics/change-view.png"
@@ -164,10 +153,9 @@
           />
           <n-p>
             Dopo aver cliccato cambierà la visuale del tavolo, che metterrà in risalto l'
-            <strong>ellisse dei numeri</strong> e la <strong>ruota</strong>. Useremo questi due strumenti per <strong>puntare velocemente</strong>. Infatti la piccola seziona in basso a destra (vedi immagine) con il numero 1, significa che cliccando su un numero sull'ellisse dei numeri accanto, <strong>verrà effettuata la puntata su quel numero e al primo numero subito sopra e subito sotto.</strong> Se il numero è 2 verrà effettuata la puntata sul numero selezionato e ai primi 2 numeri subito sopra e sotto. E quindi via..
+            <strong>ellisse dei numeri</strong> e la <strong>ruota</strong>. Useremo questi due strumenti per <strong>puntare velocemente</strong>. Infatti la piccola sezione in basso a destra (vedi immagine) con il numero 1 con sopra il + e sotto il -, indica che cliccando su un numero sull'ellisse dei numeri accanto, <strong>verrà effettuata la puntata su quel numero e al primo numero subito sopra e subito sotto.</strong> Se il numero è 2 verrà effettuata la puntata sul numero selezionato e ai primi 2 numeri subito sopra e sotto. E così via..
             <br />
-            Invece cliccando sul <strong>cono di un numero della</strong>
-            ruota sopra l'ellisse dei numeri, verrà <strong>effettuata la puntata solo su quel numero</strong>. Dopo un po' di pratica capirete perché questo è il metodo più veloce, perché <strong>a colpo d'occhio riuscirete a replicare la puntata suggerita dal software</strong> visto che la ruota è nella stessa posizione.
+            Se invece clicchi sul cono della ruota, la puntata sarà solo sul numero selezionato. Con un po’ di pratica, questo sistema risulterà il metodo più veloce e preciso per replicare le puntate indicate dal software.
           </n-p>
         </div>
         <div class="column">
@@ -184,9 +172,10 @@
     <!-- Final Call to Action -->
     <section class="cta-section">
       <n-card class="cta-card">
-        <n-h2>Pronto per iniziare?</n-h2>
+        <n-h2>Pronto a giocare?</n-h2>
         <n-p>
-          Mettiti in gioco e sfida la Roulette. Ricorda sempre che <strong>questo non è uno strumento di generazione di numeri magici</strong>, ma ti aiuta a giocare con un metodo testato e consolidato nel tempo. Fai sempre attenzione e soprattutto, <strong><u>gioca solo i soldi che puoi permetterti di perdere!</u></strong>
+          Mettiti in gioco e sfida la roulette, ma ricorda sempre: questo non è uno strumento che garantisce vincite, piuttosto una guida per giocare con un metodo affidabile e basato sulle statistiche.
+          Gioca con moderazione, sii sempre prudente e <strong><u>gioca solo i soldi che puoi permetterti di perdere!</u></strong><br/>Buona fortuna!
         </n-p>
         <router-link to="/play">
           <n-button type="primary" size="large" class="bg-accent-dark">Gioca</n-button>

@@ -1,0 +1,174 @@
+{
+  "tutorial": {
+    "hero": {
+      "title": "Come usare il software",
+      "description": "Ricorda che questo strumento non è un generatore di numeri magici, ma un supporto progettato per aiutarti a giocare con una strategia basata su statistiche testate e consolidate. L'obiettivo è aumentare le probabilità di successo, ma è fondamentale applicare il metodo con attenzione e gestire il budget in modo responsabile."
+    },
+    "concepts": {
+      "title": "Concetti base",
+      "subtitle": "La strategia si fonda su una serie di principi fondamentali che sfruttano logiche statistiche. Tra i concetti più importanti troviamo:",
+      "law_of_large_numbers": {
+        "title": "Legge dei grandi numeri",
+        "content": "La legge dei grandi numeri applicata alla roulette significa che, su un altissimo numero di spin, la frequenza di uscita dei numeri o delle varie zone del tavolo tende a bilanciarsi. Questo, però, non va interpretato come un invito a puntare sulle \"dozzine in difetto\", perché la legge funziona solo su lunghissimi periodi. La strategia, quindi, consente di migliorare le probabilità di successo quando applicata correttamente insieme agli altri principi."
+      },
+      "zero_zone": {
+        "title": "Zona Zero",
+        "content": "Il metodo si concentra principalmente sulla \"zona ZERO\", ovvero i numeri compresi tra il 12 e il 15. Se la percentuale di uscita di questa zona è inferiore alla media (20%) sia a 50 che a 500 spin, la zona si considera \"in ritardo\". Un ritardo indica che questi numeri non stanno uscendo come atteso, creando uno squilibrio secondo la legge dei grandi numeri: potrebbe quindi essere il momento ideale per puntarci."
+      },
+      "number_growth": {
+        "title": "Crescita dei numeri",
+        "content": "Le statistiche a 50 spin vengono confrontate con quelle a 500 spin per identificare i numeri \"in crescita\". I numeri che, partendo da una scarsa frequenza nei primi 50 spin, iniziano a recuperare nei successivi 500 sono da tenere in considerazione: questa crescita suggerisce che tenderanno a bilanciarsi nel tempo e potrebbero essere più frequenti nei prossimi spin."
+      }
+    },
+    "statistics": {
+      "title": "Inserimento delle statistiche",
+      "dozens": {
+        "content": "Per le dozzine, inserisci le <strong>percentuali riportate nelle statistiche del tavolo da gioco</strong>. Per la <strong>Zona ZERO %</strong> prendi la percentuale della sezione che include i numeri della zona (tra il 12 e il 15), non quella che comprende semplicemente il numero 0. Anche qui, verifica i dati sia sui 50 che sui 500 spin. Nell'immagine di esempio le statistiche sono a 50 spin, per visualizzare le statistiche a 500 spin è necessario fare <strong>lo swipe verso destra</strong>."
+      },
+      "wheel": {
+        "content": "La mezza ruota del software ti permette di replicare graficamente le statistiche del tavolo da gioco. Per regolare il riempimento dei coni, clicca su uno di essi e muovi il cursore per adattare il livello di riempimento alle statistiche osservate sul tavolo. Ripeti il procedimento anche per le statistiche dei 500 spin."
+      }
+    },
+    "sequences": {
+      "title": "Sequenze",
+      "content": "La strategia si basa su anni di analisi delle sequenze che si presentano in particolari condizioni statistiche. L'algoritmo rileva automaticamente quali numeri sono più favoriti in base alle statistiche attuali."
+    },
+    "number_trends": {
+      "title": "Andamento dei numeri",
+      "content": "Un fattore chiave è il monitoraggio dell'andamento dei numeri della \"zona ZERO\" (da 50 a 500 spin). L'ideale è individuare 2 o 3 numeri in crescita rispetto agli altri. \"In crescita\" significa che questi numeri hanno una bassa frequenza nei primi 50 spin, ma mostrano un incremento nei successivi 500. Questi numeri tendono a bilanciarsi nel lungo periodo e sono quindi quelli da considerare maggiormente."
+    },
+    "tips": {
+      "title": "Consigli di gioco e osservazioni",
+      "budget_management": {
+        "title": "Gestione del budget",
+        "description": "Disciplina di gioco",
+        "content": "Parti con un budget di almeno 300€ per sessione. Stabilisci un obiettivo realistico di guadagno e smetti di giocare una volta raggiunto.<br />Inizia puntando piccole somme per testare il tavolo e aumenta gradualmente in caso di vincite. I numeri generati dal software sono suddivisi in tre intensità di puntata: giallo (più basso), arancione (intermedio) e rosso (più alto).<br />Ad esempio: 1€ per ogni numero giallo, 3€ per i numeri arancioni e 5€ per quelli rossi. In caso di vincite, puoi aumentare gradualmente le puntate.<br />Evita di continuare a giocare in caso di perdite: insistere potrebbe causare ulteriori danni alle tue finanze. Gioca solo i soldi che puoi permetterti di perdere."
+      },
+      "croupier_attention": {
+        "title": "Attenzione al croupier",
+        "description": "Tecnica di lancio",
+        "content": "Quando osservate un tavolo fate anche <strong>molta attenzione a come effettua lo spin il croupier</strong>. Lo spin va fatto facendo ripartire la pallina (più o meno) all'<strong>altezza dell'ultimo numero estratto</strong>. Se ad esempio l'ultimo numero estratto è un 5, il croupier dovrebbe invertire il giro della ruota, prendere la pallina e farla ripartire all'altezza del 5. Se lancia la pallina troppo distante dall'ultimo numero estratto o tarda nell'avviare lo spin, potrebbe compromettere le sequenze statistiche. <strong>In questi casi, il tavolo è da evitare, anche se le condizioni sembrano favorevoli.</strong>"
+      },
+      "recommended_providers": {
+        "title": "Provider consigliati",
+        "description": "Selezione dei tavoli",
+        "content": "Consiglio i tavoli Evolution, che offrono statistiche sia a 50 che a 500 spin, perfettamente compatibili con questa strategia. Sconsiglio invece i tavoli Playtech, poiché mostrano le statistiche solo a 100 e 1000 spin, meno utili per questo metodo. A dimostrazione del fatto che anche i provider si stanno adattando per contrastare la nostra strategia."
+      },
+      "table_screening": {
+        "title": "Scrematura dei tavoli",
+        "content": "Impara a individuare rapidamente un tavolo favorevole (o almeno borderline) analizzando le statistiche autonomamente. Questo ti farà risparmiare tempo nella compilazione e ti aiuterà a scegliere tavoli con condizioni ottimali."
+      }
+    },
+    "betting": {
+      "title": "Come puntare velocemente",
+      "evolution_tables": {
+        "content": "Su tavoli Evolution, clicca sull'icona della telecamera in alto a destra per cambiare visuale: potrai selezionare velocemente i numeri utilizzando l'ellisse dei numeri o la ruota."
+      },
+      "view_change": {
+        "content": "Dopo aver cliccato cambierà la visuale del tavolo, che metterrà in risalto l'<strong>ellisse dei numeri</strong> e la <strong>ruota</strong>. Useremo questi due strumenti per <strong>puntare velocemente</strong>. Infatti la piccola sezione in basso a destra (vedi immagine) con il numero 1 con sopra il + e sotto il -, indica che cliccando su un numero sull'ellisse dei numeri accanto, <strong>verrà effettuata la puntata su quel numero e al primo numero subito sopra e subito sotto.</strong> Se il numero è 2 verrà effettuata la puntata sul numero selezionato e ai primi 2 numeri subito sopra e sotto. E così via..<br />Se invece clicchi sul cono della ruota, la puntata sarà solo sul numero selezionato. Con un po' di pratica, questo sistema risulterà il metodo più veloce e preciso per replicare le puntate indicate dal software."
+      }
+    },
+    "cta": {
+      "title": "Pronto a giocare?",
+      "content": "Mettiti in gioco e sfida la roulette, ma ricorda sempre: questo non è uno strumento che garantisce vincite, piuttosto una guida per giocare con un metodo affidabile e basato sulle statistiche. Gioca con moderazione, sii sempre prudente e <strong><u>gioca solo i soldi che puoi permetterti di perdere!</u></strong><br/>Buona fortuna!",
+      "button": "Gioca"
+    }
+  },
+  "login": {
+    "title": "Accedi",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Accedi",
+    "signup_link": "Non hai un account? Registrati",
+    "errors": {
+      "email_required": "Inserisci la tua email",
+      "email_invalid": "Email non valida",
+      "password_required": "Inserisci la tua password"
+    },
+    "messages": {
+      "success": "Login effettuato con successo",
+      "auth_error": "Errore di autenticazione",
+      "login_error": "Errore durante il login. Verifica le tue credenziali."
+    }
+  },
+  "signup": {
+    "title": "Registrati",
+    "name": "Nome",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Conferma Password",
+    "submit": "Registrati",
+    "login_link": "Hai già un account? Accedi",
+    "errors": {
+      "name_required": "Inserisci il tuo nome",
+      "email_required": "Inserisci la tua email",
+      "email_invalid": "Email non valida",
+      "password_required": "Inserisci la tua password",
+      "password_min_length": "La password deve contenere almeno 8 caratteri",
+      "password_uppercase": "La password deve contenere almeno un carattere maiuscolo",
+      "password_lowercase": "La password deve contenere almeno un carattere minuscolo",
+      "password_number": "La password deve contenere almeno un numero",
+      "password_special": "La password deve contenere almeno un carattere speciale",
+      "confirm_password_required": "Conferma la tua password"
+    }
+  },
+  "account": {
+    "title": "Il tuo Account",
+    "tabs": {
+      "profile": "Profilo",
+      "change_password": "Cambia Password"
+    },
+    "profile": {
+      "name": "Nome",
+      "name_placeholder": "Il tuo nome",
+      "email": "Email",
+      "email_placeholder": "La tua email",
+      "update_button": "Aggiorna Profilo",
+      "errors": {
+        "name_required": "Inserisci il tuo nome",
+        "email_required": "Inserisci la tua email",
+        "email_invalid": "Inserisci un indirizzo email valido",
+        "form_errors": "Correggi gli errori nel form",
+        "loading_error": "Errore nel caricamento dei dati del profilo",
+        "update_error": "Errore durante l'aggiornamento del profilo"
+      },
+      "messages": {
+        "update_success": "Profilo aggiornato con successo"
+      }
+    },
+    "password": {
+      "current": "Password Attuale",
+      "current_placeholder": "Inserisci la password attuale",
+      "new": "Nuova Password",
+      "new_placeholder": "Inserisci la nuova password",
+      "confirm": "Conferma Password",
+      "confirm_placeholder": "Conferma la nuova password",
+      "update_button": "Cambia Password",
+      "errors": {
+        "old_required": "Inserisci la password attuale",
+        "new_required": "Inserisci la nuova password",
+        "min_length": "La password deve essere lunga almeno 8 caratteri",
+        "confirm_required": "Conferma la nuova password",
+        "form_errors": "Correggi gli errori nel form",
+        "update_error": "Errore durante il cambio della password"
+      },
+      "messages": {
+        "update_success": "Password aggiornata con successo"
+      }
+    }
+  },
+  "dashboard": {
+    "greeting": "Ciao, {name}!",
+    "default_name": "Giocatore"
+  },
+  "common": {
+    "errors": {
+      "password_match": "Le password non corrispondono"
+    },
+    "language": {
+      "select": "Lingua",
+      "en": "Inglese",
+      "it": "Italiano"
+    }
+  }
+}

@@ -1,18 +1,18 @@
 <template>
   <AuthLayout>
-    <template #title>Login</template>
+    <template #title>{{ $t('login.title') }}</template>
     <n-form ref="formRef" :model="formValue" :rules="rules">
-      <n-form-item path="email" label="Email">
-        <n-input v-model:value="formValue.email" size="large" round placeholder="Inserisci email" />
+      <n-form-item path="email" :label="$t('login.email')">
+        <n-input v-model:value="formValue.email" size="large" round :placeholder="$t('login.email')" />
       </n-form-item>
-      <n-form-item path="password" label="Password">
+      <n-form-item path="password" :label="$t('login.password')">
         <n-input
           v-model:value="formValue.password"
           type="password"
           show-password-on="click"
           size="large"
           round
-          placeholder="Inserisci password"
+          :placeholder="$t('login.password')"
           @keyup.enter="handleSubmit"
         >
           <template #password-visible-icon>
@@ -25,11 +25,11 @@
       </n-form-item>
       <div class="submit-container text-center">
         <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
-          Accedi
+          {{ $t('login.submit') }}
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button text @click="router.push('/signup')">Non hai un account? Registrati</n-button>
+        <n-button text @click="router.push('/signup')">{{ $t('login.signup_link') }}</n-button>
       </div>
     </n-form>
   </AuthLayout>
@@ -44,6 +44,7 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/Layout/AuthLayout.vue'
 import { Eye, EyeOff } from '@vicons/tabler'
+import { i18n } from '@/i18n'
 
 const formRef = ref<FormInst | null>(null)
 const loading = ref(false)
@@ -65,19 +66,19 @@ const rules: FormRules = {
   email: [
     {
       required: true,
-      message: 'Inserisci la tua email',
+      message: i18n.global.t('login.errors.email_required'),
       trigger: ['blur', 'input'],
     },
     {
       type: 'email',
-      message: 'Email non valida',
+      message: i18n.global.t('login.errors.email_invalid'),
       trigger: ['blur', 'input'],
     },
   ],
   password: [
     {
       required: true,
-      message: 'Inserisci la tua password',
+      message: i18n.global.t('login.errors.password_required'),
       trigger: ['blur', 'input'],
     },
   ],
@@ -94,17 +95,17 @@ const handleSubmit = async () => {
 
     // Verifica che l'autenticazione sia riuscita
     if (authStore.isAuthenticated) {
-      message.success('Login effettuato con successo')
+      message.success(i18n.global.t('login.messages.success'))
       // Aspetta un momento prima di reindirizzare
       setTimeout(() => {
         router.push('/dashboard')
       }, 500)
     } else {
-      message.error('Errore di autenticazione')
+      message.error(i18n.global.t('login.messages.auth_error'))
     }
   } catch (error) {
     console.error('Errore durante il login:', error)
-    message.error('Errore durante il login. Verifica le tue credenziali.')
+    message.error(i18n.global.t('login.messages.login_error'))
   } finally {
     loading.value = false
   }

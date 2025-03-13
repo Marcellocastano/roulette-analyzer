@@ -2,51 +2,52 @@
   <div class="tutorial-container">
     <!-- Hero Section -->
     <section class="hero-section">
+
+
       <div class="hero-content">
-        <n-h1 class="hero-title">Come usare il software</n-h1>
+        <n-h1 class="hero-title">{{ t('tutorial.hero.title') }}</n-h1>
         <n-p class="hero-description">
-          Ricorda che questo strumento non è un generatore di numeri magici, ma un supporto progettato per aiutarti a giocare con una strategia basata su statistiche testate e consolidate. L’obiettivo è aumentare le probabilità di successo, ma è fondamentale applicare il metodo con attenzione e gestire il budget in modo responsabile.
+          {{ t('tutorial.hero.description') }}
         </n-p>
       </div>
     </section>
 
     <!-- Two Column Cards -->
     <div class="text-center mb-6">
-      <n-h2 class="mb-0">Concetti base</n-h2>
+      <n-h2 class="mb-0">{{ t('tutorial.concepts.title') }}</n-h2>
       <n-p class="mb-0">
-        La strategia si fonda su una serie di principi fondamentali che sfruttano logiche statistiche. Tra i concetti più importanti troviamo:
+        {{ t('tutorial.concepts.subtitle') }}
       </n-p>
     </div>
     <section class="three-column-section">
       <n-card class="feature-card">
-        <n-h3>Legge dei grandi numeri</n-h3>
+        <n-h3>{{ t('tutorial.concepts.law_of_large_numbers.title') }}</n-h3>
         <n-p>
-          La legge dei grandi numeri applicata alla roulette significa che, su un altissimo numero di spin, la frequenza di uscita dei numeri o delle varie zone del tavolo tende a bilanciarsi. Questo, però, non va interpretato come un invito a puntare sulle "dozzine in difetto", perché la legge funziona solo su lunghissimi periodi. La strategia, quindi, consente di migliorare le probabilità di successo quando applicata correttamente insieme agli altri principi.
+          {{ t('tutorial.concepts.law_of_large_numbers.content') }}
         </n-p>
       </n-card>
       <n-card class="feature-card">
-        <n-h3>Zona Zero</n-h3>
+        <n-h3>{{ t('tutorial.concepts.zero_zone.title') }}</n-h3>
         <n-p>
-          Il metodo si concentra principalmente sulla "zona ZERO", ovvero i numeri compresi tra il 12 e il 15. Se la percentuale di uscita di questa zona è inferiore alla media (20%) sia a 50 che a 500 spin, la zona si considera "in ritardo". Un ritardo indica che questi numeri non stanno uscendo come atteso, creando uno squilibrio secondo la legge dei grandi numeri: potrebbe quindi essere il momento ideale per puntarci.
+          {{ t('tutorial.concepts.zero_zone.content') }}
         </n-p>
       </n-card>
       <n-card class="feature-card">
-        <n-h3>Crescita dei numeri</n-h3>
+        <n-h3>{{ t('tutorial.concepts.number_growth.title') }}</n-h3>
         <n-p>
-          Le statistiche a 50 spin vengono confrontate con quelle a 500 spin per identificare i numeri "in crescita". I numeri che, partendo da una scarsa frequenza nei primi 50 spin, iniziano a recuperare nei successivi 500 sono da tenere in considerazione: questa crescita suggerisce che tenderanno a bilanciarsi nel tempo e potrebbero essere più frequenti nei prossimi spin.
+          {{ t('tutorial.concepts.number_growth.content') }}
         </n-p>
       </n-card>
     </section>
 
     <div class="text-center mb-6">
-      <n-h2 id="statistics" class="mb-0">Inserimento delle statistiche</n-h2>
+      <n-h2 id="statistics" class="mb-0">{{ t('tutorial.statistics.title') }}</n-h2>
     </div>
     <section class="steps-section">
       <div class="two-column-section">
         <div class="column">
           <img src="/assets/images/statistics/dozens.png" alt="Dozens statistics" />
-          <n-p>
-            Per le dozzine, inserisci le <strong>percentuali riportate nelle statistiche del tavolo da gioco</strong>. Per la <strong>Zona ZERO %</strong> prendi la percentuale della sezione che include i numeri della zona (tra il 12 e il 15), non quella che comprende semplicemente il numero 0. Anche qui, verifica i dati sia sui 50 che sui 500 spin. Nell'immagine di esempio le statistiche sono a 50 spin, per visualizzare le statistiche a 500 spin è necessario fare <strong>lo swipe verso destra</strong>.
+          <n-p v-html="t('tutorial.statistics.dozens.content')">
           </n-p>
           <img
             src="/assets/images/statistics/dozens-statistics-50.png"
@@ -62,8 +63,7 @@
             width="70%"
             class="m-auto"
           />
-          <n-p>
-            La mezza ruota del software ti permette di replicare graficamente le statistiche del tavolo da gioco. Per regolare il riempimento dei coni, clicca su uno di essi e muovi il cursore per adattare il livello di riempimento alle statistiche osservate sul tavolo. Ripeti il procedimento anche per le statistiche dei 500 spin.
+          <n-p v-html="t('tutorial.statistics.wheel.content')">
           </n-p>
           <img
             src="/assets/images/statistics/increase-numbers-500.png"
@@ -77,15 +77,15 @@
     <!-- Two Column Section -->
     <section class="two-column-section mb-16">
       <div class="column">
-        <n-h2>Sequenze</n-h2>
+        <n-h2>{{ t('tutorial.sequences.title') }}</n-h2>
         <n-p>
-          La strategia si basa su anni di analisi delle sequenze che si presentano in particolari condizioni statistiche. L'algoritmo rileva automaticamente quali numeri sono più favoriti in base alle statistiche attuali.
+          {{ t('tutorial.sequences.content') }}
         </n-p>
       </div>
       <div class="column">
-        <n-h2>Andamento dei numeri</n-h2>
+        <n-h2>{{ t('tutorial.number_trends.title') }}</n-h2>
         <n-p>
-          Un fattore chiave è il monitoraggio dell’andamento dei numeri della "zona ZERO" (da 50 a 500 spin). L’ideale è individuare 2 o 3 numeri in crescita rispetto agli altri. "In crescita" significa che questi numeri hanno una bassa frequenza nei primi 50 spin, ma mostrano un incremento nei successivi 500. Questi numeri tendono a bilanciarsi nel lungo periodo e sono quindi quelli da considerare maggiormente.
+          {{ t('tutorial.number_trends.content') }}
         </n-p>
       </div>
     </section>
@@ -93,42 +93,34 @@
     <!-- Full Width Key Concept -->
     <section class="key-concept-section">
       <n-card class="concept-card">
-        <n-h2>Consigli di gioco e osservazioni</n-h2>
+        <n-h2>{{ t('tutorial.tips.title') }}</n-h2>
         <n-steps vertical class="stepper">
-          <n-step title="Gestione del budget" description="Disciplina di gioco">
+          <n-step :title="t('tutorial.tips.budget_management.title')" :description="t('tutorial.tips.budget_management.description')">
             <template #default>
-              <n-p>
-                Parti con un budget di almeno 300€ per sessione. Stabilisci un obiettivo realistico di guadagno e smetti di giocare una volta raggiunto.
-                <br />
-                Inizia puntando piccole somme per testare il tavolo e aumenta gradualmente in caso di vincite. I numeri generati dal software sono suddivisi in tre intensità di puntata: giallo (più basso), arancione (intermedio) e rosso (più alto).
-                <br />
-                Ad esempio: 1€ per ogni numero giallo, 3€ per i numeri arancioni e 5€ per quelli rossi. In caso di vincite, puoi aumentare gradualmente le puntate.
-                <br />
-                Evita di continuare a giocare in caso di perdite: insistere potrebbe causare ulteriori danni alle tue finanze. Gioca solo i soldi che puoi permetterti di perdere.
+              <n-p v-html="t('tutorial.tips.budget_management.content')">
               </n-p>
             </template>
           </n-step>
 
-          <n-step title="Attenzione al croupier" description="Tecnica di lancio">
+          <n-step :title="t('tutorial.tips.croupier_attention.title')" :description="t('tutorial.tips.croupier_attention.description')">
             <template #default>
-              <n-p>
-                Quando osservate un tavolo fate anche <strong>molta attenzione a come effettua lo spin il croupier</strong>. Lo spin va fatto facendo ripartire la pallina (più o meno) all'<strong>altezza dell'ultimo numero estratto</strong>. Se ad esempio l'ultimo numero estratto è un 5, il croupier dovrebbe invertire il giro della ruota, prendere la pallina e farla ripartire all'altezza del 5. Se lancia la pallina troppo distante dall’ultimo numero estratto o tarda nell’avviare lo spin, potrebbe compromettere le sequenze statistiche. <strong>In questi casi, il tavolo è da evitare, anche se le condizioni sembrano favorevoli.</strong>
+              <n-p v-html="t('tutorial.tips.croupier_attention.content')">
               </n-p>
             </template>
           </n-step>
 
-          <n-step title="Provider consigliati" description="Selezione dei tavoli">
+          <n-step :title="t('tutorial.tips.recommended_providers.title')" :description="t('tutorial.tips.recommended_providers.description')">
             <template #default>
               <n-p>
-                Consiglio i tavoli Evolution, che offrono statistiche sia a 50 che a 500 spin, perfettamente compatibili con questa strategia. Sconsiglio invece i tavoli Playtech, poiché mostrano le statistiche solo a 100 e 1000 spin, meno utili per questo metodo. A dimostrazione del fatto che anche i provider si stanno adattando per contrastare la nostra strategia.
+                {{ t('tutorial.tips.recommended_providers.content') }}
               </n-p>
             </template>
           </n-step>
 
-          <n-step title="Scrematura dei tavoli">
+          <n-step :title="t('tutorial.tips.table_screening.title')">
             <template #default>
               <n-p>
-                Impara a individuare rapidamente un tavolo favorevole (o almeno borderline) analizzando le statistiche autonomamente. Questo ti farà risparmiare tempo nella compilazione e ti aiuterà a scegliere tavoli con condizioni ottimali.
+                {{ t('tutorial.tips.table_screening.content') }}
               </n-p>
             </template>
           </n-step>
@@ -137,13 +129,13 @@
     </section>
 
     <div class="text-center mb-6">
-      <n-h2 class="mb-0">Come puntare velocemente</n-h2>
+      <n-h2 class="mb-0">{{ t('tutorial.betting.title') }}</n-h2>
     </div>
     <section class="bets-section">
       <div class="two-column-section">
         <div class="column">
           <n-p>
-            Su tavoli Evolution, clicca sull’icona della telecamera in alto a destra per cambiare visuale: potrai selezionare velocemente i numeri utilizzando l’ellisse dei numeri o la ruota.
+            {{ t('tutorial.betting.evolution_tables.content') }}
           </n-p>
           <img
             src="/assets/images/statistics/change-view.png"
@@ -151,11 +143,7 @@
             width="70%"
             class="m-auto"
           />
-          <n-p>
-            Dopo aver cliccato cambierà la visuale del tavolo, che metterrà in risalto l'
-            <strong>ellisse dei numeri</strong> e la <strong>ruota</strong>. Useremo questi due strumenti per <strong>puntare velocemente</strong>. Infatti la piccola sezione in basso a destra (vedi immagine) con il numero 1 con sopra il + e sotto il -, indica che cliccando su un numero sull'ellisse dei numeri accanto, <strong>verrà effettuata la puntata su quel numero e al primo numero subito sopra e subito sotto.</strong> Se il numero è 2 verrà effettuata la puntata sul numero selezionato e ai primi 2 numeri subito sopra e sotto. E così via..
-            <br />
-            Se invece clicchi sul cono della ruota, la puntata sarà solo sul numero selezionato. Con un po’ di pratica, questo sistema risulterà il metodo più veloce e preciso per replicare le puntate indicate dal software.
+          <n-p v-html="t('tutorial.betting.view_change.content')">
           </n-p>
         </div>
         <div class="column">
@@ -172,20 +160,22 @@
     <!-- Final Call to Action -->
     <section class="cta-section">
       <n-card class="cta-card">
-        <n-h2>Pronto a giocare?</n-h2>
-        <n-p>
-          Mettiti in gioco e sfida la roulette, ma ricorda sempre: questo non è uno strumento che garantisce vincite, piuttosto una guida per giocare con un metodo affidabile e basato sulle statistiche.
-          Gioca con moderazione, sii sempre prudente e <strong><u>gioca solo i soldi che puoi permetterti di perdere!</u></strong><br/>Buona fortuna!
+        <n-h2>{{ t('tutorial.cta.title') }}</n-h2>
+        <n-p v-html="t('tutorial.cta.content')">
         </n-p>
         <router-link to="/play">
-          <n-button type="primary" size="large" class="bg-accent-dark">Gioca</n-button>
+          <n-button type="primary" size="large" class="bg-accent-dark">{{ t('tutorial.cta.button') }}</n-button>
         </router-link>
       </n-card>
     </section>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
 
 <style lang="scss" scoped>
 .tutorial-container {

@@ -3,7 +3,7 @@
     <div class="welcome-section">
       <div class="welcome-text">
         <n-h1>
-          <span class="greeting">Ciao, {{ user?.name || 'Giocatore' }}!</span>
+          <span class="greeting">{{ $t('dashboard.greeting', { name: user?.name || $t('dashboard.default_name') }) }}</span>
         </n-h1>
       </div>
     </div>

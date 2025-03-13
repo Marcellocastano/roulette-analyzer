@@ -1,26 +1,26 @@
 <template>
   <AuthLayout>
-    <template #title>Registrazione</template>
+    <template #title>{{ $t('signup.title') }}</template>
     <n-form ref="formRef" :model="formValue" :rules="rules">
-      <n-form-item path="name" label="Nome">
+      <n-form-item path="name" :label="$t('signup.name')">
         <n-input
           v-model:value="formValue.name"
           size="large"
           round
-          placeholder="Inserisci il tuo nome"
+          :placeholder="$t('signup.name')"
         />
       </n-form-item>
-      <n-form-item path="email" label="Email">
-        <n-input v-model:value="formValue.email" size="large" round placeholder="Inserisci email" />
+      <n-form-item path="email" :label="$t('signup.email')">
+        <n-input v-model:value="formValue.email" size="large" round :placeholder="$t('signup.email')" />
       </n-form-item>
-      <n-form-item path="password" label="Password">
+      <n-form-item path="password" :label="$t('signup.password')">
         <n-input
           v-model:value="formValue.password"
           type="password"
           show-password-on="click"
           size="large"
           round
-          placeholder="Inserisci password"
+          :placeholder="$t('signup.password')"
         >
           <template #password-visible-icon>
             <n-icon :size="16" :component="Eye" />
@@ -30,14 +30,14 @@
           </template>
         </n-input>
       </n-form-item>
-      <n-form-item path="confirmPassword" label="Conferma Password">
+      <n-form-item path="confirmPassword" :label="$t('signup.confirm_password')">
         <n-input
           v-model:value="formValue.confirmPassword"
           type="password"
           show-password-on="click"
           size="large"
           round
-          placeholder="Conferma password"
+          :placeholder="$t('signup.confirm_password')"
           @keyup.enter="handleSubmit"
         >
           <template #password-visible-icon>
@@ -50,11 +50,11 @@
       </n-form-item>
       <div class="submit-container text-center">
         <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
-          Registrati
+          {{ $t('signup.submit') }}
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button text @click="router.push('/login')">Hai già un account? Accedi</n-button>
+        <n-button text @click="router.push('/login')">{{ $t('signup.login_link') }}</n-button>
       </div>
     </n-form>
   </AuthLayout>
@@ -69,6 +69,7 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/Layout/AuthLayout.vue'
 import { Eye, EyeOff } from '@vicons/tabler'
+import { i18n } from '@/i18n'
 
 const formRef = ref<FormInst | null>(null)
 const loading = ref(false)
@@ -91,38 +92,38 @@ const formValue = ref<FormValue>({
 })
 
 const validatePasswordMatch = (rule: any, value: string) => {
-  return value === formValue.value.password ? true : new Error('Le password non corrispondono')
+  return value === formValue.value.password ? true : new Error(i18n.global.t('common.errors.password_match'))
 }
 
 const rules: FormRules = {
   name: [
     {
       required: true,
-      message: 'Inserisci il tuo nome',
+      message: i18n.global.t('signup.errors.name_required'),
       trigger: ['blur', 'input'],
     },
   ],
   email: [
     {
       required: true,
-      message: 'Inserisci la tua email',
+      message: i18n.global.t('signup.errors.email_required'),
       trigger: ['blur', 'input'],
     },
     {
       type: 'email',
-      message: 'Email non valida',
+      message: i18n.global.t('signup.errors.email_invalid'),
       trigger: ['blur', 'input'],
     },
   ],
   password: [
     {
       required: true,
-      message: 'Inserisci la tua password',
+      message: i18n.global.t('signup.errors.password_required'),
       trigger: ['blur', 'input'],
     },
     {
       min: 8,
-      message: 'La password deve contenere almeno 8 caratteri',
+      message: i18n.global.t('signup.errors.password_min_length'),
       trigger: ['blur', 'input'],
     },
     {
@@ -133,16 +134,16 @@ const rules: FormRules = {
         const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)
 
         if (!hasUpperCase) {
-          return new Error('La password deve contenere almeno un carattere maiuscolo')
+          return new Error(i18n.global.t('signup.errors.password_uppercase'))
         }
         if (!hasLowerCase) {
-          return new Error('La password deve contenere almeno un carattere minuscolo')
+          return new Error(i18n.global.t('signup.errors.password_lowercase'))
         }
         if (!hasNumber) {
-          return new Error('La password deve contenere almeno un numero')
+          return new Error(i18n.global.t('signup.errors.password_number'))
         }
         if (!hasSpecial) {
-          return new Error('La password deve contenere almeno un carattere speciale')
+          return new Error(i18n.global.t('signup.errors.password_special'))
         }
 
         return true
@@ -153,12 +154,12 @@ const rules: FormRules = {
   confirmPassword: [
     {
       required: true,
-      message: 'Conferma la tua password',
+      message: i18n.global.t('signup.errors.confirm_password_required'),
       trigger: ['blur', 'input'],
     },
     {
       validator: validatePasswordMatch,
-      message: 'Le password non corrispondono',
+      message: i18n.global.t('common.errors.password_match'),
       trigger: ['blur', 'input'],
     },
   ],

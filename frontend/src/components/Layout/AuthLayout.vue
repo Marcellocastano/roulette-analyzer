@@ -1,6 +1,9 @@
 <template>
   <div class="auth-container">
     <div class="overlay"></div>
+    <div class="language-selector-container">
+      <LanguageSelector />
+    </div>
     <n-gradient-text
       type="warning"
       class="z-10"
@@ -54,6 +57,7 @@
 
 <script setup lang="ts">
 import Card from '@/components/Card/Card.vue'
+import LanguageSelector from '@/components/LanguageSelector.vue'
 </script>
 
 <style scoped>
@@ -197,5 +201,12 @@ import Card from '@/components/Card/Card.vue'
   100% {
     transform: translate(0, 0);
   }
+}
+
+.language-selector-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
 }
 </style>

@@ -40,6 +40,8 @@
     </div>
 
     <div class="navbar-right">
+      <LanguageSelector class="mr-4" />
+      
       <n-button class="flex md:hidden menu-toggle" @click="toggleMobileMenu">
         <n-icon size="24">
           <Menu v-if="!isMobileMenuOpen" />
@@ -97,6 +99,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useMessage } from 'naive-ui'
 import RouletteIcon from '../icons/RouletteIcon.vue'
 import PremiumBadge from '../PremiumBadge.vue'
+import LanguageSelector from '../LanguageSelector.vue'
 import {
   UserCircle,
   Menu,

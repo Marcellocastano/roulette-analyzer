@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { getThemeOverrides } from './stores/theme'
+import { i18n } from './i18n'
 
 // Naive UI
 import {
@@ -103,5 +104,6 @@ const app = createApp(App)
 app.use(naive)
 app.use(createPinia())
 app.use(router)
+app.use(i18n)
 
 app.mount('#app')

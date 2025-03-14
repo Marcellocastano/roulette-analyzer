@@ -2,7 +2,7 @@
   <n-alert
     v-if="paymentInstructions"
     type="info"
-    title="Richiesta di abbonamento in corso"
+    :title="$t('pricing.subscription_request.title')"
     style="margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;"
     closable
   >
@@ -11,32 +11,32 @@
         <InfoCircle />
       </n-icon>
     </template>
-    Hai una richiesta di abbonamento in attesa di pagamento.
+    {{ $t('pricing.subscription_request.message') }}
     <n-button text class="text-btn" @click="showSavedPaymentInstructions">
-      Visualizza dettagli pagamento
+      {{ $t('pricing.subscription_request.view_details') }}
     </n-button>
   </n-alert>
   <div class="pricing-container">
     <n-card class="pricing-card">
       <template #header>
         <div class="card-header">
-          <n-h1>Scegli il tuo Abbonamento</n-h1>
-          <n-p>Accedi a tutte le funzionalità premium di Roulette Destroyer</n-p>
+          <n-h1>{{ $t('pricing.header.title') }}</n-h1>
+          <n-p>{{ $t('pricing.header.subtitle') }}</n-p>
         </div>
       </template>
 
       <div class="plans-container">
         <n-card class="plan-card monthly">
           <div class="plan-header">
-            <n-h2>Piano Mensile</n-h2>
+            <n-h2>{{ $t('pricing.monthly_plan.title') }}</n-h2>
             <!-- <div class="badge">Flessibile</div> -->
           </div>
 
           <div class="price-container">
             <div class="price">
               <span class="currency">€</span>
-              <span class="amount">50</span>
-              <span class="period">/mese</span>
+              <span class="amount">{{ $t('pricing.monthly_plan.price') }}</span>
+              <span class="period">{{ $t('pricing.monthly_plan.period') }}</span>
             </div>
           </div>
 
@@ -45,13 +45,13 @@
               <n-icon size="20" color="#ffbc00">
                 <Check />
               </n-icon>
-              <span>Accesso completo alle statistiche</span>
+              <span>{{ $t('pricing.monthly_plan.features.0') }}</span>
             </div>
             <div class="feature-item">
               <n-icon size="20" color="#ffbc00">
                 <Check />
               </n-icon>
-              <span>Predizioni illimitate</span>
+              <span>{{ $t('pricing.monthly_plan.features.1') }}</span>
             </div>
           </div>
 
@@ -61,28 +61,28 @@
             class="subscribe-button"
             @click="requestSubscription('premium', 'monthly')"
           >
-            Acquista
+            {{ $t('pricing.monthly_plan.button') }}
           </n-button>
         </n-card>
 
         <n-card class="plan-card annual">
           <div class="ribbon">
-            <span>Consigliato</span>
+            <span>{{ $t('pricing.annual_plan.recommended') }}</span>
           </div>
           <div class="plan-header">
-            <n-h2>Piano Annuale</n-h2>
+            <n-h2>{{ $t('pricing.annual_plan.title') }}</n-h2>
             <!-- <div class="badge best-value">Miglior Valore</div> -->
           </div>
 
           <div class="price-container">
             <div class="price">
               <span class="currency">€</span>
-              <span class="amount">300</span>
-              <span class="period">/anno</span>
+              <span class="amount">{{ $t('pricing.annual_plan.price') }}</span>
+              <span class="period">{{ $t('pricing.annual_plan.period') }}</span>
             </div>
             <div class="original-price">
-              <span class="strikethrough">€600</span>
-              <span class="discount">50% di sconto</span>
+              <span class="strikethrough">€{{ $t('pricing.annual_plan.original_price') }}</span>
+              <span class="discount">{{ $t('pricing.annual_plan.discount') }}</span>
             </div>
           </div>
 
@@ -91,25 +91,25 @@
               <n-icon size="20" color="#ff0058">
                 <Check />
               </n-icon>
-              <span>Accesso completo alle statistiche</span>
+              <span>{{ $t('pricing.annual_plan.features.0') }}</span>
             </div>
             <div class="feature-item">
               <n-icon size="20" color="#ff0058">
                 <Check />
               </n-icon>
-              <span>Predizioni illimitate</span>
+              <span>{{ $t('pricing.annual_plan.features.1') }}</span>
             </div>
             <div class="feature-item">
               <n-icon size="20" color="#ff0058">
                 <Check />
               </n-icon>
-              <span>Supporto prioritario</span>
+              <span>{{ $t('pricing.annual_plan.features.2') }}</span>
             </div>
             <div class="feature-item">
               <n-icon size="20" color="#ff0058">
                 <Check />
               </n-icon>
-              <span>Risparmio di €300 rispetto al piano mensile</span>
+              <span>{{ $t('pricing.annual_plan.features.3') }}</span>
             </div>
           </div>
 
@@ -119,7 +119,7 @@
             class="subscribe-button premium-button"
             @click="requestSubscription('premium', 'annual')"
           >
-            Risparmia il 50%
+            {{ $t('pricing.annual_plan.button') }}
           </n-button>
         </n-card>
       </div>
@@ -130,29 +130,28 @@
   <n-modal
     v-model:show="showPaymentModal"
     preset="card"
-    title="Istruzioni per il Pagamento"
+    :title="$t('pricing.payment_modal.title')"
     style="width: 500px; max-width: 90%"
     :mask-closable="false"
   >
     <n-space vertical>
       <n-text>
-        Grazie per aver richiesto l'abbonamento. Per completare la procedura, effettua il pagamento
-        seguendo queste istruzioni:
+        {{ $t('pricing.payment_modal.thank_you') }}
       </n-text>
 
       <n-divider />
 
       <n-space vertical>
         <n-text>
-          <strong>Email PayPal:</strong>
+          <strong>{{ $t('pricing.payment_modal.paypal_email') }}</strong>
           {{ paymentInstructions?.paypalEmail }}
         </n-text>
         <n-text>
-          <strong>Importo:</strong>
+          <strong>{{ $t('pricing.payment_modal.amount') }}</strong>
           {{ paymentInstructions?.amount }} {{ paymentInstructions?.currency }}
         </n-text>
         <n-text>
-          <strong>Riferimento:</strong>
+          <strong>{{ $t('pricing.payment_modal.reference') }}</strong>
           {{ paymentInstructions?.reference }}
         </n-text>
       </n-space>
@@ -160,15 +159,14 @@
       <n-divider />
 
       <n-text type="warning">
-        Importante: Includi il riferimento nella descrizione del pagamento per consentirci di
-        identificare la tua transazione.
+        {{ $t('pricing.payment_modal.important') }}
       </n-text>
 
       <n-space justify="end">
         <n-button @click="cancelSubscriptionRequest" :loading="isLoading">
-          Annulla richiesta
+          {{ $t('pricing.payment_modal.cancel_button') }}
         </n-button>
-        <n-button type="primary" @click="closeModal">Ho capito</n-button>
+        <n-button type="primary" @click="closeModal">{{ $t('pricing.payment_modal.understand_button') }}</n-button>
       </n-space>
     </n-space>
   </n-modal>
@@ -183,7 +181,9 @@ import { useMessage } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { userApi } from '@/api/user'
 import type { PaymentInstructions } from '@/api/user'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const message = useMessage()
 const router = useRouter()
 const isLoading = ref(false)
@@ -204,7 +204,7 @@ const requestSubscription = async (plan: string, duration: string) => {
 
     const response = await userApi.requestSubscription(plan, duration)
 
-    message.success('Richiesta di sottoscrizione inviata con successo')
+    message.success(t('pricing.messages.subscription_success'))
 
     // Salva le istruzioni di pagamento e mostra la modale
     paymentInstructions.value = response.data.data.paymentInstructions
@@ -215,8 +215,8 @@ const requestSubscription = async (plan: string, duration: string) => {
     showPaymentModal.value = true
 
   } catch (error) {
-    console.error('Errore durante la richiesta di sottoscrizione:', error)
-    message.error('Si è verificato un errore durante la richiesta di sottoscrizione. Riprova più tardi.')
+    console.error('Error during subscription request:', error)
+    message.error(t('pricing.messages.subscription_error'))
   } finally {
     isLoading.value = false
   }
@@ -244,11 +244,11 @@ const cancelSubscriptionRequest = async () => {
     paymentInstructions.value = null
     showPaymentModal.value = false
 
-    message.success('Richiesta di sottoscrizione annullata con successo')
+    message.success(t('pricing.messages.cancel_success'))
 
   } catch (error) {
-    console.error('Errore durante l\'annullamento della richiesta:', error)
-    message.error('Si è verificato un errore durante l\'annullamento della richiesta. Riprova più tardi.')
+    console.error('Error during request cancellation:', error)
+    message.error(t('pricing.messages.cancel_error'))
   } finally {
     isLoading.value = false
   }

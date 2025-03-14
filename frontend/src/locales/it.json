@@ -35,7 +35,7 @@
     },
     "number_trends": {
       "title": "Andamento dei numeri",
-      "content": "Un fattore chiave è il monitoraggio dell'andamento dei numeri della \"zona ZERO\" (da 50 a 500 spin). L'ideale è individuare 2 o 3 numeri in crescita rispetto agli altri. \"In crescita\" significa che questi numeri hanno una bassa frequenza nei primi 50 spin, ma mostrano un incremento nei successivi 500. Questi numeri tendono a bilanciarsi nel lungo periodo e sono quindi quelli da considerare maggiormente."
+      "content": "Un fattore chiave è il monitoraggio dell'andamento dei numeri della \"zona ZERO\" (da 50 a 500 spin). L'ideale è individuare 2 o 3 numeri in crescita rispetto agli altri. \"In crescita\" significa che questi numeri hanno una bassa frequenza nei primi 50 spin, ma mostrano un incremento nei successivi 500. Questi numeri tendendo a bilanciarsi nel lungo periodo e sono quindi quelli da considerare maggiormente."
     },
     "tips": {
       "title": "Consigli di gioco e osservazioni",
@@ -72,6 +72,40 @@
       "title": "Pronto a giocare?",
       "content": "Mettiti in gioco e sfida la roulette, ma ricorda sempre: questo non è uno strumento che garantisce vincite, piuttosto una guida per giocare con un metodo affidabile e basato sulle statistiche. Gioca con moderazione, sii sempre prudente e <strong><u>gioca solo i soldi che puoi permetterti di perdere!</u></strong><br/>Buona fortuna!",
       "button": "Gioca"
+    }
+  },
+  "initial_stats": {
+    "title": "Inserisci le statistiche del tavolo",
+    "stats_50_spin": "Statistiche a 50 spin",
+    "stats_500_spin": "Statistiche a 500 spin",
+    "first_dozen": "1° dozzina %",
+    "second_dozen": "2° dozzina %",
+    "third_dozen": "3° dozzina %",
+    "zero_zone": "Zona ZERO %",
+    "first_dozen_placeholder": "Prima Dozzina",
+    "second_dozen_placeholder": "Seconda Dozzina",
+    "third_dozen_placeholder": "Terza Dozzina",
+    "zero_zone_placeholder": "Zona Zero",
+    "check_table": "Controlla il tavolo",
+    "modals": {
+      "not_recommended": {
+        "title": "Statistiche non raccomandate",
+        "dialog_title": "Condizioni non favorevoli",
+        "description": "Le statistiche attuali non mostrano condizioni favorevoli per il gioco. Si consiglia di resettare e cambiare tavolo."
+      },
+      "borderline": {
+        "title": "Tavolo borderline",
+        "dialog_title": "Condizioni al limite",
+        "description": "Le statistiche attuali mostrano condizioni al limite. Puoi scegliere se procedere con cautela o analizzare un altro tavolo."
+      },
+      "recommended": {
+        "title": "Tavolo raccomandato",
+        "dialog_title": "Condizioni raccomandate",
+        "description": "Le statistiche attuali mostrano condizioni favorevoli. Procedi sempre con attenzione, inizia con puntate basse per poi aumentarle in caso di vincita."
+      },
+      "reset_stats": "Resetta Statistiche",
+      "proceed": "Procedi",
+      "change_table": "Cambia Tavolo"
     }
   },
   "login": {
@@ -157,9 +191,47 @@
       }
     }
   },
+  "wheel_statistics": {
+    "instructions": "Replica nella maniera più fedele possibile le statistiche dei numeri sulla ruota. Trascina il mouse su un cono per modificarne il valore. In caso di dubbi leggi il ",
+    "tutorial_link": "tutorial",
+    "reset_button": "Ricomincia"
+  },
   "dashboard": {
     "greeting": "Ciao, {name}!",
-    "default_name": "Giocatore"
+    "default_name": "Giocatore",
+    "stats": {
+      "sessions": {
+        "title": "Sessioni Iniziate",
+        "trend": "+{value}% rispetto alla scorsa settimana"
+      },
+      "accuracy": {
+        "title": "Precisione Predittiva"
+      },
+      "balance": {
+        "title": "Bilancio Stimato",
+        "trend": "{value}% questo mese"
+      }
+    },
+    "tutorial_card": {
+      "header": "Leggi il Tutorial",
+      "title": "Prima di iniziare a giocare",
+      "description": "È <strong>essenziale</strong> leggere attentamente il tutorial per comprendere il metodo statistico utilizzato dal software. Solo così potrai sfruttare appieno il potenziale dell'analisi e aumentare le tue possibilità di successo.",
+      "link": "Vai al Tutorial"
+    },
+    "lucky_numbers": {
+      "title": "I tuoi numeri fortunati",
+      "message": "Questi numeri sono generati casualmente."
+    },
+    "free_user": {
+      "title": "Concetti Base in sintesi",
+      "subtitle": "Per scoprire la strategia in dettaglio, acquista un abbonamento.",
+      "law_title": "Legge dei grandi numeri",
+      "law_content": "Nel contesto della roulette, questo significa che, su un numero molto elevato di giri, <strong>le probabilità dei vari numeri e delle diverse aree del tavolo <u>tenderanno a bilanciarsi</u></strong>. Questo ovviamente non significa guardare solo alla 'dozzina carente' e puntare su quei numeri. Ma questo, insieme ad altri concetti, forma la base della strategia.",
+      "zero_title": "Zona Zero",
+      "zero_content": "La strategia è sviluppata per funzionare al meglio sfruttando la zona ZERO della roulette, che comprende i numeri dal 12 al 15. Se la percentuale di questa zona è <strong>inferiore alla media (20%)</strong> sia a 50 che a 500 spin, la zona è considerata \"<strong>in deficit</strong>\". Questo suggerisce che la zona è in ritardo e potrebbe essere il momento giusto per puntare sui suoi numeri.",
+      "growth_title": "Crescita dei numeri",
+      "growth_content": "Le statistiche a 50 spin vengono confrontate con quelle a 500 spin per identificare i numeri che mostrano un <strong>trend positivo</strong>. I numeri in crescita sono quelli che, a 50 spin, mostrano un <strong>aumento di frequenza</strong> quando si considera un periodo più lungo, fino a 500 spin. Questi numeri sono considerati promettenti perché il loro aumento suggerisce che stanno iniziando a \"<strong>recuperare</strong>\" e potrebbero continuare questa tendenza."
+    }
   },
   "common": {
     "errors": {
@@ -168,7 +240,109 @@
     "language": {
       "select": "Lingua",
       "en": "Inglese",
-      "it": "Italiano"
+      "it": "Italiano",
+      "es": "Spagnolo",
+      "de": "Tedesco"
+    }
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "tutorial": "Tutorial",
+    "play": "Roulette Destroyer",
+    "pricing": "Abbonamento",
+    "account": "Account",
+    "admin": "Admin",
+    "logout": "Logout",
+    "premium_access": "Questa funzionalità è disponibile solo per gli utenti con abbonamento Premium attivo."
+  },
+  "play": {
+    "active_session": {
+      "title": "Hai una sessione attiva",
+      "description": "È stata rilevata una sessione di analisi attiva. Puoi continuare da dove ti eri fermato o iniziare una nuova sessione.",
+      "continue_button": "Continua sessione"
+    },
+    "resize_screen": "Fai il resize dello schermo e affianca questa finestra al tavolo da gioco",
+    "reset_session": "Resetta sessione",
+    "proceed_message": "Procedi con cautela",
+    "messages": {
+      "session_restored": "Sessione ripristinata con successo",
+      "stats_reset": "Statistiche resettate con successo",
+      "spin_save_error": "Errore nel salvataggio dello spin",
+      "spin_delete_error": "Errore durante l'eliminazione dello spin",
+      "stats_update_error": "Errore durante l'aggiornamento delle statistiche",
+      "stats_reset_error": "Si è verificato un errore durante il reset delle statistiche",
+      "session_restore_error": "Errore nel ripristino della sessione"
+    }
+  },
+  "pricing": {
+    "subscription_request": {
+      "title": "Richiesta di abbonamento in corso",
+      "message": "Hai una richiesta di abbonamento in attesa di pagamento.",
+      "view_details": "Visualizza dettagli pagamento"
+    },
+    "header": {
+      "title": "Scegli il tuo Abbonamento",
+      "subtitle": "Accedi a tutte le funzionalità premium di Roulette Destroyer"
+    },
+    "monthly_plan": {
+      "title": "Piano Mensile",
+      "price": "50",
+      "period": "/mese",
+      "features": [
+        "Accesso completo alle statistiche",
+        "Predizioni illimitate"
+      ],
+      "button": "Acquista"
+    },
+    "annual_plan": {
+      "title": "Piano Annuale",
+      "price": "300",
+      "period": "/anno",
+      "original_price": "600",
+      "discount": "50% di sconto",
+      "recommended": "Consigliato",
+      "features": [
+        "Accesso completo alle statistiche",
+        "Predizioni illimitate",
+        "Supporto prioritario",
+        "Risparmio di €300 rispetto al piano mensile"
+      ],
+      "button": "Risparmia il 50%"
+    },
+    "payment_modal": {
+      "title": "Istruzioni per il Pagamento",
+      "thank_you": "Grazie per aver richiesto l'abbonamento. Per completare la procedura, effettua il pagamento seguendo queste istruzioni:",
+      "paypal_email": "Email PayPal:",
+      "amount": "Importo:",
+      "reference": "Riferimento:",
+      "important": "Importante: Includi il riferimento nella descrizione del pagamento per consentirci di identificare la tua transazione.",
+      "cancel_button": "Annulla richiesta",
+      "understand_button": "Ho capito"
+    },
+    "messages": {
+      "subscription_success": "Richiesta di sottoscrizione inviata con successo",
+      "subscription_error": "Si è verificato un errore durante la richiesta di sottoscrizione. Riprova più tardi.",
+      "cancel_success": "Richiesta di sottoscrizione annullata con successo",
+      "cancel_error": "Si è verificato un errore durante l'annullamento della richiesta. Riprova più tardi."
+    }
+  },
+  "table_analysis": {
+    "title": "Analisi del Tavolo",
+    "dozen_suffering": "Dozzina in Sofferenza",
+    "favorable_reasons": "Motivi Favorevoli",
+    "increasing_numbers": "Numeri in Crescita",
+    "none": "Nessuno",
+    "reasons": {
+      "DOZEN_SUFFERING": "Dozzina in forte sofferenza",
+      "ZERO_ZONE_SUFFERING": "Zona zero in sofferenza",
+      "BALANCED_DISTRIBUTION": "Distribuzione bilanciata dei numeri",
+      "INCREASING_NUMBERS": "Numeri in crescita nella zona zero"
+    },
+    "dozens": {
+      "1": "Prima dozzina (1-12)",
+      "2": "Seconda dozzina (13-24)",
+      "3": "Terza dozzina (25-36)",
+      "unknown": "Dozzina sconosciuta"
     }
   }
 }

@@ -1,0 +1,11 @@
+<template>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" width="100%" height="100%">
+    <rect width="1" height="2" fill="#008C45" />
+    <rect width="1" height="2" x="1" fill="#F4F5F0" />
+    <rect width="1" height="2" x="2" fill="#CD212A" />
+  </svg>
+</template>
+
+<script setup lang="ts">
+// Italian flag component
+</script>

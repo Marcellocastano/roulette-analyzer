@@ -74,6 +74,45 @@
       "button": "Play"
     }
   },
+  "initial_stats": {
+    "title": "Enter table statistics",
+    "stats_50_spin": "Statistics at 50 spins",
+    "stats_500_spin": "Statistics at 500 spins",
+    "first_dozen": "1st dozen %",
+    "second_dozen": "2nd dozen %",
+    "third_dozen": "3rd dozen %",
+    "zero_zone": "ZERO Zone %",
+    "first_dozen_placeholder": "First Dozen",
+    "second_dozen_placeholder": "Second Dozen",
+    "third_dozen_placeholder": "Third Dozen",
+    "zero_zone_placeholder": "Zero Zone",
+    "check_table": "Check table",
+    "modals": {
+      "not_recommended": {
+        "title": "Not recommended statistics",
+        "dialog_title": "Unfavorable conditions",
+        "description": "Current statistics do not show favorable conditions for playing. It is recommended to reset and change table."
+      },
+      "borderline": {
+        "title": "Borderline table",
+        "dialog_title": "Borderline conditions",
+        "description": "Current statistics show borderline conditions. You can choose whether to proceed with caution or analyze another table."
+      },
+      "recommended": {
+        "title": "Recommended table",
+        "dialog_title": "Recommended conditions",
+        "description": "Current statistics show favorable conditions. Always proceed with caution, start with low bets and then increase them in case of winning."
+      },
+      "reset_stats": "Reset Statistics",
+      "proceed": "Proceed",
+      "change_table": "Change Table"
+    }
+  },
+  "wheel_statistics": {
+    "instructions": "Replicate the wheel number statistics as accurately as possible. Drag your mouse over a cone to modify its value. If you have any doubts read the ",
+    "tutorial_link": "tutorial",
+    "reset_button": "Reset"
+  },
   "dashboard": {
     "greeting": "Hello, {name}!",
     "default_name": "Player",
@@ -201,7 +240,109 @@
     "language": {
       "select": "Language",
       "en": "English",
-      "it": "Italian"
+      "it": "Italian",
+      "es": "Spanish",
+      "de": "German"
+    }
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "tutorial": "Tutorial",
+    "play": "Roulette Destroyer",
+    "pricing": "Subscription",
+    "account": "Account",
+    "admin": "Admin",
+    "logout": "Logout",
+    "premium_access": "This feature is only available for users with an active Premium subscription."
+  },
+  "play": {
+    "active_session": {
+      "title": "You have an active session",
+      "description": "An active analysis session has been detected. You can continue from where you left off or start a new session.",
+      "continue_button": "Continue session"
+    },
+    "resize_screen": "Resize the screen and place this window next to the game table",
+    "reset_session": "Reset session",
+    "proceed_message": "Proceed with caution",
+    "messages": {
+      "session_restored": "Session restored successfully",
+      "stats_reset": "Statistics reset successfully",
+      "spin_save_error": "Error saving the spin",
+      "spin_delete_error": "Error deleting the spin",
+      "stats_update_error": "Error updating statistics",
+      "stats_reset_error": "An error occurred while resetting statistics",
+      "session_restore_error": "Error restoring session"
+    }
+  },
+  "pricing": {
+    "subscription_request": {
+      "title": "Subscription request in progress",
+      "message": "You have a subscription request awaiting payment.",
+      "view_details": "View payment details"
+    },
+    "header": {
+      "title": "Choose your Subscription",
+      "subtitle": "Access all premium features of Roulette Destroyer"
+    },
+    "monthly_plan": {
+      "title": "Monthly Plan",
+      "price": "50",
+      "period": "/month",
+      "features": [
+        "Complete access to statistics",
+        "Unlimited predictions"
+      ],
+      "button": "Purchase"
+    },
+    "annual_plan": {
+      "title": "Annual Plan",
+      "price": "300",
+      "period": "/year",
+      "original_price": "600",
+      "discount": "50% discount",
+      "recommended": "Recommended",
+      "features": [
+        "Complete access to statistics",
+        "Unlimited predictions",
+        "Priority support",
+        "Save €300 compared to the monthly plan"
+      ],
+      "button": "Save 50%"
+    },
+    "payment_modal": {
+      "title": "Payment Instructions",
+      "thank_you": "Thank you for requesting the subscription. To complete the procedure, make the payment following these instructions:",
+      "paypal_email": "PayPal Email:",
+      "amount": "Amount:",
+      "reference": "Reference:",
+      "important": "Important: Include the reference in the payment description to allow us to identify your transaction.",
+      "cancel_button": "Cancel request",
+      "understand_button": "I understand"
+    },
+    "messages": {
+      "subscription_success": "Subscription request sent successfully",
+      "subscription_error": "An error occurred during the subscription request. Please try again later.",
+      "cancel_success": "Subscription request cancelled successfully",
+      "cancel_error": "An error occurred while cancelling the request. Please try again later."
+    }
+  },
+  "table_analysis": {
+    "title": "Table Analysis",
+    "dozen_suffering": "Dozen in Suffering",
+    "favorable_reasons": "Favorable Reasons",
+    "increasing_numbers": "Increasing Numbers",
+    "none": "None",
+    "reasons": {
+      "DOZEN_SUFFERING": "Dozen in strong suffering",
+      "ZERO_ZONE_SUFFERING": "Zero zone in suffering",
+      "BALANCED_DISTRIBUTION": "Balanced number distribution",
+      "INCREASING_NUMBERS": "Increasing numbers in zero zone"
+    },
+    "dozens": {
+      "1": "First dozen (1-12)",
+      "2": "Second dozen (13-24)",
+      "3": "Third dozen (25-36)",
+      "unknown": "Unknown dozen"
     }
   }
 }

@@ -9,15 +9,14 @@
     >
       <template #header>
         <div class="flex items-center justify-between">
-          <span>Hai una sessione attiva</span>
+          <span>{{ $t('play.active_session.title') }}</span>
           <n-button type="primary" size="small" @click="goToActiveSession">
-            Continua sessione
+            {{ $t('play.active_session.continue_button') }}
           </n-button>
         </div>
       </template>
       <template #default>
-        È stata rilevata una sessione di analisi attiva. Puoi continuare da dove ti eri fermato o
-        iniziare una nuova sessione.
+        {{ $t('play.active_session.description') }}
       </template>
     </n-alert>
 
@@ -32,11 +31,11 @@
       </n-grid-item>
       <n-grid-item v-if="step === 2">
         <n-h2 class="mb-8 text-center">
-          Fai il resize dello schermo e affianca questa finestra al tavolo da gioco
+          {{ $t('play.resize_screen') }}
         </n-h2>
         <div class="board-container-main gap-5">
           <div class="flex mb-4 justify-center w-full items-center">
-            <n-button type="danger" size="small" @click="handleReset"> Resetta sessione </n-button>
+            <n-button type="danger" size="small" @click="handleReset"> {{ $t('play.reset_session') }} </n-button>
           </div>
           <Board
             :spins="spins.slice(0, 5)"
@@ -67,6 +66,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import { useMessage } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
 import Board from '@/components/Board/Board.vue'
 import WheelPredictor from '@/components/WheelPredictor/WheelPredictor.vue'
 import InitialStats from '@/components/InitialStats/InitialStats.vue'
@@ -76,6 +76,7 @@ import type { Spin } from '@/types/spin'
 import { initialStatsApi, spinsApi, statsApi } from '@/api'
 import BoardPredictor from '@/components/BoardPredictor/BoardPredictor.vue'
 
+const { t } = useI18n()
 const primaryPredictedNumbers = ref<number[]>([])
 const secondaryPredictedNumbers = ref<number[]>([])
 const specialPredictedNumbers = ref<number[]>([])
@@ -106,7 +107,7 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
     }
   } catch (error) {
     console.error("Errore durante l'aggiornamento delle statistiche:", error)
-    message.error("Errore durante l'aggiornamento delle statistiche")
+    message.error(t('play.messages.stats_update_error'))
   }
 }
 
@@ -115,10 +116,10 @@ const handleReset = async () => {
     await statsApi.resetSession()
     statsAnalysis.value = null // Reset dello stato locale
     step.value = 1
-    message.success('Statistiche resettate con successo')
+    message.success(t('play.messages.stats_reset'))
   } catch (error) {
     console.error('Errore durante il reset delle statistiche:', error)
-    message.error('Si è verificato un errore durante il reset delle statistiche')
+    message.error(t('play.messages.stats_reset_error'))
   }
 }
 
@@ -136,7 +137,7 @@ const handleNumberSelection = async (number: number) => {
     await getPredictions()
   } catch (error) {
     console.error('Errore nel salvataggio dello spin:', error)
-    message.error('Errore nel salvataggio dello spin')
+    message.error(t('play.messages.spin_save_error'))
   }
 }
 
@@ -152,7 +153,7 @@ const handleSpinDelete = async (spinId: string) => {
     await getPredictions()
   } catch (error) {
     console.error("Errore durante l'eliminazione dello spin:", error)
-    message.error("Errore durante l'eliminazione dello spin")
+    message.error(t('play.messages.spin_delete_error'))
   }
 }
 
@@ -169,7 +170,7 @@ const getPredictions = async () => {
 }
 
 const handleProceed = () => {
-  message.info('Procedi con cautela')
+  message.info(t('play.proceed_message'))
   step.value = 2
 }
 
@@ -185,11 +186,11 @@ const goToActiveSession = async () => {
         spins.value = response.data.map(spin => ({ _id: spin._id, number: spin.number }))
         await getPredictions()
         step.value = 2
-        message.success('Sessione ripristinata con successo')
+        message.success(t('play.messages.session_restored'))
       }
     } catch (error) {
       console.error('Errore nel recupero degli spin:', error)
-      message.error('Errore nel ripristino della sessione')
+      message.error(t('play.messages.session_restore_error'))
     }
   }
 }

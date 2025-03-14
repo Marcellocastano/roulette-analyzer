@@ -44,7 +44,9 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/Layout/AuthLayout.vue'
 import { Eye, EyeOff } from '@vicons/tabler'
-import { i18n } from '@/i18n'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const formRef = ref<FormInst | null>(null)
 const loading = ref(false)
@@ -66,19 +68,19 @@ const rules: FormRules = {
   email: [
     {
       required: true,
-      message: i18n.global.t('login.errors.email_required'),
+      message: t('login.errors.email_required'),
       trigger: ['blur', 'input'],
     },
     {
       type: 'email',
-      message: i18n.global.t('login.errors.email_invalid'),
+      message: t('login.errors.email_invalid'),
       trigger: ['blur', 'input'],
     },
   ],
   password: [
     {
       required: true,
-      message: i18n.global.t('login.errors.password_required'),
+      message: t('login.errors.password_required'),
       trigger: ['blur', 'input'],
     },
   ],
@@ -95,17 +97,17 @@ const handleSubmit = async () => {
 
     // Verifica che l'autenticazione sia riuscita
     if (authStore.isAuthenticated) {
-      message.success(i18n.global.t('login.messages.success'))
+      message.success(t('login.messages.success'))
       // Aspetta un momento prima di reindirizzare
       setTimeout(() => {
         router.push('/dashboard')
       }, 500)
     } else {
-      message.error(i18n.global.t('login.messages.auth_error'))
+      message.error(t('login.messages.auth_error'))
     }
   } catch (error) {
     console.error('Errore durante il login:', error)
-    message.error(i18n.global.t('login.messages.login_error'))
+    message.error(t('login.messages.login_error'))
   } finally {
     loading.value = false
   }

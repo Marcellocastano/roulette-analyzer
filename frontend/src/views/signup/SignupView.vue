@@ -69,13 +69,14 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/Layout/AuthLayout.vue'
 import { Eye, EyeOff } from '@vicons/tabler'
-import { i18n } from '@/i18n'
+import { useI18n } from 'vue-i18n'
 
 const formRef = ref<FormInst | null>(null)
 const loading = ref(false)
 const router = useRouter()
 const message = useMessage()
 const authStore = useAuthStore()
+const { t } = useI18n()
 
 interface FormValue {
   name: string
@@ -92,38 +93,38 @@ const formValue = ref<FormValue>({
 })
 
 const validatePasswordMatch = (rule: any, value: string) => {
-  return value === formValue.value.password ? true : new Error(i18n.global.t('common.errors.password_match'))
+  return value === formValue.value.password ? true : new Error(t('common.errors.password_match'))
 }
 
 const rules: FormRules = {
   name: [
     {
       required: true,
-      message: i18n.global.t('signup.errors.name_required'),
+      message: t('signup.errors.name_required'),
       trigger: ['blur', 'input'],
     },
   ],
   email: [
     {
       required: true,
-      message: i18n.global.t('signup.errors.email_required'),
+      message: t('signup.errors.email_required'),
       trigger: ['blur', 'input'],
     },
     {
       type: 'email',
-      message: i18n.global.t('signup.errors.email_invalid'),
+      message: t('signup.errors.email_invalid'),
       trigger: ['blur', 'input'],
     },
   ],
   password: [
     {
       required: true,
-      message: i18n.global.t('signup.errors.password_required'),
+      message: t('signup.errors.password_required'),
       trigger: ['blur', 'input'],
     },
     {
       min: 8,
-      message: i18n.global.t('signup.errors.password_min_length'),
+      message: t('signup.errors.password_min_length'),
       trigger: ['blur', 'input'],
     },
     {
@@ -134,16 +135,16 @@ const rules: FormRules = {
         const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)
 
         if (!hasUpperCase) {
-          return new Error(i18n.global.t('signup.errors.password_uppercase'))
+          return new Error(t('signup.errors.password_uppercase'))
         }
         if (!hasLowerCase) {
-          return new Error(i18n.global.t('signup.errors.password_lowercase'))
+          return new Error(t('signup.errors.password_lowercase'))
         }
         if (!hasNumber) {
-          return new Error(i18n.global.t('signup.errors.password_number'))
+          return new Error(t('signup.errors.password_number'))
         }
         if (!hasSpecial) {
-          return new Error(i18n.global.t('signup.errors.password_special'))
+          return new Error(t('signup.errors.password_special'))
         }
 
         return true
@@ -154,12 +155,12 @@ const rules: FormRules = {
   confirmPassword: [
     {
       required: true,
-      message: i18n.global.t('signup.errors.confirm_password_required'),
+      message: t('signup.errors.confirm_password_required'),
       trigger: ['blur', 'input'],
     },
     {
       validator: validatePasswordMatch,
-      message: i18n.global.t('common.errors.password_match'),
+      message: t('common.errors.password_match'),
       trigger: ['blur', 'input'],
     },
   ],
@@ -175,14 +176,14 @@ const handleSubmit = async () => {
       password: formValue.value.password,
     })
 
-    message.success('Registrazione completata con successo')
+    message.success(t('signup.success'))
     // Aspetta un momento prima di reindirizzare
     setTimeout(() => {
       router.push('/dashboard')
     }, 500)
   } catch (error) {
     console.error('Errore durante la registrazione:', error)
-    message.error('Errore durante la registrazione. Riprova più tardi.')
+    message.error(t('signup.error'))
   } finally {
     loading.value = false
   }

@@ -1,38 +1,38 @@
 <template>
-  <n-h1 class="mb-8 text-center">Inserisci le statistiche del tavolo</n-h1>
+  <n-h1 class="mb-8 text-center">{{ $t('initial_stats.title') }}</n-h1>
   <div class="initial-stats">
-    <Card title="Statistiche a 50 spin" class="statistics-card">
+    <Card :title="$t('initial_stats.stats_50_spin')" class="statistics-card">
       <template #content>
         <n-form @submit.prevent="handleSubmit">
           <n-form-item>
             <div class="stats-container">
               <div class="stats-input">
                 <div>
-                  <n-p><strong>1° dozzina %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.first_dozen') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.first"
                     button-placement="both"
-                    placeholder="Prima Dozzina"
+                    :placeholder="$t('initial_stats.first_dozen_placeholder')"
                   />
-                  <n-p><strong>3° dozzina %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.third_dozen') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.third"
                     button-placement="both"
-                    placeholder="Terza Dozzina"
+                    :placeholder="$t('initial_stats.third_dozen_placeholder')"
                   />
                 </div>
                 <div>
-                  <n-p><strong>2° dozzina %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.second_dozen') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.second"
                     button-placement="both"
-                    placeholder="Terza Dozzina"
+                    :placeholder="$t('initial_stats.second_dozen_placeholder')"
                   />
-                  <n-p><strong>Zona ZERO %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.zero_zone') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats50.zeroNeighbors"
                     button-placement="both"
-                    placeholder="Zona Zero"
+                    :placeholder="$t('initial_stats.zero_zone_placeholder')"
                   />
                 </div>
               </div>
@@ -45,38 +45,38 @@
         </n-form>
       </template>
     </Card>
-    <Card title="Statistiche a 500 spin" class="statistics-card">
+    <Card :title="$t('initial_stats.stats_500_spin')" class="statistics-card">
       <template #content>
         <n-form @submit.prevent="handleSubmit">
           <n-form-item>
             <div class="stats-container">
               <div class="stats-input">
                 <div>
-                  <n-p><strong>1° dozzina %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.first_dozen') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.first"
                     button-placement="both"
-                    placeholder="Prima Dozzina"
+                    :placeholder="$t('initial_stats.first_dozen_placeholder')"
                   />
-                  <n-p><strong>3° dozzina %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.third_dozen') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.third"
                     button-placement="both"
-                    placeholder="Terza Dozzina"
+                    :placeholder="$t('initial_stats.third_dozen_placeholder')"
                   />
                 </div>
                 <div>
-                  <n-p><strong>2° dozzina %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.second_dozen') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.second"
                     button-placement="both"
-                    placeholder="Seconda Dozzina"
+                    :placeholder="$t('initial_stats.second_dozen_placeholder')"
                   />
-                  <n-p><strong>Zona ZERO %</strong></n-p>
+                  <n-p><strong>{{ $t('initial_stats.zero_zone') }}</strong></n-p>
                   <n-input-number
                     v-model:value="stats500.zeroNeighbors"
                     button-placement="both"
-                    placeholder="Zona Zero"
+                    :placeholder="$t('initial_stats.zero_zone_placeholder')"
                   />
                 </div>
               </div>
@@ -91,18 +91,18 @@
     </Card>
   </div>
   <div class="text-center">
-    <n-button type="primary" @click="sendData">Controlla il tavolo</n-button>
+    <n-button type="primary" @click="sendData">{{ $t('initial_stats.check_table') }}</n-button>
   </div>
 
   <n-modal v-model:show="showErrorModal" preset="dialog" :mask-closable="false" :closable="false">
     <n-result
       status="error"
-      title="Statistiche non raccomandate"
+      :title="$t('initial_stats.modals.not_recommended.title')"
       size="large"
-      description="Le statistiche attuali non mostrano condizioni favorevoli per il gioco. Si consiglia di resettare e cambiare tavolo."
+      :description="$t('initial_stats.modals.not_recommended.description')"
     >
       <template #footer>
-        <n-button type="primary" @click="handleReset">Resetta Statistiche</n-button>
+        <n-button type="primary" @click="handleReset">{{ $t('initial_stats.modals.reset_stats') }}</n-button>
       </template>
     </n-result>
   </n-modal>
@@ -110,43 +110,45 @@
   <n-modal
     v-model:show="showBorderlineModal"
     preset="dialog"
-    title="Condizioni al limite"
-    :positiveText="'Procedi'"
-    :negativeText="'Cambia Tavolo'"
+    :title="$t('initial_stats.modals.borderline.dialog_title')"
+    :positiveText="$t('initial_stats.modals.proceed')"
+    :negativeText="$t('initial_stats.modals.change_table')"
     @positive-click="handleProceed"
     @negative-click="handleReset"
   >
     <n-result
       status="warning"
-      title="Tavolo borderline"
+      :title="$t('initial_stats.modals.borderline.title')"
       size="large"
-      description="Le statistiche attuali mostrano condizioni al limite. Puoi scegliere se procedere con cautela
-      o analizzare un altro tavolo."
+      :description="$t('initial_stats.modals.borderline.description')"
     />
   </n-modal>
 
   <n-modal
     v-model:show="showRecommendedModal"
     preset="dialog"
-    title="Condizioni raccomandate"
-    :positiveText="'Procedi'"
+    :title="$t('initial_stats.modals.recommended.dialog_title')"
+    :positiveText="$t('initial_stats.modals.proceed')"
     @positive-click="handleProceed"
   >
     <n-result
       status="success"
-      title="Tavolo raccomandato"
+      :title="$t('initial_stats.modals.recommended.title')"
       size="large"
-      description="Le statistiche attuali mostrano condizioni favorevoli. Procedi sempre con attenzione, inizia con puntate basse per poi aumentarle in caso di vincita."
+      :description="$t('initial_stats.modals.recommended.description')"
     />
   </n-modal>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import WheelStatistics from '@/components/WheelStatistics/WheelStatistics.vue'
 import Card from '@/components/Card/Card.vue'
 import { NButton, NForm, NFormItem, NInputNumber, NP, NResult, NModal } from 'naive-ui'
 import * as InitialStats from '@/api/types/initialStats'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   analysis: InitialStats.InitialStatsResponse | null

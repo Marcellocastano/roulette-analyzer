@@ -101,7 +101,9 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import { Eye, EyeOff } from '@vicons/tabler'
 import { userApi } from '@/api/user'
-import { i18n } from '@/i18n'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 // Riferimenti ai form
 const profileFormRef = ref<FormInst | null>(null)
@@ -141,30 +143,30 @@ const passwordForm = ref<PasswordForm>({
 // Regole di validazione per il profilo
 const profileRules: FormRules = {
   name: [
-    { required: true, message: i18n.global.t('account.profile.errors.name_required'), trigger: 'blur' }
+    { required: true, message: t('account.profile.errors.name_required'), trigger: 'blur' }
   ],
   email: [
-    { required: true, message: i18n.global.t('account.profile.errors.email_required'), trigger: 'blur' },
-    { type: 'email', message: i18n.global.t('account.profile.errors.email_invalid'), trigger: 'blur' }
+    { required: true, message: t('account.profile.errors.email_required'), trigger: 'blur' },
+    { type: 'email', message: t('account.profile.errors.email_invalid'), trigger: 'blur' }
   ]
 }
 
 // Regole di validazione per la password
 const passwordRules: FormRules = {
   oldPassword: [
-    { required: true, message: i18n.global.t('account.password.errors.old_required'), trigger: 'blur' }
+    { required: true, message: t('account.password.errors.old_required'), trigger: 'blur' }
   ],
   newPassword: [
-    { required: true, message: i18n.global.t('account.password.errors.new_required'), trigger: 'blur' },
-    { min: 8, message: i18n.global.t('account.password.errors.min_length'), trigger: 'blur' }
+    { required: true, message: t('account.password.errors.new_required'), trigger: 'blur' },
+    { min: 8, message: t('account.password.errors.min_length'), trigger: 'blur' }
   ],
   confirmPassword: [
-    { required: true, message: i18n.global.t('account.password.errors.confirm_required'), trigger: 'blur' },
+    { required: true, message: t('account.password.errors.confirm_required'), trigger: 'blur' },
     {
       validator: (rule, value) => {
         return value === passwordForm.value.newPassword
       },
-      message: i18n.global.t('common.errors.password_match'),
+      message: t('common.errors.password_match'),
       trigger: 'blur'
     }
   ]
@@ -191,7 +193,7 @@ onMounted(async () => {
 const handleProfileSubmit = () => {
   profileFormRef.value?.validate(async (errors) => {
     if (errors) {
-      message.error(i18n.global.t('account.profile.errors.form_errors'))
+      message.error(t('account.profile.errors.form_errors'))
       return
     }
     
@@ -224,7 +226,7 @@ const handleProfileSubmit = () => {
 const handlePasswordSubmit = () => {
   passwordFormRef.value?.validate(async (errors) => {
     if (errors) {
-      message.error(i18n.global.t('account.profile.errors.form_errors'))
+      message.error(t('account.profile.errors.form_errors'))
       return
     }
     

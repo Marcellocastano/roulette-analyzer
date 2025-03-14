@@ -1,9 +1,12 @@
 <template>
   <n-dropdown trigger="click" :options="languageOptions" @select="handleLanguageChange">
     <div class="language-selector">
-      <n-icon size="20" color="#fff">
-        <Language />
-      </n-icon>
+      <div class="flag-icon" style="width: 20px; height: 15px">
+        <ItalyFlag v-if="currentLocale === 'it'" />
+        <UKFlag v-else-if="currentLocale === 'en'" />
+        <SpainFlag v-else-if="currentLocale === 'es'" />
+        <GermanyFlag v-else-if="currentLocale === 'de'" />
+      </div>
       <span class="language-text">{{ $t(`common.language.${currentLocale}`) }}</span>
     </div>
   </n-dropdown>
@@ -11,31 +14,47 @@
 
 <script setup lang="ts">
 import { computed, h } from 'vue'
-import { NIcon } from 'naive-ui'
-import { Language } from '@vicons/tabler'
+import ItalyFlag from './icons/ItalyFlag.vue'
+import UKFlag from './icons/UKFlag.vue'
+import SpainFlag from './icons/SpainFlag.vue'
+import GermanyFlag from './icons/GermanyFlag.vue'
 import { i18n, setLocale } from '@/i18n'
 // @ts-ignore
 const currentLocale = computed(() => i18n.global.locale.value)
 
 const languageOptions = [
   {
-    label: () => h('div', {}, [
-      h(NIcon, { size: 16 }, { default: () => h(Language) }),
+    label: () => h('div', { style: 'display: flex; align-items: center;' }, [
+      h('div', { style: 'width: 16px; height: 12px;' }, [h(ItalyFlag)]),
       h('span', { style: 'margin-left: 8px' }, 'Italiano')
     ]),
     key: 'it'
   },
   {
-    label: () => h('div', {}, [
-      h(NIcon, { size: 16 }, { default: () => h(Language) }),
+    label: () => h('div', { style: 'display: flex; align-items: center;' }, [
+      h('div', { style: 'width: 16px; height: 12px;' }, [h(UKFlag)]),
       h('span', { style: 'margin-left: 8px' }, 'English')
     ]),
     key: 'en'
+  },
+  {
+    label: () => h('div', { style: 'display: flex; align-items: center;' }, [
+      h('div', { style: 'width: 16px; height: 12px;' }, [h(SpainFlag)]),
+      h('span', { style: 'margin-left: 8px' }, 'Español')
+    ]),
+    key: 'es'
+  },
+  {
+    label: () => h('div', { style: 'display: flex; align-items: center;' }, [
+      h('div', { style: 'width: 16px; height: 12px;' }, [h(GermanyFlag)]),
+      h('span', { style: 'margin-left: 8px' }, 'Deutsch')
+    ]),
+    key: 'de'
   }
 ]
 
 const handleLanguageChange = (key: string) => {
-  if (key === 'en' || key === 'it') {
+  if (key === 'en' || key === 'it' || key === 'es' || key === 'de') {
     setLocale(key)
   }
 }

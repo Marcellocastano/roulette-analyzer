@@ -1,9 +1,9 @@
 <template>
-  <n-p class="roulette-title">
-    Replica nella maniera <strong>più fedele possibile</strong> le statistiche dei numeri sulla
-    ruota. Trascina il mouse su un cono per modificarne il valore. Leggi il
-    <router-link to="/tutorial#statistics" target="_blank">tutorial</router-link> se hai dubbi.
-  </n-p>
+    <div class="roulette-instructions">
+      <n-p class="roulette-title">
+        {{ $t('wheel_statistics.instructions') }} <router-link to="/tutorial#statistics" target="_blank">{{ $t('wheel_statistics.tutorial_link') }}</router-link>
+      </n-p>
+    </div>
   <div class="roulette-wheel">
     <svg @mouseup="stopDragging" @mouseleave="stopDragging">
       <g v-for="(number, index) in rouletteNumbers" :key="index">
@@ -38,7 +38,7 @@
       <template #icon>
         <n-icon><Trash /></n-icon>
       </template>
-      Ricomincia
+      {{ $t('wheel_statistics.reset_button') }}
     </n-button>
   </div>
 </template>
@@ -48,6 +48,10 @@ import { ref, reactive, watch } from 'vue'
 import { NButton } from 'naive-ui'
 import { Trash } from '@vicons/tabler'
 import * as InitialStats from '@/api/types/initialStats'
+import { useI18n } from 'vue-i18n'
+
+// Initialize i18n
+const { t } = useI18n()
 
 interface InitialValues {
   [key: number]: number

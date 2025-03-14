@@ -3,38 +3,38 @@
     <n-card class="account-card">
       <template #header>
         <div class="card-header">
-          <n-h1>Il tuo Account</n-h1>
+          <n-h1>{{ $t('account.title') }}</n-h1>
         </div>
       </template>
       <n-tabs type="line">
-        <n-tab-pane name="profile" tab="Profilo">
+        <n-tab-pane name="profile" :tab="$t('account.tabs.profile')">
           <n-form ref="profileFormRef" :model="profileForm" :rules="profileRules">
-            <n-form-item path="name" label="Nome">
-              <n-input v-model:value="profileForm.name" size="large" round placeholder="Il tuo nome" />
+            <n-form-item path="name" :label="$t('account.profile.name')">
+              <n-input v-model:value="profileForm.name" size="large" round :placeholder="$t('account.profile.name_placeholder')" />
             </n-form-item>
             
-            <n-form-item path="email" label="Email">
-              <n-input v-model:value="profileForm.email" size="large" round placeholder="La tua email" />
+            <n-form-item path="email" :label="$t('account.profile.email')">
+              <n-input v-model:value="profileForm.email" size="large" round :placeholder="$t('account.profile.email_placeholder')" />
             </n-form-item>
             
             <div class="submit-container">
               <n-button :loading="profileLoading" type="primary" @click="handleProfileSubmit" class="bg-accent-dark">
-                Aggiorna Profilo
+                {{ $t('account.profile.update_button') }}
               </n-button>
             </div>
           </n-form>
         </n-tab-pane>
         
-        <n-tab-pane name="password" tab="Cambia Password">
+        <n-tab-pane name="password" :tab="$t('account.tabs.change_password')">
           <n-form ref="passwordFormRef" :model="passwordForm" :rules="passwordRules">
-            <n-form-item path="oldPassword" label="Password Attuale">
+            <n-form-item path="oldPassword" :label="$t('account.password.current')">
               <n-input
                 v-model:value="passwordForm.oldPassword"
                 type="password"
                 show-password-on="click"
                 size="large"
                 round
-                placeholder="Inserisci la password attuale"
+                :placeholder="$t('account.password.current_placeholder')"
               >
                 <template #password-visible-icon>
                   <n-icon :size="16" :component="Eye" />
@@ -45,14 +45,14 @@
               </n-input>
             </n-form-item>
             
-            <n-form-item path="newPassword" label="Nuova Password">
+            <n-form-item path="newPassword" :label="$t('account.password.new')">
               <n-input
                 v-model:value="passwordForm.newPassword"
                 type="password"
                 show-password-on="click"
                 size="large"
                 round
-                placeholder="Inserisci la nuova password"
+                :placeholder="$t('account.password.new_placeholder')"
               >
                 <template #password-visible-icon>
                   <n-icon :size="16" :component="Eye" />
@@ -63,14 +63,14 @@
               </n-input>
             </n-form-item>
             
-            <n-form-item path="confirmPassword" label="Conferma Password">
+            <n-form-item path="confirmPassword" :label="$t('account.password.confirm')">
               <n-input
                 v-model:value="passwordForm.confirmPassword"
                 type="password"
                 show-password-on="click"
                 size="large"
                 round
-                placeholder="Conferma la nuova password"
+                :placeholder="$t('account.password.confirm_placeholder')"
               >
                 <template #password-visible-icon>
                   <n-icon :size="16" :component="Eye" />
@@ -83,7 +83,7 @@
             
             <div class="submit-container">
               <n-button :loading="passwordLoading" type="primary" @click="handlePasswordSubmit" class="bg-accent-dark">
-                Cambia Password
+                {{ $t('account.password.update_button') }}
               </n-button>
             </div>
           </n-form>
@@ -101,6 +101,9 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import { Eye, EyeOff } from '@vicons/tabler'
 import { userApi } from '@/api/user'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 // Riferimenti ai form
 const profileFormRef = ref<FormInst | null>(null)
@@ -140,30 +143,30 @@ const passwordForm = ref<PasswordForm>({
 // Regole di validazione per il profilo
 const profileRules: FormRules = {
   name: [
-    { required: true, message: 'Inserisci il tuo nome', trigger: 'blur' }
+    { required: true, message: t('account.profile.errors.name_required'), trigger: 'blur' }
   ],
   email: [
-    { required: true, message: 'Inserisci la tua email', trigger: 'blur' },
-    { type: 'email', message: 'Inserisci un indirizzo email valido', trigger: 'blur' }
+    { required: true, message: t('account.profile.errors.email_required'), trigger: 'blur' },
+    { type: 'email', message: t('account.profile.errors.email_invalid'), trigger: 'blur' }
   ]
 }
 
 // Regole di validazione per la password
 const passwordRules: FormRules = {
   oldPassword: [
-    { required: true, message: 'Inserisci la password attuale', trigger: 'blur' }
+    { required: true, message: t('account.password.errors.old_required'), trigger: 'blur' }
   ],
   newPassword: [
-    { required: true, message: 'Inserisci la nuova password', trigger: 'blur' },
-    { min: 8, message: 'La password deve essere lunga almeno 8 caratteri', trigger: 'blur' }
+    { required: true, message: t('account.password.errors.new_required'), trigger: 'blur' },
+    { min: 8, message: t('account.password.errors.min_length'), trigger: 'blur' }
   ],
   confirmPassword: [
-    { required: true, message: 'Conferma la nuova password', trigger: 'blur' },
+    { required: true, message: t('account.password.errors.confirm_required'), trigger: 'blur' },
     {
       validator: (rule, value) => {
         return value === passwordForm.value.newPassword
       },
-      message: 'Le password non corrispondono',
+      message: t('common.errors.password_match'),
       trigger: 'blur'
     }
   ]
@@ -190,7 +193,7 @@ onMounted(async () => {
 const handleProfileSubmit = () => {
   profileFormRef.value?.validate(async (errors) => {
     if (errors) {
-      message.error('Correggi gli errori nel form')
+      message.error(t('account.profile.errors.form_errors'))
       return
     }
     
@@ -223,7 +226,7 @@ const handleProfileSubmit = () => {
 const handlePasswordSubmit = () => {
   passwordFormRef.value?.validate(async (errors) => {
     if (errors) {
-      message.error('Correggi gli errori nel form')
+      message.error(t('account.profile.errors.form_errors'))
       return
     }
     

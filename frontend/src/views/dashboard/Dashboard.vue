@@ -3,76 +3,12 @@
     <div class="welcome-section">
       <div class="welcome-text">
         <n-h1>
-          <span class="greeting">Ciao, {{ user?.name || 'Giocatore' }}!</span>
+          <span class="greeting">{{ $t('dashboard.greeting', { name: user?.name || $t('dashboard.default_name') }) }}</span>
         </n-h1>
       </div>
     </div>
 
     <div v-if="authStore.isPremiumUser" class="dashboard-content">
-      <!-- <div class="stats-grid">
-        <n-card class="stat-card sessions-card" size="small">
-          <div class="stat-header">
-            <div class="stat-icon">
-              <n-icon size="24">
-                <History />
-              </n-icon>
-            </div>
-            <div class="stat-title">Sessioni Avviate</div>
-          </div>
-          <div class="stat-value">{{ sessionCount }}</div>
-          <div class="stat-trend">
-            <n-icon size="14" color="#00b894">
-              <TrendingUp />
-            </n-icon>
-            <span>+{{ sessionTrend }}% rispetto alla scorsa settimana</span>
-          </div>
-        </n-card>
-
-        <n-card class="stat-card accuracy-card" size="small">
-          <div class="stat-header">
-            <div class="stat-icon">
-              <n-icon size="24">
-                <Target />
-              </n-icon>
-            </div>
-            <div class="stat-title">Precisione Predizioni</div>
-          </div>
-          <div class="stat-value-with-chart">
-            <n-progress
-              type="circle"
-              :percentage="accuracyRate"
-              :color="accuracyColor"
-              :rail-color="accuracyRailColor"
-              :stroke-width="5"
-              :show-indicator="true"
-              :height="50"
-              :width="50"
-              :indicator-text-color="accuracyColor"
-              :indicator-placement="'inside'"
-              unit="%"
-            />
-          </div>
-        </n-card>
-
-        <n-card class="stat-card balance-card" size="small">
-          <div class="stat-header">
-            <div class="stat-icon">
-              <n-icon size="24">
-                <Coin />
-              </n-icon>
-            </div>
-            <div class="stat-title">Bilancio Stimato</div>
-          </div>
-          <div class="stat-value">{{ formattedBalance }}</div>
-          <div class="stat-trend">
-            <n-icon size="14" :color="balanceTrendColor">
-              <component :is="balanceTrendIcon" />
-            </n-icon>
-            <span>{{ balanceTrend > 0 ? '+' : '' }}{{ balanceTrend }}% questo mese</span>
-          </div>
-        </n-card>
-      </div> -->
-
       <!-- Sezione Tutorial -->
       <div class="flex w-full justify-center">
         <n-card class="tutorial-card" size="small">
@@ -82,7 +18,7 @@
                 <n-icon size="20">
                   <Book />
                 </n-icon>
-                <span>Leggi il Tutorial</span>
+                <span>{{ $t('dashboard.tutorial_card.header') }}</span>
               </div>
             </div>
           </template>
@@ -94,16 +30,10 @@
               </n-icon>
             </div>
             <div class="tutorial-text">
-              <p class="tutorial-title">Prima di iniziare a giocare</p>
-              <p class="tutorial-description">
-                È
-                <strong>fondamentale</strong>
-                leggere attentamente il tutorial per comprendere il metodo statistico utilizzato dal
-                software. Solo così potrai sfruttare al massimo le potenzialità dell'analisi e
-                aumentare le probabilità di successo.
-              </p>
+              <p class="tutorial-title">{{ $t('dashboard.tutorial_card.title') }}</p>
+              <p class="tutorial-description" v-html="$t('dashboard.tutorial_card.description')"></p>
               <router-link to="/tutorial" class="tutorial-link">
-                <span>Vai al Tutorial</span>
+                <span>{{ $t('dashboard.tutorial_card.link') }}</span>
                 <n-icon size="16">
                   <ArrowRight />
                 </n-icon>
@@ -122,7 +52,7 @@
                 <n-icon size="20">
                   <BuildingCarousel />
                 </n-icon>
-                <span>I tuoi numeri fortunati</span>
+                <span>{{ $t('dashboard.lucky_numbers.title') }}</span>
               </div>
               <n-button
                 quaternary
@@ -153,54 +83,30 @@
             <n-icon size="16">
               <InfoCircle />
             </n-icon>
-            <span>Questi numeri sono generati casualmente.</span>
+            <span>{{ $t('dashboard.lucky_numbers.message') }}</span>
           </div>
         </n-card>
       </div>
     </div>
     <div v-else class="tutorial">
       <div class="text-center mb-6">
-        <n-h2 class="mb-0">Concetti Base in sintesi</n-h2>
+        <n-h2 class="mb-0">{{ $t('dashboard.free_user.title') }}</n-h2>
         <n-p class="mb-0 fontSizeHuge">
-          Per scoprire la strategia in dettaglio, acquista un abbonamento.
+          {{ $t('dashboard.free_user.subtitle') }}
         </n-p>
       </div>
       <section class="three-column-section">
         <n-card class="feature-card">
-          <n-h3>Legge dei grandi numeri</n-h3>
-          <n-p>
-            Nel contesto della roulette, questo significa che, su un numero molto alto di spin,
-            <strong
-              >le probabilità di uscita dei vari numeri e delle diverse zone del tavolo
-              <u>tenderanno ad equilibrarsi</u> </strong
-            >. Questo ovviamente non significa andare a constatare la dozzina "in difetto" e puntare
-            su quei numeri. Ma questo insieme agli altri concetti forma le fondamenta della
-            strategia.
-          </n-p>
+          <n-h3>{{ $t('dashboard.free_user.law_title') }}</n-h3>
+          <n-p v-html="$t('dashboard.free_user.law_content')"></n-p>
         </n-card>
         <n-card class="feature-card">
-          <n-h3>Zona Zero</n-h3>
-          <n-p>
-            La strategia è sviluppata per funzionare al meglio sfruttando la zona ZERO della
-            roulette, cioè quei numeri che vanno da 12 al 15. Se la percentuale di uscita della zona
-            zero è
-            <strong>inferiore alla media (20%)</strong>
-            sia a 50 che a 500 spin, si considera che la zona sia "
-            <strong>in difetto</strong>
-            ". Questo suggerisce che la zona è in ritardo e che potrebbe essere il momento di
-            puntare sui suoi numeri.
-          </n-p>
+          <n-h3>{{ $t('dashboard.free_user.zero_title') }}</n-h3>
+          <n-p v-html="$t('dashboard.free_user.zero_content')"></n-p>
         </n-card>
         <n-card class="feature-card">
-          <n-h3>Crescita dei numeri</n-h3>
-          <n-p>
-            Si confrontano le statistiche a 50 spin con quelle a 500 spin per individuare i numeri
-            che mostrano una
-            <strong>tendenza positiva</strong>
-            . I numeri in crescita sono quelli che a 50 spin, mostrano un
-            <strong>aumento della frequenza di uscita</strong>
-            nel tempo e giocano un ruolo fondamentale per l'applicazione della strategia.
-          </n-p>
+          <n-h3>{{ $t('dashboard.free_user.growth_title') }}</n-h3>
+          <n-p v-html="$t('dashboard.free_user.growth_content')"></n-p>
         </n-card>
       </section>
     </div>
@@ -209,65 +115,28 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { NCard, NIcon, NH1, NP, NProgress, NButton } from 'naive-ui'
+import { NCard, NIcon, NH1, NP, NButton } from 'naive-ui'
 import {
-  Calendar,
-  History,
-  Target,
-  Coin,
   BuildingCarousel,
   Refresh,
   InfoCircle,
-  ChevronRight,
   Book,
-  TrendingUp,
-  TrendingDown,
-  UserCircle,
-  Bolt,
   AlertCircle,
   ArrowRight,
 } from '@vicons/tabler'
 import { useAuthStore } from '@/stores/auth'
-import RouletteIcon from '@/components/icons/RouletteIcon.vue'
 
 const authStore = useAuthStore()
 const user = computed(() => authStore.user)
 
 // Statistiche (dati di esempio)
-const sessionCount = ref(24)
-const sessionTrend = ref(12)
 const accuracyRate = ref(68)
-const balance = ref(320)
-const balanceTrend = ref(15)
 
 // Colori per la precisione
 const accuracyColor = computed(() => {
   if (accuracyRate.value >= 70) return '#00b894'
   if (accuracyRate.value >= 50) return '#f1c40f'
   return '#e74c3c'
-})
-
-const accuracyRailColor = computed(() => {
-  if (accuracyRate.value >= 70) return 'rgba(0, 184, 148, 0.2)'
-  if (accuracyRate.value >= 50) return 'rgba(241, 196, 15, 0.2)'
-  return 'rgba(231, 76, 60, 0.2)'
-})
-
-// Formattazione del bilancio
-const formattedBalance = computed(() => {
-  return new Intl.NumberFormat('it-IT', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(balance.value)
-})
-
-// Icona per il trend del bilancio
-const balanceTrendIcon = computed(() => {
-  return balanceTrend.value >= 0 ? TrendingUp : TrendingDown
-})
-
-const balanceTrendColor = computed(() => {
-  return balanceTrend.value >= 0 ? '#00b894' : '#e74c3c'
 })
 
 // Numeri fortunati

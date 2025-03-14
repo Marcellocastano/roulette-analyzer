@@ -40,6 +40,8 @@
     </div>
 
     <div class="navbar-right">
+      <LanguageSelector class="mr-4" />
+      
       <n-button class="flex md:hidden menu-toggle" @click="toggleMobileMenu">
         <n-icon size="24">
           <Menu v-if="!isMobileMenuOpen" />
@@ -91,12 +93,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, h } from 'vue'
+import { ref, h, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useMessage } from 'naive-ui'
 import RouletteIcon from '../icons/RouletteIcon.vue'
 import PremiumBadge from '../PremiumBadge.vue'
+import LanguageSelector from '../LanguageSelector.vue'
 import {
   UserCircle,
   Menu,
@@ -108,6 +111,9 @@ import {
   Sitemap
 } from '@vicons/tabler'
 import { NIcon } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const router = useRouter()
 const route = useRoute()
@@ -115,16 +121,16 @@ const authStore = useAuthStore()
 const message = useMessage()
 const isMobileMenuOpen = ref(false)
 
-const routes = [
+const routes = computed(() => [
   {
     path: '/dashboard',
-    name: 'Dashboard',
+    name: t('navbar.dashboard'),
     icon: DashboardIcon,
     premium: false
   },
   {
     path: '/tutorial',
-    name: 'Tutorial',
+    name: t('navbar.tutorial'),
     icon: TutorialIcon,
     premium: true
   },
@@ -136,15 +142,15 @@ const routes = [
   },
   {
     path: '/pricing',
-    name: 'Abbonamento',
+    name: t('navbar.pricing'),
     icon: PianoIcon,
     premium: false
   },
-]
+])
 
-const options = [
+const options = computed(() => [
   {
-    label: 'Account',
+    label: t('navbar.account'),
     key: 'account',
     icon: () => h(NIcon, null, { default: () => h(UserCircle) }),
   },
@@ -153,16 +159,16 @@ const options = [
   },
   // Mostra la voce Admin solo se l'utente è amministratore
   ...(authStore.isAuthAdmin ? [{
-    label: 'Admin',
+    label: t('navbar.admin'),
     key: 'admin',
     icon: () => h(NIcon, null, { default: () => h(Sitemap) }),
   }] : []),
   {
-    label: 'Logout',
+    label: t('navbar.logout'),
     key: 'logout',
     icon: () => h(NIcon, null, { default: () => h(LogoutIcon) }),
   },
-]
+])
 
 const isRouteActive = (path: string) => {
   return route.path === path
@@ -186,11 +192,11 @@ const closeMobileMenu = () => {
 }
 
 const checkPremiumAccess = (e: any, routePath: string) => {
-  const routeInfo = routes.find(r => r.path === routePath);
+  const routeInfo = routes.value.find(r => r.path === routePath);
 
   if (routeInfo?.premium && !authStore.isPremiumUser) {
     e.preventDefault();
-    message.warning('Questa funzionalità è disponibile solo per gli utenti con abbonamento Premium attivo.');
+    message.warning(t('navbar.premium_access'));
     router.push('/pricing');
   }
 }

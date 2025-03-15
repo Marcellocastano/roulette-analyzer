@@ -18,33 +18,6 @@ class PredictionService {
     };
   }
 
-  _categorizeNumbers(sequenceNumbers, increasingNumbers, dozenDown) {
-    const dozenNumbers = dozenDown ? this._getDozensNumbers()[dozenDown] : [];
-
-    const special = [];
-    const primary = [];
-    const secondary = [];
-
-    sequenceNumbers.forEach(number => {
-      const isInIncreasing = increasingNumbers.includes(number);
-      const isInDozen = dozenNumbers.includes(number);
-
-      if (isInIncreasing && isInDozen) {
-        special.push(number);
-      } else if (isInIncreasing || isInDozen) {
-        primary.push(number);
-      } else {
-        secondary.push(number);
-      }
-    });
-
-    return {
-      special: special.sort((a, b) => a - b),
-      primary: primary.sort((a, b) => a - b),
-      secondary: secondary.sort((a, b) => a - b)
-    };
-  }
-
   async _getStats(userId) {
     const spinHistory = await this.repository.getSpinHistory(userId);
     if (!spinHistory || !Array.isArray(spinHistory) || spinHistory.length === 0) {
@@ -264,72 +237,6 @@ class PredictionService {
     return false;
   }
   
-
-  _calculateScores(lastNumber, initialStats) {
-    // 1. Ricava i dati base
-    const { dozenDown, dozenUp, analysis } = initialStats || {};
-    const { reasonCodes = [], increasingNumbers = [] } = analysis || {};
-
-    // Controlliamo se la zona zero è in sofferenza
-    const zeroZoneIsSuffering = reasonCodes.includes('ZERO_ZONE_SUFFERING');
-
-    // Identifichiamo la dozzina in sofferenza (es. 1, 2 o 3)
-    const sufferingDozen = dozenDown; // es: 2
-
-    // 2. Definiamo i pesi (tarali in base alle prove)
-    const WEIGHT_SEQUENCE = 2;
-    const WEIGHT_DOZEN_SUFFERING = 2;
-    const WEIGHT_ZERO_SUFFERING = 1; // Se numero appartiene a zona zero sofferente
-    const WEIGHT_INCREASING = 1;
-    const WEIGHT_EXCLUDING_SURPLUS = -2; // Penalità se dozzina è “in surplus”
-
-    // (Opzionale) Identifichiamo la dozzina in surplus, se serve
-    // Per semplicità, qui non lo calcoliamo, ma potresti dedurla da initialStats.
-
-    // 3. Calcoliamo i punteggi
-    const scores = [];
-    for (let n = 0; n <= 36; n++) {
-      let score = 0;
-
-      // A) Verifica se n fa parte di una sequenza che segue l’ultimo numero
-      //    (usando la logica attuale)
-      const seqNumbers = this._getSequenceNumbers(lastNumber); 
-      // seqNumbers -> array di numeri che seguono l'ultimo estratto
-      if (seqNumbers.includes(n)) {
-        score += WEIGHT_SEQUENCE;
-      }
-
-      // B) Dozzina sofferente
-      const isInSufferingDozen = this._isNumberInDozen(n, sufferingDozen);
-      if (isInSufferingDozen) {
-        score += WEIGHT_DOZEN_SUFFERING;
-      }
-
-      // C) Zona zero sofferente
-      const isZeroNumber = ZONE_ZERO_NUMBERS.includes(n);
-      if (zeroZoneIsSuffering && isZeroNumber) {
-        score += WEIGHT_ZERO_SUFFERING;
-      }
-
-      // D) Numero in crescita
-      if (increasingNumbers.includes(n)) {
-        score += WEIGHT_INCREASING;
-      }
-
-      // E) (Opzionale) Se la dozzina di n è in surplus, penalizza
-      // (Da implementare se vuoi escludere i numeri di dozzine “troppo alte”)
-      // const isInSurplusDozen = ...
-      // if (isInSurplusDozen) {
-      //   score += WEIGHT_EXCLUDING_SURPLUS;
-      // }
-
-      scores.push({ number: n, score });
-    }
-
-    // 4. Restituiamo l’array con tutti i punteggi
-    return scores;
-  }
-
   /**
    * Verifica se un numero n appartiene alla dozzina sufferingDozen (1,2,3).
    */
@@ -339,40 +246,6 @@ class PredictionService {
     if (sufferingDozen === 2) return n >= 13 && n <= 24;
     if (sufferingDozen === 3) return n >= 25 && n <= 36;
     return false;
-  }
-
-  /**
-   * Nuova logica di categorizzazione basata sul punteggio
-   */
-  _categorizeNumbersByScore(scores) {
-    // Ordina i numeri per punteggio decrescente
-    const sorted = scores.sort((a, b) => b.score - a.score);
-
-    // Soglie di esempio (puoi modificarle):
-    // - Special: score >= 4
-    // - Primary: score >= 2
-    // - Secondary: score >= 1
-    // - Escludi (score < 1)
-    const special = [];
-    const primary = [];
-    const secondary = [];
-
-    for (let { number, score } of sorted) {
-      if (score >= 4) {
-        special.push(number);
-      } else if (score >= 2) {
-        primary.push(number);
-      } else if (score >= 1) {
-        secondary.push(number);
-      }
-      // else scartiamo i numeri con score < 1
-    }
-
-    return {
-      special: special.sort((a, b) => a - b),
-      primary: primary.sort((a, b) => a - b),
-      secondary: secondary.sort((a, b) => a - b),
-    };
   }
 
   async getPredictions(userId) {

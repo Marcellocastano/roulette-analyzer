@@ -7,6 +7,7 @@ const NUMBER_GROUPS = {
   ORPHELINS_DOWN_SEQUENCES: [17,34,6],
   ORPHELINS_TOP_SEQUENCES: [9,31,14,20,1,33],
   SEQUENCE_2_4: [2,4,21,20,14,31],
+  NEAR_5: [10,5,24],
   NEAR_27: [27,13,6],
   NEAR_25: [25,2,17],
   NEAR_23: [23,8,10],
@@ -14,6 +15,8 @@ const NUMBER_GROUPS = {
   NEAR_9: [9,31,22],
   NEAR_19: [19,2,21,4],
   NEAR_8: [8,30,23],
+  NEAR_14: [20,14,31],
+  NEAR_33: [33,16,1],
 };
 
 // Funzione helper per unire più gruppi di numeri

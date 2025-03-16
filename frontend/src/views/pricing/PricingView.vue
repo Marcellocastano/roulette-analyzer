@@ -143,30 +143,21 @@
 
       <n-space vertical>
         <n-text>
-          <strong>{{ $t('pricing.payment_modal.paypal_email') }}</strong>
-          {{ paymentInstructions?.paypalEmail }}
-        </n-text>
-        <n-text>
-          <strong>{{ $t('pricing.payment_modal.amount') }}</strong>
-          {{ paymentInstructions?.amount }} {{ paymentInstructions?.currency }}
-        </n-text>
-        <n-text>
-          <strong>{{ $t('pricing.payment_modal.reference') }}</strong>
-          {{ paymentInstructions?.reference }}
+          <strong>{{ $t('pricing.payment_modal.instructions') }}</strong>
         </n-text>
       </n-space>
 
       <n-divider />
 
       <n-text type="warning">
-        {{ $t('pricing.payment_modal.important') }}
+        <strong>{{ $t('pricing.payment_modal.important') }}</strong>
       </n-text>
 
-      <n-space justify="end">
+      <n-space justify="end" class="mt-6">
         <n-button @click="cancelSubscriptionRequest" :loading="isLoading">
           {{ $t('pricing.payment_modal.cancel_button') }}
         </n-button>
-        <n-button type="primary" @click="closeModal">{{ $t('pricing.payment_modal.understand_button') }}</n-button>
+        <n-button type="primary" @click="onConfirmPayment">{{ $t('pricing.payment_modal.understand_button') }}</n-button>
       </n-space>
     </n-space>
   </n-modal>
@@ -193,7 +184,7 @@ const paymentInstructions = ref<PaymentInstructions | null>(null)
 // Controlla se ci sono informazioni di pagamento salvate nel sessionStorage
 onMounted(() => {
   const savedPaymentInfo = sessionStorage.getItem('paymentInstructions')
-  if (savedPaymentInfo) {
+  if (savedPaymentInfo) { 
     paymentInstructions.value = JSON.parse(savedPaymentInfo)
   }
 })
@@ -203,8 +194,6 @@ const requestSubscription = async (plan: string, duration: string) => {
     isLoading.value = true
 
     const response = await userApi.requestSubscription(plan, duration)
-
-    message.success(t('pricing.messages.subscription_success'))
 
     // Salva le istruzioni di pagamento e mostra la modale
     paymentInstructions.value = response.data.data.paymentInstructions
@@ -220,6 +209,21 @@ const requestSubscription = async (plan: string, duration: string) => {
   } finally {
     isLoading.value = false
   }
+}
+
+const onConfirmPayment = () => {
+  switch (Number(paymentInstructions?.value?.amount)) {
+    case 50:
+      window.open('https://pay.sumup.com/b2c/QPP2FGRH', '_blank')
+      break
+    case 300:
+      window.open('https://pay.sumup.com/b2c/QIIEJQIO', '_blank')
+      break
+    default:
+      break
+  }
+
+  closeModal()
 }
 
 const closeModal = () => {

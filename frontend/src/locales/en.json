@@ -311,16 +311,13 @@
     },
     "payment_modal": {
       "title": "Payment Instructions",
-      "thank_you": "Thank you for requesting the subscription. To complete the procedure, make the payment following these instructions:",
-      "paypal_email": "PayPal Email:",
-      "amount": "Amount:",
-      "reference": "Reference:",
-      "important": "Important: Include the reference in the payment description to allow us to identify your transaction.",
+      "thank_you": "Thank you for requesting the subscription. To complete the process, please make the payment by clicking the button at the bottom of the modal.",
+      "instructions": "Once the payment is made, it may take a few minutes to activate your account.",
+      "important": "Important: Please include your email address in the payment description to allow us to identify your transaction.",
       "cancel_button": "Cancel request",
-      "understand_button": "I understand"
+      "understand_button": "Proceed to payment"
     },
     "messages": {
-      "subscription_success": "Subscription request sent successfully",
       "subscription_error": "An error occurred during the subscription request. Please try again later.",
       "cancel_success": "Subscription request cancelled successfully",
       "cancel_error": "An error occurred while cancelling the request. Please try again later."

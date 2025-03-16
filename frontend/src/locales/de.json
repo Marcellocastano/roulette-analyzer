@@ -311,16 +311,13 @@
     },
     "payment_modal": {
       "title": "Zahlungsanweisungen",
-      "thank_you": "Danke für Ihre Abonnementanfrage. Um den Vorgang abzuschließen, führen Sie die Zahlung gemäß diesen Anweisungen durch:",
-      "paypal_email": "PayPal E-Mail:",
-      "amount": "Betrag:",
-      "reference": "Referenz:",
-      "important": "Wichtig: Fügen Sie die Referenz in die Zahlungsbeschreibung ein, damit wir Ihre Transaktion identifizieren können.",
+      "thank_you": "Vielen Dank für Ihre Abonnementanfrage. Um den Vorgang abzuschließen, tätigen Sie bitte die Zahlung, indem Sie auf die Schaltfläche am unteren Rand des Fensters klicken.",
+      "instructions": "Nach erfolgter Zahlung kann die Aktivierung Ihres Kontos einige Minuten dauern.",
+      "important": "Wichtig: Bitte geben Sie Ihre E-Mail-Adresse in der Zahlungsbeschreibung an, damit wir Ihre Transaktion identifizieren können.",
       "cancel_button": "Anfrage abbrechen",
-      "understand_button": "Ich habe verstanden"
+      "understand_button": "Weiter zur Zahlung"
     },
     "messages": {
-      "subscription_success": "Abonnementanfrage erfolgreich gesendet",
       "subscription_error": "Bei der Abonnementanfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
       "cancel_success": "Abonnementanfrage erfolgreich storniert",
       "cancel_error": "Bei der Stornierung der Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."

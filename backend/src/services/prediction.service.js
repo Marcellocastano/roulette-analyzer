@@ -12,9 +12,9 @@ class PredictionService {
 
   _getDozensNumbers() {
     return {
-      1: Array.from({length: 12}, (_, i) => i + 1),      // 1-12
-      2: Array.from({length: 12}, (_, i) => i + 13),     // 13-24
-      3: Array.from({length: 12}, (_, i) => i + 25)      // 25-36
+      1: Array.from({length: 12}, (_, i) => i + 1),
+      2: Array.from({length: 12}, (_, i) => i + 13),
+      3: Array.from({length: 12}, (_, i) => i + 25)
     };
   }
 

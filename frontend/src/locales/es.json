@@ -310,17 +310,14 @@
         "button": "Ahorra el 50%"
       },
       "payment_modal": {
-        "title": "Instrucciones para el Pago",
-        "thank_you": "Gracias por solicitar la suscripción. Para completar el procedimiento, efectúa el pago siguiendo estas instrucciones:",
-        "paypal_email": "Email PayPal:",
-        "amount": "Importe:",
-        "reference": "Referencia:",
-        "important": "Importante: Incluye la referencia en la descripción del pago para permitirnos identificar tu transacción.",
+        "title": "Instrucciones de Pago",
+        "thank_you": "Gracias por solicitar la suscripción. Para completar el proceso, realice el pago haciendo clic en el botón en la parte inferior de la ventana.",
+        "instructions": "Una vez realizado el pago, la activación de su cuenta puede tardar unos minutos.",
+        "important": "Importante: Incluya su dirección de correo electrónico en la descripción del pago para permitirnos identificar su transacción.",
         "cancel_button": "Cancelar solicitud",
-        "understand_button": "He entendido"
+        "understand_button": "Proceder al pago"
       },
       "messages": {
-        "subscription_success": "Solicitud de suscripción enviada con éxito",
         "subscription_error": "Se ha producido un error durante la solicitud de suscripción. Inténtalo más tarde.",
         "cancel_success": "Solicitud de suscripción cancelada con éxito",
         "cancel_error": "Se ha producido un error durante la cancelación de la solicitud. Inténtalo más tarde."

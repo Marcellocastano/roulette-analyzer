@@ -311,16 +311,13 @@
     },
     "payment_modal": {
       "title": "Istruzioni per il Pagamento",
-      "thank_you": "Grazie per aver richiesto l'abbonamento. Per completare la procedura, effettua il pagamento seguendo queste istruzioni:",
-      "paypal_email": "Email PayPal:",
-      "amount": "Importo:",
-      "reference": "Riferimento:",
-      "important": "Importante: Includi il riferimento nella descrizione del pagamento per consentirci di identificare la tua transazione.",
+      "thank_you": "Grazie per aver richiesto l'abbonamento. Per completare la procedura, effettua il pagamento cliccando sul pulsante in fondo alla modale.",
+      "instructions": "Una volta effettuato il pagamento, potrebbero volerci alcuni minuti per l'attivazione dell'account.",
+      "important": "Importante: Includi il tuo indirizzo email nella descrizione del pagamento per consentirci di identificare la tua transazione.",
       "cancel_button": "Annulla richiesta",
-      "understand_button": "Ho capito"
+      "understand_button": "Procedi al pagamento"
     },
     "messages": {
-      "subscription_success": "Richiesta di sottoscrizione inviata con successo",
       "subscription_error": "Si è verificato un errore durante la richiesta di sottoscrizione. Riprova più tardi.",
       "cancel_success": "Richiesta di sottoscrizione annullata con successo",
       "cancel_error": "Si è verificato un errore durante l'annullamento della richiesta. Riprova più tardi."

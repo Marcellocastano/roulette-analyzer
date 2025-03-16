@@ -189,10 +189,11 @@
     }
   },
   "account": {
-    "title": "Your Account",
+    "title": "Your account",
     "tabs": {
       "profile": "Profile",
-      "change_password": "Change Password"
+      "change_password": "Change Password",
+      "subscription": "Subscription"
     },
     "profile": {
       "name": "Name",
@@ -231,6 +232,46 @@
       "messages": {
         "update_success": "Password updated successfully"
       }
+    },
+    "subscription": {
+      "title": "Subscription",
+      "plan": "Plan",
+      "status": "Status",
+      "end_date": "End Date",
+      "start_date": "Start Date",
+      "duration": "Duration",
+      "new_request": "New Request",
+      "status_active": "Active",
+      "status_inactive": "Inactive",
+      "status_pending": "Pending",
+      "duration_monthly": "Monthly",
+      "duration_annual": "Annual",
+      "last_login": "Last Login"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "category": "Category",
+    "category_placeholder": "Select a category",
+    "message": "Message",
+    "message_placeholder": "Describe your issue or request...",
+    "submit_button": "Submit Request",
+    "categories": {
+      "bug_report": "Bug Report",
+      "payment_issue": "Payment Issue",
+      "feature_request": "Feature Request",
+      "general_inquiry": "General Inquiry",
+      "other": "Other"
+    },
+    "errors": {
+      "category_required": "Please select a category",
+      "message_required": "Message is required",
+      "message_min_length": "Message must be at least 10 characters",
+      "form_errors": "Please fix the errors in the form",
+      "submit_error": "Error submitting your request"
+    },
+    "messages": {
+      "submit_success": "Request submitted successfully"
     }
   },
   "common": {
@@ -251,6 +292,7 @@
     "play": "Roulette Destroyer",
     "pricing": "Subscription",
     "account": "Account",
+    "contact": "Contact Us",
     "admin": "Admin",
     "logout": "Logout",
     "premium_access": "This feature is only available for users with an active Premium subscription."

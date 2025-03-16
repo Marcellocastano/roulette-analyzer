@@ -150,7 +150,8 @@
     "title": "Ihr Konto",
     "tabs": {
       "profile": "Profil",
-      "change_password": "Passwort ändern"
+      "change_password": "Passwort ändern",
+      "subscription": "Abonnement"
     },
     "profile": {
       "name": "Name",
@@ -189,6 +190,46 @@
       "messages": {
         "update_success": "Passwort erfolgreich aktualisiert"
       }
+    },
+    "subscription": {
+      "title": "Abonnement",
+      "plan": "Plan",
+      "status": "Status",
+      "end_date": "Enddatum",
+      "start_date": "Startdatum",
+      "duration": "Dauer",
+      "new_request": "Neue Anfrage",
+      "status_active": "Aktiv",
+      "status_inactive": "Inaktiv",
+      "status_pending": "Ausstehend",
+      "duration_monthly": "Monatlich",
+      "duration_annual": "Jährlich",
+      "last_login": "Letzter Login"
+    }
+  },
+  "contact": {
+    "title": "Kontaktiere uns",
+    "category": "Kategorie",
+    "category_placeholder": "Wähle eine Kategorie",
+    "message": "Nachricht",
+    "message_placeholder": "Beschreibe dein Problem oder deine Anfrage...",
+    "submit_button": "Anfrage senden",
+    "categories": {
+      "bug_report": "Fehlerbericht",
+      "payment_issue": "Zahlungsproblem",
+      "feature_request": "Verbesserungsvorschlag",
+      "general_inquiry": "Allgemeine Anfrage",
+      "other": "Sonstiges"
+    },
+    "errors": {
+      "category_required": "Bitte wähle eine Kategorie",
+      "message_required": "Nachricht ist erforderlich",
+      "message_min_length": "Die Nachricht muss mindestens 10 Zeichen lang sein",
+      "form_errors": "Bitte korrigiere die Fehler im Formular",
+      "submit_error": "Fehler beim Senden deiner Anfrage"
+    },
+    "messages": {
+      "submit_success": "Anfrage erfolgreich gesendet"
     }
   },
   "wheel_statistics": {
@@ -251,9 +292,10 @@
     "play": "Roulette Destroyer",
     "pricing": "Abonnement",
     "account": "Konto",
+    "contact": "Kontakt",
     "admin": "Admin",
     "logout": "Abmelden",
-    "premium_access": "Diese Funktion ist nur für Benutzer mit aktivem Premium-Abonnement verfügbar."
+    "premium_access": "Diese Funktion ist nur für Benutzer mit einem aktiven Premium-Abonnement verfügbar."
   },
   "play": {
     "active_session": {
@@ -342,4 +384,4 @@
       "unknown": "Unbekanntes Dutzend"
     }
   }
-} 
+}

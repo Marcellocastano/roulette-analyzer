@@ -4,6 +4,7 @@ const SpinsService = require('./spins.service');
 const UserService = require('./user.service');
 const InitialStatsService = require('./initial-stats.service');
 const AdminService = require('./admin.service');
+const ContactService = require('./contact.service');
 
 module.exports = {
     AuthService,
@@ -11,5 +12,6 @@ module.exports = {
     SpinsService,
     UserService,
     InitialStatsService,
-    AdminService
+    AdminService,
+    ContactService
 };

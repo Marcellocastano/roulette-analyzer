@@ -147,10 +147,11 @@
       }
     },
     "account": {
-      "title": "Tu Cuenta",
+      "title": "Tu cuenta",
       "tabs": {
         "profile": "Perfil",
-        "change_password": "Cambiar Contraseña"
+        "change_password": "Cambiar Contraseña",
+        "subscription": "Suscripción"
       },
       "profile": {
         "name": "Nombre",
@@ -189,6 +190,46 @@
         "messages": {
           "update_success": "Contraseña actualizada con éxito"
         }
+      },
+      "subscription": {
+        "title": "Suscripción",
+        "plan": "Plan",
+        "status": "Estado",
+        "end_date": "Fecha de finalización",
+        "start_date": "Fecha de inicio",
+        "duration": "Duración",
+        "new_request": "Nueva solicitud",
+        "status_active": "Activo",
+        "status_inactive": "Inactivo",
+        "status_pending": "Pendiente",
+        "duration_monthly": "Mensual",
+        "duration_annual": "Anual",
+        "last_login": "Último acceso"
+      }
+    },
+    "contact": {
+      "title": "Contáctanos",
+      "category": "Categoría",
+      "category_placeholder": "Selecciona una categoría",
+      "message": "Mensaje",
+      "message_placeholder": "Describe tu problema o solicitud...",
+      "submit_button": "Enviar solicitud",
+      "categories": {
+        "bug_report": "Informe de error",
+        "payment_issue": "Problema de pago",
+        "feature_request": "Sugerencia de mejora",
+        "general_inquiry": "Consulta general",
+        "other": "Otro"
+      },
+      "errors": {
+        "category_required": "Por favor, selecciona una categoría",
+        "message_required": "El mensaje es obligatorio",
+        "message_min_length": "El mensaje debe tener al menos 10 caracteres",
+        "form_errors": "Por favor, corrige los errores en el formulario",
+        "submit_error": "Error al enviar tu solicitud"
+      },
+      "messages": {
+        "submit_success": "Solicitud enviada con éxito"
       }
     },
     "wheel_statistics": {
@@ -251,6 +292,7 @@
       "play": "Roulette Destroyer",
       "pricing": "Suscripción",
       "account": "Cuenta",
+      "contact": "Contáctanos",
       "admin": "Admin",
       "logout": "Cerrar sesión",
       "premium_access": "Esta funcionalidad está disponible solo para usuarios con suscripción Premium activa."

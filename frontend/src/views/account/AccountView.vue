@@ -14,7 +14,7 @@
             </n-form-item>
             
             <n-form-item path="email" :label="$t('account.profile.email')">
-              <n-input v-model:value="profileForm.email" size="large" round :placeholder="$t('account.profile.email_placeholder')" />
+              <n-input v-model:value="profileForm.email" size="large" round disabled />
             </n-form-item>
             
             <div class="submit-container">
@@ -23,6 +23,75 @@
               </n-button>
             </div>
           </n-form>
+        </n-tab-pane>
+        
+        <n-tab-pane name="subscription" :tab="$t('account.tabs.subscription')">
+          <div class="subscription-container">
+            <n-h3>{{ $t('account.subscription.title') }}</n-h3>
+            
+            <div class="subscription-info">
+              <n-card class="subscription-card">
+                <div class="subscription-grid">
+                  <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.subscription.plan') }}:</div>
+                    <div class="item-value">{{ userSubscription.plan ? userSubscription.plan.toUpperCase() : '-' }}</div>
+                  </div>
+                  
+                  <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.subscription.status') }}:</div>
+                    <div class="item-value">
+                      <n-tag :type="getStatusType(userSubscription.status)" size="small">
+                        {{ getStatusText(userSubscription.status) }}
+                      </n-tag>
+                    </div>
+                  </div>
+                  
+                  <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.subscription.start_date') }}:</div>
+                    <div class="item-value">{{ formatDate(userSubscription.startDate) }}</div>
+                  </div>
+                  
+                  <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.subscription.end_date') }}:</div>
+                    <div class="item-value">{{ formatDate(userSubscription.endDate) }}</div>
+                  </div>
+                  
+                  <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.subscription.duration') }}:</div>
+                    <div class="item-value">{{ getDurationText(userSubscription.duration) }}</div>
+                  </div>
+                </div>
+              </n-card>
+            </div>
+            
+            <div v-if="userSubscription.newRequest" class="new-request-section">
+              <n-h3>{{ $t('account.subscription.new_request') }}</n-h3>
+              <n-card class="subscription-card">
+                <div class="subscription-grid">
+                  <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.subscription.duration') }}:</div>
+                    <div class="item-value">{{ getDurationText(userSubscription.newRequest.duration) }}</div>
+                  </div>
+                  
+                  <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.subscription.status') }}:</div>
+                    <div class="item-value">
+                      <n-tag :type="getStatusType(userSubscription.newRequest.status)" size="small">
+                        {{ getStatusText(userSubscription.newRequest.status) }}
+                      </n-tag>
+                    </div>
+                  </div>
+                </div>
+              </n-card>
+            </div>
+            
+            <div class="last-login-section">
+              <n-h3>{{ $t('account.subscription.last_login') }}</n-h3>
+              <n-card class="subscription-card">
+                <div class="last-login-value">{{ formatDate(lastLogin, true) }}</div>
+              </n-card>
+            </div>
+          </div>
         </n-tab-pane>
         
         <n-tab-pane name="password" :tab="$t('account.tabs.change_password')">
@@ -96,7 +165,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useMessage } from 'naive-ui'
-import { NButton, NForm, NFormItem, NInput, NIcon, NCard, NH1, NTabs, NTabPane } from 'naive-ui'
+import { NButton, NForm, NFormItem, NInput, NIcon, NCard, NH1, NH3, NTabs, NTabPane, NTag } from 'naive-ui'
 import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import { Eye, EyeOff } from '@vicons/tabler'
@@ -140,14 +209,35 @@ const passwordForm = ref<PasswordForm>({
   confirmPassword: ''
 })
 
+// Dati dell'abbonamento
+interface SubscriptionNewRequest {
+  duration: string
+  status: string
+}
+
+interface Subscription {
+  plan: string
+  status: string
+  endDate: string
+  startDate: string
+  duration: string
+  newRequest?: SubscriptionNewRequest
+}
+
+const userSubscription = ref<Subscription>({
+  plan: '',
+  status: '',
+  endDate: '',
+  startDate: '',
+  duration: ''
+})
+
+const lastLogin = ref<string>('')
+
 // Regole di validazione per il profilo
 const profileRules: FormRules = {
   name: [
     { required: true, message: t('account.profile.errors.name_required'), trigger: 'blur' }
-  ],
-  email: [
-    { required: true, message: t('account.profile.errors.email_required'), trigger: 'blur' },
-    { type: 'email', message: t('account.profile.errors.email_invalid'), trigger: 'blur' }
   ]
 }
 
@@ -172,6 +262,68 @@ const passwordRules: FormRules = {
   ]
 }
 
+// Funzioni di utilità per la formattazione
+const formatDate = (dateString: string, withTime = false) => {
+  if (!dateString) return '-'
+  
+  const date = new Date(dateString)
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }
+  
+  if (withTime) {
+    options.hour = '2-digit'
+    options.minute = '2-digit'
+  }
+  
+  return date.toLocaleDateString(undefined, options)
+}
+
+const getStatusText = (status: string) => {
+  if (!status) return '-'
+  
+  switch (status.toLowerCase()) {
+    case 'active':
+      return t('account.subscription.status_active')
+    case 'inactive':
+      return t('account.subscription.status_inactive')
+    case 'pending':
+      return t('account.subscription.status_pending')
+    default:
+      return status
+  }
+}
+
+const getStatusType = (status: string) => {
+  if (!status) return 'default'
+  
+  switch (status.toLowerCase()) {
+    case 'active':
+      return 'success'
+    case 'inactive':
+      return 'error'
+    case 'pending':
+      return 'warning'
+    default:
+      return 'default'
+  }
+}
+
+const getDurationText = (duration: string) => {
+  if (!duration) return '-'
+  
+  switch (duration.toLowerCase()) {
+    case 'monthly':
+      return t('account.subscription.duration_monthly')
+    case 'annual':
+      return t('account.subscription.duration_annual')
+    default:
+      return duration
+  }
+}
+
 onMounted(async () => {
   try {
     profileLoading.value = true
@@ -181,6 +333,16 @@ onMounted(async () => {
     if (response.data.status === 'success') {
       profileForm.value.name = response.data.data.name
       profileForm.value.email = response.data.data.email
+      
+      // Popola i dati dell'abbonamento
+      if (response.data.data.subscription) {
+        userSubscription.value = response.data.data.subscription
+      }
+      
+      // Imposta l'ultimo accesso
+      if (response.data.data.lastLogin) {
+        lastLogin.value = response.data.data.lastLogin
+      }
     }
   } catch (error) {
     message.error('Errore nel caricamento dei dati del profilo')
@@ -200,10 +362,9 @@ const handleProfileSubmit = () => {
     try {
       profileLoading.value = true
       
-      // Prepara i dati da inviare
+      // Prepara i dati da inviare (solo il nome, non l'email)
       const updateData = {
-        name: profileForm.value.name,
-        email: profileForm.value.email
+        name: profileForm.value.name
       }
       
       // Invia la richiesta di aggiornamento
@@ -261,23 +422,72 @@ const handlePasswordSubmit = () => {
 <style scoped>
 .account-container {
   max-width: 600px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .account-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .card-header {
-  margin-bottom: 1rem;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .submit-container {
-  margin-top: 2rem;
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+}
+
+.bg-accent-dark {
+  background-color: var(--accent-dark);
+}
+
+.subscription-container {
+  padding: 10px 0;
+}
+
+.subscription-info, .new-request-section, .last-login-section {
+  margin-bottom: 20px;
+}
+
+.subscription-card {
+  margin-top: 10px;
+}
+
+.subscription-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.subscription-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item-label {
+  font-weight: 600;
+  color: var(--text-color-secondary);
+  font-size: 0.9rem;
+}
+
+.item-value {
+  font-size: 1rem;
+}
+
+.last-login-value {
+  font-size: 1rem;
+  padding: 5px 0;
+}
+
+@media (max-width: 600px) {
+  .subscription-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

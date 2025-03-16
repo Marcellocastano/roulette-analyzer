@@ -6,6 +6,7 @@ const statsRoutes = require('./stats.routes');
 const userRoutes = require('./user.routes');
 const initialStatsRoutes = require('./initial-stats.routes');
 const adminRoutes = require('./admin.routes');
+const contactRoutes = require('./contact.routes');
 const { errorHandler } = require('../middlewares/errorHandler');
 const isAdmin = require('../middlewares/admin.middleware');
 
@@ -27,6 +28,7 @@ router.use('/stats', statsRoutes);
 router.use('/spins', spinsRoutes);
 router.use('/users', userRoutes);
 router.use('/admin', isAdmin, adminRoutes);
+router.use('/contact', contactRoutes);
 
 // Error handling
 router.use(errorHandler);

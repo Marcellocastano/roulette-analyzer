@@ -154,18 +154,40 @@ class UserService {
       }
 
       // Verifica che ci sia una richiesta di abbonamento in corso
-      if (!user.subscription || user.subscription.status !== 'pending') {
+      if (!user.subscription) {
         throw new AppError('Nessuna richiesta di abbonamento in corso', 400);
       }
 
-      // Prepara i dati dell'abbonamento
-      const subscriptionData = {
-        plan: 'free',
-        duration: null,
-        startDate: null,
-        endDate: null,
-        status: 'unset'
-      };
+      let subscriptionData = {};
+
+      // Caso 1: L'utente ha un piano free e ha richiesto un upgrade (status pending)
+      if (user.subscription.plan === 'free' && user.subscription.status === 'pending') {
+        subscriptionData = {
+          plan: 'free',
+          duration: null,
+          startDate: null,
+          endDate: null,
+          status: 'unset'
+        };
+      } 
+      // Caso 2: L'utente ha un piano premium attivo e ha richiesto un cambio (newRequest.status pending)
+      else if (user.subscription.plan === 'premium' && 
+               user.subscription.status === 'active' && 
+               user.subscription.newRequest && 
+               user.subscription.newRequest.status === 'pending') {
+        
+        // Resetta solo la nuova richiesta, mantenendo l'abbonamento attivo
+        subscriptionData = {
+          newRequest: {
+            duration: null,
+            status: 'unset'
+          }
+        };
+      } 
+      // Nessuna richiesta di abbonamento in corso
+      else {
+        throw new AppError('Nessuna richiesta di abbonamento in corso', 400);
+      }
 
       // Aggiorna l'abbonamento
       const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);

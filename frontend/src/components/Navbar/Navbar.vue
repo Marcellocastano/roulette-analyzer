@@ -108,7 +108,8 @@ import {
   Logout as LogoutIcon,
   Book as TutorialIcon,
   CreditCard as PianoIcon,
-  Sitemap
+  Sitemap,
+  MessageCircle
 } from '@vicons/tabler'
 import { NIcon } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
@@ -153,6 +154,11 @@ const options = computed(() => [
     label: t('navbar.account'),
     key: 'account',
     icon: () => h(NIcon, null, { default: () => h(UserCircle) }),
+  },
+  {
+    label: t('navbar.contact'),
+    key: 'contact',
+    icon: () => h(NIcon, null, { default: () => h(MessageCircle) }),
   },
   {
     type: 'divider',

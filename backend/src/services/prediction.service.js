@@ -114,6 +114,7 @@ class PredictionService {
     // Identifichiamo la dozzina sofferente e quella in surplus
     const sufferingDozen = dozenDown;
     const surplusDozen = dozenUp;
+    
     // 1. Partiamo dalla base: i numeri di sequenza
     let refined = new Set(sequenceNumbers);
   
@@ -136,7 +137,7 @@ class PredictionService {
   
     // 3. Aggiungiamo i "vicini" dei numeri se appartengono alla dozzina sofferente o sono in zona zero
     const neighborsToAdd = [];
-
+ 
     // Raccogli tutti i potenziali vicini da aggiungere
     for (let num of refined) {
       const neighbors = this._getNeighborsOnWheel(num);
@@ -183,8 +184,33 @@ class PredictionService {
     
     // 4. Assicuriamoci che tutti i numeri della zona zero siano inclusi
     ZONE_ZERO_NUMBERS.forEach(n => refined.add(n));
+    
+    // 5. NUOVA LOGICA: Riduzione dei numeri consigliati quando sono troppi (17+)
+    if (refined.size >= 17) {
+      // Otteniamo i numeri che non sono nella zona zero e non sono nella dozzina sofferente
+      const candidatesForRemoval = Array.from(refined).filter(n => 
+        !this._isZeroNumber(n) && !this._isNumberInDozen(n, sufferingDozen)
+      );
+      
+      // Mescoliamo i candidati per la rimozione casuale
+      for (let i = candidatesForRemoval.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [candidatesForRemoval[i], candidatesForRemoval[j]] = [candidatesForRemoval[j], candidatesForRemoval[i]];
+      }
+      
+      // Calcoliamo quanti numeri dobbiamo rimuovere per arrivare a 16 numeri
+      const numbersToRemove = refined.size - 16;
+      
+      // Rimuoviamo i numeri in modo casuale fino a raggiungere il limite desiderato
+      // ma solo se abbiamo abbastanza candidati per la rimozione
+      if (candidatesForRemoval.length > 0) {
+        for (let i = 0; i < Math.min(numbersToRemove, candidatesForRemoval.length); i++) {
+          refined.delete(candidatesForRemoval[i]);
+        }
+      }
+    }
   
-    // 5. Ritorna la lista finale ordinata
+    // 6. Ritorna la lista finale ordinata
     return Array.from(refined).sort((a, b) => a - b);
   }
   

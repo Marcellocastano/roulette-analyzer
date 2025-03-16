@@ -147,10 +147,11 @@
     }
   },
   "account": {
-    "title": "Il tuo Account",
+    "title": "Il tuo account",
     "tabs": {
       "profile": "Profilo",
-      "change_password": "Cambia Password"
+      "change_password": "Cambia Password",
+      "subscription": "Abbonamento"
     },
     "profile": {
       "name": "Nome",
@@ -189,6 +190,46 @@
       "messages": {
         "update_success": "Password aggiornata con successo"
       }
+    },
+    "subscription": {
+      "title": "Abbonamento",
+      "plan": "Piano",
+      "status": "Stato",
+      "end_date": "Data di scadenza",
+      "start_date": "Data di inizio",
+      "duration": "Durata",
+      "new_request": "Nuova richiesta",
+      "status_active": "Attivo",
+      "status_inactive": "Inattivo",
+      "status_pending": "In attesa",
+      "duration_monthly": "Mensile",
+      "duration_annual": "Annuale",
+      "last_login": "Ultimo accesso"
+    }
+  },
+  "contact": {
+    "title": "Contattaci",
+    "category": "Categoria",
+    "category_placeholder": "Seleziona una categoria",
+    "message": "Messaggio",
+    "message_placeholder": "Descrivi il tuo problema o richiesta...",
+    "submit_button": "Invia richiesta",
+    "categories": {
+      "bug_report": "Segnalazione bug",
+      "payment_issue": "Problema di pagamento",
+      "feature_request": "Suggerimento miglioramenti",
+      "general_inquiry": "Informazioni generali",
+      "other": "Altro"
+    },
+    "errors": {
+      "category_required": "Seleziona una categoria",
+      "message_required": "Il messaggio è obbligatorio",
+      "message_min_length": "Il messaggio deve contenere almeno 10 caratteri",
+      "form_errors": "Correggi gli errori nel form",
+      "submit_error": "Errore durante l'invio della richiesta"
+    },
+    "messages": {
+      "submit_success": "Richiesta inviata con successo"
     }
   },
   "wheel_statistics": {
@@ -251,9 +292,10 @@
     "play": "Roulette Destroyer",
     "pricing": "Abbonamento",
     "account": "Account",
+    "contact": "Contatti",
     "admin": "Admin",
-    "logout": "Logout",
-    "premium_access": "Questa funzionalità è disponibile solo per gli utenti con abbonamento Premium attivo."
+    "logout": "Esci",
+    "premium_access": "Questa funzionalità è disponibile solo per gli utenti con un abbonamento Premium attivo."
   },
   "play": {
     "active_session": {

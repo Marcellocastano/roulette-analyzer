@@ -2,8 +2,8 @@ const app = require('./app');
 const mongoose = require('mongoose');
 const config = require('./config/config');
 
-// Connect to MongoDB and start server
-mongoose.connect(config.mongoUri, {
+// Opzioni di connessione MongoDB ottimizzate
+const mongooseOptions = {
     serverSelectionTimeoutMS: 5000,
     socketTimeoutMS: 45000,
     family: 4,
@@ -12,21 +12,37 @@ mongoose.connect(config.mongoUri, {
     maxIdleTimeMS: 30000,
     connectTimeoutMS: 10000,
     heartbeatFrequencyMS: 10000
-})
-    .then(() => {
-        console.log('Connesso a MongoDB');
-        app.listen(config.port, () => {
-            console.log(`Server avviato in modalità ${process.env.NODE_ENV || 'development'} sulla porta ${config.port}`);
+};
+
+// Funzione per connettere a MongoDB
+const connectWithRetry = () => {
+    console.log('Tentativo di connessione a MongoDB...');
+    mongoose.connect(config.mongoUri, mongooseOptions)
+        .then(() => {
+            console.log('Connesso a MongoDB');
+            startServer();
+        })
+        .catch(err => {
+            console.error('Errore di connessione MongoDB:', err);
+            console.log('Nuovo tentativo tra 5 secondi...');
+            setTimeout(connectWithRetry, 5000);
         });
-    })
-    .catch(err => {
-        console.error('Errore di connessione MongoDB:', err);
-        process.exit(1);
+};
+
+// Funzione per avviare il server
+const startServer = () => {
+    app.listen(config.port, () => {
+        console.log(`Server avviato in modalità ${process.env.NODE_ENV || 'development'} sulla porta ${config.port}`);
     });
+};
 
 // Gestione degli eventi di connessione MongoDB
 mongoose.connection.on('disconnected', () => {
     console.log('MongoDB disconnesso. Tentativo di riconnessione...');
+    if (process.env.NODE_ENV !== 'production') {
+        // In ambiente di sviluppo, tenta di riconnettersi
+        setTimeout(connectWithRetry, 5000);
+    }
 });
 
 mongoose.connection.on('reconnected', () => {
@@ -37,5 +53,21 @@ mongoose.connection.on('error', (err) => {
     console.error('Errore di connessione MongoDB:', err);
     if (err.name === 'MongoNetworkError') {
         console.log('Errore di rete MongoDB. Tentativo di riconnessione...');
+        setTimeout(connectWithRetry, 5000);
     }
 });
+
+// Gestione degli eventi di processo
+process.on('SIGINT', async () => {
+    try {
+        await mongoose.connection.close();
+        console.log('Connessione MongoDB chiusa correttamente');
+        process.exit(0);
+    } catch (err) {
+        console.error('Errore durante la chiusura della connessione MongoDB:', err);
+        process.exit(1);
+    }
+});
+
+// Avvia la connessione
+connectWithRetry();

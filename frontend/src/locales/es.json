@@ -375,7 +375,8 @@
         "DOZEN_SUFFERING": "Docena en fuerte sufrimiento",
         "ZERO_ZONE_SUFFERING": "Zona cero en sufrimiento",
         "BALANCED_DISTRIBUTION": "Distribución balanceada de números",
-        "INCREASING_NUMBERS": "Números en crecimiento en la zona cero"
+        "INCREASING_NUMBERS": "Números en crecimiento en la zona cero",
+        "ZERO_ZONE_THRESHOLD": "Zona cero al limite"
       },
       "dozens": {
         "1": "Primera docena (1-12)",

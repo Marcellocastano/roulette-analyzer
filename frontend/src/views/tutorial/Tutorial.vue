@@ -204,7 +204,7 @@ const { t } = useI18n()
   margin-bottom: 4rem;
   padding: 2rem;
   border-radius: 20px;
-  background-image: linear-gradient(15deg, #4d6647 0%, #5b9a7c 100%);
+  background-image: linear-gradient(15deg, #ff5f58 0%, #454bff 100%);
 
   .hero-title {
     font-size: 3rem;
@@ -325,7 +325,7 @@ const { t } = useI18n()
   .cta-card {
     padding: 2rem;
     border-radius: 20px;
-    background-image: linear-gradient(45deg, #fad225, var(--accent-color-dark));
+    background-image: linear-gradient(45deg, #ffcf00, #FF615A);
     background-size: 200% 200%;
     background-position: 0% 0%;
     transition: background-position 0.5s ease;

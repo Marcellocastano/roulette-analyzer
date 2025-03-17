@@ -13,7 +13,7 @@
         to: '#ffcf00',
       }"
     >
-      <h1 class="mb-4 title">Roulette Destroyer</h1>
+      <h1 class="mb-4 title">Roulette Pro AI</h1>
     </n-gradient-text>
     <div class="roulette z-10">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-370 248.3 100 125">

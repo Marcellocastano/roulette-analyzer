@@ -79,7 +79,7 @@ body {
 .app {
   min-height: 100vh;
   background-color: var(--app-bg);
-  color: var(--text-color-dark);
+  color: var(--text-color-light);
 }
 
 .app-wrapper {

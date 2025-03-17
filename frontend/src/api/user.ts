@@ -9,6 +9,7 @@ export interface UserProfile {
   role: 'admin' | 'user'
   lastLogin?: string
   preferences?: Record<string, any>
+  subscription?: UserSubscription
 }
 
 export interface UserSubscription {

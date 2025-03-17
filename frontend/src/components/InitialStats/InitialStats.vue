@@ -91,7 +91,7 @@
     </Card>
   </div>
   <div class="text-center">
-    <n-button type="primary" @click="sendData">{{ $t('initial_stats.check_table') }}</n-button>
+    <n-button class="submit-btn" type="primary" @click="sendData">{{ $t('initial_stats.check_table') }}</n-button>
   </div>
 
   <n-modal v-model:show="showErrorModal" preset="dialog" :mask-closable="false" :closable="false">
@@ -262,7 +262,7 @@ const handleProceed = () => {
 .statistics-card {
   width: 440px;
   margin: 0 auto;
-  background-color: #8dbc8d87;
+  background-color: #ff625a9b;
 }
 
 .input-item {
@@ -291,11 +291,16 @@ const handleProceed = () => {
     justify-content: center;
     gap: 50px;
     margin-bottom: 1rem;
-
+    
+    
     & .n-input-number {
       margin: 0.5rem 0 1rem;
     }
   }
+}
+
+:deep(.n-input) {
+  background-color: var(--secondary-color) !important;
 }
 
 .not-recommended {

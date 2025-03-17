@@ -36,7 +36,7 @@
   <div class="controls">
     <n-button @click="resetCones" type="error">
       <template #icon>
-        <n-icon><Trash /></n-icon>
+        <n-icon><Refresh /></n-icon>
       </template>
       {{ $t('wheel_statistics.reset_button') }}
     </n-button>
@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from 'vue'
 import { NButton } from 'naive-ui'
-import { Trash } from '@vicons/tabler'
+import { Refresh } from '@vicons/tabler'
 import * as InitialStats from '@/api/types/initialStats'
 import { useI18n } from 'vue-i18n'
 

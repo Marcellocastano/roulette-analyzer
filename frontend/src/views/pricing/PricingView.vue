@@ -355,7 +355,9 @@ const cancelSubscriptionRequest = async () => {
   border-radius: 20px;
   margin: 2px;
 }
-
+:deep(.n-alert-body) {
+  background-color: var(--secondary-color) !important;
+}
 .ribbon {
   position: absolute;
   top: 1px;

@@ -6,6 +6,7 @@ export interface Subscription {
   status: 'unset' | 'active' | 'expired' | 'pending'
   newRequest: {
     status: 'unset' | 'active' | 'expired' | 'pending'
+    duration: 'monthly' | 'annual' | null
   } | null
 }
 

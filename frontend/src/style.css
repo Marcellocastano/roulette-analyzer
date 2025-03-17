@@ -17,12 +17,12 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* --primary-color: #669eb3; */
-  --primary-color: #7b9968;
+  --primary-color: #0f1035;
   --secondary-color: #171d35;
   --secondary-color-light: #103664;
   --text-color-dark: #171d35;
   --text-color-light: #f6f5f5;
-  --n-color: #ff9500;
+  --n-color: #ff7509;
   --accent-color: #f1a903;
   --accent-hover-color: #eb5b00;
   --accent-color-dark: #df4b4b;
@@ -153,4 +153,8 @@ button:hover {
 
 .position-relative {
   position: relative;
+}
+
+:deep(.n-modal) {
+  background: var(--secondary-color);
 }

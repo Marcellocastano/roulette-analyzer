@@ -61,46 +61,5 @@ class SpinsController {
       next(error);
     }
   };
-
-  getSessionSpins = async (req, res, next) => {
-    try {
-      const { sessionId } = req.params;
-      const spins = await SpinsService.getSessionSpins(req.user.id, sessionId);
-      
-      res.status(200).json({
-        status: 'success',
-        data: spins
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  getDozensStats = async (req, res, next) => {
-    try {
-      const stats = await SpinsService.getDozensStats(req.user.id);
-      
-      res.status(200).json({
-        status: 'success',
-        data: stats
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  getZeroNeighborsStats = async (req, res, next) => {
-    try {
-      const stats = await SpinsService.getZeroNeighborsStats(req.user.id);
-      
-      res.status(200).json({
-        status: 'success',
-        data: stats
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
 }
-
 module.exports = SpinsController;

@@ -21,8 +21,8 @@
                 :size="17"
                 :gradient="{
                   deg: 90,
-                  from: isRouteActive(route.path) ? '#14660c' : 'var(--accent-color-dark)',
-                  to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
+                  from: isRouteActive(route.path) ? '#FF615A' : '#a0ea99',
+                  to: isRouteActive(route.path) ? '#ffcf00' : '#9ecaff',
                 }"
               >
                 <strong>Roulette Destroyer</strong>
@@ -212,7 +212,7 @@ const checkPremiumAccess = (e: any, routePath: string) => {
 .navbar {
   height: 85px;
   width: 100%;
-  background: #171717;
+  background: #ff5f58d4;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -243,7 +243,7 @@ const checkPremiumAccess = (e: any, routePath: string) => {
 
   .logo {
     img {
-      height: 75px;
+      height: 35px;
       width: auto;
       object-fit: contain;
     }

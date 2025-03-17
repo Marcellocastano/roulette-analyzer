@@ -26,44 +26,11 @@ class SpinRepository extends BaseRepository {
     );
   }
 
-  async getSessionSpins(sessionId) {
-    return await this.find(
-      { sessionId },
-      { sort: { createdAt: 1 } }
-    );
-  }
-
   async getUserSessionSpins(userId, sessionId) {
     return await this.find(
       { user: userId, sessionId },
       { sort: { createdAt: 1 } }
     );
-  }
-
-  async getDozensStats(userId, limit = 50) {
-    return await this.model.aggregate([
-      { $match: { user: userId } },
-      { $sort: { createdAt: -1 } },
-      { $limit: limit },
-      {
-        $group: {
-          _id: '$metadata.dozen',
-          count: { $sum: 1 }
-        }
-      },
-      {
-        $project: {
-          dozen: '$_id',
-          count: 1,
-          percentage: {
-            $multiply: [
-              { $divide: ['$count', limit] },
-              100
-            ]
-          }
-        }
-      }
-    ]);
   }
 }
 

@@ -11,7 +11,7 @@
     <div v-if="authStore.isPremiumUser" class="dashboard-content">
       <!-- Sezione Tutorial -->
       <div class="flex w-full justify-center">
-        <n-card class="tutorial-card" size="small">
+        <n-card class="feature-card" size="small">
           <template #header>
             <div class="card-header">
               <div class="header-title">
@@ -45,7 +45,7 @@
 
       <div class="flex w-full justify-center">
         <!-- Numeri fortunati -->
-        <n-card class="lucky-numbers-card" size="small">
+        <n-card class="feature-card" size="small">
           <template #header>
             <div class="card-header">
               <div class="header-title">
@@ -189,7 +189,7 @@ onMounted(() => {
     .greeting {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(45deg, #14660c, var(--secondary-color-light));
+      background: linear-gradient(45deg, #FF615A, #ffcf00);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -401,7 +401,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   font-size: 0.85rem;
-  color: #777;
+  color: #ffcf00;
   margin-top: 0.5rem;
   justify-content: center;
   gap: 3px;
@@ -488,13 +488,13 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #0099ff;
+  color: #ffcf00;
   font-weight: 500;
   text-decoration: none;
   transition: color 0.2s ease;
 
   &:hover {
-    color: #4db8ff;
+    color: #FF615A;
   }
 }
 

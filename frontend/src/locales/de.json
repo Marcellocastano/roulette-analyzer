@@ -375,7 +375,8 @@
       "DOZEN_SUFFERING": "Dutzend in starkem Leid",
       "ZERO_ZONE_SUFFERING": "Null-Zone in Leid",
       "BALANCED_DISTRIBUTION": "Ausgewogene Zahlenverteilung",
-      "INCREASING_NUMBERS": "Wachsende Zahlen in der Null-Zone"
+      "INCREASING_NUMBERS": "Wachsende Zahlen in der Null-Zone",
+      "ZERO_ZONE_THRESHOLD": "Null-Zone in starkem Leid"
     },
     "dozens": {
       "1": "Erstes Dutzend (1-12)",

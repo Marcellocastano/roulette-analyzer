@@ -125,31 +125,6 @@ class SpinsService {
     }
   }
 
-  async getSessionSpins(userId, sessionId) {
-    try {
-      const spins = await spinRepository.getUserSessionSpins(userId, sessionId);
-      return spins;
-    } catch (error) {
-      throw new AppError('Error fetching session spins', 500);
-    }
-  }
-
-  async getDozensStats(userId) {
-    try {
-      return await spinRepository.getDozensStats(userId);
-    } catch (error) {
-      throw new AppError('Error fetching dozens statistics', 500);
-    }
-  }
-
-  async getZeroNeighborsStats(userId) {
-    try {
-      return await spinRepository.getZeroNeighborsStats(userId);
-    } catch (error) {
-      throw new AppError('Error fetching zero neighbors statistics', 500);
-    }
-  }
-
   async getSpins(userId) {
     return await spinRepository.find({ user: userId });
   }

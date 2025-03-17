@@ -43,7 +43,7 @@ const users = ref<User[]>([]);
 const loading = ref(true);
 
 const getSubscriptionStatusType = (status: string | undefined) => {
-  if (!status) return 'default';
+  if (!status) return 'info';
   switch (status) {
     case 'active':
       return 'success';
@@ -52,7 +52,7 @@ const getSubscriptionStatusType = (status: string | undefined) => {
     case 'expired':
       return 'error';
     default:
-      return 'default';
+      return 'info';
   }
 };
 

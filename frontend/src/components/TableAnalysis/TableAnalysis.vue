@@ -11,8 +11,8 @@
               <div class="section">
                 <n-gradient-text
                   :gradient="{
-                    from: 'var(--secondary-color)',
-                    to: '#13215a',
+                    from: '#FF615A',
+                    to: '#ffcf00',
                   }"
                 >
                   {{ getDozenDescription(dozenDown) }}
@@ -27,8 +27,8 @@
                 <n-gradient-text
                   v-for="reason in analysis.reasonCodes"
                   :gradient="{
-                    from: 'var(--secondary-color)',
-                    to: '#13215a',
+                    from: '#FF615A',
+                    to: '#ffcf00',
                   }"
                   class="mb-2"
                   :key="reason"
@@ -46,8 +46,8 @@
                   <div v-if="analysis.increasingNumbers?.length === 0" class="text-center w-full">
                     <n-gradient-text
                       :gradient="{
-                        from: 'var(--secondary-color)',
-                        to: '#13215a',
+                        from: '#FF615A',
+                        to: '#ffcf00',
                       }"
                     >
                       {{ $t('table_analysis.none') }}

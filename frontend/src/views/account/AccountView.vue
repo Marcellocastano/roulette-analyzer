@@ -13,10 +13,6 @@
               <n-input v-model:value="profileForm.name" size="large" round :placeholder="$t('account.profile.name_placeholder')" />
             </n-form-item>
             
-            <n-form-item path="email" :label="$t('account.profile.email')">
-              <n-input v-model:value="profileForm.email" size="large" round disabled />
-            </n-form-item>
-            
             <div class="submit-container">
               <n-button :loading="profileLoading" type="primary" @click="handleProfileSubmit" class="bg-accent-dark">
                 {{ $t('account.profile.update_button') }}
@@ -33,6 +29,10 @@
               <n-card class="subscription-card">
                 <div class="subscription-grid">
                   <div class="subscription-item">
+                    <div class="item-label">{{ $t('account.profile.email') }}:</div>
+                    <div class="item-value">{{ profileForm.email }}</div>
+                  </div>
+                  <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.plan') }}:</div>
                     <div class="item-value">{{ userSubscription.plan ? userSubscription.plan.toUpperCase() : '-' }}</div>
                   </div>
@@ -48,17 +48,17 @@
                   
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.start_date') }}:</div>
-                    <div class="item-value">{{ formatDate(userSubscription.startDate) }}</div>
+                    <div class="item-value">{{ formatDate(userSubscription.startDate || '') }}</div>
                   </div>
                   
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.end_date') }}:</div>
-                    <div class="item-value">{{ formatDate(userSubscription.endDate) }}</div>
+                    <div class="item-value">{{ formatDate(userSubscription.endDate || '') }}</div>
                   </div>
                   
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.duration') }}:</div>
-                    <div class="item-value">{{ getDurationText(userSubscription.duration) }}</div>
+                    <div class="item-value">{{ getDurationText(userSubscription.duration || '') }}</div>
                   </div>
                 </div>
               </n-card>
@@ -169,7 +169,7 @@ import { NButton, NForm, NFormItem, NInput, NIcon, NCard, NH1, NH3, NTabs, NTabP
 import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import { Eye, EyeOff } from '@vicons/tabler'
-import { userApi } from '@/api/user'
+import { userApi, UserSubscription } from '@/api/user'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -224,12 +224,13 @@ interface Subscription {
   newRequest?: SubscriptionNewRequest
 }
 
-const userSubscription = ref<Subscription>({
-  plan: '',
-  status: '',
+const userSubscription = ref<UserSubscription>({
+  plan: 'free',
+  status: 'unset',
   endDate: '',
   startDate: '',
-  duration: ''
+  duration: null,
+  newRequest: null
 })
 
 const lastLogin = ref<string>('')

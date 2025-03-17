@@ -241,6 +241,11 @@ watch(step, newStep => {
   align-items: center;
   overflow: hidden;
   margin: 0 auto;
+  background-color: #214260;
+}
+
+:deep(.n-alert-body) {
+  background-color: var(--secondary-color) !important;
 }
 
 @media (min-width: 630px) {

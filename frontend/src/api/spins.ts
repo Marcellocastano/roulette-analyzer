@@ -41,19 +41,4 @@ export const spinsApi = {
   deleteSpin: (id: string) => {
     return apiClient.delete<ApiResponse<void>>(`/spins/${id}`)
   },
-
-  // Ottiene gli spin di una sessione specifica
-  getSessionSpins: (sessionId: string) => {
-    return apiClient.get<ApiResponse<Spin[]>>(`/spins/session/${sessionId}`)
-  },
-
-  // Ottiene le statistiche delle dozzine
-  getDozensStats: () => {
-    return apiClient.get<ApiResponse<any>>('/spins/stats/dozens')
-  },
-
-  // Ottiene le statistiche dei vicini dello zero
-  getZeroNeighborsStats: () => {
-    return apiClient.get<ApiResponse<any>>('/spins/stats/zero-neighbors')
-  },
 }

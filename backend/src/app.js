@@ -16,6 +16,11 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan('dev'));
 
+// Health check endpoint per Render (a livello root)
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', message: 'Server is running' });
+});
+
 // API Routes
 app.use('/api/v1', routes);
 

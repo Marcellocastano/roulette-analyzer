@@ -21,6 +21,11 @@ const limiter = rateLimit({
 // Apply rate limiting to all routes
 router.use(limiter);
 
+// Health check endpoint for Render
+router.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Server is running' });
+});
+
 // API Routes
 router.use('/auth', authRoutes);
 router.use('/initial-stats', initialStatsRoutes);

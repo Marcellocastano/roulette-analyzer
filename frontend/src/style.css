@@ -39,10 +39,6 @@ button,
   }
 }
 
-.body-test {
-  @apply text-blue-500;
-}
-
 .n-step-indicator {
   background-color: var(--accent-color-dark) !important;
     box-shadow: 0 0 0 1px var(--accent-color-dark) !important;
@@ -59,6 +55,14 @@ button,
 
 .bg-accent-dark {
   background-color: var(--accent-color-dark) !important;
+}
+
+.bg-secondary-color {
+  background-color: var(--secondary-color) !important;
+}
+
+.bg-white {
+  background-color: #fff !important;
 }
 
 a {

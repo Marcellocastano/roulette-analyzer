@@ -8,10 +8,11 @@
           size="large"
           round
           :placeholder="$t('signup.name')"
+          class="bg-white"
         />
       </n-form-item>
       <n-form-item path="email" :label="$t('signup.email')">
-        <n-input v-model:value="formValue.email" size="large" round :placeholder="$t('signup.email')" />
+        <n-input v-model:value="formValue.email" size="large" round :placeholder="$t('signup.email')" class="bg-white"/>
       </n-form-item>
       <n-form-item path="password" :label="$t('signup.password')">
         <n-input
@@ -21,6 +22,7 @@
           size="large"
           round
           :placeholder="$t('signup.password')"
+          class="bg-white"
         >
           <template #password-visible-icon>
             <n-icon :size="16" :component="Eye" />
@@ -38,6 +40,7 @@
           size="large"
           round
           :placeholder="$t('signup.confirm_password')"
+          class="bg-white"
           @keyup.enter="handleSubmit"
         >
           <template #password-visible-icon>
@@ -54,7 +57,7 @@
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button text @click="router.push('/login')">{{ $t('signup.login_link') }}</n-button>
+        <n-button class="text-blue-900" text @click="router.push('/login')">{{ $t('signup.login_link') }}</n-button>
       </div>
     </n-form>
   </AuthLayout>
@@ -193,5 +196,10 @@ const handleSubmit = async () => {
 <style scoped>
 .submit-container {
   margin-top: 1rem;
+}
+
+:deep(.n-form-item-label__text),
+:deep(.n-input__input-el) {
+  color: var(--text-color-dark);
 }
 </style>

@@ -39,6 +39,10 @@ button,
   }
 }
 
+.body-test {
+  @apply text-blue-500;
+}
+
 .n-step-indicator {
   background-color: var(--accent-color-dark) !important;
     box-shadow: 0 0 0 1px var(--accent-color-dark) !important;

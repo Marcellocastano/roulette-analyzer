@@ -1,6 +1,8 @@
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 // https://vitejs.dev/config/
 export default defineConfig(function (_a) {
     var command = _a.command, mode = _a.mode;
@@ -54,6 +56,23 @@ export default defineConfig(function (_a) {
                         }
                     }
                 }
+            },
+            // Assicurati che il CSS non venga minimizzato troppo aggressivamente
+            cssMinify: {
+                preset: ['default', {
+                    // Disabilita l'ottimizzazione che potrebbe rimuovere classi Tailwind
+                    discardUnused: false,
+                    mergeRules: false
+                }]
+            }
+        },
+        css: {
+            // Assicurati che PostCSS venga eseguito su tutti i file CSS
+            postcss: {
+                plugins: [
+                    tailwindcss,
+                    autoprefixer
+                ]
             }
         }
     };

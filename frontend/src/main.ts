@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
+import './style.css'
 import router from './router'
-import { getThemeOverrides } from './stores/theme'
 import { i18n } from './i18n'
 
 // Naive UI
@@ -51,8 +51,6 @@ import {
   NDropdown,
   NDataTable
 } from 'naive-ui'
-
-import './style.css'
 
 const naive = create({
   components: [

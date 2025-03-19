@@ -51,10 +51,6 @@ html {
   height: 100%;
 }
 
-@import "@tailwindcss/base";
-@import "@tailwindcss/components";
-@import "@tailwindcss/utilities";
-
 body {
   margin: 0;
   padding: 0;

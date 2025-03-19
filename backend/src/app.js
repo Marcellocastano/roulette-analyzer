@@ -16,11 +16,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'dist')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 // Health check endpoint per Render (a livello root)
 app.get('/health', (req, res) => {

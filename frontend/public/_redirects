@@ -1,0 +1,2 @@
+# Redirect tutte le richieste che non sono file statici all'index.html
+/*    /index.html   200

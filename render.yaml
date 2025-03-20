@@ -16,7 +16,7 @@ services:
         sync: false
       - key: CORS_ORIGIN
         value: https://roulette-analyzer.onrender.com
-    healthCheckPath: /api/health
+    healthCheckPath: /health
 
   - type: static
     name: roulette-analyzer-frontend

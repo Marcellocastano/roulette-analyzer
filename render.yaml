@@ -18,8 +18,9 @@ services:
         value: https://roulette-analyzer.onrender.com
     healthCheckPath: /health
 
-  - type: static
+  - type: web
     name: roulette-analyzer-frontend
+    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build:prod
     publishDir: dist

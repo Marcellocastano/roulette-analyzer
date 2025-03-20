@@ -1,3 +1,4 @@
+import { ApiResponse } from '@/types/api'
 import apiClient from './config'
 
 export interface AddSpinPayload {
@@ -27,5 +28,15 @@ export const statsApi = {
   // Resetta la sessione corrente
   resetSession: () => {
     return apiClient.get('/stats/reset')
+  },
+
+  // Ottiene la storia degli spin
+  getSpinHistory: () => {
+    return apiClient.get<ApiResponse<AddSpinPayload[]>>('/stats/spin/history')
+  },
+
+  // Elimina uno spin
+  deleteSpin: () => {
+    return apiClient.delete<ApiResponse<void>>(`/stats/spin/last`)
   },
 }

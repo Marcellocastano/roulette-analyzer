@@ -73,7 +73,7 @@ import InitialStats from '@/components/InitialStats/InitialStats.vue'
 import TableAnalysis from '@/components/TableAnalysis/TableAnalysis.vue'
 import type { InitialStatsPayload, InitialStatsResponse } from '@/api/types/initialStats'
 import type { Spin } from '@/types/spin'
-import { initialStatsApi, spinsApi, statsApi } from '@/api'
+import { initialStatsApi, statsApi } from '@/api'
 import BoardPredictor from '@/components/BoardPredictor/BoardPredictor.vue'
 
 const { t } = useI18n()
@@ -83,13 +83,14 @@ const specialPredictedNumbers = ref<number[]>([])
 const step = ref<number>(1)
 const statsAnalysis = ref<InitialStatsResponse | null>(null)
 const message = useMessage()
-const spins = ref<Pick<Spin, '_id' | 'number'>[]>([])
+const spins = ref<Pick<Spin, 'number'>[]>([])
 const hasActiveSession = ref(false)
 
 // Verifica sessione attiva al mounted
 onMounted(async () => {
   try {
     const { data: response } = await initialStatsApi.getLatestStats()
+    console.log('Latest stats:', response)
     if (response.status === 'success' && response.data.active) {
       hasActiveSession.value = true
       statsAnalysis.value = response.data
@@ -125,11 +126,10 @@ const handleReset = async () => {
 
 const handleNumberSelection = async (number: number) => {
   try {
-    const { data: response } = await spinsApi.addSpin({ number })
-    // Aggiungiamo il nuovo spin all'inizio dell'array usando _id e number dalla response
+    const { data: response } = await statsApi.addSpin({ number })
+    // Aggiungiamo il nuovo spin all'inizio dell'array usando number dalla response
     spins.value = [
       {
-        _id: response.data._id,
         number: response.data.number,
       },
       ...spins.value,
@@ -141,15 +141,10 @@ const handleNumberSelection = async (number: number) => {
   }
 }
 
-const handleSpinDelete = async (spinId: string) => {
+const handleSpinDelete = async () => {
   try {
-    console.log('Deleting spin with id:', spinId)
-    if (!spinId) {
-      console.error('SpinId is undefined')
-      return
-    }
-    await spinsApi.deleteSpin(spinId)
-    spins.value = spins.value.filter(spin => spin._id !== spinId)
+    await statsApi.deleteSpin()
+    spins.value.shift()
     await getPredictions()
   } catch (error) {
     console.error("Errore durante l'eliminazione dello spin:", error)
@@ -181,9 +176,9 @@ const hideActiveSessionBanner = () => {
 const goToActiveSession = async () => {
   if (statsAnalysis.value) {
     try {
-      const { data: response } = await spinsApi.getSpinHistory()
+      const { data: response } = await statsApi.getSpinHistory()
       if (response.status === 'success' && response.data) {
-        spins.value = response.data.map(spin => ({ _id: spin._id, number: spin.number }))
+        spins.value = response.data.map(spin => ({ number: spin.number }))
         await getPredictions()
         step.value = 2
         message.success(t('play.messages.session_restored'))

@@ -4,10 +4,10 @@
       <div class="number-balls">
         <div
           v-for="(spin, index) in spins"
-          :key="spin._id"
+          :key="spin.number"
           class="number-ball"
           :class="[getNumberColor(spin.number), { deletable: index === 0 }]"
-          @click="index === 0 ? handleDelete(spin._id) : null"
+          @click="index === 0 ? handleDelete() : null"
         >
           {{ spin.number }}
         </div>
@@ -46,12 +46,12 @@ import type { Spin } from '@/types/spin'
 // Define emits
 const emit = defineEmits<{
   (e: 'numberSelected', value: number): void
-  (e: 'delete-spin', id: string): void
+  (e: 'delete-spin'): void
 }>()
 
 // Define props
 defineProps<{
-  spins: Pick<Spin, '_id' | 'number'>[]
+  spins: Pick<Spin, 'number'>[]
 }>()
 
 // Numbers configuration
@@ -70,10 +70,8 @@ const handleNumberClick = (number: number): void => {
   emit('numberSelected', number)
 }
 
-const handleDelete = (id: string) => {
-  if (id) {
-    emit('delete-spin', id)
-  }
+const handleDelete = () => {
+  emit('delete-spin')
 }
 </script>
 

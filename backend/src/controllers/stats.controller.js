@@ -44,6 +44,32 @@ class StatsController {
       next(error);
     }
   };
+
+  getSpinHistory = async (req, res, next) => {
+    try {
+      const spins = await this.statsService.getSpinHistory(req.user.id);
+      
+      res.status(200).json({
+        status: 'success',
+        data: spins
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  deleteSpin = async (req, res, next) => {
+    try {
+      const result = await this.statsService.deleteSpin(req.user.id);
+      
+      res.status(200).json({
+        status: 'success',
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 module.exports = StatsController;

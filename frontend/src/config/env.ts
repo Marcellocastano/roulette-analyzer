@@ -20,7 +20,7 @@ interface EnvConfig {
 // Valori di default per le variabili d'ambiente
 const defaultConfig: EnvConfig = {
   apiBaseUrl: '/api',
-  appTitle: 'Roulette Destroyer',
+  appTitle: 'RoulettePro AI',
   appEnv: 'production',
   isDevelopment: false,
   isProduction: true,

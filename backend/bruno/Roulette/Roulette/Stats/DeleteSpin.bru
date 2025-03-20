@@ -5,13 +5,9 @@ meta {
 }
 
 delete {
-  url: http://localhost:5001/api/v1/spins/:spinId
+  url: http://localhost:5001/api/v1/stats/spin/last
   body: none
   auth: bearer
-}
-
-params:path {
-  spinId: 
 }
 
 auth:bearer {

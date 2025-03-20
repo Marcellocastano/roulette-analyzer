@@ -1,5 +1,4 @@
 export * from './auth'
-export * from './spins'
 export * from './stats'
 export * from './initialStats'
 export * from './user'

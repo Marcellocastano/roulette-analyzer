@@ -1,7 +1,6 @@
 const InitialStats = require('../models/initial-stats.model');
 const Statistics = require('../models/statistics.model');
 const { DOZEN_MIN_THRESHOLD, DOZEN_MAX_THRESHOLD, ZERO_ZONE_THRESHOLD, INCREASE_PERCENTAGE_THRESHOLD } = require('../config/roulette.thresholds');
-const { Spin } = require('../models');
 
 // Enum per i reason codes
 const ReasonCode = {
@@ -32,7 +31,6 @@ class InitialStatsService {
             // Cancella tutte le statistiche associate
             await InitialStats.deleteMany({ userId });
             await Statistics.deleteOne({ user: userId });
-            await Spin.deleteMany({ user: userId });
 
             // Verifica che i dati necessari siano presenti
             if (!stats.stats50 || !stats.stats500) {

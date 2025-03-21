@@ -2,22 +2,22 @@
   "tutorial": {
     "hero": {
       "title": "How to use the software",
-      "description": "Remember that this tool is not a magic number generator, but a support designed to help you play with a strategy based on tested and consolidated statistics. The goal is to increase the chances of success, but it is essential to apply the method carefully and manage the budget responsibly."
+      "description": "Remember, this tool is not a magic number generator, but a support system designed to help you play with a <strong>strategy based on tested and proven statistics</strong>. Additionally, the <strong>artificial intelligence</strong> integrated into the algorithm increases the chances of success, but it is crucial to apply the method carefully and manage your budget responsibly."
     },
     "concepts": {
       "title": "Basic concepts",
-      "subtitle": "The strategy is based on a series of fundamental principles that exploit statistical logic. Among the most important concepts we find:",
+      "subtitle": "The strategy combines traditional statistical logic with the aid of Artificial Intelligence. Among the fundamental concepts are:",
       "law_of_large_numbers": {
-        "title": "Law of large numbers",
-        "content": "The law of large numbers applied to roulette means that, over a very high number of spins, the frequency of numbers or various areas of the table tends to balance out. This, however, should not be interpreted as an invitation to bet on the 'deficient dozens', because the law only works over very long periods. The strategy, therefore, allows you to improve the chances of success when applied correctly together with the other principles."
+        "title": "Law of Large Numbers",
+        "content": "The <strong>law of large numbers</strong> applied to roulette means that, over a very high number of spins, the frequency of numbers or various sections of the table tends to balance out. However, this should not be interpreted as an invitation to bet on \"lagging dozens,\" as the law only works over very long periods. The strategy, therefore, allows you to <strong>improve your chances of success when applied correctly alongside other principles</strong>."
       },
       "zero_zone": {
         "title": "Zero Zone",
-        "content": "The method focuses mainly on the 'ZERO zone', i.e. the numbers between 12 and 15. If the percentage of this zone is below average (20%) at both 50 and 500 spins, the zone is considered 'delayed'. A delay indicates that these numbers are not coming out as expected, creating an imbalance according to the law of large numbers: it could therefore be the ideal time to bet on them."
+        "content": "The method primarily focuses on the \"ZERO Zone,\" which includes numbers between 12 and 15. If the percentage of occurrence in this zone is <strong>below the average (20%)</strong> at both 50 and 500 spins, the zone is considered \"lagging.\" A lag indicates that these numbers are not appearing as expected, creating an imbalance according to the law of large numbers: <strong>this could be the ideal time to bet on them</strong>."
       },
       "number_growth": {
-        "title": "Number growth",
-        "content": "The statistics at 50 spins are compared with those at 500 spins to identify the 'growing' numbers. Numbers that, starting from a low frequency in the first 50 spins, begin to recover in the next 500 are to be taken into consideration: this growth suggests that they will tend to balance over time and could be more frequent in the next spins."
+        "title": "Number Growth",
+        "content": "With the help of <strong>Artificial Intelligence</strong>, numbers in \"growth\" are identified by analyzing their performance across different time windows (data at 50 and 500 spins). The AI automatically compares numbers with low initial frequency that start to balance over time, suggesting a possible <strong>higher probability of occurrence</strong> in the next spins. This process occurs autonomously thanks to the algorithmic model embedded in the software."
       }
     },
     "statistics": {
@@ -35,7 +35,7 @@
     },
     "number_trends": {
       "title": "Number trends",
-      "content": "A key factor is monitoring the trend of the 'ZERO zone' numbers (from 50 to 500 spins). The ideal is to identify 2 or 3 numbers growing compared to the others. 'Growing' means that these numbers have a low frequency in the first 50 spins, but show an increase in the next 500. These numbers tend to balance out in the long run and are therefore the ones to consider most."
+      "content": "By monitoring the collected data (from 50 to 500 spins), the AI analyzes the numbers in the ZERO Zone to identify the most relevant trends. The concept of 'number growth' is amplified by automated processing, which precisely identifies those numbers that are gradually recovering frequency compared to the initial period."
     },
     "tips": {
       "title": "Gaming tips and observations",
@@ -330,10 +330,7 @@
       "title": "Monthly Plan",
       "price": "50",
       "period": "/month",
-      "features": [
-        "Complete access to statistics",
-        "Unlimited predictions"
-      ],
+      "features": ["Complete access to statistics", "Unlimited predictions"],
       "button": "Purchase"
     },
     "annual_plan": {

@@ -2,22 +2,22 @@
   "tutorial": {
     "hero": {
       "title": "Come usare il software",
-      "description": "Ricorda che questo strumento non è un generatore di numeri magici, ma un supporto progettato per aiutarti a giocare con una strategia basata su statistiche testate e consolidate. L'obiettivo è aumentare le probabilità di successo, ma è fondamentale applicare il metodo con attenzione e gestire il budget in modo responsabile."
+      "description": "Ricorda che questo strumento non è un generatore di numeri magici, ma un supporto progettato per aiutarti a giocare con una <strong>strategia basata su statistiche testate e consolidate</strong>. Inoltre l'<strong>intelligenza artificiale</strong> integrata nell'algoritmo aumenta le probabilità di successo, ma è fondamentale applicare il metodo con attenzione e gestire il budget in modo responsabile."
     },
     "concepts": {
       "title": "Concetti base",
-      "subtitle": "La strategia si fonda su una serie di principi fondamentali che sfruttano logiche statistiche. Tra i concetti più importanti troviamo:",
+      "subtitle": "La strategia integra logiche statistiche tradizionali con l'ausilio dell'Intelligenza Artificiale. Tra i concetti fondamentali troviamo:",
       "law_of_large_numbers": {
         "title": "Legge dei grandi numeri",
-        "content": "La legge dei grandi numeri applicata alla roulette significa che, su un altissimo numero di spin, la frequenza di uscita dei numeri o delle varie zone del tavolo tende a bilanciarsi. Questo, però, non va interpretato come un invito a puntare sulle \"dozzine in difetto\", perché la legge funziona solo su lunghissimi periodi. La strategia, quindi, consente di migliorare le probabilità di successo quando applicata correttamente insieme agli altri principi."
+        "content": "La <strong>legge dei grandi numeri</strong> applicata alla roulette significa che, su un altissimo numero di spin, la frequenza di uscita dei numeri o delle varie zone del tavolo tende a bilanciarsi. Questo, però, non va interpretato come un invito a puntare sulle \"dozzine in difetto\", perché la legge funziona solo su lunghissimi periodi. La strategia, quindi, consente di <strong>migliorare le probabilità di successo quando applicata correttamente insieme agli altri principi</strong>."
       },
       "zero_zone": {
         "title": "Zona Zero",
-        "content": "Il metodo si concentra principalmente sulla \"zona ZERO\", ovvero i numeri compresi tra il 12 e il 15. Se la percentuale di uscita di questa zona è inferiore alla media (20%) sia a 50 che a 500 spin, la zona si considera \"in ritardo\". Un ritardo indica che questi numeri non stanno uscendo come atteso, creando uno squilibrio secondo la legge dei grandi numeri: potrebbe quindi essere il momento ideale per puntarci."
+        "content": "Il metodo si concentra principalmente sulla \"zona ZERO\", ovvero i numeri compresi tra il 12 e il 15. Se la percentuale di uscita di questa zona è <strong>inferiore alla media (20%)</strong> sia a 50 che a 500 spin, la zona si considera \"in ritardo\". Un ritardo indica che questi numeri non stanno uscendo come atteso, creando uno squilibrio secondo la legge dei grandi numeri: <strong>potrebbe quindi essere il momento ideale per puntarci</strong>."
       },
       "number_growth": {
         "title": "Crescita dei numeri",
-        "content": "Le statistiche a 50 spin vengono confrontate con quelle a 500 spin per identificare i numeri \"in crescita\". I numeri che, partendo da una scarsa frequenza nei primi 50 spin, iniziano a recuperare nei successivi 500 sono da tenere in considerazione: questa crescita suggerisce che tenderanno a bilanciarsi nel tempo e potrebbero essere più frequenti nei prossimi spin."
+        "content": "Con l'aiuto dell'<strong>Intelligenza Artificiale</strong>, i numeri in \"crescita\" vengono identificati analizzando la loro performance in diverse finestre temporali (dati a 50 e 500 spin). L'IA confronta automaticamente i numeri con bassa frequenza iniziale che iniziano a bilanciarsi nel tempo, suggerendo una possibile <strong>maggiore probabilità di uscita</strong> nei prossimi spin. Questo processo avviene in autonomia grazie al modello algoritmico incorporato nel software."
       }
     },
     "statistics": {
@@ -35,7 +35,7 @@
     },
     "number_trends": {
       "title": "Andamento dei numeri",
-      "content": "Un fattore chiave è il monitoraggio dell'andamento dei numeri della \"zona ZERO\" (da 50 a 500 spin). L'ideale è individuare 2 o 3 numeri in crescita rispetto agli altri. \"In crescita\" significa che questi numeri hanno una bassa frequenza nei primi 50 spin, ma mostrano un incremento nei successivi 500. Questi numeri tendendo a bilanciarsi nel lungo periodo e sono quindi quelli da considerare maggiormente."
+      "content": "Monitorando i dati raccolti (da 50 a 500 spin), l’IA analizza i numeri della Zona ZERO per individuare le tendenze più rilevanti. Il concetto di 'crescita dei numeri' viene amplificato dall’elaborazione automatizzata, che identifica con precisione quei numeri che stanno progressivamente recuperando frequenza rispetto al periodo iniziale."
     },
     "tips": {
       "title": "Consigli di gioco e osservazioni",
@@ -330,10 +330,7 @@
       "title": "Piano Mensile",
       "price": "50",
       "period": "/mese",
-      "features": [
-        "Accesso completo alle statistiche",
-        "Predizioni illimitate"
-      ],
+      "features": ["Accesso completo alle statistiche", "Predizioni illimitate"],
       "button": "Acquista"
     },
     "annual_plan": {

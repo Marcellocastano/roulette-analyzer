@@ -1,23 +1,23 @@
 {
   "tutorial": {
     "hero": {
-      "title": "Wie man die Software benutzt",
-      "description": "Denken Sie daran, dass dieses Tool kein magischer Zahlengenerator ist, sondern eine Unterstützung, die Ihnen helfen soll, mit einer auf getesteten und bewährten Statistiken basierenden Strategie zu spielen. Das Ziel ist es, die Erfolgschancen zu erhöhen, aber es ist wichtig, die Methode sorgfältig anzuwenden und das Budget verantwortungsvoll zu verwalten."
+      "title": "Wie man die Software verwendet",
+      "description": "Denken Sie daran, dass dieses Tool kein magischer Zahlengenerator ist, sondern ein Hilfssystem, das Ihnen helfen soll, mit einer <strong>Strategie basierend auf getesteten und bewährten Statistiken</strong> zu spielen. Zusätzlich erhöht die in den Algorithmus integrierte <strong>künstliche Intelligenz</strong> die Erfolgschancen, aber es ist entscheidend, die Methode sorgfältig anzuwenden und das Budget verantwortungsbewusst zu verwalten."
     },
     "concepts": {
-      "title": "Grundkonzepte",
-      "subtitle": "Die Strategie basiert auf einer Reihe von grundlegenden Prinzipien, die statistische Logik nutzen. Zu den wichtigsten Konzepten gehören:",
+      "title": "Grundlegende Konzepte",
+      "subtitle": "Die Strategie kombiniert traditionelle statistische Logik mit der Unterstützung von künstlicher Intelligenz. Zu den grundlegenden Konzepten gehören:",
       "law_of_large_numbers": {
         "title": "Gesetz der großen Zahlen",
-        "content": "Das auf das Roulette angewandte Gesetz der großen Zahlen bedeutet, dass sich bei einer sehr hohen Anzahl von Spins die Häufigkeit der Zahlen oder der verschiedenen Tischbereiche ausgleicht. Dies sollte jedoch nicht als Einladung verstanden werden, auf \"mangelhafte Dutzende\" zu setzen, da das Gesetz nur über sehr lange Zeiträume funktioniert. Die Strategie ermöglicht es daher, die Erfolgschancen zu verbessern, wenn sie zusammen mit den anderen Prinzipien korrekt angewendet wird."
+        "content": "Das <strong>Gesetz der großen Zahlen</strong>, angewendet auf Roulette, bedeutet, dass sich bei einer sehr hohen Anzahl von Drehungen die Häufigkeit der Zahlen oder verschiedener Bereiche des Tisches tendenziell ausgleicht. Dies sollte jedoch nicht als Aufforderung verstanden werden, auf \"zurückbleibende Dutzende\" zu setzen, da das Gesetz nur über sehr lange Zeiträume funktioniert. Die Strategie ermöglicht es daher, <strong>die Erfolgschancen zu verbessern, wenn sie korrekt neben anderen Prinzipien angewendet wird</strong>."
       },
       "zero_zone": {
         "title": "Null-Zone",
-        "content": "Die Methode konzentriert sich hauptsächlich auf die \"NULL-Zone\", d.h. die Zahlen zwischen 12 und 15. Wenn der Prozentsatz dieser Zone sowohl bei 50 als auch bei 500 Spins unter dem Durchschnitt (20%) liegt, gilt die Zone als \"verzögert\". Eine Verzögerung zeigt an, dass diese Zahlen nicht wie erwartet erscheinen und nach dem Gesetz der großen Zahlen ein Ungleichgewicht entsteht: Es könnte also der ideale Zeitpunkt sein, darauf zu setzen."
+        "content": "Die Methode konzentriert sich hauptsächlich auf die \"NULL-Zone\", die die Zahlen zwischen 12 und 15 umfasst. Wenn der Prozentsatz des Auftretens in dieser Zone sowohl bei 50 als auch bei 500 Drehungen <strong>unter dem Durchschnitt (20%)</strong> liegt, gilt die Zone als \"zurückbleibend\". Ein Rückstand zeigt an, dass diese Zahlen nicht wie erwartet auftreten, was gemäß dem Gesetz der großen Zahlen ein Ungleichgewicht schafft: <strong>dies könnte der ideale Zeitpunkt sein, um darauf zu setzen</strong>."
       },
       "number_growth": {
         "title": "Zahlenwachstum",
-        "content": "Die Statistiken bei 50 Spins werden mit denen bei 500 Spins verglichen, um \"wachsende\" Zahlen zu identifizieren. Zahlen, die von einer niedrigen Häufigkeit in den ersten 50 Spins ausgehen und in den folgenden 500 aufholen, sind zu berücksichtigen: Dieses Wachstum deutet darauf hin, dass sie sich im Laufe der Zeit ausgleichen und in den nächsten Spins häufiger auftreten könnten."
+        "content": "Mit Hilfe der <strong>künstlichen Intelligenz</strong> werden Zahlen im \"Wachstum\" identifiziert, indem ihre Leistung in verschiedenen Zeitfenstern (Daten bei 50 und 500 Drehungen) analysiert wird. Die KI vergleicht automatisch Zahlen mit geringer Anfangs­häufigkeit, die sich im Laufe der Zeit ausgleichen, und deutet auf eine mögliche <strong>höhere Auftrittswahrscheinlichkeit</strong> in den nächsten Drehungen hin. Dieser Prozess erfolgt autonom dank des in die Software eingebetteten algorithmischen Modells."
       }
     },
     "statistics": {
@@ -35,7 +35,7 @@
     },
     "number_trends": {
       "title": "Zahlentrends",
-      "content": "Ein Schlüsselfaktor ist die Überwachung des Trends der Zahlen in der \"NULL-Zone\" (von 50 bis 500 Spins). Ideal ist es, 2 oder 3 Zahlen zu identifizieren, die im Vergleich zu den anderen wachsen. \"Wachsend\" bedeutet, dass diese Zahlen in den ersten 50 Spins eine niedrige Häufigkeit haben, aber in den folgenden 500 einen Anstieg zeigen. Diese Zahlen neigen dazu, sich langfristig auszugleichen und sind daher diejenigen, die am meisten zu berücksichtigen sind."
+      "content": "Durch die Überwachung der gesammelten Daten (von 50 bis 500 Drehungen) analysiert die KI die Zahlen in der NULL-Zone, um die relevantesten Trends zu identifizieren. Das Konzept des 'Zahlenwachstums' wird durch die automatisierte Verarbeitung verstärkt, die genau die Zahlen erkennt, die im Vergleich zum Anfangszeitraum allmählich ihre Häufigkeit zurückgewinnen."
     },
     "tips": {
       "title": "Spieltipps und Beobachtungen",
@@ -330,10 +330,7 @@
       "title": "Monatsplan",
       "price": "50",
       "period": "/Monat",
-      "features": [
-        "Vollständiger Zugriff auf Statistiken",
-        "Unbegrenzte Vorhersagen"
-      ],
+      "features": ["Vollständiger Zugriff auf Statistiken", "Unbegrenzte Vorhersagen"],
       "button": "Kaufen"
     },
     "annual_plan": {

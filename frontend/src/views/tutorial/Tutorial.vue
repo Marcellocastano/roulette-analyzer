@@ -6,8 +6,7 @@
 
       <div class="hero-content">
         <n-h1 class="hero-title">{{ t('tutorial.hero.title') }}</n-h1>
-        <n-p class="hero-description">
-          {{ t('tutorial.hero.description') }}
+        <n-p class="hero-description" v-html="t('tutorial.hero.description')">
         </n-p>
       </div>
     </section>
@@ -22,20 +21,17 @@
     <section class="three-column-section">
       <n-card class="feature-card">
         <n-h3>{{ t('tutorial.concepts.law_of_large_numbers.title') }}</n-h3>
-        <n-p>
-          {{ t('tutorial.concepts.law_of_large_numbers.content') }}
+        <n-p v-html="t('tutorial.concepts.law_of_large_numbers.content')">
         </n-p>
       </n-card>
       <n-card class="feature-card">
         <n-h3>{{ t('tutorial.concepts.zero_zone.title') }}</n-h3>
-        <n-p>
-          {{ t('tutorial.concepts.zero_zone.content') }}
+        <n-p v-html="t('tutorial.concepts.zero_zone.content')">
         </n-p>
       </n-card>
       <n-card class="feature-card">
         <n-h3>{{ t('tutorial.concepts.number_growth.title') }}</n-h3>
-        <n-p>
-          {{ t('tutorial.concepts.number_growth.content') }}
+        <n-p v-html="t('tutorial.concepts.number_growth.content')">
         </n-p>
       </n-card>
     </section>

@@ -1,388 +1,385 @@
 {
-    "tutorial": {
-      "hero": {
-        "title": "Cómo usar el software",
-        "description": "Recuerda que esta herramienta no es un generador de números mágicos, sino un soporte diseñado para ayudarte a jugar con una estrategia basada en estadísticas probadas y consolidadas. El objetivo es aumentar las probabilidades de éxito, pero es fundamental aplicar el método con atención y gestionar el presupuesto de manera responsable."
+  "tutorial": {
+    "hero": {
+      "title": "Cómo usar el software",
+      "description": "Recuerda que esta herramienta no es un generador de números mágicos, sino un sistema de apoyo diseñado para ayudarte a jugar con una <strong>estrategia basada en estadísticas probadas y consolidadas</strong>. Adicionalmente, la <strong>inteligencia artificial</strong> integrada en el algoritmo aumenta las probabilidades de éxito, pero es fundamental aplicar el método con atención y gestionar el presupuesto de manera responsable."
+    },
+    "concepts": {
+      "title": "Conceptos básicos",
+      "subtitle": "La estrategia combina lógica estadística tradicional con el apoyo de la Inteligencia Artificial. Entre los conceptos fundamentales se encuentran:",
+      "law_of_large_numbers": {
+        "title": "Ley de los Grandes Números",
+        "content": "La <strong>ley de los grandes números</strong> aplicada a la ruleta significa que, en un número muy elevado de giros, la frecuencia de aparición de los números o de las diversas secciones de la mesa tiende a equilibrarse. Sin embargo, esto no debe interpretarse como una invitación a apostar por las \"docenas rezagadas\", ya que la ley solo funciona en períodos muy largos. Por lo tanto, la estrategia permite <strong>mejorar las probabilidades de éxito cuando se aplica correctamente junto con otros principios</strong>."
       },
-      "concepts": {
-        "title": "Conceptos básicos",
-        "subtitle": "La estrategia se basa en una serie de principios fundamentales que aprovechan lógicas estadísticas. Entre los conceptos más importantes encontramos:",
-        "law_of_large_numbers": {
-          "title": "Ley de los grandes números",
-          "content": "La ley de los grandes números aplicada a la ruleta significa que, en un número muy alto de giros, la frecuencia de salida de los números o de las varias zonas de la mesa tiende a equilibrarse. Sin embargo, esto no debe interpretarse como una invitación a apostar en las \"docenas en déficit\", porque la ley funciona solo en períodos muy largos. La estrategia, por lo tanto, permite mejorar las probabilidades de éxito cuando se aplica correctamente junto con los otros principios."
-        },
-        "zero_zone": {
-          "title": "Zona Cero",
-          "content": "El método se centra principalmente en la \"zona CERO\", es decir, los números entre el 12 y el 15. Si el porcentaje de salida de esta zona es inferior al promedio (20%) tanto a 50 como a 500 giros, la zona se considera \"en retraso\". Un retraso indica que estos números no están saliendo como se esperaba, creando un desequilibrio según la ley de los grandes números: podría ser el momento ideal para apostar en ellos."
-        },
-        "number_growth": {
-          "title": "Crecimiento de números",
-          "content": "Las estadísticas a 50 giros se comparan con las de 500 giros para identificar los números \"en crecimiento\". Los números que, partiendo de una baja frecuencia en los primeros 50 giros, comienzan a recuperarse en los siguientes 500 son para tener en cuenta: este crecimiento sugiere que tenderán a equilibrarse con el tiempo y podrían ser más frecuentes en los próximos giros."
-        }
+      "zero_zone": {
+        "title": "Zona Cero",
+        "content": "El método se centra principalmente en la \"Zona CERO\", que incluye los números entre el 12 y el 15. Si el porcentaje de aparición en esta zona es <strong>inferior al promedio (20%)</strong> tanto a 50 como a 500 giros, la zona se considera \"rezagada\". Un rezago indica que estos números no están apareciendo como se esperaba, creando un desequilibrio según la ley de los grandes números: <strong>este podría ser el momento ideal para apostar por ellos</strong>."
       },
-      "statistics": {
-        "title": "Ingreso de estadísticas",
-        "dozens": {
-          "content": "Para las docenas, ingresa los <strong>porcentajes reportados en las estadísticas de la mesa de juego</strong>. Para la <strong>Zona CERO %</strong> toma el porcentaje de la sección que incluye los números de la zona (entre 12 y 15), no la que simplemente incluye el número 0. Aquí también, verifica los datos tanto en 50 como en 500 giros. En la imagen de ejemplo las estadísticas son a 50 giros, para visualizar las estadísticas a 500 giros es necesario hacer <strong>deslizar hacia la derecha</strong>."
-        },
-        "wheel": {
-          "content": "La media rueda del software te permite replicar gráficamente las estadísticas de la mesa de juego. Para ajustar el llenado de los conos, haz clic en uno de ellos y mueve el cursor para adaptar el nivel de llenado a las estadísticas observadas en la mesa. Repite el procedimiento también para las estadísticas de los 500 giros."
-        }
-      },
-      "sequences": {
-        "title": "Secuencias",
-        "content": "La estrategia se basa en años de análisis de las secuencias que se presentan en condiciones estadísticas particulares. El algoritmo detecta automáticamente qué números son más favorecidos según las estadísticas actuales."
-      },
-      "number_trends": {
-        "title": "Tendencia de los números",
-        "content": "Un factor clave es el monitoreo de la tendencia de los números de la \"zona CERO\" (de 50 a 500 giros). Lo ideal es identificar 2 o 3 números en crecimiento respecto a los otros. \"En crecimiento\" significa que estos números tienen una baja frecuencia en los primeros 50 giros, pero muestran un incremento en los siguientes 500. Estos números tienden a equilibrarse en el largo plazo y son por lo tanto los que hay que considerar mayormente."
-      },
-      "tips": {
-        "title": "Consejos de juego y observaciones",
-        "budget_management": {
-          "title": "Gestión del presupuesto",
-          "description": "Disciplina de juego",
-          "content": "Comienza con un presupuesto de al menos 300€ por sesión. Establece un objetivo realista de ganancia y deja de jugar una vez alcanzado.<br />Comienza apostando pequeñas sumas para probar la mesa y aumenta gradualmente en caso de ganancias. Los números generados por el software están divididos en tres intensidades de apuesta: amarillo (más bajo), naranja (intermedio) y rojo (más alto).<br />Por ejemplo: 1€ por cada número amarillo, 3€ por los números naranjas y 5€ por los rojos. En caso de ganancias, puedes aumentar gradualmente las apuestas.<br />Evita continuar jugando en caso de pérdidas: insistir podría causar más daños a tus finanzas. Juega solo el dinero que puedes permitirte perder."
-        },
-        "croupier_attention": {
-          "title": "Atención al crupier",
-          "description": "Técnica de lanzamiento",
-          "content": "Cuando observen una mesa presten también <strong>mucha atención a cómo efectúa el giro el crupier</strong>. El giro debe hacerse haciendo partir la bola (más o menos) a la <strong>altura del último número extraído</strong>. Si por ejemplo el último número extraído es un 5, el crupier debería invertir el giro de la rueda, tomar la bola y hacerla partir a la altura del 5. Si lanza la bola demasiado lejos del último número extraído o tarda en iniciar el giro, podría comprometer las secuencias estadísticas. <strong>En estos casos, la mesa debe evitarse, incluso si las condiciones parecen favorables.</strong>"
-        },
-        "recommended_providers": {
-          "title": "Proveedores recomendados",
-          "description": "Selección de mesas",
-          "content": "Recomiendo las mesas Evolution, que ofrecen estadísticas tanto a 50 como a 500 giros, perfectamente compatibles con esta estrategia. Desaconsejo en cambio las mesas Playtech, ya que muestran las estadísticas solo a 100 y 1000 giros, menos útiles para este método. Como demostración del hecho de que incluso los proveedores se están adaptando para contrarrestar nuestra estrategia."
-        },
-        "table_screening": {
-          "title": "Filtrado de mesas",
-          "content": "Aprende a identificar rápidamente una mesa favorable (o al menos borderline) analizando las estadísticas autónomamente. Esto te hará ahorrar tiempo en la compilación y te ayudará a elegir mesas con condiciones óptimas."
-        }
-      },
-      "betting": {
-        "title": "Cómo apostar rápidamente",
-        "evolution_tables": {
-          "content": "En mesas Evolution, haz clic en el icono de la cámara en la parte superior derecha para cambiar la vista: podrás seleccionar rápidamente los números utilizando la elipse de números o la rueda."
-        },
-        "view_change": {
-          "content": "Después de hacer clic cambiará la vista de la mesa, que resaltará la <strong>elipse de números</strong> y la <strong>rueda</strong>. Usaremos estas dos herramientas para <strong>apostar rápidamente</strong>. De hecho, la pequeña sección en la parte inferior derecha (ver imagen) con el número 1 con el + arriba y el - abajo, indica que al hacer clic en un número en la elipse de números al lado, <strong>se realizará la apuesta en ese número y en el primer número inmediatamente arriba y abajo.</strong> Si el número es 2 se realizará la apuesta en el número seleccionado y en los primeros 2 números inmediatamente arriba y abajo. Y así sucesivamente..<br />Si en cambio haces clic en el cono de la rueda, la apuesta será solo en el número seleccionado. Con un poco de práctica, este sistema resultará el método más rápido y preciso para replicar las apuestas indicadas por el software."
-        }
-      },
-      "cta": {
-        "title": "¿Listo para jugar?",
-        "content": "Ponte en juego y desafía a la ruleta, pero recuerda siempre: esto no es una herramienta que garantiza ganancias, más bien una guía para jugar con un método confiable y basado en estadísticas. Juega con moderación, sé siempre prudente y <strong><u>¡juega solo el dinero que puedes permitirte perder!</u></strong><br/>¡Buena suerte!",
-        "button": "Jugar"
+      "number_growth": {
+        "title": "Crecimiento de Números",
+        "content": "Con la ayuda de la <strong>Inteligencia Artificial</strong>, los números en \"crecimiento\" se identifican analizando su rendimiento en diferentes ventanas de tiempo (datos a 50 y 500 giros). La IA compara automáticamente los números con baja frecuencia inicial que comienzan a equilibrarse con el tiempo, sugiriendo una posible <strong>mayor probabilidad de aparición</strong> en los próximos giros. Este proceso ocurre de manera autónoma gracias al modelo algorítmico integrado en el software."
       }
     },
-    "initial_stats": {
-      "title": "Ingresa las estadísticas de la mesa",
-      "stats_50_spin": "Estadísticas a 50 giros",
-      "stats_500_spin": "Estadísticas a 500 giros",
-      "first_dozen": "1ª docena %",
-      "second_dozen": "2ª docena %",
-      "third_dozen": "3ª docena %",
-      "zero_zone": "Zona CERO %",
-      "first_dozen_placeholder": "Primera Docena",
-      "second_dozen_placeholder": "Segunda Docena",
-      "third_dozen_placeholder": "Tercera Docena",
-      "zero_zone_placeholder": "Zona Cero",
-      "check_table": "Revisar mesa",
-      "modals": {
-        "not_recommended": {
-          "title": "Estadísticas no recomendadas",
-          "dialog_title": "Condiciones no favorables",
-          "description": "Las estadísticas actuales no muestran condiciones favorables para el juego. Se recomienda resetear y cambiar de mesa."
-        },
-        "borderline": {
-          "title": "Mesa borderline",
-          "dialog_title": "Condiciones al límite",
-          "description": "Las estadísticas actuales muestran condiciones al límite. Puedes elegir si proceder con cautela o analizar otra mesa."
-        },
-        "recommended": {
-          "title": "Mesa recomendada",
-          "dialog_title": "Condiciones recomendadas",
-          "description": "Las estadísticas actuales muestran condiciones favorables. Procede siempre con atención, comienza con apuestas bajas para luego aumentarlas en caso de ganancia."
-        },
-        "reset_stats": "Resetear Estadísticas",
-        "proceed": "Proceder",
-        "change_table": "Cambiar Mesa"
-      }
-    },
-    "login": {
-      "title": "Iniciar sesión",
-      "email": "Email",
-      "password": "Contraseña",
-      "submit": "Iniciar sesión",
-      "signup_link": "¿No tienes una cuenta? Regístrate",
-      "errors": {
-        "email_required": "Ingresa tu email",
-        "email_invalid": "Email no válido",
-        "password_required": "Ingresa tu contraseña"
+    "statistics": {
+      "title": "Ingreso de estadísticas",
+      "dozens": {
+        "content": "Para las docenas, ingresa los <strong>porcentajes reportados en las estadísticas de la mesa de juego</strong>. Para la <strong>Zona CERO %</strong> toma el porcentaje de la sección que incluye los números de la zona (entre 12 y 15), no la que simplemente incluye el número 0. Aquí también, verifica los datos tanto en 50 como en 500 giros. En la imagen de ejemplo las estadísticas son a 50 giros, para visualizar las estadísticas a 500 giros es necesario hacer <strong>deslizar hacia la derecha</strong>."
       },
-      "messages": {
-        "success": "Inicio de sesión exitoso",
-        "auth_error": "Error de autenticación",
-        "login_error": "Error durante el inicio de sesión. Verifica tus credenciales."
+      "wheel": {
+        "content": "La media rueda del software te permite replicar gráficamente las estadísticas de la mesa de juego. Para ajustar el llenado de los conos, haz clic en uno de ellos y mueve el cursor para adaptar el nivel de llenado a las estadísticas observadas en la mesa. Repite el procedimiento también para las estadísticas de los 500 giros."
       }
     },
-    "signup": {
-      "title": "Regístrate",
+    "sequences": {
+      "title": "Secuencias",
+      "content": "La estrategia se basa en años de análisis de las secuencias que se presentan en condiciones estadísticas particulares. El algoritmo detecta automáticamente qué números son más favorecidos según las estadísticas actuales."
+    },
+    "number_trends": {
+      "title": "Tendencia de los números",
+      "content": "Al monitorear los datos recopilados (de 50 a 500 giros), la IA analiza los números de la Zona CERO para identificar las tendencias más relevantes. El concepto de 'crecimiento de números' se amplifica mediante el procesamiento automatizado, que identifica con precisión aquellos números que están recuperando gradualmente su frecuencia en comparación con el período inicial."
+    },
+    "tips": {
+      "title": "Consejos de juego y observaciones",
+      "budget_management": {
+        "title": "Gestión del presupuesto",
+        "description": "Disciplina de juego",
+        "content": "Comienza con un presupuesto de al menos 300€ por sesión. Establece un objetivo realista de ganancia y deja de jugar una vez alcanzado.<br />Comienza apostando pequeñas sumas para probar la mesa y aumenta gradualmente en caso de ganancias. Los números generados por el software están divididos en tres intensidades de apuesta: amarillo (más bajo), naranja (intermedio) y rojo (más alto).<br />Por ejemplo: 1€ por cada número amarillo, 3€ por los números naranjas y 5€ por los rojos. En caso de ganancias, puedes aumentar gradualmente las apuestas.<br />Evita continuar jugando en caso de pérdidas: insistir podría causar más daños a tus finanzas. Juega solo el dinero que puedes permitirte perder."
+      },
+      "croupier_attention": {
+        "title": "Atención al crupier",
+        "description": "Técnica de lanzamiento",
+        "content": "Cuando observen una mesa presten también <strong>mucha atención a cómo efectúa el giro el crupier</strong>. El giro debe hacerse haciendo partir la bola (más o menos) a la <strong>altura del último número extraído</strong>. Si por ejemplo el último número extraído es un 5, el crupier debería invertir el giro de la rueda, tomar la bola y hacerla partir a la altura del 5. Si lanza la bola demasiado lejos del último número extraído o tarda en iniciar el giro, podría comprometer las secuencias estadísticas. <strong>En estos casos, la mesa debe evitarse, incluso si las condiciones parecen favorables.</strong>"
+      },
+      "recommended_providers": {
+        "title": "Proveedores recomendados",
+        "description": "Selección de mesas",
+        "content": "Recomiendo las mesas Evolution, que ofrecen estadísticas tanto a 50 como a 500 giros, perfectamente compatibles con esta estrategia. Desaconsejo en cambio las mesas Playtech, ya que muestran las estadísticas solo a 100 y 1000 giros, menos útiles para este método. Como demostración del hecho de que incluso los proveedores se están adaptando para contrarrestar nuestra estrategia."
+      },
+      "table_screening": {
+        "title": "Filtrado de mesas",
+        "content": "Aprende a identificar rápidamente una mesa favorable (o al menos borderline) analizando las estadísticas autónomamente. Esto te hará ahorrar tiempo en la compilación y te ayudará a elegir mesas con condiciones óptimas."
+      }
+    },
+    "betting": {
+      "title": "Cómo apostar rápidamente",
+      "evolution_tables": {
+        "content": "En mesas Evolution, haz clic en el icono de la cámara en la parte superior derecha para cambiar la vista: podrás seleccionar rápidamente los números utilizando la elipse de números o la rueda."
+      },
+      "view_change": {
+        "content": "Después de hacer clic cambiará la vista de la mesa, que resaltará la <strong>elipse de números</strong> y la <strong>rueda</strong>. Usaremos estas dos herramientas para <strong>apostar rápidamente</strong>. De hecho, la pequeña sección en la parte inferior derecha (ver imagen) con el número 1 con el + arriba y el - abajo, indica que al hacer clic en un número en la elipse de números al lado, <strong>se realizará la apuesta en ese número y en el primer número inmediatamente arriba y abajo.</strong> Si el número es 2 se realizará la apuesta en el número seleccionado y en los primeros 2 números inmediatamente arriba y abajo. Y así sucesivamente..<br />Si en cambio haces clic en el cono de la rueda, la apuesta será solo en el número seleccionado. Con un poco de práctica, este sistema resultará el método más rápido y preciso para replicar las apuestas indicadas por el software."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para jugar?",
+      "content": "Ponte en juego y desafía a la ruleta, pero recuerda siempre: esto no es una herramienta que garantiza ganancias, más bien una guía para jugar con un método confiable y basado en estadísticas. Juega con moderación, sé siempre prudente y <strong><u>¡juega solo el dinero que puedes permitirte perder!</u></strong><br/>¡Buena suerte!",
+      "button": "Jugar"
+    }
+  },
+  "initial_stats": {
+    "title": "Ingresa las estadísticas de la mesa",
+    "stats_50_spin": "Estadísticas a 50 giros",
+    "stats_500_spin": "Estadísticas a 500 giros",
+    "first_dozen": "1ª docena %",
+    "second_dozen": "2ª docena %",
+    "third_dozen": "3ª docena %",
+    "zero_zone": "Zona CERO %",
+    "first_dozen_placeholder": "Primera Docena",
+    "second_dozen_placeholder": "Segunda Docena",
+    "third_dozen_placeholder": "Tercera Docena",
+    "zero_zone_placeholder": "Zona Cero",
+    "check_table": "Revisar mesa",
+    "modals": {
+      "not_recommended": {
+        "title": "Estadísticas no recomendadas",
+        "dialog_title": "Condiciones no favorables",
+        "description": "Las estadísticas actuales no muestran condiciones favorables para el juego. Se recomienda resetear y cambiar de mesa."
+      },
+      "borderline": {
+        "title": "Mesa borderline",
+        "dialog_title": "Condiciones al límite",
+        "description": "Las estadísticas actuales muestran condiciones al límite. Puedes elegir si proceder con cautela o analizar otra mesa."
+      },
+      "recommended": {
+        "title": "Mesa recomendada",
+        "dialog_title": "Condiciones recomendadas",
+        "description": "Las estadísticas actuales muestran condiciones favorables. Procede siempre con atención, comienza con apuestas bajas para luego aumentarlas en caso de ganancia."
+      },
+      "reset_stats": "Resetear Estadísticas",
+      "proceed": "Proceder",
+      "change_table": "Cambiar Mesa"
+    }
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Email",
+    "password": "Contraseña",
+    "submit": "Iniciar sesión",
+    "signup_link": "¿No tienes una cuenta? Regístrate",
+    "errors": {
+      "email_required": "Ingresa tu email",
+      "email_invalid": "Email no válido",
+      "password_required": "Ingresa tu contraseña"
+    },
+    "messages": {
+      "success": "Inicio de sesión exitoso",
+      "auth_error": "Error de autenticación",
+      "login_error": "Error durante el inicio de sesión. Verifica tus credenciales."
+    }
+  },
+  "signup": {
+    "title": "Regístrate",
+    "name": "Nombre",
+    "email": "Email",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "submit": "Registrarse",
+    "login_link": "¿Ya tienes una cuenta? Inicia sesión",
+    "errors": {
+      "name_required": "Ingresa tu nombre",
+      "email_required": "Ingresa tu email",
+      "email_invalid": "Email no válido",
+      "password_required": "Ingresa tu contraseña",
+      "password_min_length": "La contraseña debe contener al menos 8 caracteres",
+      "password_uppercase": "La contraseña debe contener al menos una letra mayúscula",
+      "password_lowercase": "La contraseña debe contener al menos una letra minúscula",
+      "password_number": "La contraseña debe contener al menos un número",
+      "password_special": "La contraseña debe contener al menos un carácter especial",
+      "confirm_password_required": "Confirma tu contraseña"
+    }
+  },
+  "account": {
+    "title": "Tu cuenta",
+    "tabs": {
+      "profile": "Perfil",
+      "change_password": "Cambiar Contraseña",
+      "subscription": "Suscripción"
+    },
+    "profile": {
       "name": "Nombre",
+      "name_placeholder": "Tu nombre",
       "email": "Email",
-      "password": "Contraseña",
-      "confirm_password": "Confirmar Contraseña",
-      "submit": "Registrarse",
-      "login_link": "¿Ya tienes una cuenta? Inicia sesión",
+      "email_placeholder": "Tu email",
+      "update_button": "Actualizar Perfil",
       "errors": {
         "name_required": "Ingresa tu nombre",
         "email_required": "Ingresa tu email",
-        "email_invalid": "Email no válido",
-        "password_required": "Ingresa tu contraseña",
-        "password_min_length": "La contraseña debe contener al menos 8 caracteres",
-        "password_uppercase": "La contraseña debe contener al menos una letra mayúscula",
-        "password_lowercase": "La contraseña debe contener al menos una letra minúscula",
-        "password_number": "La contraseña debe contener al menos un número",
-        "password_special": "La contraseña debe contener al menos un carácter especial",
-        "confirm_password_required": "Confirma tu contraseña"
+        "email_invalid": "Ingresa una dirección de email válida",
+        "form_errors": "Corrige los errores en el formulario",
+        "loading_error": "Error al cargar los datos del perfil",
+        "update_error": "Error durante la actualización del perfil"
+      },
+      "messages": {
+        "update_success": "Perfil actualizado con éxito"
       }
     },
-    "account": {
-      "title": "Tu cuenta",
-      "tabs": {
-        "profile": "Perfil",
-        "change_password": "Cambiar Contraseña",
-        "subscription": "Suscripción"
-      },
-      "profile": {
-        "name": "Nombre",
-        "name_placeholder": "Tu nombre",
-        "email": "Email",
-        "email_placeholder": "Tu email",
-        "update_button": "Actualizar Perfil",
-        "errors": {
-          "name_required": "Ingresa tu nombre",
-          "email_required": "Ingresa tu email",
-          "email_invalid": "Ingresa una dirección de email válida",
-          "form_errors": "Corrige los errores en el formulario",
-          "loading_error": "Error al cargar los datos del perfil",
-          "update_error": "Error durante la actualización del perfil"
-        },
-        "messages": {
-          "update_success": "Perfil actualizado con éxito"
-        }
-      },
-      "password": {
-        "current": "Contraseña Actual",
-        "current_placeholder": "Ingresa la contraseña actual",
-        "new": "Nueva Contraseña",
-        "new_placeholder": "Ingresa la nueva contraseña",
-        "confirm": "Confirmar Contraseña",
-        "confirm_placeholder": "Confirma la nueva contraseña",
-        "update_button": "Cambiar Contraseña",
-        "errors": {
-          "old_required": "Ingresa la contraseña actual",
-          "new_required": "Ingresa la nueva contraseña",
-          "min_length": "La contraseña debe tener al menos 8 caracteres",
-          "confirm_required": "Confirma la nueva contraseña",
-          "form_errors": "Corrige los errores en el formulario",
-          "update_error": "Error durante el cambio de contraseña"
-        },
-        "messages": {
-          "update_success": "Contraseña actualizada con éxito"
-        }
-      },
-      "subscription": {
-        "title": "Suscripción",
-        "plan": "Plan",
-        "status": "Estado",
-        "end_date": "Fecha de finalización",
-        "start_date": "Fecha de inicio",
-        "duration": "Duración",
-        "new_request": "Nueva solicitud",
-        "status_active": "Activo",
-        "status_inactive": "Inactivo",
-        "status_pending": "Pendiente",
-        "duration_monthly": "Mensual",
-        "duration_annual": "Anual",
-        "last_login": "Último acceso"
-      }
-    },
-    "contact": {
-      "title": "Contáctanos",
-      "category": "Categoría",
-      "category_placeholder": "Selecciona una categoría",
-      "message": "Mensaje",
-      "message_placeholder": "Describe tu problema o solicitud...",
-      "submit_button": "Enviar solicitud",
-      "categories": {
-        "bug_report": "Informe de error",
-        "payment_issue": "Problema de pago",
-        "feature_request": "Sugerencia de mejora",
-        "general_inquiry": "Consulta general",
-        "other": "Otro"
-      },
+    "password": {
+      "current": "Contraseña Actual",
+      "current_placeholder": "Ingresa la contraseña actual",
+      "new": "Nueva Contraseña",
+      "new_placeholder": "Ingresa la nueva contraseña",
+      "confirm": "Confirmar Contraseña",
+      "confirm_placeholder": "Confirma la nueva contraseña",
+      "update_button": "Cambiar Contraseña",
       "errors": {
-        "category_required": "Por favor, selecciona una categoría",
-        "message_required": "El mensaje es obligatorio",
-        "message_min_length": "El mensaje debe tener al menos 10 caracteres",
-        "form_errors": "Por favor, corrige los errores en el formulario",
-        "submit_error": "Error al enviar tu solicitud"
+        "old_required": "Ingresa la contraseña actual",
+        "new_required": "Ingresa la nueva contraseña",
+        "min_length": "La contraseña debe tener al menos 8 caracteres",
+        "confirm_required": "Confirma la nueva contraseña",
+        "form_errors": "Corrige los errores en el formulario",
+        "update_error": "Error durante el cambio de contraseña"
       },
       "messages": {
-        "submit_success": "Solicitud enviada con éxito"
+        "update_success": "Contraseña actualizada con éxito"
       }
     },
-    "wheel_statistics": {
-      "instructions": "Replica de la manera más fiel posible las estadísticas de los números en la rueda. Arrastra el mouse sobre un cono para modificar su valor. En caso de dudas lee el ",
-      "tutorial_link": "tutorial",
-      "reset_button": "Volver a empezar"
-    },
-    "dashboard": {
-      "greeting": "¡Hola, {name}!",
-      "default_name": "Jugador",
-      "stats": {
-        "sessions": {
-          "title": "Sesiones Iniciadas",
-          "trend": "+{value}% respecto a la semana pasada"
-        },
-        "accuracy": {
-          "title": "Precisión Predictiva"
-        },
-        "balance": {
-          "title": "Balance Estimado",
-          "trend": "{value}% este mes"
-        }
-      },
-      "tutorial_card": {
-        "header": "Lee el Tutorial",
-        "title": "Antes de empezar a jugar",
-        "description": "Es <strong>esencial</strong> leer atentamente el tutorial para comprender el método estadístico utilizado por el software. Solo así podrás aprovechar al máximo el potencial del análisis y aumentar tus posibilidades de éxito.",
-        "link": "Ir al Tutorial"
-      },
-      "lucky_numbers": {
-        "title": "Tus números de la suerte",
-        "message": "Estos números son generados aleatoriamente."
-      },
-      "free_user": {
-        "title": "Conceptos Básicos en resumen",
-        "subtitle": "Para descubrir la estrategia en detalle, compra una suscripción.",
-        "law_title": "Ley de los grandes números",
-        "law_content": "En el contexto de la ruleta, esto significa que, en un número muy elevado de giros, <strong>las probabilidades de los varios números y de las diferentes áreas de la mesa <u>tenderán a equilibrarse</u></strong>. Esto obviamente no significa mirar solo la 'docena carente' y apostar en esos números. Pero esto, junto con otros conceptos, forma la base de la estrategia.",
-        "zero_title": "Zona Cero",
-        "zero_content": "La estrategia está desarrollada para funcionar mejor aprovechando la zona CERO de la ruleta, que comprende los números del 12 al 15. Si el porcentaje de esta zona es <strong>inferior al promedio (20%)</strong> tanto a 50 como a 500 giros, la zona se considera \"<strong>en déficit</strong>\". Esto sugiere que la zona está en retraso y podría ser el momento adecuado para apostar en sus números.",
-        "growth_title": "Crecimiento de números",
-        "growth_content": "Las estadísticas a 50 giros se comparan con las de 500 giros para identificar los números que muestran una <strong>tendencia positiva</strong>. Los números en crecimiento son aquellos que, a 50 giros, muestran un <strong>aumento de frecuencia</strong> cuando se considera un período más largo, hasta 500 giros. Estos números se consideran prometedores porque su aumento sugiere que están comenzando a \"<strong>recuperar</strong>\" y podrían continuar esta tendencia."
-      }
-    },
-    "common": {
-      "errors": {
-        "password_match": "Las contraseñas no coinciden"
-      },
-      "language": {
-        "select": "Idioma",
-        "en": "Inglés",
-        "it": "Italiano",
-        "es": "Español",
-        "de": "Alemán"
-      }
-    },
-    "navbar": {
-      "dashboard": "Panel",
-      "tutorial": "Tutorial",
-      "play": "Roulette Destroyer",
-      "pricing": "Suscripción",
-      "account": "Cuenta",
-      "contact": "Contáctanos",
-      "admin": "Admin",
-      "logout": "Cerrar sesión",
-      "premium_access": "Esta funcionalidad está disponible solo para usuarios con suscripción Premium activa."
-    },
-    "play": {
-      "active_session": {
-        "title": "Tienes una sesión activa",
-        "description": "Se ha detectado una sesión de análisis activa. Puedes continuar desde donde te quedaste o iniciar una nueva sesión.",
-        "continue_button": "Continuar sesión"
-      },
-      "resize_screen": "Redimensiona la pantalla y coloca esta ventana junto a la mesa de juego",
-      "reset_session": "Resetear sesión",
-      "proceed_message": "Procede con cautela",
-      "messages": {
-        "session_restored": "Sesión restaurada con éxito",
-        "stats_reset": "Estadísticas reseteadas con éxito",
-        "spin_save_error": "Error al guardar el giro",
-        "spin_delete_error": "Error durante la eliminación del giro",
-        "stats_update_error": "Error durante la actualización de las estadísticas",
-        "stats_reset_error": "Se ha producido un error durante el reset de las estadísticas",
-        "session_restore_error": "Error en la restauración de la sesión"
-      }
-    },
-    "pricing": {
-      "subscription_request": {
-        "title": "Solicitud de suscripción en curso",
-        "message": "Tienes una solicitud de suscripción pendiente de pago.",
-        "view_details": "Ver detalles de pago"
-      },
-      "header": {
-        "title": "Elige tu Suscripción",
-        "subtitle": "Accede a todas las funcionalidades premium de Roulette Destroyer"
-      },
-      "monthly_plan": {
-        "title": "Plan Mensual",
-        "price": "50",
-        "period": "/mes",
-        "features": [
-          "Acceso completo a las estadísticas",
-          "Predicciones ilimitadas"
-        ],
-        "button": "Comprar"
-      },
-      "annual_plan": {
-        "title": "Plan Anual",
-        "price": "300",
-        "period": "/año",
-        "original_price": "600",
-        "discount": "50% de descuento",
-        "recommended": "Recomendado",
-        "features": [
-          "Acceso completo a las estadísticas",
-          "Predicciones ilimitadas",
-          "Soporte prioritario",
-          "Ahorro de €300 respecto al plan mensual"
-        ],
-        "button": "Ahorra el 50%"
-      },
-      "payment_modal": {
-        "title": "Instrucciones de Pago",
-        "thank_you": "Gracias por solicitar la suscripción. Para completar el proceso, realice el pago haciendo clic en el botón en la parte inferior de la ventana.",
-        "instructions": "Una vez realizado el pago, la activación de su cuenta puede tardar unos minutos.",
-        "important": "Importante: Incluya su dirección de correo electrónico en la descripción del pago para permitirnos identificar su transacción.",
-        "cancel_button": "Cancelar solicitud",
-        "understand_button": "Proceder al pago"
-      },
-      "messages": {
-        "subscription_error": "Se ha producido un error durante la solicitud de suscripción. Inténtalo más tarde.",
-        "cancel_success": "Solicitud de suscripción cancelada con éxito",
-        "cancel_error": "Se ha producido un error durante la cancelación de la solicitud. Inténtalo más tarde."
-      }
-    },
-    "table_analysis": {
-      "title": "Análisis de la Mesa",
-      "dozen_suffering": "Docena en Sufrimiento",
-      "favorable_reasons": "Motivos Favorables",
-      "increasing_numbers": "Números en Crecimiento",
-      "none": "Ninguno",
-      "reasons": {
-        "DOZEN_SUFFERING": "Docena en fuerte sufrimiento",
-        "ZERO_ZONE_SUFFERING": "Zona cero en sufrimiento",
-        "BALANCED_DISTRIBUTION": "Distribución balanceada de números",
-        "INCREASING_NUMBERS": "Números en crecimiento en la zona cero",
-        "ZERO_ZONE_THRESHOLD": "Zona cero al limite"
-      },
-      "dozens": {
-        "1": "Primera docena (1-12)",
-        "2": "Segunda docena (13-24)",
-        "3": "Tercera docena (25-36)",
-        "unknown": "Docena desconocida"
-      }
+    "subscription": {
+      "title": "Suscripción",
+      "plan": "Plan",
+      "status": "Estado",
+      "end_date": "Fecha de finalización",
+      "start_date": "Fecha de inicio",
+      "duration": "Duración",
+      "new_request": "Nueva solicitud",
+      "status_active": "Activo",
+      "status_inactive": "Inactivo",
+      "status_pending": "Pendiente",
+      "duration_monthly": "Mensual",
+      "duration_annual": "Anual",
+      "last_login": "Último acceso"
     }
-  } 
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "category": "Categoría",
+    "category_placeholder": "Selecciona una categoría",
+    "message": "Mensaje",
+    "message_placeholder": "Describe tu problema o solicitud...",
+    "submit_button": "Enviar solicitud",
+    "categories": {
+      "bug_report": "Informe de error",
+      "payment_issue": "Problema de pago",
+      "feature_request": "Sugerencia de mejora",
+      "general_inquiry": "Consulta general",
+      "other": "Otro"
+    },
+    "errors": {
+      "category_required": "Por favor, selecciona una categoría",
+      "message_required": "El mensaje es obligatorio",
+      "message_min_length": "El mensaje debe tener al menos 10 caracteres",
+      "form_errors": "Por favor, corrige los errores en el formulario",
+      "submit_error": "Error al enviar tu solicitud"
+    },
+    "messages": {
+      "submit_success": "Solicitud enviada con éxito"
+    }
+  },
+  "wheel_statistics": {
+    "instructions": "Replica de la manera más fiel posible las estadísticas de los números en la rueda. Arrastra el mouse sobre un cono para modificar su valor. En caso de dudas lee el ",
+    "tutorial_link": "tutorial",
+    "reset_button": "Volver a empezar"
+  },
+  "dashboard": {
+    "greeting": "¡Hola, {name}!",
+    "default_name": "Jugador",
+    "stats": {
+      "sessions": {
+        "title": "Sesiones Iniciadas",
+        "trend": "+{value}% respecto a la semana pasada"
+      },
+      "accuracy": {
+        "title": "Precisión Predictiva"
+      },
+      "balance": {
+        "title": "Balance Estimado",
+        "trend": "{value}% este mes"
+      }
+    },
+    "tutorial_card": {
+      "header": "Lee el Tutorial",
+      "title": "Antes de empezar a jugar",
+      "description": "Es <strong>esencial</strong> leer atentamente el tutorial para comprender el método estadístico utilizado por el software. Solo así podrás aprovechar al máximo el potencial del análisis y aumentar tus posibilidades de éxito.",
+      "link": "Ir al Tutorial"
+    },
+    "lucky_numbers": {
+      "title": "Tus números de la suerte",
+      "message": "Estos números son generados aleatoriamente."
+    },
+    "free_user": {
+      "title": "Conceptos Básicos en resumen",
+      "subtitle": "Para descubrir la estrategia en detalle, compra una suscripción.",
+      "law_title": "Ley de los grandes números",
+      "law_content": "En el contexto de la ruleta, esto significa que, en un número muy elevado de giros, <strong>las probabilidades de los varios números y de las diferentes áreas de la mesa <u>tenderán a equilibrarse</u></strong>. Esto obviamente no significa mirar solo la 'docena carente' y apostar en esos números. Pero esto, junto con otros conceptos, forma la base de la estrategia.",
+      "zero_title": "Zona Cero",
+      "zero_content": "La estrategia está desarrollada para funcionar mejor aprovechando la zona CERO de la ruleta, que comprende los números del 12 al 15. Si el porcentaje de esta zona es <strong>inferior al promedio (20%)</strong> tanto a 50 como a 500 giros, la zona se considera \"<strong>en déficit</strong>\". Esto sugiere que la zona está en retraso y podría ser el momento adecuado para apostar en sus números.",
+      "growth_title": "Crecimiento de números",
+      "growth_content": "Las estadísticas a 50 giros se comparan con las de 500 giros para identificar los números que muestran una <strong>tendencia positiva</strong>. Los números en crecimiento son aquellos que, a 50 giros, muestran un <strong>aumento de frecuencia</strong> cuando se considera un período más largo, hasta 500 giros. Estos números se consideran prometedores porque su aumento sugiere que están comenzando a \"<strong>recuperar</strong>\" y podrían continuar esta tendencia."
+    }
+  },
+  "common": {
+    "errors": {
+      "password_match": "Las contraseñas no coinciden"
+    },
+    "language": {
+      "select": "Idioma",
+      "en": "Inglés",
+      "it": "Italiano",
+      "es": "Español",
+      "de": "Alemán"
+    }
+  },
+  "navbar": {
+    "dashboard": "Panel",
+    "tutorial": "Tutorial",
+    "play": "Roulette Destroyer",
+    "pricing": "Suscripción",
+    "account": "Cuenta",
+    "contact": "Contáctanos",
+    "admin": "Admin",
+    "logout": "Cerrar sesión",
+    "premium_access": "Esta funcionalidad está disponible solo para usuarios con suscripción Premium activa."
+  },
+  "play": {
+    "active_session": {
+      "title": "Tienes una sesión activa",
+      "description": "Se ha detectado una sesión de análisis activa. Puedes continuar desde donde te quedaste o iniciar una nueva sesión.",
+      "continue_button": "Continuar sesión"
+    },
+    "resize_screen": "Redimensiona la pantalla y coloca esta ventana junto a la mesa de juego",
+    "reset_session": "Resetear sesión",
+    "proceed_message": "Procede con cautela",
+    "messages": {
+      "session_restored": "Sesión restaurada con éxito",
+      "stats_reset": "Estadísticas reseteadas con éxito",
+      "spin_save_error": "Error al guardar el giro",
+      "spin_delete_error": "Error durante la eliminación del giro",
+      "stats_update_error": "Error durante la actualización de las estadísticas",
+      "stats_reset_error": "Se ha producido un error durante el reset de las estadísticas",
+      "session_restore_error": "Error en la restauración de la sesión"
+    }
+  },
+  "pricing": {
+    "subscription_request": {
+      "title": "Solicitud de suscripción en curso",
+      "message": "Tienes una solicitud de suscripción pendiente de pago.",
+      "view_details": "Ver detalles de pago"
+    },
+    "header": {
+      "title": "Elige tu Suscripción",
+      "subtitle": "Accede a todas las funcionalidades premium de Roulette Destroyer"
+    },
+    "monthly_plan": {
+      "title": "Plan Mensual",
+      "price": "50",
+      "period": "/mes",
+      "features": ["Acceso completo a las estadísticas", "Predicciones ilimitadas"],
+      "button": "Comprar"
+    },
+    "annual_plan": {
+      "title": "Plan Anual",
+      "price": "300",
+      "period": "/año",
+      "original_price": "600",
+      "discount": "50% de descuento",
+      "recommended": "Recomendado",
+      "features": [
+        "Acceso completo a las estadísticas",
+        "Predicciones ilimitadas",
+        "Soporte prioritario",
+        "Ahorro de €300 respecto al plan mensual"
+      ],
+      "button": "Ahorra el 50%"
+    },
+    "payment_modal": {
+      "title": "Instrucciones de Pago",
+      "thank_you": "Gracias por solicitar la suscripción. Para completar el proceso, realice el pago haciendo clic en el botón en la parte inferior de la ventana.",
+      "instructions": "Una vez realizado el pago, la activación de su cuenta puede tardar unos minutos.",
+      "important": "Importante: Incluya su dirección de correo electrónico en la descripción del pago para permitirnos identificar su transacción.",
+      "cancel_button": "Cancelar solicitud",
+      "understand_button": "Proceder al pago"
+    },
+    "messages": {
+      "subscription_error": "Se ha producido un error durante la solicitud de suscripción. Inténtalo más tarde.",
+      "cancel_success": "Solicitud de suscripción cancelada con éxito",
+      "cancel_error": "Se ha producido un error durante la cancelación de la solicitud. Inténtalo más tarde."
+    }
+  },
+  "table_analysis": {
+    "title": "Análisis de la Mesa",
+    "dozen_suffering": "Docena en Sufrimiento",
+    "favorable_reasons": "Motivos Favorables",
+    "increasing_numbers": "Números en Crecimiento",
+    "none": "Ninguno",
+    "reasons": {
+      "DOZEN_SUFFERING": "Docena en fuerte sufrimiento",
+      "ZERO_ZONE_SUFFERING": "Zona cero en sufrimiento",
+      "BALANCED_DISTRIBUTION": "Distribución balanceada de números",
+      "INCREASING_NUMBERS": "Números en crecimiento en la zona cero",
+      "ZERO_ZONE_THRESHOLD": "Zona cero al limite"
+    },
+    "dozens": {
+      "1": "Primera docena (1-12)",
+      "2": "Segunda docena (13-24)",
+      "3": "Tercera docena (25-36)",
+      "unknown": "Docena desconocida"
+    }
+  }
+}

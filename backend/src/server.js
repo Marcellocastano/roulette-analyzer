@@ -31,8 +31,21 @@ const connectWithRetry = () => {
 
 // Funzione per avviare il server
 const startServer = () => {
+    // Aggiungi log per ogni richiesta HTTP
+    app.use((req, res, next) => {
+      const start = Date.now();
+      res.on('finish', () => {
+        const duration = Date.now() - start;
+        console.log(`${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms - ${req.ip}`);
+      });
+      next();
+    });
+
     app.listen(config.port, () => {
         console.log(`Server avviato in modalità ${process.env.NODE_ENV || 'development'} sulla porta ${config.port}`);
+        console.log(`Configurazione email: servizio=${config.email.service}, utente=${config.email.user}`);
+        console.log(`CORS configurato per: ${config.corsOrigin}`);
+        console.log(`Frontend URL: ${config.frontendUrl}`);
     });
 };
 

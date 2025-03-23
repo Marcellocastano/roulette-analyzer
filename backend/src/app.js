@@ -9,6 +9,9 @@ const path = require('path');
 
 const app = express();
 
+// Configurazione per fidarsi dei proxy (necessario per Render e altri servizi cloud)
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors({
     origin: config.corsOrigin,

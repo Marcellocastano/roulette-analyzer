@@ -44,16 +44,21 @@ class EmailService {
       try {
         // Inizializza il client Mailgun per l'API
         const mailgun = new Mailgun(FormData);
+        
+        // Usa l'endpoint EU se il dominio è europeo
+        const apiUrl = 'https://api.eu.mailgun.net'; // Cambiato da v3 a base URL
+        
         this.mailgunClient = mailgun.client({
           username: 'api',
           key: config.email.password,
-          url: 'https://api.eu.mailgun.net/v3' // Usa l'endpoint EU se il tuo dominio è europeo
+          url: apiUrl
         });
         
         console.log('Email service configured with Mailgun API');
         console.log(`API Key: ${config.email.password.substring(0, 5)}...`);
         console.log(`Email User: ${config.email.user}`);
         console.log(`Email From: ${config.email.from}`);
+        console.log(`API URL: ${apiUrl}`);
         
         this.useEthereal = false;
       } catch (error) {
@@ -105,10 +110,13 @@ class EmailService {
       } else {
         // Usa l'API Mailgun
         console.log('Invio email tramite Mailgun API...');
-        const domain = config.email.user.split('@')[1]; // Estrae il dominio dall'indirizzo email
+        
+        // Estrai il dominio dall'indirizzo email o usa direttamente il dominio configurato
+        const domain = 'roulettepro.ai'; // Usa direttamente il dominio invece di estrarlo dall'email
         console.log(`Dominio Mailgun: ${domain}`);
         
         try {
+          // Usa il formato corretto per l'API Mailgun
           const data = await this.mailgunClient.messages.create(domain, {
             from: config.email.from || `RoulettePro AI <${config.email.user}>`,
             to: [user.email],
@@ -122,6 +130,28 @@ class EmailService {
         } catch (mailgunError) {
           console.error('Errore specifico Mailgun:', mailgunError);
           console.error('Dettagli errore:', JSON.stringify(mailgunError, null, 2));
+          
+          // Prova con un approccio alternativo se il primo fallisce
+          if (mailgunError.status === 405) {
+            console.log('Tentativo alternativo con endpoint diverso...');
+            try {
+              // Usa il metodo send invece di create
+              const altData = await this.mailgunClient.messages.send(domain, {
+                from: config.email.from || `RoulettePro AI <${config.email.user}>`,
+                to: [user.email],
+                subject: 'Password Reset Request',
+                html: emailHtml
+              });
+              
+              console.log(`Email inviata con successo (metodo alternativo) a ${user.email}`);
+              console.log('Risposta Mailgun (alternativa):', JSON.stringify(altData));
+              return altData;
+            } catch (altError) {
+              console.error('Anche il tentativo alternativo è fallito:', altError);
+              throw altError;
+            }
+          }
+          
           throw mailgunError;
         }
       }

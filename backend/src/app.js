@@ -25,6 +25,11 @@ app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'Server is running' });
 });
 
+// Health check endpoint per Render con prefisso /api (come configurato su Render)
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'ok', message: 'Server is running' });
+});
+
 // API Routes
 app.use('/api/v1', routes);
 

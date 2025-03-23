@@ -68,13 +68,22 @@ const handleSubmit = async () => {
     })
     
     message.success(t('forgot_password.messages.success'))
-    // Mostra un messaggio di successo e reindirizza dopo un breve ritardo
+    
+    // Reindirizza alla pagina di login dopo un breve ritardo
     setTimeout(() => {
       router.push('/login')
     }, 2000)
   } catch (error) {
-    console.error('Errore durante la richiesta di recupero password:', error)
-    message.error(t('forgot_password.messages.error'))
+    console.error('Password reset error:', error)
+    
+    // Mostra comunque un messaggio di successo per motivi di sicurezza
+    // Questo evita attacchi di enumerazione degli account
+    message.success(t('forgot_password.messages.success'))
+    
+    // Reindirizza alla pagina di login dopo un breve ritardo
+    setTimeout(() => {
+      router.push('/login')
+    }, 2000)
   } finally {
     loading.value = false
   }

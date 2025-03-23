@@ -127,11 +127,11 @@ class AuthService {
         .update(resetToken)
         .digest('hex');
 
-      // Salva il token nel database
+      // Salva il token nel database con scadenza di 4 ore
       await userRepository.setPasswordResetToken(
         email,
         hashedToken,
-        new Date(Date.now() + 1 * 60 * 60 * 1000) // 1 ora di validità
+        new Date(Date.now() + 4 * 60 * 60 * 1000) // 4 ore di validità
       );
 
       // Invia email con il token
@@ -140,14 +140,20 @@ class AuthService {
       } catch (emailError) {
         console.error('Error sending password reset email:', emailError);
         
-        // Per scopi di test, mostra il token nella console
-        console.log('=========================================');
-        console.log(`Reset token for ${email}: ${resetToken}`);
-        console.log(`Reset URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`);
-        console.log('=========================================');
-        
-        // Non ripristinare il token, ma segnala l'errore
-        throw new AppError('Failed to send password reset email, but token was generated. Check server logs for token (only in development).', 500);
+        // In ambiente di sviluppo, mostra il token nella console per facilitare i test
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('=========================================');
+          console.log(`Reset token for ${email}: ${resetToken}`);
+          console.log(`Reset URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`);
+          console.log('=========================================');
+          
+          throw new AppError('Failed to send password reset email, but token was generated. Check server logs for token (only in development).', 500);
+        } else {
+          // In produzione, restituisci un messaggio generico ma non un errore
+          // Il token è stato generato e salvato, quindi l'utente può comunque resettare la password
+          console.log(`Password reset token generated for ${email} but email sending failed`);
+          return true;
+        }
       }
 
       return true;

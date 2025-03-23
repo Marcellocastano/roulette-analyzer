@@ -1,14 +1,6 @@
-const express = require('express');
-const cors = require('cors');
+const app = require('./app.js');
 const mongoose = require('mongoose');
 const config = require('./config/config');
-const routes = require('./routes');
-
-// Crea l'applicazione Express
-const app = express();
-
-// Configurazione per fidarsi dei proxy (necessario per Render e altri servizi cloud)
-app.set('trust proxy', 1);
 
 // Opzioni di connessione MongoDB ottimizzate
 const mongooseOptions = {
@@ -66,10 +58,6 @@ mongoose.connection.on('disconnected', () => {
     }
 });
 
-mongoose.connection.on('reconnected', () => {
-    console.log('MongoDB riconnesso con successo');
-});
-
 mongoose.connection.on('error', (err) => {
     console.error('Errore di connessione MongoDB:', err);
     if (err.name === 'MongoNetworkError') {
@@ -78,7 +66,10 @@ mongoose.connection.on('error', (err) => {
     }
 });
 
-// Gestione degli eventi di processo
+mongoose.connection.on('reconnected', () => {
+    console.log('MongoDB riconnesso con successo');
+});
+
 process.on('SIGINT', async () => {
     try {
         await mongoose.connection.close();

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { AppError } = require('../middlewares/errorHandler');
 const { userRepository } = require('../repositories');
+const emailService = require('./email.service');
 
 class AuthService {
   async register({ email, password, name }) {
@@ -130,15 +131,28 @@ class AuthService {
       await userRepository.setPasswordResetToken(
         email,
         hashedToken,
-        new Date(Date.now() + 12 * 60 * 60 * 1000) // 12 ore di validità
+        new Date(Date.now() + 1 * 60 * 60 * 1000) // 1 ora di validità
       );
 
-      // TODO: Inviare email con il token
-      // In produzione, invia una vera email
-      console.log(`Reset token: ${resetToken}`);
+      // Invia email con il token
+      try {
+        await emailService.sendPasswordResetEmail(user, resetToken);
+      } catch (emailError) {
+        console.error('Error sending password reset email:', emailError);
+        
+        // Per scopi di test, mostra il token nella console
+        console.log('=========================================');
+        console.log(`Reset token for ${email}: ${resetToken}`);
+        console.log(`Reset URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`);
+        console.log('=========================================');
+        
+        // Non ripristinare il token, ma segnala l'errore
+        throw new AppError('Failed to send password reset email, but token was generated. Check server logs for token (only in development).', 500);
+      }
 
       return true;
     } catch (error) {
+      if (error instanceof AppError) throw error;
       throw new AppError('Error in password reset process', 500);
     }
   }

@@ -73,6 +73,18 @@ const router = createRouter({
       component: () => import('../views/signup/SignupView.vue'),
       meta: { requiresAuth: false },
     },
+    {
+      path: '/forgot-password',
+      name: 'forgotPassword',
+      component: () => import('../views/forgot-password/ForgotPasswordView.vue'),
+      meta: { requiresAuth: false },
+    },
+    {
+      path: '/reset-password/:token',
+      name: 'resetPassword',
+      component: () => import('../views/reset-password/ResetPasswordView.vue'),
+      meta: { requiresAuth: false },
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {

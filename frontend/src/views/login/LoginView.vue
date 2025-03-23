@@ -24,6 +24,11 @@
           </template>
         </n-input>
       </n-form-item>
+      <div class="mb-4">
+        <n-button class="text-blue-900" text size="small" @click="router.push('/forgot-password')">
+          {{ $t('login.forgot_password') }}
+        </n-button>
+      </div>
       <div class="submit-container text-center">
         <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
           {{ $t('login.submit') }}

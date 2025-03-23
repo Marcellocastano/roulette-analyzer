@@ -155,6 +155,7 @@
     "email": "Email",
     "password": "Password",
     "submit": "Login",
+    "forgot_password": "Forgot your password?",
     "signup_link": "Don't have an account? Sign up",
     "errors": {
       "email_required": "Please enter your email",
@@ -165,6 +166,40 @@
       "success": "Login successful",
       "auth_error": "Authentication error",
       "login_error": "Login error. Please check your credentials."
+    }
+  },
+  "forgot_password": {
+    "title": "Recover Password",
+    "description": "Enter your email to receive a password recovery link",
+    "email": "Email",
+    "submit": "Send recovery link",
+    "back_to_login": "Back to login",
+    "errors": {
+      "email_required": "Enter your email",
+      "email_invalid": "Invalid email"
+    },
+    "messages": {
+      "success": "Password recovery instructions sent to your email",
+      "error": "Error sending the instructions. Try again later."
+    }
+  },
+  "reset_password": {
+    "title": "Reset Password",
+    "description": "Enter your new password",
+    "password": "New Password",
+    "confirm_password": "Confirm Password",
+    "submit": "Reset Password",
+    "back_to_login": "Back to login",
+    "errors": {
+      "password_required": "Enter the new password",
+      "password_length": "The password must be at least 8 characters long",
+      "confirm_password_required": "Confirm the new password",
+      "passwords_not_match": "Passwords do not match"
+    },
+    "messages": {
+      "success": "Password successfully reset",
+      "error": "Error resetting the password. Try again later.",
+      "invalid_token": "Invalid or expired token"
     }
   },
   "signup": {

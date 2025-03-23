@@ -18,6 +18,14 @@ export interface LoginResponse {
   user: User
 }
 
+export interface ForgotPasswordData {
+  email: string
+}
+
+export interface ResetPasswordData {
+  password: string
+}
+
 export const authApi = {
   /**
    * Effettua il login dell'utente
@@ -56,6 +64,27 @@ export const authApi = {
       '/auth/refresh',
       { refreshToken }
     )
+    return response.data.data
+  },
+
+  /**
+   * Richiede il reset della password
+   * @param data - Dati per il recupero password (email)
+   * @returns Promise con il messaggio di successo
+   */
+  forgotPassword: async (data: ForgotPasswordData): Promise<{ message: string }> => {
+    const response = await api.post<ApiResponse<{ message: string }>>('/auth/forgot-password', data)
+    return response.data.data
+  },
+
+  /**
+   * Reimposta la password con il token di reset
+   * @param token - Token di reset password
+   * @param data - Nuova password
+   * @returns Promise con il messaggio di successo
+   */
+  resetPassword: async (token: string, data: ResetPasswordData): Promise<{ message: string }> => {
+    const response = await api.post<ApiResponse<{ message: string }>>(`/auth/reset-password/${token}`, data)
     return response.data.data
   },
 }

@@ -114,6 +114,7 @@
     "password": "Password",
     "submit": "Accedi",
     "signup_link": "Non hai un account? Registrati",
+    "forgot_password": "Password dimenticata?",
     "errors": {
       "email_required": "Inserisci la tua email",
       "email_invalid": "Email non valida",
@@ -123,6 +124,40 @@
       "success": "Login effettuato con successo",
       "auth_error": "Errore di autenticazione",
       "login_error": "Errore durante il login. Verifica le tue credenziali."
+    }
+  },
+  "forgot_password": {
+    "title": "Recupera Password",
+    "description": "Inserisci la tua email per ricevere un link di recupero password",
+    "email": "Email",
+    "submit": "Invia link di recupero",
+    "back_to_login": "Torna al login",
+    "errors": {
+      "email_required": "Inserisci la tua email",
+      "email_invalid": "Email non valida"
+    },
+    "messages": {
+      "success": "Istruzioni per il recupero password inviate alla tua email",
+      "error": "Errore durante l'invio delle istruzioni. Riprova più tardi."
+    }
+  },
+  "reset_password": {
+    "title": "Reimposta Password",
+    "description": "Inserisci la tua nuova password",
+    "password": "Nuova Password",
+    "confirm_password": "Conferma Password",
+    "submit": "Reimposta Password",
+    "back_to_login": "Torna al login",
+    "errors": {
+      "password_required": "Inserisci la nuova password",
+      "password_length": "La password deve contenere almeno 8 caratteri",
+      "confirm_password_required": "Conferma la nuova password",
+      "passwords_not_match": "Le password non corrispondono"
+    },
+    "messages": {
+      "success": "Password reimpostata con successo",
+      "error": "Errore durante il reset della password. Riprova più tardi.",
+      "invalid_token": "Token non valido o scaduto"
     }
   },
   "signup": {

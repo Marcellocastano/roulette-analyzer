@@ -113,6 +113,7 @@
     "email": "Email",
     "password": "Contraseña",
     "submit": "Iniciar sesión",
+    "forgot_password": "¿Olvidaste tu contraseña?",
     "signup_link": "¿No tienes una cuenta? Regístrate",
     "errors": {
       "email_required": "Ingresa tu email",
@@ -123,6 +124,40 @@
       "success": "Inicio de sesión exitoso",
       "auth_error": "Error de autenticación",
       "login_error": "Error durante el inicio de sesión. Verifica tus credenciales."
+    }
+  },
+  "forgot_password": {
+    "title": "Recuperar Contraseña",
+    "description": "Introduce tu correo electrónico para recibir un enlace de recuperación de contraseña",
+    "email": "Correo electrónico",
+    "submit": "Enviar enlace de recuperación",
+    "back_to_login": "Volver al inicio de sesión",
+    "errors": {
+      "email_required": "Introduce tu correo electrónico",
+      "email_invalid": "Correo electrónico no válido"
+    },
+    "messages": {
+      "success": "Las instrucciones para recuperar la contraseña se han enviado a tu correo electrónico",
+      "error": "Error al enviar las instrucciones. Inténtalo de nuevo más tarde."
+    }
+  },
+  "reset_password": {
+    "title": "Restablecer Contraseña",
+    "description": "Introduce tu nueva contraseña",
+    "password": "Nueva Contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "submit": "Restablecer Contraseña",
+    "back_to_login": "Volver al inicio de sesión",
+    "errors": {
+      "password_required": "Introduce la nueva contraseña",
+      "password_length": "La contraseña debe tener al menos 8 caracteres",
+      "confirm_password_required": "Confirma la nueva contraseña",
+      "passwords_not_match": "Las contraseñas no coinciden"
+    },
+    "messages": {
+      "success": "Contraseña restablecida con éxito",
+      "error": "Error al restablecer la contraseña. Inténtalo de nuevo más tarde.",
+      "invalid_token": "Token no válido o expirado"
     }
   },
   "signup": {

@@ -2,11 +2,11 @@
   <nav class="navbar">
     <div class="navbar-left">
       <div class="logo">
-        <img src="/assets/images/logo.png" alt="Roulette Analyzer Logo" />
+        <img src="/assets/images/logo.png" alt="Roulette Destroyer Logo" />
       </div>
     </div>
 
-    <div class="navbar-center hidden md:flex">
+    <div class="navbar-center hidden lg:flex">
       <ul class="nav-list">
         <li v-for="route in routes" :key="route.path" class="nav-item">
           <router-link
@@ -42,7 +42,7 @@
     <div class="navbar-right">
       <LanguageSelector class="mr-4" />
       
-      <n-button class="flex md:hidden menu-toggle" @click="toggleMobileMenu">
+      <n-button class="flex lg:hidden menu-toggle" @click="toggleMobileMenu">
         <n-icon size="24">
           <Menu v-if="!isMobileMenuOpen" />
           <X v-else />
@@ -61,7 +61,7 @@
     <!-- Menu Mobile -->
     <div
       v-show="isMobileMenuOpen"
-      class="mobile-menu md:hidden"
+      class="mobile-menu lg:hidden"
       :class="{ 'mobile-menu-open': isMobileMenuOpen }"
     >
       <ul class="nav-list">
@@ -244,7 +244,7 @@ const checkPremiumAccess = (e: any, routePath: string) => {
   .logo {
     img {
       height: 35px;
-      width: auto;
+      width: 200px;
       object-fit: contain;
     }
   }

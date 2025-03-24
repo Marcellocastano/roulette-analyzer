@@ -1,7 +1,7 @@
 {
   "name": "roulette-analyzer-backend",
   "version": "1.0.0",
-  "description": "Backend for Roulette Analyzer application",
+  "description": "Backend for Roulette Destroyer application",
   "main": "src/server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",

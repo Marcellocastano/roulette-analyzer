@@ -168,6 +168,10 @@
     "confirm_password": "Confirmar Contraseña",
     "submit": "Registrarse",
     "login_link": "¿Ya tienes una cuenta? Inicia sesión",
+    "messages": {
+      "success": "Usuario registrado exitosamente",
+      "error": "Error al registrarse. Por favor, inténtelo de nuevo más tarde."
+    },
     "errors": {
       "name_required": "Ingresa tu nombre",
       "email_required": "Ingresa tu email",

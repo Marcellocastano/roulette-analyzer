@@ -210,6 +210,10 @@
     "confirm_password": "Confirm Password",
     "submit": "Sign up",
     "login_link": "Already have an account? Login",
+    "messages": {
+      "success": "User successfully registered",
+      "error": "Error during registration. Try again later."
+    },
     "errors": {
       "name_required": "Please enter your name",
       "email_required": "Please enter your email",

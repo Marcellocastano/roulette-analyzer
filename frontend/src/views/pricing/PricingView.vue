@@ -1,21 +1,4 @@
 <template>
-  <n-alert
-    v-if="paymentInstructions"
-    type="info"
-    :title="$t('pricing.subscription_request.title')"
-    style="margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;"
-    closable
-  >
-    <template #icon>
-      <n-icon>
-        <InfoCircle />
-      </n-icon>
-    </template>
-    {{ $t('pricing.subscription_request.message') }}
-    <n-button text class="text-btn" @click="showSavedPaymentInstructions">
-      {{ $t('pricing.subscription_request.view_details') }}
-    </n-button>
-  </n-alert>
   <div class="pricing-container">
     <n-card class="pricing-card">
       <template #header>
@@ -29,7 +12,6 @@
         <n-card class="plan-card monthly">
           <div class="plan-header">
             <n-h2>{{ $t('pricing.monthly_plan.title') }}</n-h2>
-            <!-- <div class="badge">Flessibile</div> -->
           </div>
 
           <div class="price-container">
@@ -59,7 +41,7 @@
             type="primary"
             round
             class="subscribe-button"
-            @click="requestSubscription('premium', 'monthly')"
+            @click="requestSubscription('monthly')"
           >
             {{ $t('pricing.monthly_plan.button') }}
           </n-button>
@@ -117,7 +99,7 @@
             type="primary"
             round
             class="subscribe-button premium-button"
-            @click="requestSubscription('premium', 'annual')"
+            @click="requestSubscription('annual')"
           >
             {{ $t('pricing.annual_plan.button') }}
           </n-button>
@@ -171,38 +153,35 @@ import { h } from 'vue'
 import { useMessage } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { userApi } from '@/api/user'
-import type { PaymentInstructions } from '@/api/user'
+import type { UserSubscription } from '@/api/user'
 import { useI18n } from 'vue-i18n'
+import { useAuthStore } from '@/stores/auth'
 
 const { t } = useI18n()
 const message = useMessage()
 const router = useRouter()
 const isLoading = ref(false)
 const showPaymentModal = ref(false)
-const paymentInstructions = ref<PaymentInstructions | null>(null)
+const paymentInstructions = ref<UserSubscription | null>(null)
+const amount = ref(0)
+const { userSubscription } = useAuthStore()
 
 // Controlla se ci sono informazioni di pagamento salvate nel sessionStorage
 onMounted(() => {
   const savedPaymentInfo = sessionStorage.getItem('paymentInstructions')
-  if (savedPaymentInfo) { 
+  if (savedPaymentInfo && (userSubscription?.status === 'pending' || userSubscription?.newRequest?.status === 'pending')) { 
     paymentInstructions.value = JSON.parse(savedPaymentInfo)
   }
 })
 
-const requestSubscription = async (plan: string, duration: string) => {
+const requestSubscription = async (duration: string) => {
   try {
     isLoading.value = true
-
-    const response = await userApi.requestSubscription(plan, duration)
-
-    // Salva le istruzioni di pagamento e mostra la modale
-    paymentInstructions.value = response.data.data.paymentInstructions
-
-    // Salva le informazioni nel sessionStorage
+    amount.value = duration === 'monthly' ? 50 : 300
+    const response = await userApi.requestSubscription(duration)
+    paymentInstructions.value = response.data.data.subscription
     sessionStorage.setItem('paymentInstructions', JSON.stringify(paymentInstructions.value))
-
     showPaymentModal.value = true
-
   } catch (error) {
     console.error('Error during subscription request:', error)
     message.error(t('pricing.messages.subscription_error'))
@@ -212,7 +191,7 @@ const requestSubscription = async (plan: string, duration: string) => {
 }
 
 const onConfirmPayment = () => {
-  switch (Number(paymentInstructions?.value?.amount)) {
+  switch (amount.value) {
     case 50:
       window.open('https://pay.sumup.com/b2c/QPP2FGRH', '_blank')
       break

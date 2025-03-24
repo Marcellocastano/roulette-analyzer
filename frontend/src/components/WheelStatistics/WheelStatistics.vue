@@ -33,14 +33,14 @@
     </svg>
   </div>
 
-  <div class="controls">
+  <!-- <div class="controls">
     <n-button @click="resetCones" type="error">
       <template #icon>
         <n-icon><Refresh /></n-icon>
       </template>
       {{ $t('wheel_statistics.reset_button') }}
     </n-button>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">

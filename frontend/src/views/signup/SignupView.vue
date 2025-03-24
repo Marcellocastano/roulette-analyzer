@@ -179,14 +179,14 @@ const handleSubmit = async () => {
       password: formValue.value.password,
     })
 
-    message.success(t('signup.success'))
+    message.success(t('signup.messages.success'))
     // Aspetta un momento prima di reindirizzare
     setTimeout(() => {
       router.push('/dashboard')
     }, 500)
   } catch (error) {
     console.error('Errore durante la registrazione:', error)
-    message.error(t('signup.error'))
+    message.error(t('signup.messages.error'))
   } finally {
     loading.value = false
   }

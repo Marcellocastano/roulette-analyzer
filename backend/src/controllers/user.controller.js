@@ -76,25 +76,9 @@ class UserController {
 
   requestSubscription = async (req, res, next) => {
     try {
-      const { plan, duration } = req.body;
+      const { duration } = req.body;
       
-      // Validazione dei dati di input
-      if (!plan || !duration) {
-        return res.status(400).json({
-          status: 'error',
-          message: 'Piano e durata sono richiesti'
-        });
-      }
-      
-      // Verifica che il piano e la durata siano validi
-      if (!['premium'].includes(plan)) {
-        return res.status(400).json({
-          status: 'error',
-          message: 'Piano non valido'
-        });
-      }
-      
-      if (!['monthly', 'annual'].includes(duration)) {
+      if (!duration || !['monthly', 'annual'].includes(duration)) {
         return res.status(400).json({
           status: 'error',
           message: 'Durata non valida'
@@ -103,7 +87,6 @@ class UserController {
       
       const subscription = await this.userService.requestSubscription(
         req.user.id,
-        plan,
         duration
       );
       
@@ -111,13 +94,7 @@ class UserController {
         status: 'success',
         message: 'Richiesta di sottoscrizione inviata con successo',
         data: {
-          subscription,
-          paymentInstructions: {
-            paypalEmail: 'pagamenti@roulette-destroyer.com',
-            reference: `SUB-${req.user.id}-${Date.now()}`,
-            amount: duration === 'monthly' ? '50' : '300',
-            currency: 'EUR'
-          }
+          subscription
         }
       });
     } catch (error) {

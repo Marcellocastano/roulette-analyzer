@@ -97,7 +97,7 @@ class UserService {
     }
   }
 
-  async requestSubscription(userId, plan, duration) {
+  async requestSubscription(userId, duration) {
     try {
       const user = await userRepository.findById(userId);
       if (!user) {
@@ -120,7 +120,6 @@ class UserService {
         }
   
         subscriptionData = {
-          plan: plan,
           duration: duration,
           startDate: now,
           endDate: endDate,

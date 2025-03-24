@@ -24,13 +24,6 @@ export interface UserSubscription {
   } | null
 }
 
-export interface PaymentInstructions {
-  paypalEmail: string
-  amount: number
-  currency: string
-  reference: string
-}
-
 export const userApi = {
   // Ottiene il profilo dell'utente
   getProfile: () => {
@@ -56,9 +49,8 @@ export const userApi = {
   },
   
   // Richiede un nuovo abbonamento
-  requestSubscription: (plan: string, duration: string) => {
-    return apiClient.post<ApiResponse<{ paymentInstructions: PaymentInstructions }>>('/users/subscription/request', {
-      plan,
+  requestSubscription: (duration: string) => {
+    return apiClient.post<ApiResponse<{ subscription: UserSubscription }>>('/users/subscription/request', {
       duration
     })
   },

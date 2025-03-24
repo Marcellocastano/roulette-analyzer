@@ -168,6 +168,10 @@
     "confirm_password": "Passwort bestätigen",
     "submit": "Registrieren",
     "login_link": "Bereits ein Konto? Anmelden",
+    "messages": {
+      "success": "Benutzer erfolgreich registriert",
+      "error": "Fehler bei der Registrierung. Versuchen Sie es später erneut."
+    },
     "errors": {
       "name_required": "Geben Sie Ihren Namen ein",
       "email_required": "Geben Sie Ihre E-Mail-Adresse ein",

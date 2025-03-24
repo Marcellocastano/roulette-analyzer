@@ -1,7 +1,7 @@
 <template>
     <div class="roulette-instructions">
       <n-p class="roulette-title">
-        {{ $t('wheel_statistics.instructions') }} <router-link to="/tutorial#statistics" target="_blank">{{ $t('wheel_statistics.tutorial_link') }}</router-link>
+        {{ $t('wheel_statistics.instructions') }} <router-link class="underline text-accent" to="/tutorial#statistics" target="_blank">{{ $t('wheel_statistics.tutorial_link') }}</router-link>
       </n-p>
     </div>
   <div class="roulette-wheel">
@@ -257,5 +257,9 @@ const resetCones = () => {
   user-select: none;
   fill: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-accent {
+  color: var(--accent-color);
 }
 </style>

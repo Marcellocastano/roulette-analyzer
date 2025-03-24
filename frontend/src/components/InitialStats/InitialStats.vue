@@ -1,7 +1,7 @@
 <template>
   <n-h1 class="mb-8 text-center">{{ $t('initial_stats.title') }}</n-h1>
   <div class="initial-stats">
-    <Card :title="$t('initial_stats.stats_50_spin')" class="statistics-card">
+    <Card :title="$t('initial_stats.stats_50_spin')" class="statistics-card text-center">
       <template #content>
         <n-form @submit.prevent="handleSubmit">
           <n-form-item>
@@ -45,7 +45,7 @@
         </n-form>
       </template>
     </Card>
-    <Card :title="$t('initial_stats.stats_500_spin')" class="statistics-card">
+    <Card :title="$t('initial_stats.stats_500_spin')" class="statistics-card text-center">
       <template #content>
         <n-form @submit.prevent="handleSubmit">
           <n-form-item>
@@ -263,6 +263,7 @@ const handleProceed = () => {
   width: 440px;
   margin: 0 auto;
   background-color: #ff625a9b;
+  border: 3px dashed var(--accent-color);
 }
 
 .input-item {

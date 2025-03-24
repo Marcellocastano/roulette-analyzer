@@ -3,7 +3,7 @@ const initialStatsService = require('./initial-stats.service');
 const { expandGroups } = require('../config/roulette.groups');
 const { SEQUENCES, ZONE_ZERO_NUMBERS, DIRECT_SEQUENCES } = require('../config/roulette.sequences');
 const { ROULETTE_WHEEL } = require('../config/roulette.numbers');
-const { SURPLUS_THRESHOLD, INCREASE_PERCENTAGE_THRESHOLD } = require('../config/roulette.thresholds');
+const { DOZEN_MAX_THRESHOLD, INCREASE_PERCENTAGE_THRESHOLD } = require('../config/roulette.thresholds');
 
 class PredictionService {
   constructor() {
@@ -96,7 +96,7 @@ class PredictionService {
     }
   
     // Se la dozzina più alta supera la soglia, la consideriamo in surplus
-    if (maxValue >= SURPLUS_THRESHOLD) {
+    if (maxValue >= DOZEN_MAX_THRESHOLD) {
       return maxDozen; // "first", "second" o "third"
     }
     // Altrimenti, nessuna dozzina è in surplus

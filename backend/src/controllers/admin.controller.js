@@ -49,6 +49,22 @@ class AdminController {
       next(error);
     }
   }
+
+  async updateUserStatus(req, res, next) {
+    try {
+      const { userId } = req.params;
+      const { status } = req.body;
+      
+      const user = await adminService.updateUserStatus(userId, status);
+      
+      res.status(200).json({
+        status: 'success',
+        data: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AdminController();

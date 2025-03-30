@@ -1,4 +1,22 @@
 <template>
+  <n-alert
+    v-if="paymentInstructions && paymentInstructions.status === 'pending'"
+    type="info"
+    :title="$t('pricing.subscription_request.title')"
+    style="margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;"
+  >
+    <template #icon>
+      <n-icon>
+        <InfoCircle />
+      </n-icon>
+    </template>
+    {{ $t('pricing.subscription_request.message') }}
+    <n-button text class="text-btn" @click="showSavedPaymentInstructions">
+      {{ $t('pricing.subscription_request.view_details') }}
+    </n-button>
+    <br />
+    <small>(Se hai già effettuato il pagamento, <strong>non annullare la richiesta</strong>)</small>
+  </n-alert>
   <div class="pricing-container">
     <n-card class="pricing-card">
       <template #header>
@@ -9,16 +27,57 @@
       </template>
 
       <div class="plans-container">
-        <n-card class="plan-card monthly">
+        <n-card v-if="!user?.isTrialUsed" class="plan-card monthly">
+          <div class="plan-header">
+            <n-h2>{{ $t('pricing.trial_plan.title') }}</n-h2>
+          </div>
+
+          <div class="price-container">
+            <div class="price">
+              <span class="amount">{{ $t('pricing.trial_plan.price') }}</span>
+            </div>
+          </div>
+
+          <div class="features">
+            <div class="feature-item">
+              <n-icon size="20" color="#ffbc00">
+                <Check />
+              </n-icon>
+              <span>{{ $t('pricing.trial_plan.features.0') }}</span>
+            </div>
+            <div class="feature-item">
+              <n-icon size="20" color="#ffbc00">
+                <Check />
+              </n-icon>
+              <span>{{ $t('pricing.trial_plan.features.1') }}</span>
+            </div>
+          </div>
+
+          <n-button
+            type="primary"
+            round
+            class="subscribe-button"
+            @click="activateTrial()"
+            :loading="isLoading"
+          >
+            {{ $t('pricing.trial_plan.button') }}
+          </n-button>
+        </n-card>
+        
+        <n-card 
+          v-for="plan in filteredPlans.filter(p => p.duration === 'monthly')" 
+          :key="plan._id" 
+          class="plan-card monthly"
+        >
           <div class="plan-header">
             <n-h2>{{ $t('pricing.monthly_plan.title') }}</n-h2>
           </div>
 
           <div class="price-container">
             <div class="price">
-              <span class="currency">€</span>
-              <span class="amount">{{ $t('pricing.monthly_plan.price') }}</span>
-              <span class="period">{{ $t('pricing.monthly_plan.period') }}</span>
+              <span class="currency">{{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}</span>
+              <span class="amount">{{ plan.price.amount }}</span>
+              <span class="period">{{ plan.duration === 'monthly' ? t('pricing.monthly_plan.period') : 'Monthly' }}</span>
             </div>
           </div>
 
@@ -41,29 +100,33 @@
             type="primary"
             round
             class="subscribe-button"
-            @click="requestSubscription('monthly')"
+            @click="requestSubscription(plan._id)"
+            :loading="isLoading"
           >
             {{ $t('pricing.monthly_plan.button') }}
           </n-button>
         </n-card>
 
-        <n-card class="plan-card annual">
+        <n-card 
+          v-for="plan in filteredPlans.filter(p => p.duration === 'annual')" 
+          :key="plan._id" 
+          class="plan-card annual"
+        >
           <div class="ribbon">
             <span>{{ $t('pricing.annual_plan.recommended') }}</span>
           </div>
           <div class="plan-header">
-            <n-h2>{{ $t('pricing.annual_plan.title') }}</n-h2>
-            <!-- <div class="badge best-value">Miglior Valore</div> -->
+            <n-h2>{{ t('pricing.annual_plan.title') }}</n-h2>
           </div>
 
           <div class="price-container">
             <div class="price">
-              <span class="currency">€</span>
-              <span class="amount">{{ $t('pricing.annual_plan.price') }}</span>
-              <span class="period">{{ $t('pricing.annual_plan.period') }}</span>
+              <span class="currency">{{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}</span>
+              <span class="amount">{{ plan.price.amount }}</span>
+              <span class="period">{{ plan.duration === 'annual' ? t('pricing.annual_plan.period') : 'Annual' }}</span>
             </div>
             <div class="original-price">
-              <span class="strikethrough">€{{ $t('pricing.annual_plan.original_price') }}</span>
+              <span class="strikethrough">€{{ plan.price.amount * 1.2 }}</span>
               <span class="discount">{{ $t('pricing.annual_plan.discount') }}</span>
             </div>
           </div>
@@ -99,7 +162,8 @@
             type="primary"
             round
             class="subscribe-button premium-button"
-            @click="requestSubscription('annual')"
+            @click="requestSubscription(plan._id)"
+            :loading="isLoading"
           >
             {{ $t('pricing.annual_plan.button') }}
           </n-button>
@@ -148,12 +212,14 @@
 <script setup lang="ts">
 import { NButton, NCard, NH1, NH2, NP, NIcon, NModal, NSpace, NText, NDivider, NAlert } from 'naive-ui'
 import { Check, InfoCircle } from '@vicons/tabler'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { h } from 'vue'
 import { useMessage } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { userApi } from '@/api/user'
-import type { UserSubscription } from '@/api/user'
+import { subscriptionApi, SubscriptionRequest } from '@/api/subscription'
+import { planApi, Plan } from '@/api/plan'
+import type { UserSubscription, UserProfile } from '@/api/user'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 
@@ -162,9 +228,14 @@ const message = useMessage()
 const router = useRouter()
 const isLoading = ref(false)
 const showPaymentModal = ref(false)
-const paymentInstructions = ref<UserSubscription | null>(null)
+const paymentInstructions = ref<SubscriptionRequest | null>(null)
 const amount = ref(0)
-const { userSubscription } = useAuthStore()
+const plans = ref<Plan[]>([])
+const { userSubscription, user } = useAuthStore()
+
+const filteredPlans = computed(() => {
+  return plans.value.filter((plan: Plan) => plan.isActive)
+})
 
 // Controlla se ci sono informazioni di pagamento salvate nel sessionStorage
 onMounted(() => {
@@ -172,15 +243,54 @@ onMounted(() => {
   if (savedPaymentInfo && (userSubscription?.status === 'pending' || userSubscription?.newRequest?.status === 'pending')) { 
     paymentInstructions.value = JSON.parse(savedPaymentInfo)
   }
+  getPlans()
+  getActiveRequest()
 })
 
-const requestSubscription = async (duration: string) => {
+const getPlans = async () => {
+  try {
+    const response = await planApi.getPlans()
+    plans.value = response.data.data
+  } catch (error) {
+    message.error(t('pricing.messages.error_retrieving_plans'))
+    console.error('Error during plan retrieval:', error)
+    return []
+  }
+}
+
+const getActiveRequest = async () => {
+  try {
+    const response = await subscriptionApi.getUserSubscriptionRequests()
+    paymentInstructions.value = response.data.data[0]
+  } catch (error) {
+    message.error(t('pricing.messages.error_retrieving_active_request'))
+    console.error('Error during active request retrieval:', error)
+    return null
+  }
+}
+
+const activateTrial = async () => {
   try {
     isLoading.value = true
-    amount.value = duration === 'monthly' ? 50 : 300
-    const response = await userApi.requestSubscription(duration)
-    paymentInstructions.value = response.data.data.subscription
-    sessionStorage.setItem('paymentInstructions', JSON.stringify(paymentInstructions.value))
+    await subscriptionApi.activateTrial()
+    message.success(t('pricing.messages.trial_activated'))
+  } catch (error) {
+    console.error('Error during trial activation:', error)
+    message.error(t('pricing.messages.trial_error'))
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const requestSubscription = async (planId: string) => {
+  if (paymentInstructions.value && paymentInstructions.value.status === 'pending') {
+    message.error('C\'è già una richiesta di abbonamento in attesa. Procedi al pagamento o annulla la richiesta prima di poter avviare una nuova richiesta.')
+    return
+  }
+  try {
+    isLoading.value = true
+    const response = await subscriptionApi.requestSubscription(planId)
+    paymentInstructions.value = response.data.data
     showPaymentModal.value = true
   } catch (error) {
     console.error('Error during subscription request:', error)
@@ -191,17 +301,9 @@ const requestSubscription = async (duration: string) => {
 }
 
 const onConfirmPayment = () => {
-  switch (amount.value) {
-    case 50:
-      window.open('https://pay.sumup.com/b2c/QPP2FGRH', '_blank')
-      break
-    case 300:
-      window.open('https://pay.sumup.com/b2c/QIIEJQIO', '_blank')
-      break
-    default:
-      break
+  if (paymentInstructions.value && paymentInstructions.value.paymentDetails && paymentInstructions.value.paymentDetails.paymentLink) {
+    window.open(paymentInstructions.value.paymentDetails.paymentLink, '_blank')
   }
-
   closeModal()
 }
 
@@ -220,10 +322,10 @@ const cancelSubscriptionRequest = async () => {
     isLoading.value = true
 
     // Chiamata API per annullare la richiesta di sottoscrizione
-    await userApi.cancelSubscriptionRequest()
+    await subscriptionApi.cancelSubscriptionRequest(paymentInstructions.value?._id || '')
 
     // Rimuovi le informazioni dal sessionStorage
-    sessionStorage.removeItem('paymentInstructions')
+    sessionStorage.removeItem('requestId')
     paymentInstructions.value = null
     showPaymentModal.value = false
 
@@ -277,7 +379,7 @@ const cancelSubscriptionRequest = async () => {
   max-width: 450px;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 0.2rem;
   border-radius: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: #2a2a2a;

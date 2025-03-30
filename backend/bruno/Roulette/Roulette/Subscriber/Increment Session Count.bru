@@ -1,0 +1,15 @@
+meta {
+  name: Increment Session Count
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:5001/api/v1/subscription/increment-session
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

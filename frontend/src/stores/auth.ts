@@ -4,6 +4,7 @@ import { authApi } from '@/api/auth'
 import { userApi } from '@/api/user'
 import router from '@/router'
 import type { User, LoginData, RegisterData } from '@/types/auth'
+import { subscriptionApi } from '@/api'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -16,8 +17,8 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthAdmin = computed(() => user.value?.role === 'admin')
   const userSubscription = computed(() => user.value?.subscription)
   const isPremiumUser = computed(() => {
-    if (!user.value?.subscription) return false
-    return user.value.subscription.plan === 'premium' && user.value.subscription.status === 'active'
+    if (!user.value?.activeSubscription) return false
+    return user.value.activeSubscription
   })
 
   // Actions
@@ -47,7 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const [profileResponse, subscriptionResponse] = await Promise.all([
         userApi.getProfile(),
-        userApi.getSubscription(),
+        subscriptionApi.getUserSubscription()
       ])
 
       // Estraiamo i dati dalla risposta
@@ -59,14 +60,10 @@ export const useAuthStore = defineStore('auth', () => {
         email: profileData.email,
         name: profileData.name,
         role: profileData.role,
-        subscription: {
-          status: subscriptionData.status,
-          plan: subscriptionData.plan,
-          duration: subscriptionData.duration,
-          startDate: subscriptionData.startDate,
-          endDate: subscriptionData.endDate,
-          newRequest: subscriptionData.newRequest
-        },
+        lastLogin: profileData.lastLogin,
+        activeSubscription: profileData.activeSubscription,
+        isTrialUsed: profileData.isTrialUsed,
+        subscription: subscriptionData
       }
 
       setUser(userData)
@@ -99,7 +96,10 @@ export const useAuthStore = defineStore('auth', () => {
         email: userData.email,
         name: userData.name,
         subscription: userData.subscription,
-        role: userData.role
+        role: userData.role,
+        lastLogin: userData.lastLogin,
+        activeSubscription: userData.activeSubscription,
+        isTrialUsed: userData.isTrialUsed
       })
       return true
     } catch (error) {

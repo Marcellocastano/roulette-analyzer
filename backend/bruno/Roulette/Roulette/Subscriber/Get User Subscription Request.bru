@@ -1,0 +1,15 @@
+meta {
+  name: Get User Subscription Request
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:5001/api/v1/subscription/requests
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

@@ -1,13 +1,27 @@
 export interface Subscription {
+  _id?: string
   plan: 'free' | 'premium'
   duration: 'monthly' | 'annual' | null
   startDate: string | null
   endDate: string | null
   status: 'unset' | 'active' | 'expired' | 'pending'
+  requestId?: string
   newRequest: {
+    _id?: string
     status: 'unset' | 'active' | 'expired' | 'pending'
     duration: 'monthly' | 'annual' | null
   } | null
+}
+
+export interface SubscriptionRequest {
+  _id: string
+  status: 'pending' | 'approved' | 'rejected' | 'cancelled'
+  type: 'new' | 'renewal' | 'upgrade'
+  requestDate: string
+  processedDate?: string
+  plan: string
+  duration: 'monthly' | 'annual' | null
+  resultingSubscription?: string | null
 }
 
 export interface User {
@@ -15,10 +29,12 @@ export interface User {
   email: string
   name: string
   subscription: Subscription
+  activeSubscription: string | null
   role: 'admin' | 'user'
-  // createdAt: string
-  // updatedAt: string
-  // lastLogin: string
+  lastLogin: string
+  isTrialUsed: boolean
+  pendingRequest?: SubscriptionRequest
+  approvedRequest?: SubscriptionRequest
 }
 
 export interface LoginData {

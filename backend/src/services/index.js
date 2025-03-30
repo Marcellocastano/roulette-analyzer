@@ -4,6 +4,10 @@ const UserService = require('./user.service');
 const InitialStatsService = require('./initial-stats.service');
 const AdminService = require('./admin.service');
 const ContactService = require('./contact.service');
+const SubscriptionService = require('./subscription.service');
+const PredictionService = require('./prediction.service');
+const EmailService = require('./email.service');
+const PlanService = require('./plan.service');
 
 module.exports = {
     AuthService,
@@ -11,5 +15,9 @@ module.exports = {
     UserService,
     InitialStatsService,
     AdminService,
-    ContactService
+    ContactService,
+    SubscriptionService,
+    PredictionService,
+    EmailService,
+    PlanService
 };

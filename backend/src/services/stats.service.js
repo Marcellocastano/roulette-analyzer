@@ -1,6 +1,6 @@
 const predictionService = require('./prediction.service');
 const { AppError } = require('../middlewares/errorHandler');
-const { statisticsRepository, userRepository } = require('../repositories');
+const { statisticsRepository, userRepository, subscriptionRepository } = require('../repositories');
 const Statistics = require('../models/statistics.model');
 const InitialStats = require('../models/initial-stats.model');
 
@@ -8,6 +8,7 @@ class StatsService {
   constructor() {
     this.repository = statisticsRepository;
     this.userRepository = userRepository;
+    this.subscriptionRepository = subscriptionRepository;
     this.predictionService = predictionService;
   }
 
@@ -39,6 +40,26 @@ class StatsService {
       const user = await this.userRepository.findById(userId);
       if (!user) {
         throw new AppError('User not found', 404);
+      }
+
+      // Verifica se l'utente ha un abbonamento attivo
+      if (!user.activeSubscription) {
+        throw new AppError('Non hai un abbonamento attivo', 403);
+      }
+
+      const stats = await Statistics.findOne({ user: userId });
+      const isFirstSpin = !stats || stats.spinHistory.length === 0;
+
+      if (isFirstSpin) {
+        // Verifica se l'utente ha raggiunto il limite di sessioni
+        const sessionCheck = await this.subscriptionRepository.checkSessionLimit(user.activeSubscription);
+        console.log('sessionCheck', sessionCheck);
+        if (!sessionCheck.allowed) {
+          throw new AppError(`Hai raggiunto il limite di sessioni per il tuo piano (${sessionCheck.count}/${sessionCheck.limit}). Aggiorna il tuo piano per continuare.`, 403);
+        }
+        
+        // Se non ha raggiunto il limite, incrementa il contatore
+        await this.subscriptionRepository.incrementSessionCount(user.activeSubscription);
       }
 
       await this.repository.updateWithNewSpin(userId, { number });
@@ -89,6 +110,18 @@ class StatsService {
       throw error;
     }
     return await this.predictionService.getPredictions(userId);
+  }
+
+  async getStats(userId) {
+    try {
+      const stats = await this.repository.findByUserId(userId);
+      if (!stats) {
+        throw new AppError('Statistics not found', 404);
+      }
+      return stats;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

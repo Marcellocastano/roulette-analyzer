@@ -6,8 +6,11 @@ const userRoutes = require('./user.routes');
 const initialStatsRoutes = require('./initial-stats.routes');
 const adminRoutes = require('./admin.routes');
 const contactRoutes = require('./contact.routes');
+const subscriptionRoutes = require('./subscription.routes');
+const adminSubscriptionRoutes = require('./admin-subscription.routes');
 const { errorHandler } = require('../middlewares/errorHandler');
 const isAdmin = require('../middlewares/admin.middleware');
+const plansRoutes = require('./plans.routes');
 
 const router = express.Router();
 
@@ -25,8 +28,11 @@ router.use('/auth', authRoutes);
 router.use('/initial-stats', initialStatsRoutes);
 router.use('/stats', statsRoutes);
 router.use('/users', userRoutes);
+router.use('/admin/subscription', isAdmin, adminSubscriptionRoutes);
 router.use('/admin', isAdmin, adminRoutes);
 router.use('/contact', contactRoutes);
+router.use('/subscription', subscriptionRoutes);
+router.use('/plans', plansRoutes);
 
 // Error handling
 router.use(errorHandler);

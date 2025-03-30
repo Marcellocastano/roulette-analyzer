@@ -31,44 +31,14 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user'
   },
-  subscription: {
-    plan: {
-      type: String,
-      enum: ['free', 'premium'],
-      default: 'free'
-    },
-    duration: {
-      type: String,
-      enum: ['monthly', 'annual'],
-      default: null
-    },
-    startDate: {
-      type: Date,
-      default: null
-    },
-    endDate: {
-      type: Date,
-      default: null
-    },
-    status: {
-      type: String,
-      enum: ['unset', 'active', 'expired', 'pending'],
-      default: 'unset'
-    },
-    newRequest: {
-      default: null,
-      type: Object,
-      duration: {
-        type: String,
-        enum: ['monthly', 'annual'],
-        default: null
-      },
-      status: {
-        type: String,
-        enum: ['unset', 'active', 'pending'],
-        default: 'unset'
-      }
-    }
+  isTrialUsed: {
+    type: Boolean,
+    default: false
+  },
+  activeSubscription: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Subscription',
+    default: null
   },
   lastLogin: Date,
   passwordResetToken: String,

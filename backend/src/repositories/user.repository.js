@@ -1,13 +1,21 @@
 const BaseRepository = require('./base.repository');
 const { User } = require('../models');
+const subscriptionRepository = require('./subscription.repository');
+const planRepository = require('./plan.repository');
 
 class UserRepository extends BaseRepository {
   constructor() {
     super(User);
+    this.subscriptionRepository = subscriptionRepository;
+    this.planRepository = planRepository;
   }
 
   async findByEmail(email) {
     return await this.findOne({ email });
+  }
+  
+  async findById(userId) {
+    return await this.findOne({ _id: userId });
   }
 
   async findByEmailWithPassword(email) {
@@ -49,6 +57,13 @@ class UserRepository extends BaseRepository {
     );
   }
 
+  async updateTrialStatus(userId) {
+    return await this.findOneAndUpdate(
+      { _id: userId },
+      { $set: { isTrialUsed: true } }
+    );
+  }
+
   async findByResetToken(token) {
     return await this.findOne({
       passwordResetToken: token,
@@ -67,6 +82,16 @@ class UserRepository extends BaseRepository {
         }
       }
     );
+  }
+
+  async getDailySessionCount(userId) {
+    const user = await this.findById(userId);
+    if (!user) return 0;
+
+    const subscription = await this.subscriptionRepository.findById(user.activeSubscription);
+    if (!subscription) return 0;
+
+    return subscription.sessions?.count || 0;
   }
 }
 

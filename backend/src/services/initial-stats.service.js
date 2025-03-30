@@ -1,5 +1,7 @@
 const InitialStats = require("../models/initial-stats.model");
+const UserModel = require("../models/user.model");
 const Statistics = require("../models/statistics.model");
+const { AppError } = require('../middlewares/errorHandler');
 const {
   DOZEN_MIN_THRESHOLD,
   DOZEN_MAX_THRESHOLD,
@@ -19,6 +21,8 @@ const ReasonCode = {
 class InitialStatsService {
   constructor() {
     this._startInactiveCheck();
+    this._startSubscriptionExpirationCheck();
+    this._startDailySessionReset();
   }
 
   _startInactiveCheck() {
@@ -31,22 +35,103 @@ class InitialStatsService {
     }, 60000);
   }
 
+  async _startDailySessionReset() {
+    // Calcola il tempo fino alla prossima mezzanotte
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const timeToMidnight = tomorrow - now;
+
+    // Esegui subito per resettare i contatori di sessione per gli utenti che non sono stati resettati oggi
+    this._resetDailySessions();
+
+    // Imposta un timeout per eseguire il reset a mezzanotte
+    setTimeout(() => {
+      this._resetDailySessions();
+      
+      // Imposta un intervallo per eseguire il reset ogni 24 ore
+      setInterval(() => {
+        this._resetDailySessions();
+      }, 24 * 60 * 60 * 1000);
+    }, timeToMidnight);
+  }
+
+  async _resetDailySessions() {
+    const now = new Date();
+    
+    try {
+      // Resetta il contatore delle sessioni giornaliere per tutti gli utenti
+      await UserModel.updateMany(
+        {
+          "sessions.lastReset": { $lt: new Date(now.setHours(0, 0, 0, 0)) }
+        },
+        {
+          $set: {
+            "sessions.count": 0,
+            "sessions.lastReset": now
+          }
+        }
+      );
+      console.log('Daily session counts reset successfully');
+    } catch (error) {
+      console.error('Error resetting daily session counts:', error);
+    }
+  }
+
+  _startSubscriptionExpirationCheck() {
+    setInterval(async () => {
+      const now = new Date();
+
+      // Verifica e aggiorna gli abbonamenti scaduti
+      await UserModel.updateMany(
+        {
+          "subscription.endDate": { $lte: now },
+          "subscription.status": { $ne: "expired" },
+        },
+        {
+          $set: {
+            "subscription.status": "expired",
+            "subscription.plan": "free",
+          },
+        }
+      );
+
+      // // Opzionale: genera notifiche o eventi per abbonamenti appena scaduti
+      // const justExpiredSubs = await SubscriptionModel.find({
+      //   expiryDate: { $lte: now, $gte: new Date(Date.now() - 60 * 60 * 1000) },
+      //   active: "expired",
+      // });
+
+      // // Gestisci notifiche per gli abbonamenti appena scaduti
+      // for (const sub of justExpiredSubs) {
+      //   await NotificationService.sendExpiredNotification(sub.userId);
+      // }
+    }, 3600000);
+  }
+
   async addInitialStats(userId, stats) {
     try {
-      // Cancella tutte le statistiche associate
+      const subscriptionRepository = require('../repositories/subscription.repository');
+      const user = await UserModel.findById(userId);
+      if (!user.activeSubscription) {
+        throw new AppError('Non hai un abbonamento attivo', 403);
+      }
+      const sessionCheck = await subscriptionRepository.checkSessionLimit(user.activeSubscription);
+      if (!sessionCheck.allowed) {
+        throw new AppError(sessionCheck.message, 400);
+      }
+      
       await InitialStats.deleteMany({ userId });
       await Statistics.deleteOne({ user: userId });
 
-      // Verifica che i dati necessari siano presenti
       if (!stats.stats50 || !stats.stats500) {
         throw new Error("Mancano le statistiche a 50 o 500 spin");
       }
 
-      // Analizza le condizioni del tavolo e i numeri vicini allo zero
       const analysis = this._analyzeTableConditions(stats);
       const zeroZoneNumbers = this._analyzeZeroZoneNumbers(stats);
 
-      // 1. Salva nelle statistiche iniziali
       const initialStats = new InitialStats({
         userId,
         stats50: {
@@ -261,7 +346,6 @@ class InitialStatsService {
     const isZeroNumbersConditionMet =
       numbersWithHighIncrease.length >= 2 &&
       numbersWithHighIncrease.length <= 4;
-    console.log('numbersWithHighIncrease', numbersWithHighIncrease, isZeroNumbersConditionMet)
     return {
       numbersWithHighIncrease,
       isZeroNumbersConditionMet,
@@ -307,9 +391,9 @@ class InitialStatsService {
     // Controlla le condizioni per lo status "borderline"
     else if (
       // Caso 1: Una condizione al limite e numeri della zona zero in crescita
-      ((minDozens.percentage <= DOZEN_MIN_THRESHOLD ||
+      (minDozens.percentage <= DOZEN_MIN_THRESHOLD ||
         zeroNeighborsAvg <= ZERO_ZONE_THRESHOLD) &&
-        isZeroNumbersConditionMet)
+      isZeroNumbersConditionMet
       // Caso 2: Entrambe le condizioni soddisfatte (dozzina e zona zero)
       // (isMinDozenConditionMet && isZeroZoneConditionMet)
     ) {

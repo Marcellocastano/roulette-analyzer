@@ -1,0 +1,15 @@
+meta {
+  name: Get Session Limit
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:5001/api/v1/subscription/session-limit
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

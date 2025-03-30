@@ -12,6 +12,7 @@ router.use(authenticateToken);
 router.get('/profile', userController.getProfile);
 router.put('/profile', userController.updateProfile);
 router.get('/subscription', userController.getSubscription);
+router.post('/subscription/trial', userController.activateTrial);
 router.post('/change-password', userController.changePassword);
 router.post('/subscription/request', userController.requestSubscription);
 router.post('/subscription/cancel', userController.cancelSubscriptionRequest);

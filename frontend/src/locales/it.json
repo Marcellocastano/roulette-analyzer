@@ -352,7 +352,8 @@
       "spin_delete_error": "Errore durante l'eliminazione dello spin",
       "stats_update_error": "Errore durante l'aggiornamento delle statistiche",
       "stats_reset_error": "Si è verificato un errore durante il reset delle statistiche",
-      "session_restore_error": "Errore nel ripristino della sessione"
+      "session_restore_error": "Errore nel ripristino della sessione",
+      "session_limit_reached": "Hai raggiunto il limite di sessioni giornaliere per il tuo piano ({limit})"
     }
   },
   "pricing": {
@@ -363,13 +364,19 @@
     },
     "header": {
       "title": "Scegli il tuo Abbonamento",
-      "subtitle": "Accedi a tutte le funzionalità premium di Roulette Destroyer"
+      "subtitle": "Accedi a tutte le funzionalità premium di Roulette Pro AI"
+    },
+    "trial_plan": {
+      "title": "Piano di prova",
+      "price": "Gratis",
+      "features": ["3 giorni di prova", "5 sessioni al giorno"],
+      "button": "Prova gratis"
     },
     "monthly_plan": {
       "title": "Piano Mensile",
       "price": "50",
       "period": "/mese",
-      "features": ["Accesso completo alle statistiche", "Predizioni illimitate"],
+      "features": ["Accesso completo alle statistiche", "7 sessioni al giorno"],
       "button": "Acquista"
     },
     "annual_plan": {
@@ -409,6 +416,7 @@
     "none": "Nessuno",
     "reasons": {
       "DOZEN_SUFFERING": "Dozzina in forte sofferenza",
+      "DOZEN_MIN_THRESHOLD": "Dozzina al limite minimo",
       "ZERO_ZONE_SUFFERING": "Zona zero in sofferenza",
       "BALANCED_DISTRIBUTION": "Distribuzione bilanciata dei numeri",
       "INCREASING_NUMBERS": "Numeri in crescita nella zona zero",

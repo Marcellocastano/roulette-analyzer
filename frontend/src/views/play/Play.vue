@@ -106,22 +106,44 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
     if (response.status === 'success' && response.data) {
       statsAnalysis.value = response.data
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Errore durante l'aggiornamento delle statistiche:", error)
-    message.error(t('play.messages.stats_update_error'))
+    
+    // Verifica se l'errore contiene il formato "limit-X"
+    let errorMessage = t('play.messages.stats_update_error')
+    
+    // Verifica se l'errore è un errore di Axios con una risposta
+    const axiosError = error as { response?: { data?: { message?: string } } }
+    if (axiosError.response?.data?.message) {
+      const errorMsg = axiosError.response.data.message
+      if (errorMsg.startsWith('limit-')) {
+        const limit = errorMsg.split('-')[1]
+        errorMessage = t('play.messages.session_limit_reached', { limit })
+      }
+    }
+    
+    message.error(errorMessage)
   }
 }
 
 const handleReset = async () => {
   try {
     await statsApi.resetSession()
-    statsAnalysis.value = null // Reset dello stato locale
-    step.value = 1
+    resetSession()
     message.success(t('play.messages.stats_reset'))
   } catch (error) {
     console.error('Errore durante il reset delle statistiche:', error)
     message.error(t('play.messages.stats_reset_error'))
   }
+}
+
+const resetSession = async () => {
+  primaryPredictedNumbers.value = []
+  secondaryPredictedNumbers.value = []
+  specialPredictedNumbers.value = []
+  spins.value = []
+  statsAnalysis.value = null // Reset dello stato locale
+  step.value = 1
 }
 
 const handleNumberSelection = async (number: number) => {

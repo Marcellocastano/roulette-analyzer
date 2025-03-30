@@ -7,7 +7,9 @@ export interface UserProfile {
   email: string
   name: string
   role: 'admin' | 'user'
-  lastLogin?: string
+  lastLogin: string
+  isTrialUsed: boolean
+  activeSubscription: string | null
   preferences?: Record<string, any>
   subscription?: UserSubscription
 }
@@ -59,4 +61,8 @@ export const userApi = {
   cancelSubscriptionRequest: () => {
     return apiClient.post<ApiResponse<{ message: string }>>('/users/subscription/cancel')
   },
+  // Attiva un abbonamento di prova
+  activateTrial: () => {
+    return apiClient.post<ApiResponse<{ message: string }>>('/users/subscription/trial')
+  }
 }

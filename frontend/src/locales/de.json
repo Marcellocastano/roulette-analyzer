@@ -352,7 +352,8 @@
       "spin_delete_error": "Fehler beim Löschen des Spins",
       "stats_update_error": "Fehler bei der Aktualisierung der Statistiken",
       "stats_reset_error": "Fehler beim Zurücksetzen der Statistiken aufgetreten",
-      "session_restore_error": "Fehler bei der Wiederherstellung der Sitzung"
+      "session_restore_error": "Fehler bei der Wiederherstellung der Sitzung",
+      "session_limit_reached": "Sie haben den täglichen Sitzungslimit für Ihr Abonnement erreicht ({limit})"
     }
   },
   "pricing": {
@@ -363,13 +364,19 @@
     },
     "header": {
       "title": "Wählen Sie Ihr Abonnement",
-      "subtitle": "Zugriff auf alle Premium-Funktionen von Roulette Destroyer"
+      "subtitle": "Zugriff auf alle Premium-Funktionen von Roulette Pro AI"
+    },
+    "trial_plan": {
+      "title": "Testplan",
+      "price": "Frei",
+      "features": ["3 Tage Testversion", "5 Sitzungen pro Tag"],
+      "button": "Kostenlos testen"
     },
     "monthly_plan": {
       "title": "Monatsplan",
       "price": "50",
       "period": "/Monat",
-      "features": ["Vollständiger Zugriff auf Statistiken", "Unbegrenzte Vorhersagen"],
+      "features": ["Vollständiger Zugriff auf Statistiken", "7 Sitzungen pro Tag"],
       "button": "Kaufen"
     },
     "annual_plan": {
@@ -409,6 +416,7 @@
     "none": "Keine",
     "reasons": {
       "DOZEN_SUFFERING": "Dutzend in starkem Leid",
+      "DOZEN_MIN_THRESHOLD": "Dutzend am Minimumscherz",
       "ZERO_ZONE_SUFFERING": "Null-Zone in Leid",
       "BALANCED_DISTRIBUTION": "Ausgewogene Zahlenverteilung",
       "INCREASING_NUMBERS": "Wachsende Zahlen in der Null-Zone",

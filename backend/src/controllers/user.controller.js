@@ -102,6 +102,22 @@ class UserController {
     }
   };
 
+  activateTrial = async (req, res, next) => {
+    try {
+      const result = await this.userService.activateTrial(req.user.id);
+      
+      res.status(200).json({
+        status: 'success',
+        message: 'Abbonamento di prova attivato con successo',
+        data: {
+          subscription: result
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   cancelSubscriptionRequest = async (req, res, next) => {
     try {
       const result = await this.userService.cancelSubscriptionRequest(req.user.id);

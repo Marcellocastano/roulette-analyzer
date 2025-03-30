@@ -1,23 +1,24 @@
 const { AppError } = require('../middlewares/errorHandler');
 const { userRepository } = require('../repositories');
+const bcrypt = require('bcryptjs');
+const SubscriptionService = require('./subscription.service');
 
 class UserService {
+  constructor() {
+    this.subscriptionService = new SubscriptionService();
+  }
+
   async getProfile(userId) {
     try {
       const user = await userRepository.findById(userId);
       if (!user) {
         throw new AppError('User not found', 404);
       }
-
-      return {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        subscription: user.subscription,
-        lastLogin: user.lastLogin,
-        newRequest: user.newRequest,
-      };
+      
+      // Rimuovi campi sensibili
+      const { password, refreshToken, ...userProfile } = user.toObject();
+      
+      return userProfile;
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Error fetching user profile', 500);
@@ -26,28 +27,29 @@ class UserService {
 
   async updateProfile(userId, updateData) {
     try {
-      // Rimuovi la password dai dati di aggiornamento se presente
-      const safeUpdateData = { ...updateData };
-      if ('password' in safeUpdateData) {
-        delete safeUpdateData.password;
-      }
-
-      const updatedUser = await userRepository.findOneAndUpdate(
-        { _id: userId },
-        { $set: safeUpdateData },
-        { new: true }
-      );
-
-      if (!updatedUser) {
+      // Verifica che l'utente esista
+      const user = await userRepository.findById(userId);
+      if (!user) {
         throw new AppError('User not found', 404);
       }
 
-      return {
-        id: updatedUser._id,
-        email: updatedUser.email,
-        name: updatedUser.name,
-        subscription: updatedUser.subscription
-      };
+      // Filtra i campi che possono essere aggiornati
+      const allowedUpdates = ['name'];
+      const updates = {};
+      
+      for (const key of allowedUpdates) {
+        if (updateData[key] !== undefined) {
+          updates[key] = updateData[key];
+        }
+      }
+
+      // Aggiorna il profilo
+      const updatedUser = await userRepository.findOneAndUpdate(
+        { _id: userId },
+        { $set: updates }
+      );
+
+      return updatedUser;
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Error updating user profile', 500);
@@ -55,146 +57,48 @@ class UserService {
   }
 
   async getSubscription(userId) {
-    try {
-      const user = await userRepository.findById(userId);
-      if (!user) {
-        throw new AppError('User not found', 404);
-      }
-
-      return user.subscription;
-    } catch (error) {
-      if (error instanceof AppError) throw error;
-      throw new AppError('Error fetching subscription details', 500);
-    }
+    // Questa funzione ora delega al servizio di sottoscrizione
+    return await this.subscriptionService.getUserSubscription(userId);
   }
 
   async changePassword(userId, oldPassword, newPassword) {
     try {
-      // Ottieni l'utente con la password (normalmente è esclusa dalle query)
-      const user = await userRepository.model.findById(userId).select('+password');
-      
+      // Verifica che l'utente esista
+      const user = await userRepository.findById(userId);
       if (!user) {
         throw new AppError('Utente non trovato', 404);
       }
 
-      // Verifica che la vecchia password sia corretta
-      const isPasswordCorrect = await user.verifyPassword(oldPassword);
+      // Carica la password attuale
+      const userWithPassword = await userRepository.model.findById(userId).select('+password');
       
-      if (!isPasswordCorrect) {
-        throw new AppError('Password attuale non corretta', 401);
+      // Verifica che la vecchia password sia corretta
+      const isMatch = await bcrypt.compare(oldPassword, userWithPassword.password);
+      if (!isMatch) {
+        throw new AppError('La password attuale non è corretta', 400);
       }
 
-      // Aggiorna la password
-      user.password = newPassword;
-      await user.save(); // Usa save() per attivare il middleware di hashing della password
+      // Hash della nuova password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-      return {
-        message: 'Password aggiornata con successo'
-      };
+      // Aggiorna la password
+      await userRepository.updatePassword(userId, hashedPassword);
+      
+      return { success: true, message: 'Password aggiornata con successo' };
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Errore durante l\'aggiornamento della password', 500);
     }
   }
 
-  async requestSubscription(userId, duration) {
+  async updateLastLogin(userId) {
     try {
-      const user = await userRepository.findById(userId);
-      if (!user) {
-        throw new AppError('Utente non trovato', 404);
-      }
-  
-      let subscriptionData = {};
-  
-      if (user.subscription.plan === 'free') {
-        // Caso piano free
-        const now = new Date();
-        let endDate;
-        
-        if (duration === 'monthly') {
-          endDate = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
-        } else if (duration === 'annual') {
-          endDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
-        } else {
-          throw new AppError('Durata non valida', 400);
-        }
-  
-        subscriptionData = {
-          duration: duration,
-          startDate: now,
-          endDate: endDate,
-          status: 'pending'
-        };
-      } else if (user.subscription.plan === 'premium' && user.subscription.status === 'active') {
-        // Caso piano premium attivo
-        subscriptionData = {
-          newRequest: {
-            duration: duration,
-            status: 'pending'
-          }
-        };
-      } else {
-        throw new AppError('Impossibile processare la richiesta di sottoscrizione', 400);
-      }
-  
-      const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
-      return updatedUser.subscription;
+      await userRepository.updateLastLogin(userId);
+      return true;
     } catch (error) {
-      if (error instanceof AppError) throw error;
-      throw new AppError('Errore durante l\'elaborazione della richiesta di sottoscrizione', 500);
-    }
-  }
-
-  async cancelSubscriptionRequest(userId) {
-    try {
-      const user = await userRepository.findById(userId);
-      if (!user) {
-        throw new AppError('Utente non trovato', 404);
-      }
-
-      // Verifica che ci sia una richiesta di abbonamento in corso
-      if (!user.subscription) {
-        throw new AppError('Nessuna richiesta di abbonamento in corso', 400);
-      }
-
-      let subscriptionData = {};
-
-      // Caso 1: L'utente ha un piano free e ha richiesto un upgrade (status pending)
-      if (user.subscription.plan === 'free' && user.subscription.status === 'pending') {
-        subscriptionData = {
-          plan: 'free',
-          duration: null,
-          startDate: null,
-          endDate: null,
-          status: 'unset'
-        };
-      } 
-      // Caso 2: L'utente ha un piano premium attivo e ha richiesto un cambio (newRequest.status pending)
-      else if (user.subscription.plan === 'premium' && 
-               user.subscription.status === 'active' && 
-               user.subscription.newRequest && 
-               user.subscription.newRequest.status === 'pending') {
-        
-        // Resetta solo la nuova richiesta, mantenendo l'abbonamento attivo
-        subscriptionData = {
-          newRequest: {
-            duration: null,
-            status: 'unset'
-          }
-        };
-      } 
-      // Nessuna richiesta di abbonamento in corso
-      else {
-        throw new AppError('Nessuna richiesta di abbonamento in corso', 400);
-      }
-
-      // Aggiorna l'abbonamento
-      const updatedUser = await userRepository.updateSubscription(userId, subscriptionData);
-
-      return updatedUser.subscription;
-    } catch (error) {
-      if (error instanceof AppError) throw error;
-      throw new AppError('Errore durante l\'annullamento della richiesta di sottoscrizione', 500);
+      console.error('Errore durante l\'aggiornamento dell\'ultimo accesso:', error);
+      return false;
     }
   }
 }

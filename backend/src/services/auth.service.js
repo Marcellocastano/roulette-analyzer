@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { AppError } = require('../middlewares/errorHandler');
-const { userRepository } = require('../repositories');
+const { userRepository, planRepository } = require('../repositories');
 const emailService = require('./email.service');
 
 class AuthService {
@@ -14,26 +14,27 @@ class AuthService {
         throw new AppError('Email already in use', 400);
       }
 
+      // Trova il piano gratuito
+      const freePlan = await planRepository.findByType('free');
+      if (!freePlan) {
+        throw new AppError('Free plan not found', 500);
+      }
+
       // Crea il nuovo utente
       const user = await userRepository.create({
         email,
         password,
         name,
-        subscription: {
-          plan: 'free',
-          features: {
-            maxSpins: 50,
-            predictions: false,
-            advancedStats: false
-          }
-        }
+        isTrialUsed: false,
+        activeSubscription: null
       });
 
       return {
         id: user._id,
         email: user.email,
         name: user.name,
-        subscription: user.subscription
+        activeSubscription: user.activeSubscription,
+        isTrialUsed: user.isTrialUsed
       };
     } catch (error) {
       if (error instanceof AppError) throw error;
@@ -69,7 +70,8 @@ class AuthService {
           id: user._id,
           email: user.email,
           name: user.name,
-          subscription: user.subscription
+          activeSubscription: user.activeSubscription,
+          isTrialUsed: user.isTrialUsed
         }
       };
     } catch (error) {
@@ -189,19 +191,21 @@ class AuthService {
   }
 
   generateAccessToken(user) {
+    console.log('userrrrr', user)
     return jwt.sign(
       { 
         id: user._id,
         email: user.email,
         role: user.role,
-        subscription: {
-          plan: user.subscription.plan,
-          features: user.subscription.features,
-          status: user.subscription.status,
-          duration: user.subscription.duration,
-          startDate: user.subscription.startDate,
-          endDate: user.subscription.endDate
-        }
+        activeSubscription: user.activeSubscription,
+        // subscription: {
+        //   plan: user.subscription.plan,
+        //   features: user.subscription.features,
+        //   status: user.subscription.status,
+        //   duration: user.subscription.duration,
+        //   startDate: user.subscription.startDate,
+        //   endDate: user.subscription.endDate
+        // }
       },
       process.env.JWT_SECRET,
       { expiresIn: '12h' }

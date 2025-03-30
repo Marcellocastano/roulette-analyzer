@@ -1,0 +1,19 @@
+meta {
+  name: Delete Request by Id
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:5001/api/v1/subscription/request/:requestId
+  body: json
+  auth: bearer
+}
+
+params:path {
+  requestId: 
+}
+
+auth:bearer {
+  token: {{token}}
+}

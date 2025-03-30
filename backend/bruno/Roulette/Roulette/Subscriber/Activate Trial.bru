@@ -1,0 +1,15 @@
+meta {
+  name: Activate Trial
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:5001/api/v1/subscription/trial
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

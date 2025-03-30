@@ -1,9 +1,10 @@
 <template>
   <n-h1 class="mb-8 text-center">{{ $t('initial_stats.title') }}</n-h1>
+  
   <div class="initial-stats">
     <Card :title="$t('initial_stats.stats_50_spin')" class="statistics-card text-center">
       <template #content>
-        <n-form @submit.prevent="handleSubmit">
+        <n-form>
           <n-form-item>
             <div class="stats-container">
               <div class="stats-input">
@@ -47,7 +48,7 @@
     </Card>
     <Card :title="$t('initial_stats.stats_500_spin')" class="statistics-card text-center">
       <template #content>
-        <n-form @submit.prevent="handleSubmit">
+        <n-form>
           <n-form-item>
             <div class="stats-container">
               <div class="stats-input">
@@ -223,11 +224,6 @@ const update50Statistics = (numbers: InitialStats.Numbers) => {
 // Aggiorna i numeri nei dati delle statistiche per 500 spin
 const update500Statistics = (numbers: InitialStats.Numbers) => {
   stats500.value.numbers = numbers
-}
-
-const handleSubmit = () => {
-  console.log('Statistiche per 50 spin:', stats50.value)
-  console.log('Statistiche per 500 spin:', stats500.value)
 }
 
 // Handler per inviare i dati al server

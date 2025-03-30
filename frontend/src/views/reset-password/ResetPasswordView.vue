@@ -46,7 +46,9 @@
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button class="text-blue-900" text @click="router.push('/login')">{{ $t('reset_password.back_to_login') }}</n-button>
+        <n-button class="text-blue-900" text @click="router.push('/login')">
+          {{ $t('reset_password.back_to_login') }}
+        </n-button>
       </div>
     </n-form>
   </AuthLayout>
@@ -85,7 +87,7 @@ const formValue = ref<FormValue>({
 onMounted(() => {
   // Ottieni il token dall'URL
   token.value = route.params.token as string
-  
+
   if (!token.value) {
     message.error(t('reset_password.messages.invalid_token'))
     router.push('/login')
@@ -128,11 +130,11 @@ const handleSubmit = async () => {
   try {
     await formRef.value?.validate()
     loading.value = true
-    
+
     await authApi.resetPassword(token.value, {
       password: formValue.value.password
     })
-    
+
     message.success(t('reset_password.messages.success'))
     // Reindirizza alla pagina di login dopo un breve ritardo
     setTimeout(() => {

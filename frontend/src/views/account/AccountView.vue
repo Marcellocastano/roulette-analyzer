@@ -10,17 +10,27 @@
         <n-tab-pane name="profile" :tab="$t('account.tabs.profile')">
           <n-form ref="profileFormRef" :model="profileForm" :rules="profileRules">
             <n-form-item path="name" :label="$t('account.profile.name')">
-              <n-input v-model:value="profileForm.name" size="large" round :placeholder="$t('account.profile.name_placeholder')" />
+              <n-input
+                v-model:value="profileForm.name"
+                size="large"
+                round
+                :placeholder="$t('account.profile.name_placeholder')"
+              />
             </n-form-item>
-            
+
             <div class="submit-container">
-              <n-button :loading="profileLoading" type="primary" @click="handleProfileSubmit" class="bg-accent-dark">
+              <n-button
+                :loading="profileLoading"
+                type="primary"
+                @click="handleProfileSubmit"
+                class="bg-accent-dark"
+              >
                 {{ $t('account.profile.update_button') }}
               </n-button>
             </div>
           </n-form>
         </n-tab-pane>
-        
+
         <n-tab-pane name="subscription" :tab="$t('account.tabs.subscription')">
           <div class="subscription-container">
             <n-h3>{{ $t('account.subscription.title') }}</n-h3>
@@ -33,9 +43,11 @@
                   </div>
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.plan') }}:</div>
-                    <div class="item-value">{{ userSubscription.plan ? userSubscription.plan.toUpperCase() : '-' }}</div>
+                    <div class="item-value">
+                      {{ userSubscription.plan ? userSubscription.plan.toUpperCase() : '-' }}
+                    </div>
                   </div>
-                  
+
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.status') }}:</div>
                     <div class="item-value">
@@ -44,20 +56,22 @@
                       </n-tag>
                     </div>
                   </div>
-                  
+
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.start_date') }}:</div>
                     <div class="item-value">{{ formatDate(userSubscription.startDate || '') }}</div>
                   </div>
-                  
+
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.end_date') }}:</div>
                     <div class="item-value">{{ formatDate(userSubscription.endDate || '') }}</div>
                   </div>
-                  
+
                   <div class="subscription-item">
                     <div class="item-label">{{ $t('account.subscription.duration') }}:</div>
-                    <div class="item-value">{{ getDurationText(userSubscription.duration || '') }}</div>
+                    <div class="item-value">
+                      {{ getDurationText(userSubscription.duration || '') }}
+                    </div>
                   </div>
                 </div>
               </n-card>
@@ -70,7 +84,7 @@
             </div>
           </div>
         </n-tab-pane>
-        
+
         <n-tab-pane name="password" :tab="$t('account.tabs.change_password')">
           <n-form ref="passwordFormRef" :model="passwordForm" :rules="passwordRules">
             <n-form-item path="oldPassword" :label="$t('account.password.current')">
@@ -90,7 +104,7 @@
                 </template>
               </n-input>
             </n-form-item>
-            
+
             <n-form-item path="newPassword" :label="$t('account.password.new')">
               <n-input
                 v-model:value="passwordForm.newPassword"
@@ -108,7 +122,7 @@
                 </template>
               </n-input>
             </n-form-item>
-            
+
             <n-form-item path="confirmPassword" :label="$t('account.password.confirm')">
               <n-input
                 v-model:value="passwordForm.confirmPassword"
@@ -126,9 +140,14 @@
                 </template>
               </n-input>
             </n-form-item>
-            
+
             <div class="submit-container">
-              <n-button :loading="passwordLoading" type="primary" @click="handlePasswordSubmit" class="bg-accent-dark">
+              <n-button
+                :loading="passwordLoading"
+                type="primary"
+                @click="handlePasswordSubmit"
+                class="bg-accent-dark"
+              >
                 {{ $t('account.password.update_button') }}
               </n-button>
             </div>
@@ -238,25 +257,25 @@ const passwordRules: FormRules = {
 // Funzioni di utilità per la formattazione
 const formatDate = (dateString: string | Date | null, withTime = false) => {
   if (!dateString) return '-'
-  
+
   const date = dateString instanceof Date ? dateString : new Date(dateString)
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   }
-  
+
   if (withTime) {
     options.hour = '2-digit'
     options.minute = '2-digit'
   }
-  
+
   return date.toLocaleDateString(undefined, options)
 }
 
 const getStatusText = (status: string) => {
   if (!status) return '-'
-  
+
   switch (status.toLowerCase()) {
     case 'active':
       return t('account.subscription.status_active')
@@ -277,7 +296,7 @@ const getStatusText = (status: string) => {
 
 const getStatusType = (status: string) => {
   if (!status) return 'default'
-  
+
   switch (status.toLowerCase()) {
     case 'active':
       return 'success'
@@ -298,7 +317,7 @@ const getStatusType = (status: string) => {
 
 const getDurationText = (duration: string) => {
   if (!duration) return '-'
-  
+
   switch (duration.toLowerCase()) {
     case 'monthly':
       return t('account.subscription.duration_monthly')
@@ -314,11 +333,11 @@ onMounted(async () => {
     profileLoading.value = true
     // Ottieni i dati del profilo utente
     const profileResponse = await userApi.getProfile()
-    
+
     if (profileResponse.data.status === 'success') {
       profileForm.value.name = profileResponse.data.data.name
       profileForm.value.email = profileResponse.data.data.email
-      
+
       // Imposta l'ultimo accesso
       if (profileResponse.data.data.lastLogin) {
         lastLogin.value = profileResponse.data.data.lastLogin
@@ -344,18 +363,18 @@ const handleProfileSubmit = () => {
       message.error(t('account.profile.errors.form_errors'))
       return
     }
-    
+
     try {
       profileLoading.value = true
-      
+
       // Prepara i dati da inviare (solo il nome, non l'email)
       const updateData = {
         name: profileForm.value.name
       }
-      
+
       // Invia la richiesta di aggiornamento
       const response = await userApi.updateProfile(updateData)
-      
+
       if (response.data.status === 'success') {
         message.success('Profilo aggiornato con successo')
         // Aggiorna i dati dell'utente nello store
@@ -376,16 +395,16 @@ const handlePasswordSubmit = () => {
       message.error(t('account.profile.errors.form_errors'))
       return
     }
-    
+
     try {
       passwordLoading.value = true
-      
+
       // Invia la richiesta di cambio password
       const response = await userApi.changePassword(
         passwordForm.value.oldPassword,
         passwordForm.value.newPassword
       )
-      
+
       if (response.data.status === 'success') {
         message.success('Password aggiornata con successo')
         // Resetta il form

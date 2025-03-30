@@ -1,6 +1,6 @@
 <template>
   <n-h1 class="mb-8 text-center">{{ $t('initial_stats.title') }}</n-h1>
-  
+
   <div class="initial-stats">
     <Card :title="$t('initial_stats.stats_50_spin')" class="statistics-card text-center">
       <template #content>
@@ -9,13 +9,17 @@
             <div class="stats-container">
               <div class="stats-input">
                 <div>
-                  <n-p><strong>{{ $t('initial_stats.first_dozen') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.first_dozen') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.first"
                     button-placement="both"
                     :placeholder="$t('initial_stats.first_dozen_placeholder')"
                   />
-                  <n-p><strong>{{ $t('initial_stats.third_dozen') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.third_dozen') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.third"
                     button-placement="both"
@@ -23,13 +27,17 @@
                   />
                 </div>
                 <div>
-                  <n-p><strong>{{ $t('initial_stats.second_dozen') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.second_dozen') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats50.dozens.second"
                     button-placement="both"
                     :placeholder="$t('initial_stats.second_dozen_placeholder')"
                   />
-                  <n-p><strong>{{ $t('initial_stats.zero_zone') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.zero_zone') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats50.zeroNeighbors"
                     button-placement="both"
@@ -53,13 +61,17 @@
             <div class="stats-container">
               <div class="stats-input">
                 <div>
-                  <n-p><strong>{{ $t('initial_stats.first_dozen') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.first_dozen') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.first"
                     button-placement="both"
                     :placeholder="$t('initial_stats.first_dozen_placeholder')"
                   />
-                  <n-p><strong>{{ $t('initial_stats.third_dozen') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.third_dozen') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.third"
                     button-placement="both"
@@ -67,13 +79,17 @@
                   />
                 </div>
                 <div>
-                  <n-p><strong>{{ $t('initial_stats.second_dozen') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.second_dozen') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats500.dozens.second"
                     button-placement="both"
                     :placeholder="$t('initial_stats.second_dozen_placeholder')"
                   />
-                  <n-p><strong>{{ $t('initial_stats.zero_zone') }}</strong></n-p>
+                  <n-p>
+                    <strong>{{ $t('initial_stats.zero_zone') }}</strong>
+                  </n-p>
                   <n-input-number
                     v-model:value="stats500.zeroNeighbors"
                     button-placement="both"
@@ -92,7 +108,9 @@
     </Card>
   </div>
   <div class="text-center">
-    <n-button class="submit-btn" type="primary" @click="sendData">{{ $t('initial_stats.check_table') }}</n-button>
+    <n-button class="submit-btn" type="primary" @click="sendData">
+      {{ $t('initial_stats.check_table') }}
+    </n-button>
   </div>
 
   <n-modal v-model:show="showErrorModal" preset="dialog" :mask-closable="false" :closable="false">
@@ -103,7 +121,9 @@
       :description="$t('initial_stats.modals.not_recommended.description')"
     >
       <template #footer>
-        <n-button type="primary" @click="handleReset">{{ $t('initial_stats.modals.reset_stats') }}</n-button>
+        <n-button type="primary" @click="handleReset">
+          {{ $t('initial_stats.modals.reset_stats') }}
+        </n-button>
       </template>
     </n-result>
   </n-modal>
@@ -288,8 +308,8 @@ const handleProceed = () => {
     justify-content: center;
     gap: 50px;
     margin-bottom: 1rem;
-    
-    
+
+
     & .n-input-number {
       margin: 0.5rem 0 1rem;
     }

@@ -4,9 +4,7 @@
     <div v-else>
       <n-card>
         <n-page-header>
-          <template #title>
-            Gestione Utenti
-          </template>
+          <template #title>Gestione Utenti</template>
         </n-page-header>
 
         <n-data-table
@@ -86,7 +84,7 @@ const renderPendingRequest = (row: User) => {
   if (!row.pendingRequest) {
     return h(NTag, { type: 'info' }, { default: () => 'Nessuna' });
   }
-  
+
   return h('div', [
     h(NTag, {
       type: 'warning',
@@ -101,7 +99,7 @@ const renderApprovedRequest = (row: User) => {
   if (!row.approvedRequest) {
     return h(NTag, { type: 'info' }, { default: () => 'Nessuna' });
   }
-  
+
   return h('div', [
     h(NTag, {
       type: 'success',
@@ -114,7 +112,7 @@ const renderApprovedRequest = (row: User) => {
 // Funzione per renderizzare le azioni disponibili
 const renderActions = (row: User) => {
   const buttons: any[] = [];
-  
+
   // Pulsante Dettagli (sempre presente)
   buttons.push(
     h(
@@ -128,7 +126,7 @@ const renderActions = (row: User) => {
       { default: () => 'Dettagli' }
     )
   );
-  
+
   // Verifica se l'utente ha una richiesta pendente
   if (row.pendingRequest) {
     buttons.push(
@@ -153,7 +151,7 @@ const renderActions = (row: User) => {
       )
     );
   }
-  
+
   // Verifica se l'utente ha una sottoscrizione attiva
   if (row.subscription && row.subscription.status === 'active') {
     // Pulsante Disattiva
@@ -179,7 +177,7 @@ const renderActions = (row: User) => {
       )
     );
   }
-  
+
   return h(NSpace, { size: 'small' }, { default: () => buttons });
 };
 
@@ -259,13 +257,13 @@ async function handleRenewalRequest(user: User) {
 async function handleActivateSubscription(user: User) {
   try {
     loading.value = true;
-    
+
     if (!user.subscription) {
       message.error('Informazioni di sottoscrizione non disponibili');
       loading.value = false;
       return;
     }
-    
+
     // Utilizziamo la nuova API per attivare l'abbonamento
     // Cerchiamo l'ID della richiesta
     const requestId = user.subscription.requestId;
@@ -289,13 +287,13 @@ async function handleActivateSubscription(user: User) {
 async function handleDeactivateSubscription(user: User) {
   try {
     loading.value = true;
-    
+
     if (!user.subscription) {
       message.error('Informazioni di sottoscrizione non disponibili');
       loading.value = false;
       return;
     }
-    
+
     // Utilizziamo la nuova API per disattivare l'abbonamento
     // Cerchiamo l'ID dell'abbonamento
     const subscriptionId = user.subscription._id;
@@ -319,13 +317,13 @@ async function handleDeactivateSubscription(user: User) {
 async function handleApproveRequest(user: User) {
   try {
     loading.value = true;
-    
+
     if (!user.pendingRequest) {
       message.error('Richiesta pendente non disponibile');
       loading.value = false;
       return;
     }
-    
+
     // Utilizziamo la nuova API per approvare la richiesta
     // Cerchiamo l'ID della richiesta
     const requestId = user.pendingRequest._id;

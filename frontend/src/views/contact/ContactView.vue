@@ -6,7 +6,7 @@
           <n-h1>{{ $t('contact.title') }}</n-h1>
         </div>
       </template>
-      
+
       <n-form ref="contactFormRef" :model="contactForm" :rules="contactRules">
         <n-form-item path="category" :label="$t('contact.category')">
           <n-select
@@ -16,7 +16,7 @@
             :placeholder="$t('contact.category_placeholder')"
           />
         </n-form-item>
-        
+
         <n-form-item path="message" :label="$t('contact.message')">
           <n-input
             v-model:value="contactForm.message"
@@ -26,9 +26,14 @@
             :placeholder="$t('contact.message_placeholder')"
           />
         </n-form-item>
-        
+
         <div class="submit-container">
-          <n-button :loading="submitting" type="primary" @click="handleSubmit" class="bg-accent-dark">
+          <n-button
+            :loading="submitting"
+            type="primary"
+            @click="handleSubmit"
+            class="bg-accent-dark"
+          >
             {{ $t('contact.submit_button') }}
           </n-button>
         </div>
@@ -94,22 +99,22 @@ const handleSubmit = () => {
       message.error(t('contact.errors.form_errors'))
       return
     }
-    
+
     try {
       submitting.value = true
-      
+
       // Prepara i dati da inviare
       const requestData = {
         category: contactForm.value.category,
         message: contactForm.value.message
       }
-      
+
       // Invia la richiesta
       const { data: response } = await contactApi.addFeedback(requestData)
-      
+
       if (response.status === 'success') {
         message.success(t('contact.messages.submit_success'))
-        
+
         // Resetta il form
         contactForm.value = {
           category: '',

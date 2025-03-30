@@ -2,12 +2,9 @@
   <div class="tutorial-container">
     <!-- Hero Section -->
     <section class="hero-section">
-
-
       <div class="hero-content">
         <n-h1 class="hero-title">{{ t('tutorial.hero.title') }}</n-h1>
-        <n-p class="hero-description" v-html="t('tutorial.hero.description')">
-        </n-p>
+        <n-p class="hero-description" v-html="t('tutorial.hero.description')"></n-p>
       </div>
     </section>
 
@@ -21,18 +18,15 @@
     <section class="three-column-section">
       <n-card class="feature-card">
         <n-h3>{{ t('tutorial.concepts.law_of_large_numbers.title') }}</n-h3>
-        <n-p v-html="t('tutorial.concepts.law_of_large_numbers.content')">
-        </n-p>
+        <n-p v-html="t('tutorial.concepts.law_of_large_numbers.content')"></n-p>
       </n-card>
       <n-card class="feature-card">
         <n-h3>{{ t('tutorial.concepts.zero_zone.title') }}</n-h3>
-        <n-p v-html="t('tutorial.concepts.zero_zone.content')">
-        </n-p>
+        <n-p v-html="t('tutorial.concepts.zero_zone.content')"></n-p>
       </n-card>
       <n-card class="feature-card">
         <n-h3>{{ t('tutorial.concepts.number_growth.title') }}</n-h3>
-        <n-p v-html="t('tutorial.concepts.number_growth.content')">
-        </n-p>
+        <n-p v-html="t('tutorial.concepts.number_growth.content')"></n-p>
       </n-card>
     </section>
 
@@ -43,8 +37,7 @@
       <div class="two-column-section">
         <div class="column">
           <img src="/assets/images/statistics/dozens.png" alt="Dozens statistics" />
-          <n-p v-html="t('tutorial.statistics.dozens.content')">
-          </n-p>
+          <n-p v-html="t('tutorial.statistics.dozens.content')"></n-p>
           <img
             src="/assets/images/statistics/dozens-statistics-50.png"
             alt="Dozens statistics"
@@ -59,8 +52,7 @@
             width="70%"
             class="m-auto"
           />
-          <n-p v-html="t('tutorial.statistics.wheel.content')">
-          </n-p>
+          <n-p v-html="t('tutorial.statistics.wheel.content')"></n-p>
           <img
             src="/assets/images/statistics/increase-numbers-500.png"
             alt="Wheel statistics"
@@ -91,21 +83,28 @@
       <n-card class="concept-card">
         <n-h2>{{ t('tutorial.tips.title') }}</n-h2>
         <n-steps vertical class="stepper">
-          <n-step :title="t('tutorial.tips.budget_management.title')" :description="t('tutorial.tips.budget_management.description')">
+          <n-step
+            :title="t('tutorial.tips.budget_management.title')"
+            :description="t('tutorial.tips.budget_management.description')"
+          >
             <template #default>
-              <n-p v-html="t('tutorial.tips.budget_management.content')">
-              </n-p>
+              <n-p v-html="t('tutorial.tips.budget_management.content')"></n-p>
             </template>
           </n-step>
 
-          <n-step :title="t('tutorial.tips.croupier_attention.title')" :description="t('tutorial.tips.croupier_attention.description')">
+          <n-step
+            :title="t('tutorial.tips.croupier_attention.title')"
+            :description="t('tutorial.tips.croupier_attention.description')"
+          >
             <template #default>
-              <n-p v-html="t('tutorial.tips.croupier_attention.content')">
-              </n-p>
+              <n-p v-html="t('tutorial.tips.croupier_attention.content')"></n-p>
             </template>
           </n-step>
 
-          <n-step :title="t('tutorial.tips.recommended_providers.title')" :description="t('tutorial.tips.recommended_providers.description')">
+          <n-step
+            :title="t('tutorial.tips.recommended_providers.title')"
+            :description="t('tutorial.tips.recommended_providers.description')"
+          >
             <template #default>
               <n-p>
                 {{ t('tutorial.tips.recommended_providers.content') }}
@@ -139,8 +138,7 @@
             width="70%"
             class="m-auto"
           />
-          <n-p v-html="t('tutorial.betting.view_change.content')">
-          </n-p>
+          <n-p v-html="t('tutorial.betting.view_change.content')"></n-p>
         </div>
         <div class="column">
           <img
@@ -157,10 +155,11 @@
     <section class="cta-section">
       <n-card class="cta-card">
         <n-h2>{{ t('tutorial.cta.title') }}</n-h2>
-        <n-p v-html="t('tutorial.cta.content')">
-        </n-p>
+        <n-p v-html="t('tutorial.cta.content')"></n-p>
         <router-link to="/play">
-          <n-button type="primary" size="large" class="bg-accent-dark">{{ t('tutorial.cta.button') }}</n-button>
+          <n-button type="primary" size="large" class="bg-accent-dark">
+            {{ t('tutorial.cta.button') }}
+          </n-button>
         </router-link>
       </n-card>
     </section>

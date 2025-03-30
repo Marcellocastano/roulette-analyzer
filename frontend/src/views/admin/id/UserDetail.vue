@@ -9,7 +9,7 @@
           <template #extra>
             <n-space>
               <!-- Pulsante Rinnova (solo per utenti premium con abbonamento attivo e richiesta di rinnovo in pending) -->
-              <n-button 
+              <n-button
                 v-if="user.subscription?.plan === 'premium' && 
                       user.subscription?.status === 'active' && 
                       user.subscription?.newRequest?.status === 'pending'"
@@ -19,9 +19,9 @@
               >
                 Rinnova Abbonamento
               </n-button>
-              
+
               <!-- Pulsante Attiva (solo per utenti con status pending) -->
-              <n-button 
+              <n-button
                 v-if="user.subscription?.status === 'pending'"
                 type="success"
                 @click="handleSubscriptionToggle"
@@ -29,9 +29,9 @@
               >
                 Attiva Abbonamento
               </n-button>
-              
+
               <!-- Pulsante Disattiva (solo per utenti con abbonamento attivo) -->
-              <n-button 
+              <n-button
                 v-if="user.subscription?.status === 'active'"
                 type="error"
                 @click="handleSubscriptionToggle"
@@ -39,10 +39,8 @@
               >
                 Disattiva Abbonamento
               </n-button>
-              
-              <n-button @click="router.back()">
-                Indietro
-              </n-button>
+
+              <n-button @click="router.back()">Indietro</n-button>
             </n-space>
           </template>
         </n-page-header>
@@ -59,29 +57,27 @@
                     <div class="info-label">ID:</div>
                     <div class="info-value id-value">{{ user._id }}</div>
                   </div>
-                
-                <div class="info-row">
-                  <div class="info-label">Email:</div>
-                  <div class="info-value">{{ user.email }}</div>
-                </div>
 
-              </div>
-              <div class="subscription-column">
-                <div class="info-row">
-                  <div class="info-label">Nome:</div>
-                  <div class="info-value">{{ user.name }}</div>
-                </div>
-                
-                <div class="info-row">
-                  <div class="info-label">Ruolo:</div>
-                  <div class="info-value">
-                    <n-tag :type="user.role === 'admin' ? 'error' : 'info'" class="role-tag">
-                      {{ user.role }}
-                    </n-tag>
+                  <div class="info-row">
+                    <div class="info-label">Email:</div>
+                    <div class="info-value">{{ user.email }}</div>
                   </div>
                 </div>
+                <div class="subscription-column">
+                  <div class="info-row">
+                    <div class="info-label">Nome:</div>
+                    <div class="info-value">{{ user.name }}</div>
+                  </div>
 
-              </div>
+                  <div class="info-row">
+                    <div class="info-label">Ruolo:</div>
+                    <div class="info-value">
+                      <n-tag :type="user.role === 'admin' ? 'error' : 'info'" class="role-tag">
+                        {{ user.role }}
+                      </n-tag>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </n-card>
@@ -94,21 +90,27 @@
                   <div class="subscription-item">
                     <div class="subscription-label">Piano:</div>
                     <div class="subscription-value">
-                      <n-tag :type="subscription?.plan === 'premium' ? 'success' : 'warning'" class="plan-tag">
+                      <n-tag
+                        :type="subscription?.plan === 'premium' ? 'success' : 'warning'"
+                        class="plan-tag"
+                      >
                         {{ subscription?.plan }}
                       </n-tag>
                     </div>
                   </div>
-                  
+
                   <div class="subscription-item">
                     <div class="subscription-label">Stato:</div>
                     <div class="subscription-value">
-                      <n-tag :type="getSubscriptionStatusType(subscription?.status)" class="status-tag">
+                      <n-tag
+                        :type="getSubscriptionStatusType(subscription?.status)"
+                        class="status-tag"
+                      >
                         {{ subscription?.status }}
                       </n-tag>
                     </div>
                   </div>
-                  
+
                   <div class="subscription-item">
                     <div class="subscription-label">Durata:</div>
                     <div class="subscription-value">
@@ -123,7 +125,7 @@
                       {{ formatDate(subscription?.startDate) }}
                     </div>
                   </div>
-                  
+
                   <div class="subscription-item">
                     <div class="subscription-label">Data Fine:</div>
                     <div class="subscription-value">
@@ -132,66 +134,72 @@
                   </div>
                 </div>
               </div>
-              
+
               <!-- Pulsanti di azione per l'abbonamento -->
               <div class="action-buttons">
-                <n-button 
+                <n-button
                   v-if="subscription?.status === 'active'"
-                  type="error" 
-                  size="small" 
+                  type="error"
+                  size="small"
                   @click="handleDeactivateSubscription"
-                  :loading="actionLoading">
+                  :loading="actionLoading"
+                >
                   Disattiva Abbonamento
                 </n-button>
-                <n-button 
+                <n-button
                   v-else
-                  type="success" 
-                  size="small" 
+                  type="success"
+                  size="small"
                   @click="handleActivateSubscription"
-                  :loading="actionLoading">
+                  :loading="actionLoading"
+                >
                   Attiva Abbonamento
                 </n-button>
               </div>
             </div>
-              
-              <!-- Sezione Nuova Richiesta -->
-              <div v-if="pendingRequest" class="new-request-section">
-                <div class="section-divider"></div>
-                <div class="section-title">Nuova Richiesta</div>
-                
-                <div class="subscription-grid">
-                  <div class="subscription-column">
-                    <div class="subscription-item">
-                      <div class="subscription-label">Stato:</div>
-                      <div class="subscription-value">
-                        <n-tag :type="getSubscriptionStatusType(pendingRequest?.status)" class="status-tag">
-                          {{ pendingRequest?.status || 'unset' }}
-                        </n-tag>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="subscription-column">
-                    <div class="subscription-item" v-if="pendingRequest?.status === 'pending'">
-                      <div class="subscription-label">Nome:</div>
-                      <div class="subscription-value">
-                        {{ pendingRequest?.name || 'N/A' }}
-                      </div>
+
+            <!-- Sezione Nuova Richiesta -->
+            <div v-if="pendingRequest" class="new-request-section">
+              <div class="section-divider"></div>
+              <div class="section-title">Nuova Richiesta</div>
+
+              <div class="subscription-grid">
+                <div class="subscription-column">
+                  <div class="subscription-item">
+                    <div class="subscription-label">Stato:</div>
+                    <div class="subscription-value">
+                      <n-tag
+                        :type="getSubscriptionStatusType(pendingRequest?.status)"
+                        class="status-tag"
+                      >
+                        {{ pendingRequest?.status || 'unset' }}
+                      </n-tag>
                     </div>
                   </div>
                 </div>
-                
-                <!-- Pulsanti di azione per la richiesta pendente -->
-                <div v-if="pendingRequest?.status === 'pending'" class="action-buttons">
-                  <n-button 
-                    type="success" 
-                    size="small" 
-                    @click="handleApproveRequest"
-                    :loading="actionLoading">
-                    Approva Richiesta
-                  </n-button>
+
+                <div class="subscription-column">
+                  <div class="subscription-item" v-if="pendingRequest?.status === 'pending'">
+                    <div class="subscription-label">Nome:</div>
+                    <div class="subscription-value">
+                      {{ pendingRequest?.name || 'N/A' }}
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              <!-- Pulsanti di azione per la richiesta pendente -->
+              <div v-if="pendingRequest?.status === 'pending'" class="action-buttons">
+                <n-button
+                  type="success"
+                  size="small"
+                  @click="handleApproveRequest"
+                  :loading="actionLoading"
+                >
+                  Approva Richiesta
+                </n-button>
+              </div>
+            </div>
           </n-card>
         </div>
       </n-spin>
@@ -242,7 +250,7 @@ const handleRenewalRequest = async () => {
     // Assumiamo che l'API abbia un endpoint per gestire le richieste di rinnovo
     await adminApi.activateSubscription(userId);
     message.success('Richiesta di rinnovo approvata con successo');
-    
+
     // Ricarica i dati dell'utente
     const response = await adminApi.getUserById(userId);
     user.value = response.data.data;
@@ -264,7 +272,7 @@ const handleSubscriptionToggle = async () => {
       await adminApi.activateSubscription(userId);
       message.success('Abbonamento attivato con successo');
     }
-    
+
     // Ricarica i dati dell'utente
     const response = await adminApi.getUserById(userId);
     user.value = response.data.data;
@@ -279,11 +287,11 @@ const handleSubscriptionToggle = async () => {
 const handleActivateSubscription = async () => {
   try {
     actionLoading.value = true;
-    
+
     // Utilizziamo l'API dell'admin per attivare l'abbonamento
     await adminApi.activateSubscription(userId);
     message.success('Abbonamento attivato con successo');
-    
+
     // Ricarica i dati dell'utente e dell'abbonamento
     await loadUserData();
   } catch (error) {
@@ -297,16 +305,16 @@ const handleActivateSubscription = async () => {
 const handleDeactivateSubscription = async () => {
   try {
     actionLoading.value = true;
-    
+
     if (!user.value.activeSubscription) {
       message.error('Nessun abbonamento attivo da disattivare');
       return;
     }
-    
+
     // Utilizziamo l'API dell'admin per disattivare l'abbonamento
     await adminSubscriptionApi.deactivateSubscription(user.value.activeSubscription);
     message.success('Abbonamento disattivato con successo');
-    
+
     // Ricarica i dati dell'utente e dell'abbonamento
     await loadUserData();
   } catch (error) {
@@ -324,10 +332,10 @@ const handleApproveRequest = async () => {
       message.error('ID della richiesta non disponibile');
       return;
     }
-    
+
     await adminSubscriptionApi.activateSubscription(pendingRequest.value._id);
     message.success('Richiesta approvata con successo');
-    
+
     // Ricarica i dati dell'utente e dell'abbonamento
     await loadUserData();
   } catch (error) {
@@ -345,10 +353,10 @@ const handleRejectRequest = async () => {
       message.error('ID della richiesta non disponibile');
       return;
     }
-    
+
     await adminSubscriptionApi.rejectSubscriptionRequest(pendingRequest.value._id);
     message.success('Richiesta rifiutata con successo');
-    
+
     // Ricarica i dati dell'utente e dell'abbonamento
     await loadUserData();
   } catch (error) {

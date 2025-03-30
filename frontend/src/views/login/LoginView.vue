@@ -3,7 +3,13 @@
     <template #title>{{ $t('login.title') }}</template>
     <n-form ref="formRef" :model="formValue" :rules="rules">
       <n-form-item path="email" :label="$t('login.email')">
-        <n-input v-model:value="formValue.email" size="large" round :placeholder="$t('login.email')" class="bg-white"/>
+        <n-input
+          v-model:value="formValue.email"
+          size="large"
+          round
+          :placeholder="$t('login.email')"
+          class="bg-white"
+        />
       </n-form-item>
       <n-form-item path="password" :label="$t('login.password')">
         <n-input
@@ -35,7 +41,9 @@
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button class="text-blue-900" text @click="router.push('/signup')">{{ $t('login.signup_link') }}</n-button>
+        <n-button class="text-blue-900" text @click="router.push('/signup')">
+          {{ $t('login.signup_link') }}
+        </n-button>
       </div>
     </n-form>
   </AuthLayout>

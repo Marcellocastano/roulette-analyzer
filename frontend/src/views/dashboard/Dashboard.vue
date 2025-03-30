@@ -3,7 +3,9 @@
     <div class="welcome-section">
       <div class="welcome-text">
         <n-h1>
-          <span class="greeting">{{ $t('dashboard.greeting', { name: user?.name || $t('dashboard.default_name') }) }}</span>
+          <span class="greeting">
+            {{ $t('dashboard.greeting', { name: user?.name || $t('dashboard.default_name') }) }}
+          </span>
         </n-h1>
       </div>
     </div>
@@ -31,7 +33,10 @@
             </div>
             <div class="tutorial-text">
               <p class="tutorial-title">{{ $t('dashboard.tutorial_card.title') }}</p>
-              <p class="tutorial-description" v-html="$t('dashboard.tutorial_card.description')"></p>
+              <p
+                class="tutorial-description"
+                v-html="$t('dashboard.tutorial_card.description')"
+              ></p>
               <router-link to="/tutorial" class="tutorial-link">
                 <span>{{ $t('dashboard.tutorial_card.link') }}</span>
                 <n-icon size="16">

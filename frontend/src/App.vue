@@ -34,10 +34,10 @@ onMounted(() => {
   if (localStorage.getItem('token')) {
     initTokenRefresh()
   }
-  
+
   // Imposta il titolo del documento in base all'ambiente
   document.title = env.appTitle
-  
+
   // Log dell'ambiente corrente (solo in sviluppo)
   if (env.isDevelopment) {
     console.log(`Ambiente: ${env.appEnv}`)

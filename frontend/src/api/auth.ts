@@ -59,7 +59,9 @@ export const authApi = {
    * @param refreshToken - Il token di refresh
    * @returns Promise con il nuovo token di accesso e opzionalmente un nuovo token di refresh
    */
-  refreshToken: async (refreshToken: string): Promise<{ accessToken: string; refreshToken?: string }> => {
+  refreshToken: async (
+    refreshToken: string
+  ): Promise<{ accessToken: string; refreshToken?: string }> => {
     const response = await api.post<ApiResponse<{ accessToken: string; refreshToken?: string }>>(
       '/auth/refresh',
       { refreshToken }
@@ -84,7 +86,10 @@ export const authApi = {
    * @returns Promise con il messaggio di successo
    */
   resetPassword: async (token: string, data: ResetPasswordData): Promise<{ message: string }> => {
-    const response = await api.post<ApiResponse<{ message: string }>>(`/auth/reset-password/${token}`, data)
+    const response = await api.post<ApiResponse<{ message: string }>>(
+      `/auth/reset-password/${token}`,
+      data
+    )
     return response.data.data
   },
 }

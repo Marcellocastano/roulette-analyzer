@@ -4,7 +4,13 @@
     <n-form ref="formRef" :model="formValue" :rules="rules">
       <p class="text-center mb-4">{{ $t('forgot_password.description') }}</p>
       <n-form-item path="email" :label="$t('forgot_password.email')">
-        <n-input v-model:value="formValue.email" size="large" round :placeholder="$t('forgot_password.email')" class="bg-white"/>
+        <n-input
+          v-model:value="formValue.email"
+          size="large"
+          round
+          :placeholder="$t('forgot_password.email')"
+          class="bg-white"
+        />
       </n-form-item>
       <div class="submit-container text-center">
         <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
@@ -12,7 +18,9 @@
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button class="text-blue-900" text @click="router.push('/login')">{{ $t('forgot_password.back_to_login') }}</n-button>
+        <n-button class="text-blue-900" text @click="router.push('/login')">
+          {{ $t('forgot_password.back_to_login') }}
+        </n-button>
       </div>
     </n-form>
   </AuthLayout>
@@ -62,24 +70,24 @@ const handleSubmit = async () => {
   try {
     await formRef.value?.validate()
     loading.value = true
-    
+
     await authApi.forgotPassword({
       email: formValue.value.email
     })
-    
+
     message.success(t('forgot_password.messages.success'))
-    
+
     // Reindirizza alla pagina di login dopo un breve ritardo
     setTimeout(() => {
       router.push('/login')
     }, 2000)
   } catch (error) {
     console.error('Password reset error:', error)
-    
+
     // Mostra comunque un messaggio di successo per motivi di sicurezza
     // Questo evita attacchi di enumerazione degli account
     message.success(t('forgot_password.messages.success'))
-    
+
     // Reindirizza alla pagina di login dopo un breve ritardo
     setTimeout(() => {
       router.push('/login')

@@ -35,7 +35,9 @@
         </n-h2>
         <div class="board-container-main gap-5">
           <div class="flex mb-4 justify-center w-full items-center">
-            <n-button type="danger" size="small" @click="handleReset"> {{ $t('play.reset_session') }} </n-button>
+            <n-button type="danger" size="small" @click="handleReset">
+              {{ $t('play.reset_session') }}
+            </n-button>
           </div>
           <Board
             :spins="spins.slice(0, 5)"
@@ -108,10 +110,10 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
     }
   } catch (error: unknown) {
     console.error("Errore durante l'aggiornamento delle statistiche:", error)
-    
+
     // Verifica se l'errore contiene il formato "limit-X"
     let errorMessage = t('play.messages.stats_update_error')
-    
+
     // Verifica se l'errore è un errore di Axios con una risposta
     const axiosError = error as { response?: { data?: { message?: string } } }
     if (axiosError.response?.data?.message) {
@@ -121,7 +123,7 @@ const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
         errorMessage = t('play.messages.session_limit_reached', { limit })
       }
     }
-    
+
     message.error(errorMessage)
   }
 }

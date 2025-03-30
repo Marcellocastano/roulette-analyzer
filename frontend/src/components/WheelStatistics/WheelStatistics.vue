@@ -1,9 +1,12 @@
 <template>
-    <div class="roulette-instructions">
-      <n-p class="roulette-title">
-        {{ $t('wheel_statistics.instructions') }} <router-link class="underline text-accent" to="/tutorial#statistics" target="_blank">{{ $t('wheel_statistics.tutorial_link') }}</router-link>
-      </n-p>
-    </div>
+  <div class="roulette-instructions">
+    <n-p class="roulette-title">
+      {{ $t('wheel_statistics.instructions') }}
+      <router-link class="underline text-accent" to="/tutorial#statistics" target="_blank">
+        {{ $t('wheel_statistics.tutorial_link') }}
+      </router-link>
+    </n-p>
+  </div>
   <div class="roulette-wheel">
     <svg @mouseup="stopDragging" @mouseleave="stopDragging">
       <g v-for="(number, index) in rouletteNumbers" :key="index">

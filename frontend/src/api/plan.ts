@@ -21,5 +21,5 @@ export interface Plan {
 }
 
 export const planApi = {
-  getPlans: () => apiClient.get<{ success: boolean, data: Plan[] }>('/plans'),
+  getPlans: () => apiClient.get<{ success: boolean; data: Plan[] }>('/plans'),
 }

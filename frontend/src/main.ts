@@ -49,7 +49,7 @@ import {
   NGrid,
   NGridItem,
   NDropdown,
-  NDataTable
+  NDataTable,
 } from 'naive-ui'
 
 const naive = create({
@@ -93,7 +93,7 @@ const naive = create({
     NGrid,
     NGridItem,
     NDropdown,
-    NDataTable
+    NDataTable,
   ],
 })
 

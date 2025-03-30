@@ -15,8 +15,9 @@
             primaryPredictedNumbers.includes(0) ||
             secondaryPredictedNumbers.includes(0)
           "
-          >0</span
         >
+          0
+        </span>
       </div>
       <div
         v-for="number in gridNumbers"
@@ -35,8 +36,9 @@
             primaryPredictedNumbers.includes(number) ||
             secondaryPredictedNumbers.includes(number)
           "
-          >{{ number }}</span
         >
+          {{ number }}
+        </span>
       </div>
     </div>
   </div>

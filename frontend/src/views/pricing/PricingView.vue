@@ -15,7 +15,11 @@
       {{ $t('pricing.subscription_request.view_details') }}
     </n-button>
     <br />
-    <small>(Se hai già effettuato il pagamento, <strong>non annullare la richiesta</strong>)</small>
+    <small>
+      (Se hai già effettuato il pagamento,
+      <strong>non annullare la richiesta</strong>
+      )
+    </small>
   </n-alert>
   <div class="pricing-container">
     <n-card class="pricing-card">
@@ -63,10 +67,10 @@
             {{ $t('pricing.trial_plan.button') }}
           </n-button>
         </n-card>
-        
-        <n-card 
-          v-for="plan in filteredPlans.filter(p => p.duration === 'monthly')" 
-          :key="plan._id" 
+
+        <n-card
+          v-for="plan in filteredPlans.filter(p => p.duration === 'monthly')"
+          :key="plan._id"
           class="plan-card monthly"
         >
           <div class="plan-header">
@@ -75,9 +79,13 @@
 
           <div class="price-container">
             <div class="price">
-              <span class="currency">{{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}</span>
+              <span class="currency">
+                {{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}
+              </span>
               <span class="amount">{{ plan.price.amount }}</span>
-              <span class="period">{{ plan.duration === 'monthly' ? t('pricing.monthly_plan.period') : 'Monthly' }}</span>
+              <span class="period">
+                {{ plan.duration === 'monthly' ? t('pricing.monthly_plan.period') : 'Monthly' }}
+              </span>
             </div>
           </div>
 
@@ -107,9 +115,9 @@
           </n-button>
         </n-card>
 
-        <n-card 
-          v-for="plan in filteredPlans.filter(p => p.duration === 'annual')" 
-          :key="plan._id" 
+        <n-card
+          v-for="plan in filteredPlans.filter(p => p.duration === 'annual')"
+          :key="plan._id"
           class="plan-card annual"
         >
           <div class="ribbon">
@@ -121,9 +129,13 @@
 
           <div class="price-container">
             <div class="price">
-              <span class="currency">{{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}</span>
+              <span class="currency">
+                {{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}
+              </span>
               <span class="amount">{{ plan.price.amount }}</span>
-              <span class="period">{{ plan.duration === 'annual' ? t('pricing.annual_plan.period') : 'Annual' }}</span>
+              <span class="period">
+                {{ plan.duration === 'annual' ? t('pricing.annual_plan.period') : 'Annual' }}
+              </span>
             </div>
             <div class="original-price">
               <span class="strikethrough">€{{ plan.price.amount * 1.2 }}</span>
@@ -203,7 +215,9 @@
         <n-button @click="cancelSubscriptionRequest" :loading="isLoading">
           {{ $t('pricing.payment_modal.cancel_button') }}
         </n-button>
-        <n-button type="primary" @click="onConfirmPayment">{{ $t('pricing.payment_modal.understand_button') }}</n-button>
+        <n-button type="primary" @click="onConfirmPayment">
+          {{ $t('pricing.payment_modal.understand_button') }}
+        </n-button>
       </n-space>
     </n-space>
   </n-modal>
@@ -240,7 +254,7 @@ const filteredPlans = computed(() => {
 // Controlla se ci sono informazioni di pagamento salvate nel sessionStorage
 onMounted(() => {
   const savedPaymentInfo = sessionStorage.getItem('paymentInstructions')
-  if (savedPaymentInfo && (userSubscription?.status === 'pending' || userSubscription?.newRequest?.status === 'pending')) { 
+  if (savedPaymentInfo && (userSubscription?.status === 'pending' || userSubscription?.newRequest?.status === 'pending')) {
     paymentInstructions.value = JSON.parse(savedPaymentInfo)
   }
   getPlans()

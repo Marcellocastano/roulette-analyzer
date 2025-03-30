@@ -24,7 +24,10 @@ export const subscriptionApi = {
   getUserSubscriptionRequests: () => apiClient.get('/subscription/requests'),
   requestSubscriptionInPending: () => apiClient.get('/subscription/request-in-pending'),
   requestSubscription: (planId: string, type: string = 'new') =>
-    apiClient.post<{ success: boolean, data: SubscriptionRequest }>('/subscription/request', { planId, type }),
+    apiClient.post<{ success: boolean; data: SubscriptionRequest }>('/subscription/request', {
+      planId,
+      type,
+    }),
   activateTrial: () => apiClient.post('/subscription/trial'),
   cancelSubscriptionRequest: (requestId: string) =>
     apiClient.delete(`/subscription/request/${requestId}`),

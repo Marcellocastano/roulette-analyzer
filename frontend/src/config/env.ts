@@ -6,15 +6,15 @@
 // Interfaccia per le variabili d'ambiente
 interface EnvConfig {
   // URL base per le chiamate API
-  apiBaseUrl: string;
+  apiBaseUrl: string
   // Titolo dell'applicazione
-  appTitle: string;
+  appTitle: string
   // Ambiente corrente (development, production)
-  appEnv: string;
+  appEnv: string
   // Flag per indicare se siamo in ambiente di sviluppo
-  isDevelopment: boolean;
+  isDevelopment: boolean
   // Flag per indicare se siamo in ambiente di produzione
-  isProduction: boolean;
+  isProduction: boolean
 }
 
 // Valori di default per le variabili d'ambiente
@@ -24,7 +24,7 @@ const defaultConfig: EnvConfig = {
   appEnv: 'production',
   isDevelopment: false,
   isProduction: true,
-};
+}
 
 // Carica le variabili d'ambiente da Vite
 const env: EnvConfig = {
@@ -33,6 +33,6 @@ const env: EnvConfig = {
   appEnv: import.meta.env.VITE_APP_ENV || defaultConfig.appEnv,
   isDevelopment: import.meta.env.VITE_APP_ENV === 'development',
   isProduction: import.meta.env.VITE_APP_ENV === 'production',
-};
+}
 
-export default env;
+export default env

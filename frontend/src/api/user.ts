@@ -42,7 +42,7 @@ export const userApi = {
   changePassword: (oldPassword: string, newPassword: string) => {
     return apiClient.post<ApiResponse<{ message: string }>>('/users/change-password', {
       oldPassword,
-      newPassword
+      newPassword,
     })
   },
 
@@ -50,14 +50,17 @@ export const userApi = {
   getSubscription: () => {
     return apiClient.get<ApiResponse<UserSubscription>>('/users/subscription')
   },
-  
+
   // Richiede un nuovo abbonamento
   requestSubscription: (duration: string) => {
-    return apiClient.post<ApiResponse<{ subscription: UserSubscription }>>('/users/subscription/request', {
-      duration
-    })
+    return apiClient.post<ApiResponse<{ subscription: UserSubscription }>>(
+      '/users/subscription/request',
+      {
+        duration,
+      }
+    )
   },
-  
+
   // Annulla una richiesta di abbonamento
   cancelSubscriptionRequest: () => {
     return apiClient.post<ApiResponse<{ message: string }>>('/users/subscription/cancel')
@@ -65,5 +68,5 @@ export const userApi = {
   // Attiva un abbonamento di prova
   activateTrial: () => {
     return apiClient.post<ApiResponse<{ message: string }>>('/users/subscription/trial')
-  }
+  },
 }

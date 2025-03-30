@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const [profileResponse, subscriptionResponse] = await Promise.all([
         userApi.getProfile(),
-        subscriptionApi.getUserSubscription()
+        subscriptionApi.getUserSubscription(),
       ])
 
       // Estraiamo i dati dalla risposta
@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
         lastLogin: profileData.lastLogin,
         activeSubscription: profileData.activeSubscription,
         isTrialUsed: profileData.isTrialUsed,
-        subscription: subscriptionData
+        subscription: subscriptionData,
       }
 
       setUser(userData)
@@ -84,12 +84,12 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await authApi.login(credentials)
       console.log(response)
       setToken(response.accessToken)
-      
+
       // Salva il refresh token nel localStorage
       if (response.refreshToken) {
         localStorage.setItem('refreshToken', response.refreshToken)
       }
-      
+
       const userData = response.user
       setUser({
         _id: userData._id,
@@ -99,7 +99,7 @@ export const useAuthStore = defineStore('auth', () => {
         role: userData.role,
         lastLogin: userData.lastLogin,
         activeSubscription: userData.activeSubscription,
-        isTrialUsed: userData.isTrialUsed
+        isTrialUsed: userData.isTrialUsed,
       })
       return true
     } catch (error) {
@@ -147,15 +147,15 @@ export const useAuthStore = defineStore('auth', () => {
         setUser(null)
         return false
       }
-      
+
       const response = await authApi.refreshToken(storedRefreshToken)
       setToken(response.accessToken)
-      
+
       // Salva il nuovo refresh token se presente
       if (response.refreshToken) {
         localStorage.setItem('refreshToken', response.refreshToken)
       }
-      
+
       return true
     } catch (error) {
       console.error('Token refresh error:', error)
@@ -168,16 +168,16 @@ export const useAuthStore = defineStore('auth', () => {
 
   const updateUserInfo = (userData: any) => {
     if (!user.value) return
-    
+
     // Aggiorna solo i campi forniti
     const updatedUser: User = {
       ...user.value,
       name: userData.name || user.value.name,
       email: userData.email || user.value.email,
       // Mantieni la subscription esistente
-      subscription: user.value.subscription
+      subscription: user.value.subscription,
     }
-    
+
     setUser(updatedUser)
   }
 

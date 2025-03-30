@@ -97,7 +97,7 @@ const router = createRouter({
       }
     }
     return { top: 0 }
-  }
+  },
 })
 
 router.beforeEach(async (to, from, next) => {
@@ -110,12 +110,12 @@ router.beforeEach(async (to, from, next) => {
 
   // Verifica lo stato dell'autenticazione
   const isAuthenticated = await authStore.checkAuthStatus()
-  
+
   // Se la rotta richiede autenticazione e l'utente non è autenticato
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next('/login')
   }
-  
+
   // Se l'utente è autenticato e prova ad accedere al login
   if (to.path === '/login' && isAuthenticated) {
     return next('/dashboard')
@@ -130,9 +130,9 @@ router.beforeEach(async (to, from, next) => {
   // Controllo accesso per rotte premium
   if (to.meta.requiresPremium && !authStore.isPremiumUser) {
     // Reindirizza alla dashboard se l'utente non ha un abbonamento premium attivo
-    return next({ 
-      path: '/dashboard', 
-      query: { from: 'premium', route: to.name?.toString() } 
+    return next({
+      path: '/dashboard',
+      query: { from: 'premium', route: to.name?.toString() },
     })
   }
 

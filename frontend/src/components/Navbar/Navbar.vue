@@ -41,7 +41,7 @@
 
     <div class="navbar-right">
       <LanguageSelector class="mr-4" />
-      
+
       <n-button class="flex lg:hidden menu-toggle" @click="toggleMobileMenu">
         <n-icon size="24">
           <Menu v-if="!isMobileMenuOpen" />
@@ -74,15 +74,15 @@
           >
             <component :is="route.icon" class="nav-icon" />
             <n-gradient-text
-                v-if="route.name === 'Play'"
-                :size="17"
-                :gradient="{
+              v-if="route.name === 'Play'"
+              :size="17"
+              :gradient="{
                   deg: 90,
                   from: isRouteActive(route.path) ? '#14660c' : 'var(--accent-color-dark)',
                   to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
                 }"
-              >
-                <strong>Roulette Pro AI</strong>
+            >
+              <strong>Roulette Pro AI</strong>
             </n-gradient-text>
             <span v-else>{{ route.name }}</span>
           </router-link>

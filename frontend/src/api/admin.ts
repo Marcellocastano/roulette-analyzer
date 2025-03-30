@@ -5,7 +5,7 @@ import apiClient from './config'
 export const adminApi = {
   // Ottiene tutti gli utenti
   getUsers: () => {
-    return apiClient.get<ApiResponse<User[]>>('/admin/users');
+    return apiClient.get<ApiResponse<User[]>>('/admin/users')
   },
 
   // Ottiene un utente per id
@@ -15,12 +15,18 @@ export const adminApi = {
 
   // Cambia la password dell'utente
   activateSubscription: (id: string) => {
-    return apiClient.post<ApiResponse<{ message: string }>>('/admin/users/' + id + '/activate-subscription')
+    return apiClient.post<ApiResponse<{ message: string }>>(
+      '/admin/users/' + id + '/activate-subscription'
+    )
   },
   deactivateSubscription: (id: string) => {
-    return apiClient.post<ApiResponse<{ message: string }>>('/admin/users/' + id + '/deactivate-subscription')
+    return apiClient.post<ApiResponse<{ message: string }>>(
+      '/admin/users/' + id + '/deactivate-subscription'
+    )
   },
   getUserRequestPending: (id: string) => {
-    return apiClient.get<ApiResponse<SubscriptionRequest[]>>('/admin/users/' + id + '/request/pending')
+    return apiClient.get<ApiResponse<SubscriptionRequest[]>>(
+      '/admin/users/' + id + '/request/pending'
+    )
   },
 }

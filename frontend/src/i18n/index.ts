@@ -16,8 +16,8 @@ export const i18n = createI18n<[MessageSchema], 'en' | 'it' | 'es' | 'de'>({
     en,
     it,
     es,
-    de
-  }
+    de,
+  },
 })
 
 export function setLocale(locale: 'en' | 'it' | 'es' | 'de') {

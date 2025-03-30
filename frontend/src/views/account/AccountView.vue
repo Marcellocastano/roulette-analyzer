@@ -24,7 +24,6 @@
         <n-tab-pane name="subscription" :tab="$t('account.tabs.subscription')">
           <div class="subscription-container">
             <n-h3>{{ $t('account.subscription.title') }}</n-h3>
-            
             <div class="subscription-info">
               <n-card class="subscription-card">
                 <div class="subscription-grid">
@@ -63,28 +62,6 @@
                 </div>
               </n-card>
             </div>
-            
-            <div v-if="userSubscription.newRequest" class="new-request-section">
-              <n-h3>{{ $t('account.subscription.new_request') }}</n-h3>
-              <n-card class="subscription-card">
-                <div class="subscription-grid">
-                  <div class="subscription-item">
-                    <div class="item-label">{{ $t('account.subscription.duration') }}:</div>
-                    <div class="item-value">{{ getDurationText(userSubscription.newRequest.duration) }}</div>
-                  </div>
-                  
-                  <div class="subscription-item">
-                    <div class="item-label">{{ $t('account.subscription.status') }}:</div>
-                    <div class="item-value">
-                      <n-tag :type="getStatusType(userSubscription.newRequest.status)" size="small">
-                        {{ getStatusText(userSubscription.newRequest.status) }}
-                      </n-tag>
-                    </div>
-                  </div>
-                </div>
-              </n-card>
-            </div>
-            
             <div class="last-login-section">
               <n-h3>{{ $t('account.subscription.last_login') }}</n-h3>
               <n-card class="subscription-card">
@@ -170,6 +147,7 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import { Eye, EyeOff } from '@vicons/tabler'
 import { userApi, UserSubscription } from '@/api/user'
+import { subscriptionApi, SubscriptionRequest } from '@/api/subscription'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -210,28 +188,22 @@ const passwordForm = ref<PasswordForm>({
 })
 
 // Dati dell'abbonamento
-interface SubscriptionNewRequest {
-  duration: string
-  status: string
-}
-
-interface Subscription {
-  plan: string
-  status: string
-  endDate: string
-  startDate: string
-  duration: string
-  newRequest?: SubscriptionNewRequest
-}
-
 const userSubscription = ref<UserSubscription>({
   plan: 'free',
   status: 'unset',
   endDate: '',
   startDate: '',
   duration: null,
-  newRequest: null
+  sessions: {
+    count: 0,
+    lastReset: ''
+  },
+  name: '',
 })
+
+// Richieste di sottoscrizione
+const pendingRequest = ref<SubscriptionRequest | null>(null)
+const approvedRequest = ref<SubscriptionRequest | null>(null)
 
 const lastLogin = ref<string>('')
 
@@ -264,10 +236,10 @@ const passwordRules: FormRules = {
 }
 
 // Funzioni di utilità per la formattazione
-const formatDate = (dateString: string, withTime = false) => {
+const formatDate = (dateString: string | Date | null, withTime = false) => {
   if (!dateString) return '-'
   
-  const date = new Date(dateString)
+  const date = dateString instanceof Date ? dateString : new Date(dateString)
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
@@ -292,6 +264,12 @@ const getStatusText = (status: string) => {
       return t('account.subscription.status_inactive')
     case 'pending':
       return t('account.subscription.status_pending')
+    case 'approved':
+      return t('account.subscription.status_approved')
+    case 'canceled':
+      return t('account.subscription.status_canceled')
+    case 'rejected':
+      return t('account.subscription.status_rejected')
     default:
       return status
   }
@@ -307,6 +285,12 @@ const getStatusType = (status: string) => {
       return 'error'
     case 'pending':
       return 'warning'
+    case 'approved':
+      return 'success'
+    case 'canceled':
+      return 'error'
+    case 'rejected':
+      return 'error'
     default:
       return 'default'
   }
@@ -329,24 +313,25 @@ onMounted(async () => {
   try {
     profileLoading.value = true
     // Ottieni i dati del profilo utente
-    const response = await userApi.getProfile()
+    const profileResponse = await userApi.getProfile()
     
-    if (response.data.status === 'success') {
-      profileForm.value.name = response.data.data.name
-      profileForm.value.email = response.data.data.email
-      
-      // Popola i dati dell'abbonamento
-      if (response.data.data.subscription) {
-        userSubscription.value = response.data.data.subscription
-      }
+    if (profileResponse.data.status === 'success') {
+      profileForm.value.name = profileResponse.data.data.name
+      profileForm.value.email = profileResponse.data.data.email
       
       // Imposta l'ultimo accesso
-      if (response.data.data.lastLogin) {
-        lastLogin.value = response.data.data.lastLogin
+      if (profileResponse.data.data.lastLogin) {
+        lastLogin.value = profileResponse.data.data.lastLogin
       }
     }
+
+    // Carica i dati dell'abbonamento corrente
+    const subscriptionResponse = await subscriptionApi.getUserSubscription()
+    if (subscriptionResponse.data.data) {
+      userSubscription.value = subscriptionResponse.data.data
+    }
   } catch (error) {
-    message.error('Errore nel caricamento dei dati del profilo')
+    message.error(t('account.profile.errors.loading_error'))
     console.error(error)
   } finally {
     profileLoading.value = false
@@ -484,6 +469,12 @@ const handlePasswordSubmit = () => {
 .last-login-value {
   font-size: 1rem;
   padding: 5px 0;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 @media (max-width: 600px) {

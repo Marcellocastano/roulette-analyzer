@@ -50,6 +50,18 @@ class AdminController {
     }
   }
 
+  async getUserRequestPending(req, res, next) {
+    try {
+        const requests = await adminService.getUserRequestPending(req.params.userId);
+        res.status(200).json({
+            status: 'success',
+            data: requests
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async updateUserStatus(req, res, next) {
     try {
       const { userId } = req.params;

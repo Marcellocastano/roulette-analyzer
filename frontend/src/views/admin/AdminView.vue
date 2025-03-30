@@ -196,16 +196,6 @@ const columns = [
     width: 120
   },
   {
-    title: 'Ruolo',
-    key: 'role',
-    width: 100,
-    render(row: User) {
-      return h(NTag, {
-        type: row.role === 'admin' ? 'error' : 'info',
-      }, { default: () => row.role });
-    }
-  },
-  {
     title: 'Piano',
     key: 'subscription.plan',
     width: 100,

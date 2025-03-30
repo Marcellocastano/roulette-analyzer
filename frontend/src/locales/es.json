@@ -238,12 +238,29 @@
       "start_date": "Fecha de inicio",
       "duration": "Duración",
       "new_request": "Nueva solicitud",
+      "pending_request": "Solicitud pendiente",
+      "approved_request": "Solicitud aprobada",
       "status_active": "Activo",
       "status_inactive": "Inactivo",
       "status_pending": "Pendiente",
+      "status_approved": "Aprobada",
+      "status_canceled": "Cancelada",
+      "status_rejected": "Rechazada",
       "duration_monthly": "Mensual",
       "duration_annual": "Anual",
-      "last_login": "Último acceso"
+      "last_login": "Último acceso",
+      "type": "Tipo",
+      "request_type_new": "Nueva suscripción",
+      "request_type_renewal": "Renovación",
+      "request_type_upgrade": "Mejora",
+      "request_type_downgrade": "Reducción",
+      "request_date": "Fecha de solicitud",
+      "processed_date": "Fecha de procesamiento",
+      "payment": "Pago",
+      "pay_now": "Pagar ahora",
+      "cancel_request": "Cancelar solicitud",
+      "plan_free": "Gratuito",
+      "plan_premium": "Premium"
     }
   },
   "contact": {
@@ -328,7 +345,7 @@
   "navbar": {
     "dashboard": "Panel",
     "tutorial": "Tutorial",
-    "play": "Roulette Destroyer",
+    "play": "Roulette Pro AI",
     "pricing": "Suscripción",
     "account": "Cuenta",
     "contact": "Contáctanos",
@@ -405,7 +422,8 @@
     "messages": {
       "subscription_error": "Se ha producido un error durante la solicitud de suscripción. Inténtalo más tarde.",
       "cancel_success": "Solicitud de suscripción cancelada con éxito",
-      "cancel_error": "Se ha producido un error durante la cancelación de la solicitud. Inténtalo más tarde."
+      "cancel_error": "Se ha producido un error durante la cancelación de la solicitud. Inténtalo más tarde.",
+      "trial_error": "Se ha producido un error durante la activación del plano de prueba. El usuario puede tener un abono activo."
     }
   },
   "table_analysis": {

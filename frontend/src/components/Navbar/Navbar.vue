@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-left">
       <div class="logo">
-        <img src="/assets/images/logo.png" alt="Roulette Destroyer Logo" />
+        <img src="/assets/images/logo.png" alt="Roulette Pro Logo" />
       </div>
     </div>
 
@@ -25,7 +25,7 @@
                   to: isRouteActive(route.path) ? '#ffcf00' : '#9ecaff',
                 }"
               >
-                <strong>Roulette Destroyer</strong>
+                <strong>Roulette Pro AI</strong>
               </n-gradient-text>
               <premium-badge v-if="route.premium" />
             </div>
@@ -82,7 +82,7 @@
                   to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
                 }"
               >
-                <strong>Roulette Destroyer</strong>
+                <strong>Roulette Pro AI</strong>
             </n-gradient-text>
             <span v-else>{{ route.name }}</span>
           </router-link>

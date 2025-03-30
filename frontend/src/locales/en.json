@@ -280,12 +280,29 @@
       "start_date": "Start Date",
       "duration": "Duration",
       "new_request": "New Request",
+      "pending_request": "Pending Request",
+      "approved_request": "Approved Request",
       "status_active": "Active",
       "status_inactive": "Inactive",
       "status_pending": "Pending",
+      "status_approved": "Approved",
+      "status_canceled": "Canceled",
+      "status_rejected": "Rejected",
       "duration_monthly": "Monthly",
       "duration_annual": "Annual",
-      "last_login": "Last Login"
+      "last_login": "Last Login",
+      "type": "Type",
+      "request_type_new": "New subscription",
+      "request_type_renewal": "Renewal",
+      "request_type_upgrade": "Upgrade",
+      "request_type_downgrade": "Downgrade",
+      "request_date": "Request Date",
+      "processed_date": "Processing Date",
+      "payment": "Payment",
+      "pay_now": "Pay Now",
+      "cancel_request": "Cancel Request",
+      "plan_free": "Free",
+      "plan_premium": "Premium"
     }
   },
   "contact": {
@@ -328,7 +345,7 @@
   "navbar": {
     "dashboard": "Dashboard",
     "tutorial": "Tutorial",
-    "play": "Roulette Destroyer",
+    "play": "Roulette Pro AI",
     "pricing": "Subscription",
     "account": "Account",
     "contact": "Contact Us",
@@ -405,7 +422,8 @@
     "messages": {
       "subscription_error": "An error occurred during the subscription request. Please try again later.",
       "cancel_success": "Subscription request cancelled successfully",
-      "cancel_error": "An error occurred while cancelling the request. Please try again later."
+      "cancel_error": "An error occurred while cancelling the request. Please try again later.",
+      "trial_error": "An error occurred during the activation of the trial plan. The user may have an active subscription."
     }
   },
   "table_analysis": {

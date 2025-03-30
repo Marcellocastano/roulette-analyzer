@@ -54,6 +54,16 @@ class SubscriptionController {
     }
   }
 
+  requestSubscriptionInPending = async (req, res, next) => {
+    try {
+      const userId = req.user.id;
+      const request = await this.subscriptionService.requestSubscriptionInPending(userId);
+      res.status(200).json({ success: true, data: request });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   /**
    * Attiva un abbonamento di prova
    */

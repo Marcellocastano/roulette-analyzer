@@ -13,6 +13,9 @@ router.use(isAdmin);
 // Ottiene tutte le richieste di abbonamento in attesa
 router.get('/requests/pending', adminSubscriptionController.getPendingSubscriptionRequests);
 
+// Ottiene una subscription per user id
+router.get('/:id', adminSubscriptionController.getUserSubscriptionById);
+
 // Attiva un abbonamento in base a una richiesta
 router.post('/activate/:requestId', adminSubscriptionController.activateSubscription);
 

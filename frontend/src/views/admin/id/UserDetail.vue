@@ -52,43 +52,50 @@
         <div class="user-info-container">
           <!-- Sezione Informazioni Personali -->
           <n-card title="Informazioni Personali" embedded class="info-card">
-            <div class="info-section">
-              <div class="info-row">
-                <div class="info-label">ID:</div>
-                <div class="info-value id-value">{{ user._id }}</div>
-              </div>
-              
-              <div class="info-row">
-                <div class="info-label">Email:</div>
-                <div class="info-value">{{ user.email }}</div>
-              </div>
-              
-              <div class="info-row">
-                <div class="info-label">Nome:</div>
-                <div class="info-value">{{ user.name }}</div>
-              </div>
-              
-              <div class="info-row">
-                <div class="info-label">Ruolo:</div>
-                <div class="info-value">
-                  <n-tag :type="user.role === 'admin' ? 'error' : 'info'" class="role-tag">
-                    {{ user.role }}
-                  </n-tag>
+            <div class="subscription-section">
+              <div class="subscription-grid">
+                <div class="subscription-column">
+                  <div class="info-row">
+                    <div class="info-label">ID:</div>
+                    <div class="info-value id-value">{{ user._id }}</div>
+                  </div>
+                
+                <div class="info-row">
+                  <div class="info-label">Email:</div>
+                  <div class="info-value">{{ user.email }}</div>
                 </div>
+
+              </div>
+              <div class="subscription-column">
+                <div class="info-row">
+                  <div class="info-label">Nome:</div>
+                  <div class="info-value">{{ user.name }}</div>
+                </div>
+                
+                <div class="info-row">
+                  <div class="info-label">Ruolo:</div>
+                  <div class="info-value">
+                    <n-tag :type="user.role === 'admin' ? 'error' : 'info'" class="role-tag">
+                      {{ user.role }}
+                    </n-tag>
+                  </div>
+                </div>
+
+              </div>
               </div>
             </div>
           </n-card>
 
-          <!-- Sezione Dettagli Abbonamento -->
-          <n-card title="Dettagli Abbonamento" embedded class="subscription-card">
-            <div class="subscription-section">
+          <!-- Sezione Abbonamento -->
+          <n-card title="Abbonamento" embedded class="info-card">
+            <div v-if="user.activeSubscription" class="subscription-section">
               <div class="subscription-grid">
                 <div class="subscription-column">
                   <div class="subscription-item">
                     <div class="subscription-label">Piano:</div>
                     <div class="subscription-value">
-                      <n-tag :type="user.subscription?.plan === 'premium' ? 'success' : 'warning'" class="plan-tag">
-                        {{ user.subscription?.plan }}
+                      <n-tag :type="subscription?.plan === 'premium' ? 'success' : 'warning'" class="plan-tag">
+                        {{ subscription?.plan }}
                       </n-tag>
                     </div>
                   </div>
@@ -96,8 +103,8 @@
                   <div class="subscription-item">
                     <div class="subscription-label">Stato:</div>
                     <div class="subscription-value">
-                      <n-tag :type="getSubscriptionStatusType(user.subscription?.status)" class="status-tag">
-                        {{ user.subscription?.status }}
+                      <n-tag :type="getSubscriptionStatusType(subscription?.status)" class="status-tag">
+                        {{ subscription?.status }}
                       </n-tag>
                     </div>
                   </div>
@@ -105,30 +112,50 @@
                   <div class="subscription-item">
                     <div class="subscription-label">Durata:</div>
                     <div class="subscription-value">
-                      {{ user.subscription?.duration || 'N/A' }}
+                      {{ subscription?.duration || 'N/A' }}
                     </div>
                   </div>
                 </div>
-                
                 <div class="subscription-column">
                   <div class="subscription-item">
                     <div class="subscription-label">Data Inizio:</div>
                     <div class="subscription-value">
-                      {{ formatDate(user.subscription?.startDate) }}
+                      {{ formatDate(subscription?.startDate) }}
                     </div>
                   </div>
                   
                   <div class="subscription-item">
                     <div class="subscription-label">Data Fine:</div>
                     <div class="subscription-value">
-                      {{ formatDate(user.subscription?.endDate) }}
+                      {{ formatDate(subscription?.endDate) }}
                     </div>
                   </div>
                 </div>
               </div>
               
+              <!-- Pulsanti di azione per l'abbonamento -->
+              <div class="action-buttons">
+                <n-button 
+                  v-if="subscription?.status === 'active'"
+                  type="error" 
+                  size="small" 
+                  @click="handleDeactivateSubscription"
+                  :loading="actionLoading">
+                  Disattiva Abbonamento
+                </n-button>
+                <n-button 
+                  v-else
+                  type="success" 
+                  size="small" 
+                  @click="handleActivateSubscription"
+                  :loading="actionLoading">
+                  Attiva Abbonamento
+                </n-button>
+              </div>
+            </div>
+              
               <!-- Sezione Nuova Richiesta -->
-              <div v-if="user.subscription?.newRequest" class="new-request-section">
+              <div v-if="pendingRequest" class="new-request-section">
                 <div class="section-divider"></div>
                 <div class="section-title">Nuova Richiesta</div>
                 
@@ -137,24 +164,34 @@
                     <div class="subscription-item">
                       <div class="subscription-label">Stato:</div>
                       <div class="subscription-value">
-                        <n-tag :type="getSubscriptionStatusType(user.subscription?.newRequest?.status)" class="status-tag">
-                          {{ user.subscription?.newRequest?.status || 'unset' }}
+                        <n-tag :type="getSubscriptionStatusType(pendingRequest?.status)" class="status-tag">
+                          {{ pendingRequest?.status || 'unset' }}
                         </n-tag>
                       </div>
                     </div>
                   </div>
                   
                   <div class="subscription-column">
-                    <div class="subscription-item" v-if="user.subscription?.newRequest?.status === 'pending'">
-                      <div class="subscription-label">Durata:</div>
+                    <div class="subscription-item" v-if="pendingRequest?.status === 'pending'">
+                      <div class="subscription-label">Nome:</div>
                       <div class="subscription-value">
-                        {{ user.subscription?.newRequest?.duration || 'N/A' }}
+                        {{ pendingRequest?.name || 'N/A' }}
                       </div>
                     </div>
                   </div>
                 </div>
+                
+                <!-- Pulsanti di azione per la richiesta pendente -->
+                <div v-if="pendingRequest?.status === 'pending'" class="action-buttons">
+                  <n-button 
+                    type="success" 
+                    size="small" 
+                    @click="handleApproveRequest"
+                    :loading="actionLoading">
+                    Approva Richiesta
+                  </n-button>
+                </div>
               </div>
-            </div>
           </n-card>
         </div>
       </n-spin>
@@ -165,23 +202,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { NCard, NTag, NSpin, NButton, useMessage } from 'naive-ui';
 import { User } from '@/types/auth';
 import { adminApi } from '@/api/admin';
-import {
-  NCard,
-  NPageHeader,
-  NButton,
-  NSpace,
-  NSpin,
-  NTag,
-  useMessage
-} from 'naive-ui';
+import { adminSubscriptionApi } from '@/api/adminSubscription';
+import { UserSubscription } from '@/api/user';
 
 const router = useRouter();
 const message = useMessage();
 
 const user = ref<User>({} as User);
+const subscription = ref<UserSubscription>({} as UserSubscription);
+const pendingRequest = ref<any>(null);
 const loading = ref(true);
+const actionLoading = ref(false);
 const userId = router.currentRoute.value.params.id as string;
 
 const formatDate = (date: string | null) => {
@@ -242,15 +276,131 @@ const handleSubscriptionToggle = async () => {
   }
 };
 
-onMounted(async () => {
+const handleActivateSubscription = async () => {
+  try {
+    actionLoading.value = true;
+    
+    // Utilizziamo l'API dell'admin per attivare l'abbonamento
+    await adminApi.activateSubscription(userId);
+    message.success('Abbonamento attivato con successo');
+    
+    // Ricarica i dati dell'utente e dell'abbonamento
+    await loadUserData();
+  } catch (error) {
+    message.error('Errore durante l\'attivazione dell\'abbonamento');
+    console.error(error);
+  } finally {
+    actionLoading.value = false;
+  }
+};
+
+const handleDeactivateSubscription = async () => {
+  try {
+    actionLoading.value = true;
+    
+    if (!user.value.activeSubscription) {
+      message.error('Nessun abbonamento attivo da disattivare');
+      return;
+    }
+    
+    // Utilizziamo l'API dell'admin per disattivare l'abbonamento
+    await adminSubscriptionApi.deactivateSubscription(user.value.activeSubscription);
+    message.success('Abbonamento disattivato con successo');
+    
+    // Ricarica i dati dell'utente e dell'abbonamento
+    await loadUserData();
+  } catch (error) {
+    message.error('Errore durante la disattivazione dell\'abbonamento');
+    console.error(error);
+  } finally {
+    actionLoading.value = false;
+  }
+};
+
+const handleApproveRequest = async () => {
+  try {
+    actionLoading.value = true;
+    if (!pendingRequest.value?._id) {
+      message.error('ID della richiesta non disponibile');
+      return;
+    }
+    
+    await adminSubscriptionApi.activateSubscription(pendingRequest.value._id);
+    message.success('Richiesta approvata con successo');
+    
+    // Ricarica i dati dell'utente e dell'abbonamento
+    await loadUserData();
+  } catch (error) {
+    message.error('Errore durante l\'approvazione della richiesta');
+    console.error(error);
+  } finally {
+    actionLoading.value = false;
+  }
+};
+
+const handleRejectRequest = async () => {
+  try {
+    actionLoading.value = true;
+    if (!pendingRequest.value?._id) {
+      message.error('ID della richiesta non disponibile');
+      return;
+    }
+    
+    await adminSubscriptionApi.rejectSubscriptionRequest(pendingRequest.value._id);
+    message.success('Richiesta rifiutata con successo');
+    
+    // Ricarica i dati dell'utente e dell'abbonamento
+    await loadUserData();
+  } catch (error) {
+    message.error('Errore durante il rifiuto della richiesta');
+    console.error(error);
+  } finally {
+    actionLoading.value = false;
+  }
+};
+
+const getUserSubscription = async () => {
+  try {
+    if (!user.value.activeSubscription) return;
+    const response = await adminSubscriptionApi.getUserSubscriptionById(user.value.activeSubscription);
+    subscription.value = response.data.data;
+  } catch (error) {
+    message.error('Errore durante il recupero dell\'abbonamento');
+    console.error(error);
+  }
+};
+
+const getPendingRequest = async () => {
+  try {
+    const response = await adminApi.getUserRequestPending(userId);
+
+    pendingRequest.value = response.data.data[0];
+  } catch (error) {
+    message.error('Errore durante il recupero della richiesta in pending');
+    console.error(error);
+  }
+};
+
+const loadUserData = async () => {
   try {
     const response = await adminApi.getUserById(userId);
     user.value = response.data.data;
+    getUserSubscription();
+    getPendingRequest();
   } catch (error) {
     message.error('Errore nel caricamento dei dati utente');
     console.error(error);
   } finally {
     loading.value = false;
+  }
+};
+
+onMounted(async () => {
+  try {
+    await loadUserData();
+  } catch (error) {
+    message.error('Errore nel caricamento dei dati utente');
+    console.error(error);
   }
 });
 </script>
@@ -361,5 +511,11 @@ onMounted(async () => {
 
 .role-tag, .plan-tag, .status-tag {
   font-weight: 600;
+}
+
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
 }
 </style>

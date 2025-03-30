@@ -21,6 +21,19 @@ class AdminSubscriptionController {
   }
 
   /**
+   * Ottiene un utente per id
+   */
+  getUserSubscriptionById = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const user = await this.adminService.getUserSubscriptionById(id);
+      res.status(200).json({ success: true, data: user });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
    * Attiva un abbonamento in base a una richiesta
    */
   activateSubscription = async (req, res, next) => {

@@ -22,6 +22,7 @@ export interface SubscriptionRequest {
 export const subscriptionApi = {
   getUserSubscription: () => apiClient.get('/subscription/current'),
   getUserSubscriptionRequests: () => apiClient.get('/subscription/requests'),
+  requestSubscriptionInPending: () => apiClient.get('/subscription/request-in-pending'),
   requestSubscription: (planId: string, type: string = 'new') =>
     apiClient.post<{ success: boolean, data: SubscriptionRequest }>('/subscription/request', { planId, type }),
   activateTrial: () => apiClient.post('/subscription/trial'),

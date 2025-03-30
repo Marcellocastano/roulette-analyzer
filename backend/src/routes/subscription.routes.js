@@ -12,6 +12,8 @@ router.use(authenticateToken);
 router.get('/current', subscriptionController.getUserSubscription);
 // Ottiene tutte le richieste di abbonamento dell'utente
 router.get('/requests', subscriptionController.getUserSubscriptionRequests);
+// Ottiene la richiesta di abbonamento in attesa
+router.get('/request-in-pending', subscriptionController.requestSubscriptionInPending);
 // Richiede un nuovo abbonamento o il rinnovo di un abbonamento esistente
 router.post('/request', subscriptionController.requestSubscription);
 // Attiva un abbonamento di prova

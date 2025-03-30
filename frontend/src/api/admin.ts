@@ -1,5 +1,5 @@
 import type { ApiResponse } from '@/types/api'
-import { User } from '@/types/auth'
+import { SubscriptionRequest, User } from '@/types/auth'
 import apiClient from './config'
 
 export const adminApi = {
@@ -19,5 +19,8 @@ export const adminApi = {
   },
   deactivateSubscription: (id: string) => {
     return apiClient.post<ApiResponse<{ message: string }>>('/admin/users/' + id + '/deactivate-subscription')
+  },
+  getUserRequestPending: (id: string) => {
+    return apiClient.get<ApiResponse<SubscriptionRequest[]>>('/admin/users/' + id + '/request/pending')
   },
 }

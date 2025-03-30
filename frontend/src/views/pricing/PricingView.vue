@@ -244,7 +244,7 @@ onMounted(() => {
     paymentInstructions.value = JSON.parse(savedPaymentInfo)
   }
   getPlans()
-  getActiveRequest()
+  gerRequestInPending()
 })
 
 const getPlans = async () => {
@@ -258,10 +258,10 @@ const getPlans = async () => {
   }
 }
 
-const getActiveRequest = async () => {
+const gerRequestInPending = async () => {
   try {
-    const response = await subscriptionApi.getUserSubscriptionRequests()
-    paymentInstructions.value = response.data.data[0]
+    const response = await subscriptionApi.requestSubscriptionInPending()
+    paymentInstructions.value = response.data.data
   } catch (error) {
     message.error(t('pricing.messages.error_retrieving_active_request'))
     console.error('Error during active request retrieval:', error)

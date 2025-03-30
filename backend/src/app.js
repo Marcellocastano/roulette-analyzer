@@ -35,7 +35,7 @@ app.use('/api/v1', routes);
 
 // Welcome route
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to Roulette Destroyer API' });
+    res.json({ message: 'Welcome to Roulette Pro API' });
 });
 
 // Error handling middleware

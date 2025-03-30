@@ -86,14 +86,4 @@ subscriptionSchema.methods.isActive = function () {
   );
 };
 
-// Metodo per calcolare i giorni rimanenti
-subscriptionSchema.methods.daysRemaining = function () {
-  if (!this.endDate || this.status !== "active") return 0;
-
-  const now = new Date();
-  const end = new Date(this.endDate);
-  const diff = end - now;
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
-};
-
 module.exports = mongoose.model("Subscription", subscriptionSchema);

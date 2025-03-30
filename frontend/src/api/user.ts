@@ -10,8 +10,11 @@ export interface UserProfile {
   lastLogin: string
   isTrialUsed: boolean
   activeSubscription: string | null
-  preferences?: Record<string, any>
-  subscription?: UserSubscription
+}
+
+export interface Session {
+  count: number
+  lastReset: string
 }
 
 export interface UserSubscription {
@@ -20,10 +23,8 @@ export interface UserSubscription {
   duration: 'monthly' | 'annual' | null
   startDate: string | null
   endDate: string | null
-  newRequest: {
-    status: 'unset' | 'active' | 'pending'
-    duration: 'monthly' | 'annual'
-  } | null
+  sessions: Session
+  name: string
 }
 
 export const userApi = {

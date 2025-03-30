@@ -13,7 +13,7 @@ class SubscriptionService {
       if (!user) {
         throw new AppError('Utente non trovato', 404);
       }
-
+      console.log(user)
       if (!user.activeSubscription) {
         return {
           active: false,
@@ -26,7 +26,6 @@ class SubscriptionService {
       if (!subscription) {
         throw new AppError('Abbonamento non trovato', 404);
       }
-
       // Popola i dettagli del piano
       await subscription.populate('planId');
 
@@ -39,7 +38,6 @@ class SubscriptionService {
         startDate: subscription.startDate,
         endDate: subscription.endDate,
         status: subscription.status,
-        daysRemaining: subscription.daysRemaining(),
         sessions: subscription.sessions
       };
     } catch (error) {
@@ -57,6 +55,18 @@ class SubscriptionService {
       return requests;
     } catch (error) {
       throw new AppError('Errore durante il recupero delle richieste di abbonamento', 500);
+    }
+  }
+
+  async requestSubscriptionInPending(userId) {
+    try {
+      const request = await subscriptionRequestRepository.findPendingByUserId(userId);
+      if (!request) {
+        return [];
+      }
+      return request;
+    } catch (error) {
+      throw new AppError('Errore durante il recupero della richiesta di abbonamento in attesa', 500);
     }
   }
 

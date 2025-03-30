@@ -219,47 +219,145 @@ class AdminService {
         throw new AppError('Piano non trovato', 404);
       }
 
-      // Calcola la data di fine abbonamento
-      const startDate = new Date();
-      let endDate;
-      
-      if (plan.duration === 'monthly') {
-        endDate = new Date(startDate);
-        endDate.setMonth(endDate.getMonth() + plan.durationValue);
-      } else if (plan.duration === 'annual') {
-        endDate = new Date(startDate);
-        endDate.setFullYear(endDate.getFullYear() + plan.durationValue);
-      } else if (plan.duration === 'days') {
-        endDate = new Date(startDate);
-        endDate.setDate(endDate.getDate() + plan.durationValue);
-      } else {
-        // Per piani con durata indefinita o non specificata
-        endDate = null;
-      }
-
       // Crea o aggiorna l'abbonamento
-      const subscriptionData = {
+      let subscriptionData = {
         userId: user._id,
-        planId: plan._id,
         status: 'active',
-        startDate,
-        endDate,
-        plan: plan.type,
-        duration: plan.duration,
         approvedBy: adminId,
         approvedAt: new Date()
       };
 
-      // Se l'utente ha già un abbonamento attivo, lo aggiorna
+      // Se l'utente ha già un abbonamento attivo, gestisci la logica di upgrade/downgrade
       let subscription;
       if (user.activeSubscription) {
-        subscription = await subscriptionRepository.findOneAndUpdate(
-          { _id: user.activeSubscription },
-          { $set: subscriptionData },
-          { new: true }
-        );
+        // Ottieni l'abbonamento attuale
+        const currentSubscription = await subscriptionRepository.findById(user.activeSubscription);
+        if (currentSubscription) {
+          await currentSubscription.populate('planId');
+          
+          // Determina se mantenere il planId corrente o usare quello nuovo
+          let shouldKeepCurrentPlan = false;
+          
+          // Se l'abbonamento attuale è annuale e il nuovo è mensile, mantieni il planId annuale
+          if (currentSubscription.planId && 
+              currentSubscription.planId.duration === 'annual' && 
+              plan.duration === 'monthly') {
+            shouldKeepCurrentPlan = true;
+          }
+          
+          // Calcola la nuova data di fine abbonamento estendendo quella esistente
+          let startDate;
+          let endDate;
+          
+          // Se l'abbonamento è scaduto o non ha una data di fine, usa la data corrente come inizio
+          if (!currentSubscription.endDate || new Date(currentSubscription.endDate) < new Date()) {
+            startDate = new Date();
+          } else {
+            // Altrimenti, mantieni la data di inizio esistente
+            startDate = currentSubscription.startDate;
+          }
+          
+          // Calcola la nuova data di fine partendo dalla data di fine esistente o dalla data corrente
+          const baseDate = currentSubscription.endDate && new Date(currentSubscription.endDate) > new Date() 
+            ? new Date(currentSubscription.endDate) 
+            : new Date();
+          
+          if (plan.duration === 'monthly') {
+            endDate = new Date(baseDate);
+            endDate.setMonth(endDate.getMonth() + plan.durationValue);
+          } else if (plan.duration === 'annual') {
+            endDate = new Date(baseDate);
+            endDate.setFullYear(endDate.getFullYear() + plan.durationValue);
+          } else if (plan.duration === 'days') {
+            endDate = new Date(baseDate);
+            endDate.setDate(endDate.getDate() + plan.durationValue);
+          } else {
+            // Per piani con durata indefinita o non specificata
+            endDate = null;
+          }
+          
+          // Aggiorna le date nel subscriptionData
+          subscriptionData.startDate = startDate;
+          subscriptionData.endDate = endDate;
+          
+          // Imposta il planId appropriato
+          if (shouldKeepCurrentPlan) {
+            // Mantieni il piano annuale, aggiorna solo la data di fine
+            subscriptionData.planId = currentSubscription.planId._id;
+            subscriptionData.plan = currentSubscription.planId.type;
+            subscriptionData.duration = currentSubscription.planId.duration;
+          } else {
+            // Usa il nuovo piano (mensile -> annuale o stesso tipo di piano)
+            subscriptionData.planId = plan._id;
+            subscriptionData.plan = plan.type;
+            subscriptionData.duration = plan.duration;
+          }
+          
+          // Aggiorna l'abbonamento esistente
+          subscription = await subscriptionRepository.findOneAndUpdate(
+            { _id: user.activeSubscription },
+            { $set: subscriptionData },
+            { new: true }
+          );
+        } else {
+          // Se per qualche motivo l'abbonamento attivo non esiste, creane uno nuovo
+          const startDate = new Date();
+          let endDate;
+          
+          if (plan.duration === 'monthly') {
+            endDate = new Date(startDate);
+            endDate.setMonth(endDate.getMonth() + plan.durationValue);
+          } else if (plan.duration === 'annual') {
+            endDate = new Date(startDate);
+            endDate.setFullYear(endDate.getFullYear() + plan.durationValue);
+          } else if (plan.duration === 'days') {
+            endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + plan.durationValue);
+          } else {
+            // Per piani con durata indefinita o non specificata
+            endDate = null;
+          }
+          
+          subscriptionData.startDate = startDate;
+          subscriptionData.endDate = endDate;
+          subscriptionData.planId = plan._id;
+          subscriptionData.plan = plan.type;
+          subscriptionData.duration = plan.duration;
+          
+          subscription = await subscriptionRepository.create(subscriptionData);
+          
+          // Aggiorna l'utente con il riferimento al nuovo abbonamento
+          await userRepository.findOneAndUpdate(
+            { _id: user._id },
+            { $set: { activeSubscription: subscription._id } },
+            { new: true }
+          );
+        }
       } else {
-        // Altrimenti crea un nuovo abbonamento
+        // Se l'utente non ha un abbonamento attivo, crea un nuovo abbonamento
+        const startDate = new Date();
+        let endDate;
+        
+        if (plan.duration === 'monthly') {
+          endDate = new Date(startDate);
+          endDate.setMonth(endDate.getMonth() + plan.durationValue);
+        } else if (plan.duration === 'annual') {
+          endDate = new Date(startDate);
+          endDate.setFullYear(endDate.getFullYear() + plan.durationValue);
+        } else if (plan.duration === 'days') {
+          endDate = new Date(startDate);
+          endDate.setDate(endDate.getDate() + plan.durationValue);
+        } else {
+          // Per piani con durata indefinita o non specificata
+          endDate = null;
+        }
+        
+        subscriptionData.startDate = startDate;
+        subscriptionData.endDate = endDate;
+        subscriptionData.planId = plan._id;
+        subscriptionData.plan = plan.type;
+        subscriptionData.duration = plan.duration;
+        
         subscription = await subscriptionRepository.create(subscriptionData);
         
         // Aggiorna l'utente con il riferimento al nuovo abbonamento
@@ -270,8 +368,19 @@ class AdminService {
         );
       }
 
-      // Aggiorna lo stato della richiesta
-      await subscriptionRequestRepository.updateStatus(requestId, 'approved', adminId);
+      // Aggiorna lo stato della richiesta e imposta il riferimento all'abbonamento risultante
+      await subscriptionRequestRepository.findOneAndUpdate(
+        { _id: requestId },
+        { 
+          $set: {
+            status: 'approved',
+            processedBy: adminId,
+            processedDate: new Date(),
+            resultingSubscription: subscription._id
+          }
+        },
+        { new: true }
+      );
 
       return subscription;
     } catch (error) {
@@ -318,6 +427,55 @@ class AdminService {
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Errore durante il rifiuto della richiesta di abbonamento', 500);
+    }
+  }
+
+  /**
+   * Ottiene un utente per id
+   * @param {string} id - ID dell'utente
+   * @returns {Promise<Object>} - Dettagli dell'utente
+   */
+  async getUserSubscriptionById(id) {
+    try {
+      const subscription = await subscriptionRepository.findById(id);
+      if (!subscription) {
+        throw new AppError('Utente non trovato', 404);
+      }
+
+      await subscription.populate('planId');
+      return {
+        ...subscription.toObject(),
+        plan: subscription.planId ? subscription.planId.type : 'unknown',
+        duration: subscription.planId ? subscription.planId.duration : null
+      };
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Errore durante la ricerca dell\'utente', 500);
+    }
+  }
+
+  /**
+   * Ottiene le richieste di abbonamento in attesa per un utente
+   * @param {string} userId - ID dell'utente
+   * @returns {Promise<Array>} - Array di richieste di abbonamento in attesa
+   */
+  async getUserRequestPending(userId) {
+    try {
+      const requests = await subscriptionRequestRepository.find({ userId, status: 'pending' });
+      if (!requests || requests.length === 0) {
+        return [];
+      }
+      const plan = await planRepository.findById(requests[0].planId);
+      console.log(plan);
+      return requests.map(request => ({
+        ...request.toObject(),
+        plan: plan ? plan.type : 'unknown',
+        name: plan ? plan.name : 'unknown',
+        duration: plan ? plan.duration : null
+      }));
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Errore durante la ricerca delle richieste di abbonamento in attesa', 500);
     }
   }
 

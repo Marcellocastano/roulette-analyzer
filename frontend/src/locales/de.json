@@ -238,12 +238,29 @@
       "start_date": "Startdatum",
       "duration": "Dauer",
       "new_request": "Neue Anfrage",
+      "pending_request": "Ausstehende Anfrage",
+      "approved_request": "Genehmigte Anfrage",
       "status_active": "Aktiv",
       "status_inactive": "Inaktiv",
       "status_pending": "Ausstehend",
+      "status_approved": "Genehmigt",
+      "status_canceled": "Storniert",
+      "status_rejected": "Abgelehnt",
       "duration_monthly": "Monatlich",
       "duration_annual": "Jährlich",
-      "last_login": "Letzter Login"
+      "last_login": "Letzte Anmeldung",
+      "type": "Typ",
+      "request_type_new": "Neues Abonnement",
+      "request_type_renewal": "Verlängerung",
+      "request_type_upgrade": "Upgrade",
+      "request_type_downgrade": "Downgrade",
+      "request_date": "Anfragedatum",
+      "processed_date": "Bearbeitungsdatum",
+      "payment": "Zahlung",
+      "pay_now": "Jetzt bezahlen",
+      "cancel_request": "Anfrage stornieren",
+      "plan_free": "Kostenlos",
+      "plan_premium": "Premium"
     }
   },
   "contact": {
@@ -328,7 +345,7 @@
   "navbar": {
     "dashboard": "Dashboard",
     "tutorial": "Tutorial",
-    "play": "Roulette Destroyer",
+    "play": "Roulette Pro AI",
     "pricing": "Abonnement",
     "account": "Konto",
     "contact": "Kontakt",
@@ -405,7 +422,8 @@
     "messages": {
       "subscription_error": "Bei der Abonnementanfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
       "cancel_success": "Abonnementanfrage erfolgreich storniert",
-      "cancel_error": "Bei der Stornierung der Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
+      "cancel_error": "Bei der Stornierung der Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+      "trial_error": "Bei der Aktivierung des Testplans ist ein Fehler aufgetreten. Der Benutzer könnte ein aktives Abonnement haben."
     }
   },
   "table_analysis": {

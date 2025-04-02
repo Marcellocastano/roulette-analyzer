@@ -112,18 +112,27 @@
     "title": "Accedi",
     "email": "Email",
     "password": "Password",
+    "forgot_password": "Hai dimenticato la password?",
     "submit": "Accedi",
     "signup_link": "Non hai un account? Registrati",
-    "forgot_password": "Password dimenticata?",
     "errors": {
-      "email_required": "Inserisci la tua email",
-      "email_invalid": "Email non valida",
-      "password_required": "Inserisci la tua password"
+      "email_required": "L'email è obbligatoria",
+      "email_invalid": "Inserisci un indirizzo email valido",
+      "password_required": "La password è obbligatoria"
     },
     "messages": {
       "success": "Login effettuato con successo",
-      "auth_error": "Errore di autenticazione",
-      "login_error": "Errore durante il login. Verifica le tue credenziali."
+      "login_error": "Errore durante il login",
+      "auth_error": "Autenticazione fallita",
+      "invalid_credentials": "Credenziali non valide. Controlla email e password.",
+      "account_not_activated": "Account non attivato. Controlla la tua email per il link di conferma o richiedine uno nuovo.",
+      "resend_confirmation_success": "Email di conferma inviata con successo",
+      "resend_confirmation_error": "Errore durante l'invio dell'email di conferma"
+    },
+    "account_not_activated": {
+      "title": "Account non attivato",
+      "message": "Il tuo account non è stato ancora attivato. Controlla la tua email per il link di conferma o richiedine uno nuovo.",
+      "resend_button": "Invia nuovamente email di conferma"
     }
   },
   "forgot_password": {
@@ -133,8 +142,8 @@
     "submit": "Invia link di recupero",
     "back_to_login": "Torna al login",
     "errors": {
-      "email_required": "Inserisci la tua email",
-      "email_invalid": "Email non valida"
+      "email_required": "L'email è obbligatoria",
+      "email_invalid": "Inserisci un indirizzo email valido"
     },
     "messages": {
       "success": "Istruzioni per il recupero password inviate alla tua email",
@@ -149,7 +158,7 @@
     "submit": "Reimposta Password",
     "back_to_login": "Torna al login",
     "errors": {
-      "password_required": "Inserisci la nuova password",
+      "password_required": "La password è obbligatoria",
       "password_length": "La password deve contenere almeno 8 caratteri",
       "confirm_password_required": "Conferma la nuova password",
       "passwords_not_match": "Le password non corrispondono"
@@ -173,10 +182,10 @@
       "error": "Errore durante la registrazione. Riprova più tardi."
     },
     "errors": {
-      "name_required": "Inserisci il tuo nome",
-      "email_required": "Inserisci la tua email",
-      "email_invalid": "Email non valida",
-      "password_required": "Inserisci la tua password",
+      "name_required": "Il nome è obbligatorio",
+      "email_required": "L'email è obbligatoria",
+      "email_invalid": "Inserisci un indirizzo email valido",
+      "password_required": "La password è obbligatoria",
       "password_min_length": "La password deve contenere almeno 8 caratteri",
       "password_uppercase": "La password deve contenere almeno un carattere maiuscolo",
       "password_lowercase": "La password deve contenere almeno un carattere minuscolo",
@@ -199,8 +208,8 @@
       "email_placeholder": "La tua email",
       "update_button": "Aggiorna Profilo",
       "errors": {
-        "name_required": "Inserisci il tuo nome",
-        "email_required": "Inserisci la tua email",
+        "name_required": "Il nome è obbligatorio",
+        "email_required": "L'email è obbligatoria",
         "email_invalid": "Inserisci un indirizzo email valido",
         "form_errors": "Correggi gli errori nel form",
         "loading_error": "Errore nel caricamento dei dati del profilo",
@@ -445,6 +454,19 @@
       "2": "Seconda dozzina (13-24)",
       "3": "Terza dozzina (25-36)",
       "unknown": "Dozzina sconosciuta"
+    }
+  },
+  "confirmEmail": {
+    "verifying": "Verifica dell'email in corso...",
+    "successTitle": "Email confermata con successo!",
+    "successMessage": "Il tuo indirizzo email è stato verificato con successo. Ora puoi accedere al tuo account.",
+    "errorTitle": "Errore di conferma",
+    "invalidToken": "Token di conferma non valido o scaduto.",
+    "genericError": "Si è verificato un errore durante la conferma dell'email. Riprova più tardi o contatta l'assistenza.",
+    "loginButton": "Accedi al tuo account",
+    "errors": {
+      "invalidToken": "Token di conferma non valido o scaduto.",
+      "genericError": "Si è verificato un errore durante la conferma dell'email. Riprova più tardi o contatta l'assistenza."
     }
   }
 }

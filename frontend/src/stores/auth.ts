@@ -82,10 +82,13 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true
     try {
       const response = await authApi.login(credentials)
-      console.log(response)
+      
+      if (!response || !response.accessToken || !response.user) {
+        throw new Error('Risposta API non valida')
+      }
+      
       setToken(response.accessToken)
 
-      // Salva il refresh token nel localStorage
       if (response.refreshToken) {
         localStorage.setItem('refreshToken', response.refreshToken)
       }

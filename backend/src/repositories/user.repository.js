@@ -71,6 +71,32 @@ class UserRepository extends BaseRepository {
     });
   }
 
+  async setEmailConfirmationToken(email, token, expires) {
+    return await this.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          emailConfirmationToken: token,
+          emailConfirmationExpires: expires
+        }
+      }
+    );
+  }
+
+  async findByEmailConfirmationToken(token) {
+    return await this.findOne({
+      emailConfirmationToken: token,
+      emailConfirmationExpires: { $gt: Date.now() }
+    });
+  }
+
+  async activateAccount(userId) {
+    return await this.findOneAndUpdate(
+      { _id: userId },
+      { $set: { active: true, emailConfirmationToken: null, emailConfirmationExpires: null } }
+    );
+  }
+
   async updatePassword(userId, hashedPassword) {
     return await this.findOneAndUpdate(
       { _id: userId },

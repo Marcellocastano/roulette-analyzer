@@ -43,7 +43,9 @@ apiClient.interceptors.response.use(
       headers: error.response?.headers,
     })
 
-    if (error.response?.status === 401) {
+    const isLoginRequest = error.config.url.includes('/auth/login')
+
+    if (error.response?.status === 401 && !isLoginRequest) {
       // Gestione token scaduto
       const refreshToken = localStorage.getItem('refreshToken')
 
@@ -78,6 +80,7 @@ apiClient.interceptors.response.use(
       } else {
         // Se non abbiamo un refresh token, reindirizza al login
         localStorage.removeItem('token')
+        localStorage.removeItem('refreshToken')
         window.location.href = '/login'
       }
     }

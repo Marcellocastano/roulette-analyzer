@@ -103,7 +103,40 @@ class AuthController {
       
       res.status(200).json({
         status: 'success',
-        message: 'Password successfully reset'
+        message: 'Password reset successful'
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  confirmEmail = async (req, res, next) => {
+    try {
+      const { token } = req.params;
+      
+      const user = await this.authService.confirmEmail(token);
+      
+      res.status(200).json({
+        status: 'success',
+        message: 'Email confirmed successfully',
+        data: {
+          user
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  resendConfirmationEmail = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      
+      await this.authService.resendConfirmationEmail(email);
+      
+      res.status(200).json({
+        status: 'success',
+        message: 'Confirmation email resent successfully'
       });
     } catch (error) {
       next(error);

@@ -43,10 +43,11 @@ const userSchema = new mongoose.Schema({
   lastLogin: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  emailConfirmationToken: String,
+  emailConfirmationExpires: Date,
   active: {
     type: Boolean,
-    default: true,
-    select: false
+    default: false
   }
 }, {
   timestamps: true

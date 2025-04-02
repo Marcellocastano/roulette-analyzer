@@ -101,11 +101,11 @@ const renderApprovedRequest = (row: User) => {
   }
 
   return h('div', [
+    h('span', `${row.approvedRequest.duration}`),
     h(NTag, {
       type: 'success',
-      style: 'margin-right: 8px;'
+      style: 'margin-left: 8px;'
     }, { default: () => 'Approvata' }),
-    h('span', `${row.approvedRequest.plan} (${row.approvedRequest.duration})`)
   ]);
 };
 
@@ -187,11 +187,6 @@ const columns = [
     title: 'Email',
     key: 'email',
     width: 250
-  },
-  {
-    title: 'Nome',
-    key: 'name',
-    width: 120
   },
   {
     title: 'Piano',

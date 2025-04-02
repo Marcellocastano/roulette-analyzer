@@ -2,7 +2,6 @@ import api from './config'
 import type {
   ApiResponse,
   AuthResponse,
-  // LoginData,
   RegisterData,
   User,
 } from '@/types/auth'
@@ -89,6 +88,19 @@ export const authApi = {
     const response = await api.post<ApiResponse<{ message: string }>>(
       `/auth/reset-password/${token}`,
       data
+    )
+    return response.data.data
+  },
+
+  /**
+   * Reinvia l'email di conferma
+   * @param email - Email dell'utente
+   * @returns Promise con il messaggio di successo
+   */
+  resendConfirmationEmail: async (email: string): Promise<{ message: string }> => {
+    const response = await api.post<ApiResponse<{ message: string }>>(
+      '/auth/resend-confirmation',
+      { email }
     )
     return response.data.data
   },

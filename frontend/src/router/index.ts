@@ -85,6 +85,12 @@ const router = createRouter({
       component: () => import('../views/reset-password/ResetPasswordView.vue'),
       meta: { requiresAuth: false },
     },
+    {
+      path: '/confirm-email/:token',
+      name: 'confirmEmail',
+      component: () => import('../views/confirm-email/ConfirmEmailView.vue'),
+      meta: { requiresAuth: false },
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {

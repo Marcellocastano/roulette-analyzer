@@ -154,18 +154,27 @@
     "title": "Login",
     "email": "Email",
     "password": "Password",
+    "forgot_password": "Forgot password?",
     "submit": "Login",
-    "forgot_password": "Forgot your password?",
     "signup_link": "Don't have an account? Sign up",
     "errors": {
-      "email_required": "Please enter your email",
-      "email_invalid": "Please enter a valid email",
-      "password_required": "Please enter your password"
+      "email_required": "Email is required",
+      "email_invalid": "Please enter a valid email address",
+      "password_required": "Password is required"
     },
     "messages": {
       "success": "Login successful",
-      "auth_error": "Authentication error",
-      "login_error": "Login error. Please check your credentials."
+      "login_error": "Login error",
+      "auth_error": "Authentication failed",
+      "invalid_credentials": "Invalid credentials. Check your email and password.",
+      "account_not_activated": "Account not activated. Check your email for the confirmation link or request a new one.",
+      "resend_confirmation_success": "Confirmation email sent successfully",
+      "resend_confirmation_error": "Error sending confirmation email"
+    },
+    "account_not_activated": {
+      "title": "Account not activated",
+      "message": "Your account has not been activated yet. Check your email for the confirmation link or request a new one.",
+      "resend_button": "Resend confirmation email"
     }
   },
   "forgot_password": {
@@ -445,6 +454,19 @@
       "2": "Second dozen (13-24)",
       "3": "Third dozen (25-36)",
       "unknown": "Unknown dozen"
+    }
+  },
+  "confirmEmail": {
+    "verifying": "Verifying your email...",
+    "successTitle": "Email confirmed successfully!",
+    "successMessage": "Your email address has been successfully verified. You can now log in to your account.",
+    "errorTitle": "Confirmation Error",
+    "invalidToken": "Invalid or expired confirmation token.",
+    "genericError": "An error occurred while confirming your email. Please try again later or contact support.",
+    "loginButton": "Log in to your account",
+    "errors": {
+      "invalidToken": "Invalid or expired confirmation token.",
+      "genericError": "An error occurred while confirming your email. Please try again later or contact support."
     }
   }
 }

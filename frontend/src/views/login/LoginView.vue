@@ -1,7 +1,7 @@
 <template>
   <AuthLayout>
     <template #title>{{ $t('login.title') }}</template>
-    <n-form ref="formRef" :model="formValue" :rules="rules">
+    <n-form ref="formRef" :model="formValue" :rules="rules" @submit.prevent>
       <n-form-item path="email" :label="$t('login.email')">
         <n-input
           v-model:value="formValue.email"
@@ -20,7 +20,7 @@
           round
           :placeholder="$t('login.password')"
           class="bg-white"
-          @keyup.enter="handleSubmit"
+          @keyup.enter.prevent="handleSubmit"
         >
           <template #password-visible-icon>
             <n-icon :size="16" :component="Eye" />
@@ -36,7 +36,7 @@
         </n-button>
       </div>
       <div class="submit-container text-center">
-        <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
+        <n-button :loading="loading" type="primary" @click.prevent="handleSubmit" class="bg-accent-dark">
           {{ $t('login.submit') }}
         </n-button>
       </div>
@@ -46,6 +46,30 @@
         </n-button>
       </div>
     </n-form>
+
+    <!-- Modal per account non attivato -->
+    <n-modal v-model:show="showActivationModal">
+      <n-card
+        style="width: 450px"
+        :title="$t('login.account_not_activated.title')"
+        :bordered="false"
+        size="huge"
+        role="dialog"
+        aria-modal="true"
+      >
+        <p>{{ $t('login.account_not_activated.message') }}</p>
+        <template #footer>
+          <div class="flex justify-between">
+            <n-button @click="showActivationModal = false">
+              {{ $t('common.cancel') }}
+            </n-button>
+            <n-button type="primary" :loading="resendingEmail" @click="resendConfirmationEmail">
+              {{ $t('login.account_not_activated.resend_button') }}
+            </n-button>
+          </div>
+        </template>
+      </n-card>
+    </n-modal>
   </AuthLayout>
 </template>
 
@@ -53,12 +77,13 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
-import { NButton, NForm, NFormItem, NInput, NIcon } from 'naive-ui'
+import { NButton, NForm, NFormItem, NInput, NIcon, NModal, NCard } from 'naive-ui'
 import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/Layout/AuthLayout.vue'
 import { Eye, EyeOff } from '@vicons/tabler'
 import { useI18n } from 'vue-i18n'
+import { authApi } from '@/api/auth'
 
 const { t } = useI18n()
 
@@ -67,6 +92,10 @@ const loading = ref(false)
 const router = useRouter()
 const message = useMessage()
 const authStore = useAuthStore()
+
+// Stato per il modal di attivazione account
+const showActivationModal = ref(false)
+const resendingEmail = ref(false)
 
 interface FormValue {
   email: string
@@ -100,30 +129,64 @@ const rules: FormRules = {
   ],
 }
 
-const handleSubmit = async () => {
+const handleSubmit = async (e: Event) => {
+  e?.preventDefault()
   try {
     await formRef.value?.validate()
     loading.value = true
-    await authStore.login({
-      email: formValue.value.email,
-      password: formValue.value.password,
-    })
+    
+    try {
+      await authStore.login({
+        email: formValue.value.email,
+        password: formValue.value.password,
+      })
 
-    // Verifica che l'autenticazione sia riuscita
-    if (authStore.isAuthenticated) {
-      message.success(t('login.messages.success'))
-      // Aspetta un momento prima di reindirizzare
-      setTimeout(() => {
-        router.push('/dashboard')
-      }, 500)
-    } else {
-      message.error(t('login.messages.auth_error'))
+      // Verifica che l'autenticazione sia riuscita
+      if (authStore.isAuthenticated) {
+        message.success(t('login.messages.success'))
+        // Aspetta un momento prima di reindirizzare
+        setTimeout(() => {
+          router.push('/dashboard')
+        }, 500)
+      }
+    } catch (error: any) {
+      console.error('Errore durante il login:', error)
+      
+      // Gestione specifica per account non attivato
+      if (error.response?.data?.message === 'account_not_activated' || 
+          error.response?.status === 403 && error.response?.data?.message === 'account_not_activated') {
+        console.log('1')
+        message.error(t('login.messages.account_not_activated'))
+        showActivationModal.value = true
+      } else if (error.response?.status === 401) {
+        // Credenziali errate
+        console.log('2')
+        message.error(t('login.messages.invalid_credentials'))
+      } else {
+        console.log('3')
+        message.error(t('login.messages.login_error'))
+      }
     }
-  } catch (error) {
-    console.error('Errore durante il login:', error)
-    message.error(t('login.messages.login_error'))
+  } catch (formError) {
+    // Errore di validazione del form
+    console.log('4')
+    console.error('Errore di validazione:', formError)
   } finally {
     loading.value = false
+  }
+}
+
+const resendConfirmationEmail = async () => {
+  try {
+    resendingEmail.value = true
+    await authApi.resendConfirmationEmail(formValue.value.email)
+    message.success(t('login.messages.resend_confirmation_success'))
+    showActivationModal.value = false
+  } catch (error) {
+    console.error('Errore durante l\'invio dell\'email di conferma:', error)
+    message.error(t('login.messages.resend_confirmation_error'))
+  } finally {
+    resendingEmail.value = false
   }
 }
 </script>

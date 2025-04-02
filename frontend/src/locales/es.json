@@ -110,20 +110,29 @@
   },
   "login": {
     "title": "Iniciar sesión",
-    "email": "Email",
+    "email": "Correo electrónico",
     "password": "Contraseña",
-    "submit": "Iniciar sesión",
     "forgot_password": "¿Olvidaste tu contraseña?",
+    "submit": "Iniciar sesión",
     "signup_link": "¿No tienes una cuenta? Regístrate",
     "errors": {
-      "email_required": "Ingresa tu email",
-      "email_invalid": "Email no válido",
-      "password_required": "Ingresa tu contraseña"
+      "email_required": "El correo electrónico es obligatorio",
+      "email_invalid": "Por favor, introduce un correo electrónico válido",
+      "password_required": "La contraseña es obligatoria"
     },
     "messages": {
       "success": "Inicio de sesión exitoso",
-      "auth_error": "Error de autenticación",
-      "login_error": "Error durante el inicio de sesión. Verifica tus credenciales."
+      "login_error": "Error al iniciar sesión",
+      "auth_error": "Autenticación fallida",
+      "invalid_credentials": "Credenciales inválidas. Revisa tu correo electrónico y contraseña.",
+      "account_not_activated": "Cuenta no activada. Revisa tu correo electrónico para el enlace de confirmación o solicita uno nuevo.",
+      "resend_confirmation_success": "Correo de confirmación enviado con éxito",
+      "resend_confirmation_error": "Error al enviar el correo de confirmación"
+    },
+    "account_not_activated": {
+      "title": "Cuenta no activada",
+      "message": "Tu cuenta aún no ha sido activada. Revisa tu correo electrónico para el enlace de confirmación o solicita uno nuevo.",
+      "resend_button": "Reenviar correo de confirmación"
     }
   },
   "forgot_password": {
@@ -445,6 +454,19 @@
       "2": "Segunda docena (13-24)",
       "3": "Tercera docena (25-36)",
       "unknown": "Docena desconocida"
+    }
+  },
+  "confirmEmail": {
+    "verifying": "Verificando tu correo electrónico...",
+    "successTitle": "¡Correo electrónico confirmado con éxito!",
+    "successMessage": "Tu dirección de correo electrónico ha sido verificada con éxito. Ahora puedes iniciar sesión en tu cuenta.",
+    "errorTitle": "Error de confirmación",
+    "invalidToken": "Token de confirmación inválido o caducado.",
+    "genericError": "Ocurrió un error al confirmar tu correo electrónico. Por favor, inténtalo de nuevo más tarde o contacta con soporte.",
+    "loginButton": "Iniciar sesión en tu cuenta",
+    "errors": {
+      "invalidToken": "Token de confirmación inválido o caducado.",
+      "genericError": "Ocurrió un error al confirmar tu correo electrónico. Por favor, inténtalo de nuevo más tarde o contacta con soporte."
     }
   }
 }

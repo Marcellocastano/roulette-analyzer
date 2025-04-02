@@ -5,15 +5,19 @@ const config = require('../config/config');
 
 class EmailService {
   constructor() {
-    this.initMailServices();
+    this.transporter = null;
+    this.mailgunClient = null;
+    this.useEthereal = false;
+    this.isInitialized = false;
+    this.initPromise = this.initMailServices();
   }
 
   async initMailServices() {
     console.log('Inizializzazione del servizio email...');
     console.log(`Ambiente: ${process.env.NODE_ENV}, Email configurata: ${!!process.env.EMAIL_PASSWORD}`);
     
-    // In ambiente di sviluppo, usa Ethereal Email per i test se non sono configurate credenziali reali
-    if (process.env.NODE_ENV !== 'production' && !process.env.EMAIL_PASSWORD) {
+    // In ambiente di sviluppo, usa sempre Ethereal Email per i test
+    if (process.env.NODE_ENV !== 'production') {
       console.log('Configurazione Ethereal Email per test in sviluppo...');
       try {
         // Crea un account di test su Ethereal
@@ -66,9 +70,19 @@ class EmailService {
         throw error;
       }
     }
+    
+    this.isInitialized = true;
+  }
+
+  // Metodo helper per assicurarsi che il servizio sia inizializzato
+  async ensureInitialized() {
+    if (!this.isInitialized) {
+      await this.initPromise;
+    }
   }
 
   async sendPasswordResetEmail(user, resetToken) {
+    await this.ensureInitialized();
     console.log(`Tentativo di invio email di reset password a: ${user.email}`);
     console.log(`Token di reset (primi 10 caratteri): ${resetToken.substring(0, 10)}...`);
     
@@ -158,6 +172,73 @@ class EmailService {
     } catch (error) {
       console.error('Errore generale nell\'invio dell\'email di reset password:', error);
       console.error('Stack trace:', error.stack);
+      throw error;
+    }
+  }
+
+  async sendConfirmationEmail(user, token) {
+    await this.ensureInitialized();
+    try {
+      console.log(`Tentativo di invio email di conferma a: ${user.email}`);
+      
+      const confirmUrl = `${config.frontendUrl}/confirm-email/${token}`;
+      console.log(`URL di conferma: ${confirmUrl}`);
+      
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Conferma il tuo indirizzo email</h2>
+          <p>Ciao ${user.name},</p>
+          <p>Grazie per esserti registrato a Roulette Pro AI. Per completare la registrazione, conferma il tuo indirizzo email.</p>
+          <p>Clicca sul pulsante qui sotto per confermare il tuo indirizzo email. Questo link è valido per 24 ore.</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${confirmUrl}" style="background-color: #4CAF50; color: white; padding: 12px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+              Conferma Email
+            </a>
+          </div>
+          <p>Se non hai richiesto questa email, puoi ignorarla.</p>
+          <p>Cordiali saluti,<br>Il Team di Roulette Pro AI</p>
+        </div>
+      `;
+      
+      console.log(`Metodo di invio: ${this.useEthereal ? 'Ethereal (test mode)' : 'Mailgun API'}`);
+      
+      if (this.useEthereal) {
+        console.log('Invio email tramite Ethereal (test mode)...');
+        const mailOptions = {
+          from: config.email.from || `"RoulettePro AI" <${config.email.user}>`,
+          to: user.email,
+          subject: 'Conferma il tuo indirizzo email - RoulettePro AI',
+          html: emailHtml
+        };
+        
+        const info = await this.transporter.sendMail(mailOptions);
+        console.log('Email anteprima URL: %s', nodemailer.getTestMessageUrl(info));
+        return info;
+      } else {
+        console.log('Invio email tramite Mailgun API...');
+        const data = {
+          from: config.email.from || `RoulettePro AI <${config.email.user}>`,
+          to: user.email,
+          subject: 'Conferma il tuo indirizzo email - RoulettePro AI',
+          html: emailHtml
+        };
+        
+        const result = await this.mailgunClient.messages.create(config.email.domain, data);
+        console.log('Email inviata tramite Mailgun:', result);
+        return result;
+      }
+    } catch (error) {
+      console.error('Errore generale nell\'invio dell\'email di conferma:', error);
+      console.error('Stack trace:', error.stack);
+      
+      // In ambiente di sviluppo, mostra il token di conferma nei log
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('=========================================');
+        console.log(`Confirmation token for ${user.email}: ${token}`);
+        console.log(`Confirmation URL: ${config.frontendUrl}/confirm-email/${token}`);
+        console.log('=========================================');
+      }
+      
       throw error;
     }
   }

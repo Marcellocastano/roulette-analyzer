@@ -278,8 +278,7 @@ const handleProceed = () => {
 .statistics-card {
   width: 440px;
   margin: 0 auto;
-  background-color: #ff625a9b;
-  border: 3px dashed var(--accent-color);
+  border: 3px dashed var(--card-border);
 }
 
 .input-item {
@@ -302,13 +301,16 @@ const handleProceed = () => {
   width: 100%;
   align-items: center;
 
+  p {
+    color: var(--card-text);
+  }
+
   & .stats-input {
     width: 100%;
     display: flex;
     justify-content: center;
     gap: 50px;
     margin-bottom: 1rem;
-
 
     & .n-input-number {
       margin: 0.5rem 0 1rem;
@@ -317,7 +319,8 @@ const handleProceed = () => {
 }
 
 :deep(.n-input) {
-  background-color: var(--secondary-color) !important;
+  color: var(--card-text)!important;
+  background-color: var(--card-input) !important;
 }
 
 .not-recommended {

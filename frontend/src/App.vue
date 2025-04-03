@@ -1,13 +1,11 @@
 <template>
-  <n-config-provider :theme-overrides="currentTheme">
-    <div :style="{ background: currentTheme.common?.bodyColor }">
+  <n-config-provider :theme="themeStore.currentTheme" :theme-overrides="themeStore.themeOverrides">
+    <div class="app-container">
       <n-message-provider>
         <n-loading-bar-provider>
           <n-dialog-provider>
             <n-notification-provider>
               <div class="app">
-                <!-- <Navbar @toggle-sidebar="toggleSidebar" />
-                <Sidebar :is-collapsed="isSidebarCollapsed" /> -->
                 <div class="app-wrapper">
                   <router-view></router-view>
                 </div>
@@ -21,20 +19,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import { getThemeOverrides } from './stores/theme'
+import { onMounted } from 'vue'
+import { useThemeStore } from './stores/themeStore'
 import { initTokenRefresh } from './services/tokenService'
 import env from './config/env'
 
-const currentTheme = ref(getThemeOverrides('dark'))
+const themeStore = useThemeStore()
 
 // Imposta il titolo dinamico dell'applicazione in base all'ambiente
 onMounted(() => {
+  themeStore.initTheme()
   // Inizializza il servizio di refresh del token
   if (localStorage.getItem('token')) {
     initTokenRefresh()
   }
-
+  console.log('tema', themeStore.currentTheme)
   // Imposta il titolo del documento in base all'ambiente
   document.title = env.appTitle
 
@@ -65,8 +64,8 @@ body {
   width: 100%;
   position: relative;
   transition: all 0.3s ease;
-  background-color: inherit;
-  color: inherit;
+  background-color: var(--background-base);
+  color: var(--text-color);
 }
 
 .theme-toggle {
@@ -78,8 +77,8 @@ body {
 
 .app {
   min-height: 100vh;
-  background-color: var(--app-bg);
-  color: var(--text-color-light);
+  background-color: var(--background-base);
+  color: var(--text-color);
 }
 
 .app-wrapper {

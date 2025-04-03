@@ -15,21 +15,7 @@
             :class="{ active: isRouteActive(route.path), 'premium-item': route.premium && !authStore.isPremiumUser }"
             @click="checkPremiumAccess($event, route.path)"
           >
-            <div v-if="route.name === 'Play'" class="play-nav-link">
-              <component :is="route.icon" class="nav-icon" />
-              <n-gradient-text
-                :size="17"
-                :gradient="{
-                  deg: 90,
-                  from: isRouteActive(route.path) ? '#FF615A' : '#a0ea99',
-                  to: isRouteActive(route.path) ? '#ffcf00' : '#9ecaff',
-                }"
-              >
-                <strong>Roulette Pro AI</strong>
-              </n-gradient-text>
-              <premium-badge v-if="route.premium" />
-            </div>
-            <span v-else class="flex items-center gap-2">
+            <span class="flex items-center gap-2">
               <component :is="route.icon" class="nav-icon" />
               {{ route.name }}
               <premium-badge v-if="route.premium" />
@@ -41,6 +27,7 @@
 
     <div class="navbar-right">
       <LanguageSelector class="mr-4" />
+      <ThemeToggle class="mr-4" />
 
       <n-button class="flex lg:hidden menu-toggle" @click="toggleMobileMenu">
         <n-icon size="24">
@@ -51,7 +38,7 @@
 
       <n-dropdown trigger="click" :options="options" @select="handleSelect">
         <div class="user-profile">
-          <n-icon size="32" color="#fff">
+          <n-icon size="32">
             <UserCircle />
           </n-icon>
         </div>
@@ -73,18 +60,7 @@
             @click="closeMobileMenu"
           >
             <component :is="route.icon" class="nav-icon" />
-            <n-gradient-text
-              v-if="route.name === 'Play'"
-              :size="17"
-              :gradient="{
-                  deg: 90,
-                  from: isRouteActive(route.path) ? '#14660c' : 'var(--accent-color-dark)',
-                  to: isRouteActive(route.path) ? 'var(--secondary-color-light)' : '#ffcf00',
-                }"
-            >
-              <strong>Roulette Pro AI</strong>
-            </n-gradient-text>
-            <span v-else>{{ route.name }}</span>
+            <span>{{ route.name }}</span>
           </router-link>
         </li>
       </ul>
@@ -100,6 +76,7 @@ import { useMessage } from 'naive-ui'
 import RouletteIcon from '../icons/RouletteIcon.vue'
 import PremiumBadge from '../PremiumBadge.vue'
 import LanguageSelector from '../LanguageSelector.vue'
+import ThemeToggle from '../ThemeToggle/ThemeToggle.vue'
 import {
   UserCircle,
   Menu,
@@ -212,7 +189,7 @@ const checkPremiumAccess = (e: any, routePath: string) => {
 .navbar {
   height: 85px;
   width: 100%;
-  background: #ff5f58d4;
+  background: var(--navbar-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -269,59 +246,51 @@ const checkPremiumAccess = (e: any, routePath: string) => {
     }
   }
 
-  .play-nav-link {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-
-    @media (min-width: 768px) {
-      svg {
-        margin-top: -15px;
-      }
-    }
-  }
-
   .nav-link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    color: var(--text-color-light);
+    color: var(--navbar-text);
     text-decoration: none;
     border-radius: 1rem 1rem 0 0;
     height: 100%;
-    transition: all 0.3s ease;
-
+    transition: all 0.1s ease;
+    
     &:hover {
-      background-color: var(--primary-color);
-      transition: all 0.5s ease;
+      background-color: var(--navbar-button-active);
+      color: var(--navbar-text-active);
+      transition: all 0.1s ease;
     }
-
+    
     &.active {
-      background-color: var(--primary-color);
-
+      background-color: var(--navbar-button-active);
+      color: var(--navbar-text-active);
+      
       &::after {
         content: '';
         position: absolute;
+        transition: all 0.1s ease;
         background-color: transparent;
         bottom: 0px;
         height: 45px;
         width: 25px;
         border-top-left-radius: 25px;
-        box-shadow: 0 -25px 0 0 var(--primary-color);
+        box-shadow: 0 -25px 0 0 var(--navbar-button-active);
         right: -25px;
         transform: rotateX(180deg);
       }
-
+      
       &::before {
         content: '';
         position: absolute;
+        transition: all 0.1s ease;
         background-color: transparent;
         bottom: 0px;
         height: 45px;
         width: 25px;
         border-top-left-radius: 25px;
-        box-shadow: 0 -25px 0 0 var(--primary-color);
+        box-shadow: 0 -25px 0 0 var(--navbar-button-active);
         left: -25px;
         transform: rotateZ(180deg);
       }
@@ -347,27 +316,28 @@ const checkPremiumAccess = (e: any, routePath: string) => {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
-    color: var(--text-color-light);
+    color: var(--navbar-text);
     cursor: pointer;
     border-radius: 0.5rem;
-    transition: all 0.2s ease;
-
+    
     &:hover {
-      background-color: var(--primary-color);
+      background-color: var(--navbar-button-active);
+      color: var(--navbar-text-active);
     }
   }
-
+  
   .menu-toggle {
     background: none;
     border: none;
-    color: var(--text-color-light);
+    color: var(--navbar-text);
     cursor: pointer;
     padding: 0.5rem;
     align-items: center;
     justify-content: center;
-
+    
     &:hover {
-      background-color: var(--primary-color);
+      background-color: var(--navbar-button-active);
+      color: var(--navbar-text-active);
     }
   }
 
@@ -376,10 +346,10 @@ const checkPremiumAccess = (e: any, routePath: string) => {
     top: 85px;
     left: 0;
     right: 0;
-    background-color: var(--secondary-color);
+    background-color: var(--navbar-bg);
     padding: 1rem;
     transform: translateY(-100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.1s ease;
     z-index: 999;
 
     &-open {

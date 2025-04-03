@@ -9,14 +9,9 @@
           <Card class="table-analysis" :title="$t('table_analysis.dozen_suffering')">
             <template #content>
               <div class="section">
-                <n-gradient-text
-                  :gradient="{
-                    from: '#FF615A',
-                    to: '#ffcf00',
-                  }"
-                >
+                <span>
                   {{ getDozenDescription(dozenDown) }}
-                </n-gradient-text>
+                </span>
               </div>
             </template>
           </Card>
@@ -24,17 +19,9 @@
           <Card class="table-analysis" :title="$t('table_analysis.favorable_reasons')">
             <template #content>
               <div class="section">
-                <n-gradient-text
-                  v-for="reason in analysis.reasonCodes"
-                  :gradient="{
-                    from: '#FF615A',
-                    to: '#ffcf00',
-                  }"
-                  class="mb-2"
-                  :key="reason"
-                >
+                <span v-for="reason in analysis.reasonCodes" :key="reason">
                   {{ getReasonDescription(reason) }}
-                </n-gradient-text>
+                </span>
               </div>
             </template>
           </Card>

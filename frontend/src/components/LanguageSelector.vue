@@ -7,7 +7,6 @@
         <SpainFlag v-else-if="currentLocale === 'es'" />
         <GermanyFlag v-else-if="currentLocale === 'de'" />
       </div>
-      <span class="language-text">{{ $t(`common.language.${currentLocale}`) }}</span>
     </div>
   </n-dropdown>
 </template>
@@ -66,7 +65,7 @@ const handleLanguageChange = (key: string) => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
-  color: var(--text-color-light);
+  color: var(--navbar-text);
   cursor: pointer;
   border-radius: 0.5rem;
   transition: all 0.2s ease;

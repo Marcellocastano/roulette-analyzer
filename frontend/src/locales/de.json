@@ -386,7 +386,8 @@
     "subscription_request": {
       "title": "Laufende Abonnementanfrage",
       "message": "Sie haben eine ausstehende Abonnementanfrage zur Zahlung.",
-      "view_details": "Zahlungsdetails anzeigen"
+      "view_details": "Zahlungsdetails anzeigen",
+      "note": "(Wenn Sie bereits bezahlt haben, <strong>behalten Sie die Anfrage nicht</strong>)"
     },
     "header": {
       "title": "Wählen Sie Ihr Abonnement",

@@ -50,11 +50,11 @@ const hasActionsSlot = computed(() => !!slots.actions)
 
 <style scoped>
 .glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  background: var(--card-background);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--card-border);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   padding: 20px;
   width: 100%;
@@ -73,6 +73,7 @@ const hasActionsSlot = computed(() => !!slots.actions)
 
 .card-title {
   margin: 0;
+  color: var(--card-text);
 }
 
 .card-body {
@@ -98,7 +99,7 @@ const hasActionsSlot = computed(() => !!slots.actions)
 
 .content-container {
   flex: 1;
-  color: var(--text-color-dark);
+  color: var(--card-text);
   font-size: 1rem;
   line-height: 1.5;
 }

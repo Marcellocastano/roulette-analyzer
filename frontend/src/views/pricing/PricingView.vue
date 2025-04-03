@@ -15,11 +15,7 @@
       {{ $t('pricing.subscription_request.view_details') }}
     </n-button>
     <br />
-    <small>
-      (Se hai già effettuato il pagamento,
-      <strong>non annullare la richiesta</strong>
-      )
-    </small>
+    <small v-html="$t('pricing.subscription_request.note')"></small>
   </n-alert>
   <div class="pricing-container">
     <n-card class="pricing-card">
@@ -401,7 +397,7 @@ const cancelSubscriptionRequest = async () => {
 }
 
 .text-btn {
-  color: var(--accent-color-dark);
+  color: var(--orange-accent);
   font-size: 16px;
 }
 .plan-card :deep(h2) {

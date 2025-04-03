@@ -8,7 +8,6 @@
           size="large"
           round
           :placeholder="$t('signup.name')"
-          class="bg-white"
         />
       </n-form-item>
       <n-form-item path="email" :label="$t('signup.email')">
@@ -17,7 +16,6 @@
           size="large"
           round
           :placeholder="$t('signup.email')"
-          class="bg-white"
         />
       </n-form-item>
       <n-form-item path="password" :label="$t('signup.password')">
@@ -28,7 +26,6 @@
           size="large"
           round
           :placeholder="$t('signup.password')"
-          class="bg-white"
         >
           <template #password-visible-icon>
             <n-icon :size="16" :component="Eye" />
@@ -46,7 +43,6 @@
           size="large"
           round
           :placeholder="$t('signup.confirm_password')"
-          class="bg-white"
           @keyup.enter="handleSubmit"
         >
           <template #password-visible-icon>
@@ -58,12 +54,12 @@
         </n-input>
       </n-form-item>
       <div class="submit-container text-center">
-        <n-button :loading="loading" type="primary" @click="handleSubmit" class="bg-accent-dark">
+        <n-button :loading="loading" type="primary" @click="handleSubmit">
           {{ $t('signup.submit') }}
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button class="text-blue-900" text @click="router.push('/login')">
+        <n-button class="link-button" text @click="router.push('/login')">
           {{ $t('signup.login_link') }}
         </n-button>
       </div>
@@ -206,8 +202,28 @@ const handleSubmit = async () => {
   margin-top: 1rem;
 }
 
-:deep(.n-form-item-label__text),
+:deep(.n-form-item-label__text) {
+  color: var(--card-text);
+}
 :deep(.n-input__input-el) {
-  color: var(--text-color-dark);
+  color: black;
+}
+:deep(.n-input__eye) {
+  i {
+    color: black;
+  }
+}
+:deep(.n-input__placeholder) {
+  span {
+    color: gray;
+  }
+}
+
+.link-button {
+  color: var(--card-text);
+
+  &:hover {
+    color: var(--orange-accent);
+  }
 }
 </style>

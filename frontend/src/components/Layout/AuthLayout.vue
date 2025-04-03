@@ -3,13 +3,13 @@
     <div class="overlay"></div>
     <div class="language-selector-container">
       <LanguageSelector />
+      <ThemeToggle />
     </div>
     <n-gradient-text
-      type="warning"
       class="z-10"
       :gradient="{
         deg: 90,
-        from: 'var(--accent-color-dark)',
+        from: 'var(--orange-accent)',
         to: '#ffcf00',
       }"
     >
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import Card from '@/components/Card/Card.vue'
 import LanguageSelector from '@/components/LanguageSelector.vue'
+import ThemeToggle from '@/components/ThemeToggle/ThemeToggle.vue'
 </script>
 
 <style scoped>
@@ -107,7 +108,7 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
 }
 
 .auth-card {
-  background-color: rgba(255, 255, 255, 0.85) !important;
+  background-color: var(--auth-card-background) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   padding: 25px;
@@ -118,15 +119,11 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
 }
 
 .auth-title {
-  color: #333;
+  color: var(--card-text);
   text-align: center;
   margin-bottom: 20px;
   z-index: 3;
   font-weight: 600;
-}
-
-:deep(.n-card) {
-  background-color: transparent;
 }
 
 :deep(.n-card-header) {
@@ -138,7 +135,7 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
 }
 
 :deep(.n-input) {
-  background-color: var(--n-input-color-focus);
+  /* background-color: var(--n-input-color-focus); */
   border: 1px solid var(--secondary-color);
 }
 
@@ -155,7 +152,7 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
   max-width: 500px;
 
   svg {
-    fill: var(--accent-color);
+    fill: var(--fill-wheel);
     font-size: 32px;
     height: 150px;
     width: 150px;
@@ -173,7 +170,7 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
 }
 
 .gold {
-  fill: var(--accent-color-dark);
+  fill: var(--accent-gold);
 }
 
 @keyframes draw {
@@ -208,5 +205,10 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
   top: 20px;
   right: 20px;
   z-index: 10;
+  display: flex;
+  gap: 10px;
+  background: var(--navbar-bg);
+  padding: 10px;
+  border-radius: 20px;
 }
 </style>

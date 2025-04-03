@@ -212,6 +212,7 @@ const resetCones = () => {
 <style lang="scss" scoped>
 .roulette-title {
   margin-bottom: 10px;
+  color: var(--card-text);
 }
 .roulette-wheel {
   width: 400px;
@@ -238,14 +239,14 @@ const resetCones = () => {
     mask: linear-gradient(
       var(--cone-angle),
       #ffffff24 var(--fill-height),
-      var(--secondary-color) var(--fill-height)
+      var(--fill-wheel) var(--fill-height)
     );
     -webkit-mask: linear-gradient(
       var(--cone-angle),
       #ffffff24 var(--fill-height),
-      var(--secondary-color) var(--fill-height)
+      var(--fill-wheel) var(--fill-height)
     );
-    fill: var(--secondary-color);
+    fill: var(--fill-wheel);
   }
 
   &:hover {
@@ -258,7 +259,7 @@ const resetCones = () => {
   font-weight: bold;
   pointer-events: none;
   user-select: none;
-  fill: white;
+  fill: var(--card-text);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 

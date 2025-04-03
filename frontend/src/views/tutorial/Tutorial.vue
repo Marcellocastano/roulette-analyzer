@@ -199,12 +199,12 @@ const { t } = useI18n()
   margin-bottom: 4rem;
   padding: 2rem;
   border-radius: 20px;
-  background-image: linear-gradient(15deg, #ff5f58 0%, #454bff 100%);
+  background: #5a708b8f;
 
   .hero-title {
     font-size: 3rem;
     margin-bottom: 2rem;
-    color: #f4f4f4;
+    color: var(--accent-primary);
   }
 
   .hero-description {
@@ -289,7 +289,7 @@ const { t } = useI18n()
 // Feature Cards
 .feature-card {
   height: 100%;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--card-background);
   transition: transform 0.3s ease;
   border-radius: 20px;
 
@@ -298,8 +298,13 @@ const { t } = useI18n()
   }
 
   h3 {
+    color: var(--card-text);
     font-size: 1.5rem;
     text-align: center;
+  }
+
+  p {
+    color: var(--card-text);
   }
 }
 
@@ -308,8 +313,12 @@ const { t } = useI18n()
 .bets-section {
   margin-bottom: 4rem;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card-background);
   border-radius: 1rem;
+
+  p {
+    color: var(--card-text);
+  }
 }
 
 // CTA Section
@@ -320,22 +329,15 @@ const { t } = useI18n()
   .cta-card {
     padding: 2rem;
     border-radius: 20px;
-    background-image: linear-gradient(45deg, #ffcf00, #FF615A);
-    background-size: 200% 200%;
-    background-position: 0% 0%;
-    transition: background-position 0.5s ease;
-
-    &:hover {
-      background-position: 100% 100%;
-    }
+    background: #5a708b8f;
 
     h2 {
-      color: #fff;
+      color: var(--accent-primary);
       margin-bottom: 1rem;
     }
 
     p {
-      color: #fff;
+      color: var(--text-color-light);
       margin-bottom: 2rem;
       font-size: 18px;
     }

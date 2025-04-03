@@ -194,7 +194,7 @@ onMounted(() => {
     .greeting {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(45deg, #FF615A, #ffcf00);
+      background: linear-gradient(45deg, #FF615A, var(--card-background));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -341,6 +341,7 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   padding: 0.2rem 0;
+  color: var(--card-text);
 
   .header-title {
     display: flex;
@@ -348,14 +349,16 @@ onMounted(() => {
     font-size: 1.3rem;
     font-weight: 600;
     gap: 5px;
+    color: var(--card-text);
 
     svg {
       margin-right: 0.5rem;
-      color: #ffbc00;
+      color: var(--fill-wheel);
     }
   }
 
   .refresh-button {
+    color: var(--fill-wheel);
     &:hover {
       background-color: rgba(255, 188, 0, 0.1);
     }
@@ -394,7 +397,7 @@ onMounted(() => {
   }
 
   &.black {
-    background-color: #2c3e50;
+    background-color: #181e23;
   }
 
   &.zero {
@@ -406,7 +409,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   font-size: 0.85rem;
-  color: #ffcf00;
+  color: var(--fill-wheel);
   margin-top: 0.5rem;
   justify-content: center;
   gap: 3px;
@@ -467,6 +470,10 @@ onMounted(() => {
   display: flex;
   align-items: flex-start;
   padding-top: 0.5rem;
+
+  svg {
+    color: var(--fill-wheel);
+  }
 }
 
 .tutorial-text {
@@ -476,9 +483,11 @@ onMounted(() => {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    color: var(--card-text);
   }
 
   .tutorial-description {
+    color: var(--card-text);
     font-size: 0.95rem;
     margin-bottom: 1rem;
     line-height: 1.5;
@@ -493,7 +502,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #ffcf00;
+  color: var(--fill-wheel);
   font-weight: 500;
   text-decoration: none;
   transition: color 0.2s ease;
@@ -516,7 +525,7 @@ onMounted(() => {
 
 .feature-card {
   height: 100%;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--card-background);
   transition: transform 0.3s ease;
   border-radius: 20px;
 
@@ -527,6 +536,11 @@ onMounted(() => {
   h3 {
     font-size: 1.5rem;
     text-align: center;
+    color: var(--card-text);
+  }
+
+  p {
+    color: var(--card-text);
   }
 }
 

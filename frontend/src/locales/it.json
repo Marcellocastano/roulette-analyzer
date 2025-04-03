@@ -386,7 +386,8 @@
     "subscription_request": {
       "title": "Richiesta di abbonamento in corso",
       "message": "Hai una richiesta di abbonamento in attesa di pagamento.",
-      "view_details": "Visualizza dettagli pagamento"
+      "view_details": "Visualizza dettagli pagamento",
+      "note": "(Se hai già effettuato il pagamento, <strong>non annullare la richiesta</strong>)"
     },
     "header": {
       "title": "Scegli il tuo Abbonamento",

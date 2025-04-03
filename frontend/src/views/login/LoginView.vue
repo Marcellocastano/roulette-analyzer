@@ -8,7 +8,6 @@
           size="large"
           round
           :placeholder="$t('login.email')"
-          class="bg-white"
         />
       </n-form-item>
       <n-form-item path="password" :label="$t('login.password')">
@@ -19,7 +18,6 @@
           size="large"
           round
           :placeholder="$t('login.password')"
-          class="bg-white"
           @keyup.enter.prevent="handleSubmit"
         >
           <template #password-visible-icon>
@@ -31,17 +29,17 @@
         </n-input>
       </n-form-item>
       <div class="mb-4">
-        <n-button class="text-blue-900" text size="small" @click="router.push('/forgot-password')">
+        <n-button class="link-button" text size="small" @click="router.push('/forgot-password')">
           {{ $t('login.forgot_password') }}
         </n-button>
       </div>
       <div class="submit-container text-center">
-        <n-button :loading="loading" type="primary" @click.prevent="handleSubmit" class="bg-accent-dark">
+        <n-button :loading="loading" type="primary" @click.prevent="handleSubmit">
           {{ $t('login.submit') }}
         </n-button>
       </div>
       <div class="mt-4 text-center">
-        <n-button class="text-blue-900" text @click="router.push('/signup')">
+        <n-button class="link-button" text @click="router.push('/signup')">
           {{ $t('login.signup_link') }}
         </n-button>
       </div>
@@ -141,10 +139,8 @@ const handleSubmit = async (e: Event) => {
         password: formValue.value.password,
       })
 
-      // Verifica che l'autenticazione sia riuscita
       if (authStore.isAuthenticated) {
         message.success(t('login.messages.success'))
-        // Aspetta un momento prima di reindirizzare
         setTimeout(() => {
           router.push('/dashboard')
         }, 500)
@@ -155,21 +151,15 @@ const handleSubmit = async (e: Event) => {
       // Gestione specifica per account non attivato
       if (error.response?.data?.message === 'account_not_activated' || 
           error.response?.status === 403 && error.response?.data?.message === 'account_not_activated') {
-        console.log('1')
         message.error(t('login.messages.account_not_activated'))
         showActivationModal.value = true
       } else if (error.response?.status === 401) {
-        // Credenziali errate
-        console.log('2')
         message.error(t('login.messages.invalid_credentials'))
       } else {
-        console.log('3')
         message.error(t('login.messages.login_error'))
       }
     }
   } catch (formError) {
-    // Errore di validazione del form
-    console.log('4')
     console.error('Errore di validazione:', formError)
   } finally {
     loading.value = false
@@ -195,8 +185,28 @@ const resendConfirmationEmail = async () => {
 .submit-container {
   margin-top: 1rem;
 }
-:deep(.n-form-item-label__text),
+:deep(.n-form-item-label__text) {
+  color: var(--card-text);
+}
 :deep(.n-input__input-el) {
-  color: var(--text-color-dark);
+  color: black;
+}
+:deep(.n-input__eye) {
+  i {
+    color: black;
+  }
+}
+:deep(.n-input__placeholder) {
+  span {
+    color: gray;
+  }
+}
+
+.link-button {
+  color: var(--card-text);
+
+  &:hover {
+    color: var(--orange-accent);
+  }
 }
 </style>

@@ -34,7 +34,7 @@
           {{ $t('play.resize_screen') }}
         </n-h2>
         <div class="board-container-main gap-5">
-          <div class="flex mb-4 justify-center w-full items-center">
+          <div class="flex mb-4 pt-6 sm:pt-0 justify-center w-full items-center">
             <n-button type="danger" size="small" @click="handleReset">
               {{ $t('play.reset_session') }}
             </n-button>
@@ -261,6 +261,7 @@ watch(step, newStep => {
   overflow: hidden;
   margin: 0 auto;
   background-color: #214260;
+  border-radius: 20px;
 }
 
 :deep(.n-alert-body) {
@@ -271,7 +272,6 @@ watch(step, newStep => {
   .board-container-main {
     border: 2px solid var(--accent-color);
     padding: 20px;
-    border-radius: 20px;
   }
 
   .play-view {

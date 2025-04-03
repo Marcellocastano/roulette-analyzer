@@ -386,7 +386,8 @@
     "subscription_request": {
       "title": "Solicitud de suscripción en curso",
       "message": "Tienes una solicitud de suscripción pendiente de pago.",
-      "view_details": "Ver detalles de pago"
+      "view_details": "Ver detalles de pago",
+      "note": "(Si ya has realizado el pago, <strong>no anules la solicitud</strong>)"
     },
     "header": {
       "title": "Elige tu Suscripción",

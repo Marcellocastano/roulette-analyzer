@@ -386,7 +386,8 @@
     "subscription_request": {
       "title": "Subscription request in progress",
       "message": "You have a subscription request awaiting payment.",
-      "view_details": "View payment details"
+      "view_details": "View payment details",
+      "note": "(If you have already made the payment, <strong>do not cancel the request</strong>)"
     },
     "header": {
       "title": "Choose your Subscription",

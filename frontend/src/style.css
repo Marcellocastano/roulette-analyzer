@@ -9,23 +9,100 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: var(--secondary-color);
+  background-color: var(--background-base);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* --primary-color: #669eb3; */
-  --primary-color: #0f1035;
+  --gold-accent: #f1c07c;
+  --orange-accent: #ff7509;
+  --navy-primary: #1b2c4a;
+  --blue-secondary: #24426a;
+  --gray-dark: #4d4d4d;
+  --gray-light: #d4d4d4;
+  --white: #ffffff;
+
+  /* Light mode */
+  --background-base: var(--gray-light)!important;
+  --background-alt: var(--gray-light);
+  --text-primary: var(--navy-primary);
+  --text-secondary: var(--blue-secondary);
+  --text-tertiary: var(--gray-dark);
+  --border-color: #d0d0d0;
+  --accent-primary: var(--navy-primary);
+  --accent-secondary: var(--gold-accent);
+  
+  /* Component colors - Light mode */
+  --navbar-bg: var(--navy-primary);
+  --navbar-text: var(--gold-accent);
+  --navbar-text-active: var(--navy-primary);
+  --navbar-button-active: var(--gray-light);
+  --navbar-toggle-icon: var(--gold-accent);
+  --button-primary-bg: var(--navy-primary);
+  --button-primary-text: var(--white);
+  --button-primary-hover: var(--blue-secondary);
+  --button-secondary-bg: var(--gray-light);
+  --button-secondary-text: var(--navy-primary);
+  --button-secondary-hover: #d4d4d4;
+  --auth-card-background: #24426a;
+  --card-background: var(--blue-secondary);
+  --card-border: var(--gray-light);
+  --card-text: var(--white);
+  --card-input: var(--gray-light);
+  
+  --fill-wheel: var(--gold-accent);
+
+  --n-color: #ff7509;
+  /* --primary-color: #224064;
   --secondary-color: #171d35;
   --secondary-color-light: #103664;
   --text-color-dark: #171d35;
   --text-color-light: #f6f5f5;
-  --n-color: #ff7509;
   --accent-color: #f1a903;
   --accent-hover-color: #eb5b00;
-  --accent-color-dark: #df4b4b;
+  --accent-color-dark: #df4b4b; */
+}
+
+/* Dark mode */
+html.dark {
+  --background-base: var(--navy-primary)!important;
+  --background-alt: var(--blue-secondary);
+  --text-primary: var(--white);
+  --text-secondary: var(--gray-light);
+  --text-tertiary: var(--gold-accent);
+  --border-color: #364b6b;
+  --accent-primary: var(--gold-accent);
+  --accent-secondary: var(--white);
+  
+  /* Component colors - Dark mode */
+  --navbar-bg: var(--gray-light);
+  --navbar-text: var(--navy-primary);
+  --navbar-text-active: var(--gold-accent);
+  --navbar-button-active: var(--navy-primary);
+  --navbar-toggle-icon: var(--navy-primary);
+  --button-primary-bg: var(--gold-accent);
+  --button-primary-text: var(--navy-primary);
+  --button-primary-hover: #f3daa0;
+  --button-secondary-bg: var(--blue-secondary);
+  --button-secondary-text: var(--white);
+  --button-secondary-hover: #2d507c;
+  --auth-card-background: var(--gray-light);
+  --card-background: var(--gray-light);
+  --card-border: var(--blue-secondary);
+  --card-text: var(--navy-primary);
+  --card-input: var(--blue-secondary);
+
+  --fill-wheel: #ed7328;
+}
+
+html {
+  transition: background-color 0.1s ease;
+}
+
+*, *::before, *::after {
+  transition: background-color 0.1s ease, border-color 0.1s ease;
 }
 
 button,
@@ -40,12 +117,12 @@ button,
 }
 
 .n-step-indicator {
-  background-color: var(--accent-color-dark) !important;
-  box-shadow: 0 0 0 1px var(--accent-color-dark) !important;
+  background-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 1px var(--accent-primary) !important;
 }
 
 .n-step-splitor {
-  background-color: var(--accent-color-dark) !important;
+  background-color: var(--accent-primary) !important;
 }
 
 .n-step-content-header__title {
@@ -54,7 +131,7 @@ button,
 }
 
 .bg-accent-dark {
-  background-color: var(--accent-color-dark) !important;
+  background-color: var(--accent-primary) !important;
 }
 
 .bg-secondary-color {
@@ -81,6 +158,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   transition: background-color 0.3s ease;
+  background-color: var(--background-base);
 }
 
 h1 {
@@ -95,7 +173,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }

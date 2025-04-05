@@ -17,14 +17,17 @@ async function createSubscriptionPlans() {
       {
         name: 'Free',
         type: 'free',
-        duration: 'unlimited',
-        durationValue: null,
+        duration: {
+          type: 'unlimited',
+          value: null
+        },
         price: {
           amount: 0,
           currency: 'EUR'
         },
-        sessions: {
-          total: 0
+        rules: {
+          sessions: 0,
+          spins: 0
         },
         isActive: true,
         paymentLink: null
@@ -32,44 +35,94 @@ async function createSubscriptionPlans() {
       {
         name: 'Trial',
         type: 'trial',
-        duration: 'days',
-        durationValue: 3,
+        duration: {
+          type: 'days',
+          value: 7,
+        },
         price: {
           amount: 0,
           currency: 'EUR'
         },
-        sessions: {
-          total: 3
+        rules: {
+          sessions: 1,
+          spins: 30,
+          prediction: 'base'
         },
         isActive: true,
         paymentLink: null
       },
       {
-        name: 'Mensile',
+        name: 'Starter',
         type: 'premium',
-        duration: 'monthly',
-        durationValue: 1,
+        duration: {
+          type: 'monthly',
+          value: 1
+        },
         price: {
-          amount: 50,
+          amount: 49,
           currency: 'EUR'
         },
-        sessions: {
-          total: 5
+        rules: {
+          sessions: 5,
+          spins: 200,
+          prediction: 'base'
         },
         isActive: true,
         paymentLink: 'https://pay.sumup.com/b2c/QPP2FGRH'
       },
       {
-        name: 'Annuale',
+        name: 'Pro',
         type: 'premium',
-        duration: 'annual',
-        durationValue: 1,
+        duration: {
+          type: 'monthly',
+          value: 1
+        },
         price: {
-          amount: 300,
+          amount: 99,
           currency: 'EUR'
         },
-        sessions: {
-          total: 999999
+        rules: {
+          sessions: -1,
+          spins: -1,
+          prediction: 'full'
+        },
+        isActive: true,
+        paymentLink: 'https://pay.sumup.com/b2c/QIIEJQIO'
+      },
+      {
+        name: 'Starter Annual',
+        type: 'premium',
+        duration: {
+          type: 'annual',
+          value: 1
+        },
+        price: {
+          amount: 299,
+          currency: 'EUR'
+        },
+        rules: {
+          sessions: 5,
+          spins: 200,
+          prediction: 'base'
+        },
+        isActive: true,
+        paymentLink: 'https://pay.sumup.com/b2c/QPP2FGRH'
+      },
+      {
+        name: 'Pro Annual',
+        type: 'premium',
+        duration: {
+          type: 'annual',
+          value: 1
+        },
+        price: {
+          amount: 599,
+          currency: 'EUR'
+        },
+        rules: {
+          sessions: -1,
+          spins: -1,
+          prediction: 'full'
         },
         isActive: true,
         paymentLink: 'https://pay.sumup.com/b2c/QIIEJQIO'

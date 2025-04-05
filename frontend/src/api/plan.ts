@@ -4,17 +4,19 @@ export interface Plan {
   _id: string
   name: string
   type: string
-  duration: string
-  durationValue: number
+  duration: {
+    type: string
+    value: number
+  }
   price: {
     amount: number
     currency: string
   }
   status: string
-  features: string[]
-  sessions: {
-    total: number
-    perDay: number
+  rules: {
+    sessions: number
+    spins: number
+    prediction: string
   }
   paymentLink?: string
   isActive: boolean

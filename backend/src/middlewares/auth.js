@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const { AppError } = require('./errorHandler');
-const userRepository = require('../repositories/user.repository');
 const subscriptionRepository = require('../repositories/subscription.repository');
 
 const authenticateToken = (req, res, next) => {

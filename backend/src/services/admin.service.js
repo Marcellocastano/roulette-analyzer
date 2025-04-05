@@ -262,15 +262,15 @@ class AdminService {
             ? new Date(currentSubscription.endDate) 
             : new Date();
           
-          if (plan.duration === 'monthly') {
+          if (plan.duration.type === 'monthly') {
             endDate = new Date(baseDate);
-            endDate.setMonth(endDate.getMonth() + plan.durationValue);
-          } else if (plan.duration === 'annual') {
+            endDate.setMonth(endDate.getMonth() + plan.duration.value);
+          } else if (plan.duration.type === 'annual') {
             endDate = new Date(baseDate);
-            endDate.setFullYear(endDate.getFullYear() + plan.durationValue);
-          } else if (plan.duration === 'days') {
+            endDate.setFullYear(endDate.getFullYear() + plan.duration.value);
+          } else if (plan.duration.type === 'days') {
             endDate = new Date(baseDate);
-            endDate.setDate(endDate.getDate() + plan.durationValue);
+            endDate.setDate(endDate.getDate() + plan.duration.value);
           } else {
             // Per piani con durata indefinita o non specificata
             endDate = null;
@@ -304,15 +304,15 @@ class AdminService {
           const startDate = new Date();
           let endDate;
           
-          if (plan.duration === 'monthly') {
+          if (plan.duration.type === 'monthly') {
             endDate = new Date(startDate);
-            endDate.setMonth(endDate.getMonth() + plan.durationValue);
-          } else if (plan.duration === 'annual') {
+            endDate.setMonth(endDate.getMonth() + plan.duration.value);
+          } else if (plan.duration.type === 'annual') {
             endDate = new Date(startDate);
-            endDate.setFullYear(endDate.getFullYear() + plan.durationValue);
-          } else if (plan.duration === 'days') {
+            endDate.setFullYear(endDate.getFullYear() + plan.duration.value);
+          } else if (plan.duration.type === 'days') {
             endDate = new Date(startDate);
-            endDate.setDate(endDate.getDate() + plan.durationValue);
+            endDate.setDate(endDate.getDate() + plan.duration.value);
           } else {
             // Per piani con durata indefinita o non specificata
             endDate = null;
@@ -338,15 +338,15 @@ class AdminService {
         const startDate = new Date();
         let endDate;
         
-        if (plan.duration === 'monthly') {
+        if (plan.duration.type === 'monthly') {
           endDate = new Date(startDate);
-          endDate.setMonth(endDate.getMonth() + plan.durationValue);
-        } else if (plan.duration === 'annual') {
+          endDate.setMonth(endDate.getMonth() + plan.duration.value);
+        } else if (plan.duration.type === 'annual') {
           endDate = new Date(startDate);
-          endDate.setFullYear(endDate.getFullYear() + plan.durationValue);
-        } else if (plan.duration === 'days') {
+          endDate.setFullYear(endDate.getFullYear() + plan.duration.value);
+        } else if (plan.duration.type === 'days') {
           endDate = new Date(startDate);
-          endDate.setDate(endDate.getDate() + plan.durationValue);
+          endDate.setDate(endDate.getDate() + plan.duration.value);
         } else {
           // Per piani con durata indefinita o non specificata
           endDate = null;

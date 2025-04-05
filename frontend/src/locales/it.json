@@ -396,28 +396,31 @@
     "trial_plan": {
       "title": "Piano di prova",
       "price": "Gratis",
-      "features": ["3 giorni di prova", "5 sessioni al giorno"],
+      "features": [
+        "7 giorni di prova",
+        "1 sessione al giorno",
+        "30 spin al giorno"
+      ],
       "button": "Prova gratis"
     },
-    "monthly_plan": {
+    "starter_plan": {
       "title": "Piano Mensile",
-      "price": "50",
-      "period": "/mese",
-      "features": ["Accesso completo alle statistiche", "7 sessioni al giorno"],
+      "monthly": "/mese",
+      "features": [
+        "sessioni al giorno",
+        "200 spin al giorno"
+      ],
       "button": "Acquista"
     },
-    "annual_plan": {
+    "pro_plan": {
       "title": "Piano Annuale",
-      "price": "300",
-      "period": "/anno",
-      "original_price": "600",
+      "monthly": "/mese",
       "discount": "50% di sconto",
       "recommended": "Consigliato",
       "features": [
-        "Accesso completo alle statistiche",
-        "Predizioni illimitate",
-        "Supporto prioritario",
-        "Risparmio di €300 rispetto al piano mensile"
+        "Sessioni illimitate",
+        "Spin illimitati",
+        "Supporto prioritario"
       ],
       "button": "Risparmia il 50%"
     },

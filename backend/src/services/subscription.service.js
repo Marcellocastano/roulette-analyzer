@@ -158,7 +158,7 @@ class SubscriptionService {
 
       const now = new Date();
       const endDate = new Date();
-      endDate.setDate(now.getDate() + (trialPlan.durationValue || 3)); // Default 3 giorni se non specificato
+      endDate.setDate(now.getDate() + (trialPlan.duration.value || 7)); // Default 7 giorni se non specificato
 
       // Crea l'abbonamento trial
       const subscription = await subscriptionRepository.create({

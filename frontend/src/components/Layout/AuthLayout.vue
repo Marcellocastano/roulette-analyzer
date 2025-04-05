@@ -2,6 +2,11 @@
   <div class="auth-container">
     <div class="overlay"></div>
     <div class="language-selector-container">
+      <n-button quaternary circle size="small" @click="openContactPage">
+        <n-icon size="20">
+          <Headset />
+        </n-icon>
+      </n-button>
       <LanguageSelector />
       <ThemeToggle />
     </div>
@@ -59,6 +64,14 @@
 import Card from '@/components/Card/Card.vue'
 import LanguageSelector from '@/components/LanguageSelector.vue'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle.vue'
+import { Headset } from '@vicons/tabler'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const openContactPage = () => {
+  console.log('bisogna aprire modale di supporto')
+}
 </script>
 
 <style scoped>

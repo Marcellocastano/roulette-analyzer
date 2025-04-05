@@ -13,16 +13,18 @@ const planSchema = new mongoose.Schema(
       required: true,
     },
     duration: {
-      type: String,
-      enum: ["unlimited", "days", "monthly", "annual"],
-      required: true,
-    },
-    durationValue: {
-      type: Number,
-      default: null, // Per trial potrebbe essere 3 (giorni)
-      required: function () {
-        return this.duration !== "unlimited";
+      type: {
+        type: String,
+        enum: ["unlimited", "days", "monthly", "annual"],
+        required: true,
       },
+      value: {
+        type: Number,
+        default: null,
+        required: function() {
+          return this.duration.type !== "unlimited";
+        }
+      }
     },
     price: {
       amount: {
@@ -37,18 +39,21 @@ const planSchema = new mongoose.Schema(
         default: "EUR",
       },
     },
-    sessions: {
-      total: {
+    rules: {
+      sessions: {
         type: Number,
-        default: 0,
+        default: 0, // -1 significa illimitato
       },
-    },
-    features: [
-      {
+      spins: {
+        type: Number,
+        default: 0, // -1 significa illimitato
+      },
+      prediction: {
         type: String,
-        trim: true,
-      },
-    ],
+        enum: ["none", "base", "full"],
+        default: "none"
+      }
+    },
     isActive: {
       type: Boolean,
       default: true,

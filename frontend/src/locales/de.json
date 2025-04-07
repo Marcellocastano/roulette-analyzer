@@ -438,7 +438,10 @@
       "original_price": "600",
       "discount": "50% Rabatt",
       "recommended": "Empfohlen",
-      "features": ["Prioritäts-Support", "Sparen Sie €300 gegenüber dem Monatsplan"],
+      "features": [
+        "Prioritäts-Support",
+        "Sparen Sie €300 gegenüber dem Monatsplan"
+      ],
       "button": "Sparen Sie 50%"
     },
     "payment_modal": {

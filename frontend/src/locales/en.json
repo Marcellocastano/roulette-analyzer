@@ -108,48 +108,6 @@
       "change_table": "Change Table"
     }
   },
-  "wheel_statistics": {
-    "instructions": "Replicate the wheel number statistics as accurately as possible. Drag your mouse over a cone to modify its value. If you have any doubts read the ",
-    "tutorial_link": "tutorial",
-    "reset_button": "Reset"
-  },
-  "dashboard": {
-    "greeting": "Hello, {name}!",
-    "default_name": "Player",
-    "stats": {
-      "sessions": {
-        "title": "Sessions Started",
-        "trend": "+{value}% compared to last week"
-      },
-      "accuracy": {
-        "title": "Prediction Accuracy"
-      },
-      "balance": {
-        "title": "Estimated Balance",
-        "trend": "{value}% this month"
-      }
-    },
-    "tutorial_card": {
-      "header": "Read the Tutorial",
-      "title": "Before you start playing",
-      "description": "It is <strong>essential</strong> to carefully read the tutorial to understand the statistical method used by the software. Only then can you fully leverage the potential of the analysis and increase your chances of success.",
-      "link": "Go to Tutorial"
-    },
-    "lucky_numbers": {
-      "title": "Your lucky numbers",
-      "message": "These numbers are randomly generated."
-    },
-    "free_user": {
-      "title": "Basic Concepts in summary",
-      "subtitle": "To discover the strategy in detail, purchase a subscription.",
-      "law_title": "Law of large numbers",
-      "law_content": "In the context of roulette, this means that, over a very high number of spins, <strong>the probabilities of various numbers and different areas of the table <u>will tend to balance</u></strong>. This obviously doesn't mean just looking at the 'deficient dozen' and betting on those numbers. But this, together with other concepts, forms the foundation of the strategy.",
-      "zero_title": "Zero Zone",
-      "zero_content": "The strategy is developed to work best by exploiting the ZERO zone of the roulette, which includes numbers from 12 to 15. If the percentage of this zone is <strong>below average (20%)</strong> at both 50 and 500 spins, the zone is considered to be \"<strong>in deficit</strong>\". This suggests that the zone is delayed and it might be the right time to bet on its numbers.",
-      "growth_title": "Number growth",
-      "growth_content": "Statistics at 50 spins are compared with those at 500 spins to identify numbers showing a <strong>positive trend</strong>. Growing numbers are those that, at 50 spins, show an <strong>increase in frequency</strong> when considering a longer period, up to 500 spins. These numbers are considered promising because their increase suggests they are beginning to \"<strong>recover</strong>\" the delay and could become more frequent in the next spins."
-    }
-  },
   "login": {
     "title": "Login",
     "email": "Email",
@@ -339,6 +297,48 @@
       "submit_success": "Request submitted successfully"
     }
   },
+  "wheel_statistics": {
+    "instructions": "Replicate the wheel number statistics as accurately as possible. Drag your mouse over a cone to modify its value. If you have any doubts read the ",
+    "tutorial_link": "tutorial",
+    "reset_button": "Reset"
+  },
+  "dashboard": {
+    "greeting": "Hello, {name}!",
+    "default_name": "Player",
+    "stats": {
+      "sessions": {
+        "title": "Sessions Started",
+        "trend": "+{value}% compared to last week"
+      },
+      "accuracy": {
+        "title": "Prediction Accuracy"
+      },
+      "balance": {
+        "title": "Estimated Balance",
+        "trend": "{value}% this month"
+      }
+    },
+    "tutorial_card": {
+      "header": "Read the Tutorial",
+      "title": "Before you start playing",
+      "description": "It is <strong>essential</strong> to carefully read the tutorial to understand the statistical method used by the software. Only then can you fully leverage the potential of the analysis and increase your chances of success.",
+      "link": "Go to Tutorial"
+    },
+    "lucky_numbers": {
+      "title": "Your lucky numbers",
+      "message": "These numbers are randomly generated."
+    },
+    "free_user": {
+      "title": "Basic Concepts in summary",
+      "subtitle": "To discover the strategy in detail, purchase a subscription.",
+      "law_title": "Law of large numbers",
+      "law_content": "In the context of roulette, this means that, over a very high number of spins, <strong>the probabilities of various numbers and different areas of the table <u>will tend to balance</u></strong>. This obviously doesn't mean just looking at the 'deficient dozen' and betting on those numbers. But this, together with other concepts, forms the foundation of the strategy.",
+      "zero_title": "Zero Zone",
+      "zero_content": "The strategy is developed to work best by exploiting the ZERO zone of the roulette, which includes numbers from 12 to 15. If the percentage of this zone is <strong>below average (20%)</strong> at both 50 and 500 spins, the zone is considered to be \"<strong>in deficit</strong>\". This suggests that the zone is delayed and it might be the right time to bet on its numbers.",
+      "growth_title": "Number growth",
+      "growth_content": "Statistics at 50 spins are compared with those at 500 spins to identify numbers showing a <strong>positive trend</strong>. Growing numbers are those that, at 50 spins, show an <strong>increase in frequency</strong> when considering a longer period, up to 500 spins. These numbers are considered promising because their increase suggests they are beginning to \"<strong>recover</strong>\" the delay and could become more frequent in the next spins."
+    }
+  },
   "common": {
     "errors": {
       "password_match": "Passwords do not match"
@@ -438,7 +438,10 @@
       "original_price": "600",
       "discount": "50% discount",
       "recommended": "Recommended",
-      "features": ["Priority support", "Save €300 compared to the monthly plan"],
+      "features": [
+        "Priority support",
+        "Save €300 compared to the monthly plan"
+      ],
       "button": "Save 50%"
     },
     "payment_modal": {
@@ -517,38 +520,57 @@
       }
     },
     "faq": {
-      "strategy": {
-        "title": "Our Winning Strategy",
-        "dozen_analysis": {
-          "title": "Analysis of Suffering Dozens",
-          "description": "We identify dozens with below-average output percentages (about 30% at 500 spins), which according to the law of large numbers will tend to recover, offering advantageous betting opportunities."
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "How does the system work?",
+          "answer": "Our system analyzes statistical data to identify patterns and imbalances. We monitor 'suffering' dozens, the zero zone, hot and cold numbers, and use advanced algorithms to predict which numbers have a higher probability of coming up."
         },
-        "zero_zone": {
-          "title": "Zero Zone Monitoring",
-          "description": "We analyze the output percentage of the 'zero and neighbors' zone (numbers 12 to 15 plus 0), comparing data at 50 and 500 spins to identify significant growth trends."
+        {
+          "question": "Is it possible to win at roulette with a system?",
+          "answer": "While roulette is a game of probability, advanced statistical analysis can help identify temporary imbalances and patterns that can be exploited. Our software does not guarantee wins, but significantly increases the chances of success through a scientific and methodical approach."
         },
-        "hot_numbers": {
-          "title": "Identification of Hot Numbers",
-          "description": "We identify the most frequently occurring numbers, focusing on those found in specific areas of the wheel, to make the most of statistical sequences."
+        {
+          "question": "Does the software work for both slot and physical roulette?",
+          "answer": "No, the software works only and exclusively with physical roulette, with a croupier. I recommend particularly those that belong to the 'Evolution' provider."
+        },
+        {
+          "question": "What budget is recommended to start playing?",
+          "answer": "You could play even with 50€, but we recommend starting the session with a budget that goes from 200€ to 300€. Obviously, no guarantee of win, but a good session can end with a 1.500€ profit. This makes it possible to achieve a good profit in the long term."
         }
+      ]
+    },
+    "strategy": {
+      "title": "Our Winning Strategy",
+      "dozen_analysis": {
+        "title": "Analysis of Suffering Dozens",
+        "description": "We identify dozens with below-average output percentages (about 30% at 500 spins), which according to the law of large numbers will tend to recover, offering advantageous betting opportunities."
       },
-      "cta": {
-        "title": "Ready to transform your way of playing?",
-        "description": "Join thousands of players who have already revolutionized their approach to roulette. Remember: this is not a tool that guarantees winnings, but a guide to play with a reliable method based on statistics.",
-        "button": "Start now"
+      "zero_zone": {
+        "title": "Zero Zone Monitoring",
+        "description": "We analyze the output percentage of the 'zero and neighbors' zone (numbers 12 to 15 plus 0), comparing data at 50 and 500 spins to identify significant growth trends."
       },
-      "footer": {
-        "tagline": "Advanced statistical analysis for roulette",
-        "navigation": "Navigation",
-        "login": "Log in",
-        "signup": "Sign up",
-        "pricing": "Pricing",
-        "legal": "Legal",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy",
-        "disclaimer": "Disclaimer",
-        "rights": "All rights reserved"
+      "hot_numbers": {
+        "title": "Identification of Hot Numbers",
+        "description": "We identify the most frequently occurring numbers, focusing on those found in specific areas of the wheel, to make the most of statistical sequences."
       }
+    },
+    "cta": {
+      "title": "Ready to transform your way of playing?",
+      "description": "Join thousands of players who have already revolutionized their approach to roulette. Remember: this is not a tool that guarantees winnings, but a guide to play with a reliable method based on statistics.",
+      "button": "Start now"
+    },
+    "footer": {
+      "tagline": "Advanced statistical analysis for roulette",
+      "navigation": "Navigation",
+      "login": "Log in",
+      "signup": "Sign up",
+      "pricing": "Pricing",
+      "legal": "Legal",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "disclaimer": "Disclaimer",
+      "rights": "All rights reserved"
     }
   }
 }

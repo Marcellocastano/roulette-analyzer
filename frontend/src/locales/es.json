@@ -452,10 +452,18 @@
       "cancel_button": "Cancelar solicitud",
       "understand_button": "Proceder al pago"
     },
+    "trial_modal": {
+      "title": "Activar Plan de Prueba",
+      "message": "Estás a punto de activar el Plan de Prueba de Roulette Pro AI, que te dará acceso a 3 sesiones gratuitas al día durante 3 días.",
+      "details": "Una vez activado, el Plan de Prueba no se puede reactivar en el futuro. Asegúrate de usar tus sesiones cuando estés listo para jugar.",
+      "cancel_button": "Cancelar",
+      "confirm_button": "Activar Prueba"
+    },
     "messages": {
       "subscription_error": "Se ha producido un error durante la solicitud de suscripción. Inténtalo más tarde.",
       "cancel_success": "Solicitud de suscripción cancelada con éxito",
       "cancel_error": "Se ha producido un error durante la cancelación de la solicitud. Inténtalo más tarde.",
+      "trial_activated": "Plan de prueba activado con éxito",
       "trial_error": "Se ha producido un error durante la activación del plano de prueba. El usuario puede tener un abono activo."
     }
   },

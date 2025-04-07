@@ -452,10 +452,18 @@
       "cancel_button": "Anfrage abbrechen",
       "understand_button": "Weiter zur Zahlung"
     },
+    "trial_modal": {
+      "title": "Aktivieren Sie den Testplan",
+      "message": "Sie sind dabei, den Testplan von Roulette Pro AI zu aktivieren, der Ihnen drei kostenlose Sitzungen pro Tag für drei Tage zur Verfügung stellt.",
+      "details": "Sobald aktiviert, kann der Testplan nicht im Zukunftswert erneut aktiviert werden. Stellen Sie sicher, dass Sie Ihre Sitzungen nutzen, wenn Sie bereit sind zu spielen.",
+      "cancel_button": "Abbrechen",
+      "confirm_button": "Aktivieren Sie die Testversion"
+    },
     "messages": {
       "subscription_error": "Bei der Abonnementanfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
       "cancel_success": "Abonnementanfrage erfolgreich storniert",
       "cancel_error": "Bei der Stornierung der Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+      "trial_activated": "Testplan aktiviert",
       "trial_error": "Bei der Aktivierung des Testplans ist ein Fehler aufgetreten. Der Benutzer könnte ein aktives Abonnement haben."
     }
   },

@@ -452,10 +452,18 @@
       "cancel_button": "Annulla richiesta",
       "understand_button": "Procedi al pagamento"
     },
+    "trial_modal": {
+      "title": "Attivazione Piano Trial",
+      "message": "Stai per attivare il piano Trial di Roulette Pro AI, che ti darà accesso a 3 sessioni gratuite al giorno per 3 giorni.",
+      "details": "Una volta attivato, il piano Trial non può essere riattivato in futuro. Assicurati di utilizzare le tue sessioni quando sei pronto a giocare.",
+      "cancel_button": "Annulla",
+      "confirm_button": "Attiva Trial"
+    },
     "messages": {
       "subscription_error": "Si è verificato un errore durante la richiesta di sottoscrizione. Riprova più tardi.",
       "cancel_success": "Richiesta di sottoscrizione annullata con successo",
       "cancel_error": "Si è verificato un errore durante l'annullamento della richiesta. Riprova più tardi.",
+      "trial_activated": "Piano di prova attivato con successo",
       "trial_error": "Si è verificato un errore durante l'attivazione del piano di prova. L'utente potrebbe avere un abbonamento attivo."
     }
   },

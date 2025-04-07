@@ -28,7 +28,7 @@ export const subscriptionApi = {
       planId,
       type,
     }),
-  activateTrial: () => apiClient.post('/subscription/trial'),
+  activateTrial: () => apiClient.post<{ success: boolean; data: any; accessToken?: string }>('/subscription/trial'),
   cancelSubscriptionRequest: (requestId: string) =>
     apiClient.delete(`/subscription/request/${requestId}`),
   checkSessionLimit: () => apiClient.get('/subscription/session-limit'),

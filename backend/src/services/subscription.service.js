@@ -335,6 +335,23 @@ class SubscriptionService {
       throw new AppError('Errore durante il recupero dello stato delle sessioni', 500);
     }
   }
+
+  /**
+   * Ottiene un utente con le informazioni di abbonamento aggiornate
+   */
+  async getUserWithSubscription(userId) {
+    try {
+      const user = await userRepository.findById(userId);
+      if (!user) {
+        throw new AppError('Utente non trovato', 404);
+      }
+      
+      return user;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Errore durante il recupero delle informazioni utente', 500);
+    }
+  }
 }
 
 module.exports = SubscriptionService;

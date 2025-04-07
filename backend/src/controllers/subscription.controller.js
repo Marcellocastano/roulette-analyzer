@@ -1,5 +1,6 @@
 const { SubscriptionService } = require('../services');
 const { AppError } = require('../middlewares/errorHandler');
+const { AuthService } = require('../services');
 
 /**
  * Controller per la gestione delle sottoscrizioni
@@ -71,7 +72,21 @@ class SubscriptionController {
     try {
       const userId = req.user.id;
       const subscription = await this.subscriptionService.activateTrial(userId);
-      res.status(200).json({ success: true, data: subscription });
+      
+      // Ottieni l'utente aggiornato dal database
+      const authService = new AuthService();
+      
+      // Trova l'utente aggiornato con l'abbonamento attivo
+      const updatedUser = await this.subscriptionService.getUserWithSubscription(userId);
+      
+      // Genera un nuovo token con le informazioni aggiornate
+      const accessToken = authService.generateAccessToken(updatedUser);
+      
+      res.status(200).json({ 
+        success: true, 
+        data: subscription,
+        accessToken 
+      });
     } catch (error) {
       next(error);
     }

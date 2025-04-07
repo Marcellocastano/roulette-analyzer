@@ -217,6 +217,36 @@
       </n-space>
     </n-space>
   </n-modal>
+
+  <!-- Modale di conferma per l'attivazione del Trial -->
+  <n-modal
+    v-model:show="showTrialConfirmModal"
+    preset="card"
+    :title="$t('pricing.trial_modal.title')"
+    style="width: 500px; max-width: 90%"
+    :mask-closable="false"
+  >
+    <n-space vertical>
+      <n-text>
+        {{ $t('pricing.trial_modal.message') }}
+      </n-text>
+
+      <n-divider />
+
+      <n-text type="info">
+        <strong>{{ $t('pricing.trial_modal.details') }}</strong>
+      </n-text>
+
+      <n-space justify="end" class="mt-6">
+        <n-button @click="showTrialConfirmModal = false" :loading="isLoading">
+          {{ $t('pricing.trial_modal.cancel_button') }}
+        </n-button>
+        <n-button type="primary" @click="confirmActivateTrial" :loading="isLoading">
+          {{ $t('pricing.trial_modal.confirm_button') }}
+        </n-button>
+      </n-space>
+    </n-space>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
@@ -238,6 +268,7 @@ const message = useMessage()
 const router = useRouter()
 const isLoading = ref(false)
 const showPaymentModal = ref(false)
+const showTrialConfirmModal = ref(false)
 const paymentInstructions = ref<SubscriptionRequest | null>(null)
 const amount = ref(0)
 const plans = ref<Plan[]>([])
@@ -280,10 +311,25 @@ const gerRequestInPending = async () => {
 }
 
 const activateTrial = async () => {
+  showTrialConfirmModal.value = true
+}
+
+const confirmActivateTrial = async () => {
   try {
     isLoading.value = true
-    await subscriptionApi.activateTrial()
+    const response = await subscriptionApi.activateTrial()
+    
+    // Se il backend restituisce un nuovo token, aggiornalo
+    if (response?.data?.accessToken) {
+      const authStore = useAuthStore()
+      authStore.setToken(response.data.accessToken)
+      
+      // Aggiorna le informazioni dell'utente
+      await authStore.checkAuthStatus()
+    }
+    
     message.success(t('pricing.messages.trial_activated'))
+    showTrialConfirmModal.value = false
   } catch (error) {
     console.error('Error during trial activation:', error)
     message.error(t('pricing.messages.trial_error'))

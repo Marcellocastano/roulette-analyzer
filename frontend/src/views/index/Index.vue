@@ -493,6 +493,9 @@ useHead({
   flex: 1;
   min-width: 300px;
   padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .strategy-image {

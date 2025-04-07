@@ -33,7 +33,8 @@ const config = {
       service: process.env.EMAIL_SERVICE,
       user: process.env.EMAIL_USER,
       password: process.env.EMAIL_PASSWORD,
-      from: process.env.EMAIL_FROM
+      from: process.env.EMAIL_FROM,
+      domain: process.env.EMAIL_DOMAIN
     }
   }
 };

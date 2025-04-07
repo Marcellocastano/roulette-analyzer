@@ -349,7 +349,32 @@
       "it": "Italiano",
       "es": "Spagnolo",
       "de": "Tedesco"
-    }
+    },
+    "close": "Chiudi",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "view": "Visualizza",
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "warning": "Attenzione",
+    "info": "Informazione",
+    "confirm": "Conferma",
+    "back": "Indietro",
+    "next": "Avanti",
+    "yes": "Sì",
+    "no": "No",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "sort": "Ordina",
+    "asc": "Ascendente",
+    "desc": "Discendente"
+  },
+  "support": {
+    "title": "Supporto",
+    "message": "In caso di problemi o domande, contatta il nostro team di supporto tramite la pagina Instagram ufficiale:"
   },
   "navbar": {
     "dashboard": "Dashboard",
@@ -396,14 +421,14 @@
     "trial_plan": {
       "title": "Piano di prova",
       "price": "Gratis",
-      "features": ["3 giorni di prova", "5 sessioni al giorno"],
+      "features": ["5 giorni di prova", "2 sessioni al giorno"],
       "button": "Prova gratis"
     },
     "monthly_plan": {
       "title": "Piano Mensile",
       "price": "50",
       "period": "/mese",
-      "features": ["Accesso completo alle statistiche", "7 sessioni al giorno"],
+      "features": ["Sessioni illimitate", "Supporto standard"],
       "button": "Acquista"
     },
     "annual_plan": {
@@ -414,8 +439,6 @@
       "discount": "50% di sconto",
       "recommended": "Consigliato",
       "features": [
-        "Accesso completo alle statistiche",
-        "Predizioni illimitate",
         "Supporto prioritario",
         "Risparmio di €300 rispetto al piano mensile"
       ],
@@ -468,6 +491,86 @@
     "errors": {
       "invalidToken": "Token di conferma non valido o scaduto.",
       "genericError": "Si è verificato un errore durante la conferma dell'email. Riprova più tardi o contatta l'assistenza."
+    }
+  },
+  "landing": {
+    "hero": {
+      "subtitle": "Rivoluziona il tuo modo di giocare alla roulette",
+      "description": "Roulette Pro AI è un software avanzato che combina analisi statistica e intelligenza artificiale per individuare squilibri nei tavoli da roulette e suggerire i numeri con maggiore probabilità di uscita. Non è un generatore di numeri magici, ma uno strumento basato su statistiche testate e consolidate.",
+      "signup_button": "Registrati ora",
+      "login_button": "Accedi"
+    },
+    "features": {
+      "title": "Caratteristiche principali",
+      "statistical_analysis": {
+        "title": "Analisi statistica avanzata",
+        "description": "Identifica gli squilibri statistici nei tavoli da roulette analizzando le percentuali di uscita delle dozzine e della zona zero sia a 50 che a 500 spin."
+      },
+      "ai_powered": {
+        "title": "Potenza dell'Intelligenza Artificiale",
+        "description": "Il nostro algoritmo di IA analizza milioni di dati per identificare pattern e tendenze che sfuggirebbero all'occhio umano, aumentando significativamente le probabilità di successo."
+      },
+      "number_prediction": {
+        "title": "Previsione dei numeri",
+        "description": "Basandosi su anni di analisi delle sequenze, l'algoritmo suggerisce i numeri con maggiore probabilità di uscita in base alle condizioni statistiche attuali del tavolo."
+      },
+      "budget_management": {
+        "title": "Gestione intelligente del budget",
+        "description": "Strategie ottimizzate per la gestione del tuo bankroll, per massimizzare le vincite e minimizzare le perdite durante le sessioni di gioco."
+      }
+    },
+    "faq": {
+      "title": "Domande frequenti",
+      "items": [
+        {
+          "question": "Come funziona il sistema?",
+          "answer": "Il nostro sistema analizza i dati statistici per identificare pattern e squilibri. Monitoriamo le dozzine 'sofferenti', la zona dello zero, i numeri caldi e freddi, e utilizziamo algoritmi avanzati per prevedere quali numeri hanno maggiori probabilità di uscire."
+        },
+        {
+          "question": "È possibile vincere alla roulette con un sistema?",
+          "answer": "Sebbene la roulette sia un gioco di probabilità, un'analisi statistica avanzata può aiutare a identificare squilibri temporanei e pattern che possono essere sfruttati. Il nostro software non garantisce vincite, ma aumenta significativamente le probabilità di successo attraverso un approccio scientifico e metodico."
+        },
+        {
+          "question": "Il software funziona sia per la roulette 'slot' che per quella fisica?",
+          "answer": "No, il software funziona solo ed esclusivamente con le roulette fisiche, con un croupier. Consiglio particolarmente quelle appartenenti al provider 'Evolution'."
+        },
+        {
+          "question": "Con quanto budget è consigliato iniziare a giocare?",
+          "answer": "Si potrebbe giocare anche con 50€, ma consigliamo di iniziare la sessione con un budget che va dai 200€ ai 300€. Non è assicurata la vincita, ovviamente, ma una buona sessione può chiudersi anche con un 1.500€ di profit. Questo fa si che a lungo andare si possa ottenere un buon profitto."
+        }
+      ]
+    },
+    "strategy": {
+      "title": "La nostra strategia vincente",
+      "dozen_analysis": {
+        "title": "Analisi delle dozzine sofferenti",
+        "description": "Individuiamo le dozzine con percentuali di uscita inferiori alla media (circa 30% a 500 spin), che secondo la legge dei grandi numeri tenderanno a recuperare, offrendo opportunità di puntata vantaggiose."
+      },
+      "zero_zone": {
+        "title": "Monitoraggio della zona zero",
+        "description": "Analizziamo la percentuale di uscita della zona 'zero e vicini' (numeri dal 12 al 15 più lo 0), confrontando i dati a 50 e 500 spin per identificare tendenze di crescita significative."
+      },
+      "hot_numbers": {
+        "title": "Identificazione dei numeri caldi",
+        "description": "Individuiamo i numeri usciti più frequentemente, concentrandoci su quelli che si trovano in aree specifiche della ruota, per sfruttare al meglio le sequenze statistiche."
+      }
+    },
+    "cta": {
+      "title": "Pronto a trasformare il tuo modo di giocare?",
+      "description": "Unisciti a migliaia di giocatori che hanno già rivoluzionato il loro approccio alla roulette. Ricorda: questo non è uno strumento che garantisce vincite, ma una guida per giocare con un metodo affidabile basato sulle statistiche.",
+      "button": "Inizia ora"
+    },
+    "footer": {
+      "tagline": "Analisi statistica avanzata per la roulette",
+      "navigation": "Navigazione",
+      "login": "Accedi",
+      "signup": "Registrati",
+      "pricing": "Abbonamenti",
+      "legal": "Legale",
+      "terms": "Termini di servizio",
+      "privacy": "Privacy Policy",
+      "disclaimer": "Disclaimer",
+      "rights": "Tutti i diritti riservati"
     }
   }
 }

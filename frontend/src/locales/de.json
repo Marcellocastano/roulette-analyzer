@@ -349,7 +349,32 @@
       "it": "Italienisch",
       "es": "Spanisch",
       "de": "Deutsch"
-    }
+    },
+    "close": "Schließen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Ansehen",
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "warning": "Warnung",
+    "info": "Information",
+    "confirm": "Bestätigen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "yes": "Ja",
+    "no": "Nein",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "asc": "Aufsteigend",
+    "desc": "Absteigend"
+  },
+  "support": {
+    "title": "Support",
+    "message": "Bei Problemen oder Fragen kontaktieren Sie bitte unser Support-Team über die offizielle Instagram-Seite:"
   },
   "navbar": {
     "dashboard": "Dashboard",
@@ -396,14 +421,14 @@
     "trial_plan": {
       "title": "Testplan",
       "price": "Frei",
-      "features": ["3 Tage Testversion", "5 Sitzungen pro Tag"],
+      "features": ["5 Tage Testversion", "2 Sitzungen pro Tag"],
       "button": "Kostenlos testen"
     },
     "monthly_plan": {
       "title": "Monatsplan",
       "price": "50",
       "period": "/Monat",
-      "features": ["Vollständiger Zugriff auf Statistiken", "7 Sitzungen pro Tag"],
+      "features": ["Unbegrenzter Zugriff auf Statistiken", "Standard-Support"],
       "button": "Kaufen"
     },
     "annual_plan": {
@@ -413,12 +438,7 @@
       "original_price": "600",
       "discount": "50% Rabatt",
       "recommended": "Empfohlen",
-      "features": [
-        "Vollständiger Zugriff auf Statistiken",
-        "Unbegrenzte Vorhersagen",
-        "Prioritäts-Support",
-        "Sparen Sie €300 gegenüber dem Monatsplan"
-      ],
+      "features": ["Prioritäts-Support", "Sparen Sie €300 gegenüber dem Monatsplan"],
       "button": "Sparen Sie 50%"
     },
     "payment_modal": {
@@ -468,6 +488,86 @@
     "errors": {
       "invalidToken": "Ungültiger oder abgelaufener Bestätigungstoken.",
       "genericError": "Bei der Bestätigung deiner E-Mail ist ein Fehler aufgetreten. Bitte versuche es später erneut oder kontaktiere den Support."
+    }
+  },
+  "landing": {
+    "hero": {
+      "subtitle": "Revolutionieren Sie Ihre Art Roulette zu spielen",
+      "description": "Roulette Pro AI ist eine hochentwickelte Software, die statistische Analyse und künstliche Intelligenz kombiniert, um Ungleichgewichte an Roulette-Tischen zu identifizieren und Zahlen mit höherer Eintrittswahrscheinlichkeit vorzuschlagen. Es ist kein magischer Zahlengenerator, sondern ein auf bewährten Statistiken basierendes Werkzeug.",
+      "signup_button": "Jetzt registrieren",
+      "login_button": "Anmelden"
+    },
+    "features": {
+      "title": "Hauptmerkmale",
+      "statistical_analysis": {
+        "title": "Erweiterte statistische Analyse",
+        "description": "Identifiziert statistische Ungleichgewichte an Roulette-Tischen durch Analyse der Auszahlungsprozente von Dutzenden und der Null-Zone bei 50 und 500 Drehungen."
+      },
+      "ai_powered": {
+        "title": "Angetrieben von künstlicher Intelligenz",
+        "description": "Unser KI-Algorithmus analysiert Millionen von Datenpunkten, um Muster und Trends zu identifizieren, die dem menschlichen Auge entgehen würden, und erhöht so signifikant die Erfolgschancen."
+      },
+      "number_prediction": {
+        "title": "Zahlenvorhersage",
+        "description": "Basierend auf jahrelanger Sequenzanalyse schlägt der Algorithmus Zahlen mit höherer Eintrittswahrscheinlichkeit vor, abhängig von den aktuellen statistischen Bedingungen am Tisch."
+      },
+      "budget_management": {
+        "title": "Intelligentes Bankroll-Management",
+        "description": "Optimierte Strategien zur Verwaltung Ihrer Spielkasse, um Gewinne zu maximieren und Verluste während der Spielsitzungen zu minimieren."
+      }
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "items": [
+        {
+          "question": "Wie funktioniert das System?",
+          "answer": "Das System analysiert statistische Daten, um Muster und Ungleichgewichte zu identifizieren. Wir überwachen 'leidende Dutzende', die Null-Zone, heiße und kalte Zahlen und verwenden fortschrittliche Algorithmen, um Zahlen mit höherer Eintrittswahrscheinlichkeit vorherzusagen."
+        },
+        {
+          "question": "Kann man mit einem System im Roulette gewinnen?",
+          "answer": "Obwohl Roulette ein Spiel der Wahrscheinlichkeit ist, kann eine statistische Analyse dabei helfen, temporäre Ungleichgewichte und Muster zu identifizieren, die ausgenutzt werden können. Die Software garantiert keine Gewinne, erhöht aber durch einen wissenschaftlichen und methodischen Ansatz die Erfolgschancen signifikant."
+        },
+        {
+          "question": "Funktioniert die Software bei elektronischem Roulette oder physischem Roulette?",
+          "answer": "Nein, die Software funktioniert ausschließlich mit physischen Roulette-Tischen mit Croupier. Ich empfehle insbesondere die des Anbieters 'Evolution'."
+        },
+        {
+          "question": "Mit welchem Budget wird der Einstieg empfohlen?",
+          "answer": "Man könnte mit 50€ spielen, aber ich empfehle den Einstieg mit einem Budget zwischen 200€ und 300€. Es gibt natürlich keine Gewinngarantie, aber eine gute Sitzung könnte mit 1.500€ Gewinn enden. Dies ermöglicht langfristig einen guten Profit."
+        }
+      ]
+    },
+    "strategy": {
+      "title": "Unsere Gewinnstrategie",
+      "dozen_analysis": {
+        "title": "Analyse der leidenden Dutzende",
+        "description": "Wir identifizieren Dutzende mit unterdurchschnittlichen Auszahlungsprozentsätzen (ca. 30% bei 500 Drehungen), die nach dem Gesetz der großen Zahlen dazu tendieren werden, sich zu erholen, was vorteilhafte Wettmöglichkeiten bietet."
+      },
+      "zero_zone": {
+        "title": "Überwachung der Null-Zone",
+        "description": "Wir analysieren den Auszahlungsprozentsatz der 'Null und Nachbarn'-Zone (Zahlen 12 bis 15 plus 0), vergleichen Daten bei 50 und 500 Drehungen und identifizieren signifikante Wachstumstrends."
+      },
+      "hot_numbers": {
+        "title": "Identifikation heißer Zahlen",
+        "description": "Wir identifizieren die am häufigsten vorkommenden Zahlen, mit Fokus auf solche in bestimmten Bereichen des Rades, um statistische Sequenzen optimal zu nutzen."
+      }
+    },
+    "cta": {
+      "title": "Bereit, Ihre Spielweise zu verändern?",
+      "description": "Schließen Sie sich Tausenden von Spielern an, die ihren Zugang zu Roulette bereits revolutioniert haben. Denken Sie daran: Dies ist kein Tool, das Gewinne garantiert, sondern eine Anleitung, um mit einer verlässlichen, auf Statistiken basierenden Methode zu spielen.",
+      "button": "Jetzt starten"
+    },
+    "footer": {
+      "tagline": "Erweiterte statistische Analyse für Roulette",
+      "navigation": "Navigation",
+      "login": "Anmelden",
+      "signup": "Registrieren",
+      "pricing": "Preise",
+      "legal": "Rechtliches",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutz",
+      "disclaimer": "Haftungsausschluss",
+      "rights": "Alle Rechte vorbehalten"
     }
   }
 }

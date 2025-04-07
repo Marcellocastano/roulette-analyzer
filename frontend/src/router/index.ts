@@ -11,10 +11,6 @@ const router = createRouter({
       meta: { requiresAuth: true },
       children: [
         {
-          path: '',
-          redirect: '/dashboard',
-        },
-        {
           path: 'dashboard',
           name: 'dashboard',
           component: () => import('../views/dashboard/Dashboard.vue'),
@@ -60,6 +56,11 @@ const router = createRouter({
           ],
         },
       ],
+    },
+    {
+      path: '/home',
+      name: 'index',
+      component: () => import('../views/index/Index.vue'),
     },
     {
       path: '/login',

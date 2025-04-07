@@ -349,7 +349,32 @@
       "it": "Italiano",
       "es": "Español",
       "de": "Alemán"
-    }
+    },
+    "close": "Cerrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información",
+    "confirm": "Confirmar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "yes": "Sí",
+    "no": "No",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "asc": "Ascendente",
+    "desc": "Descendente"
+  },
+  "support": {
+    "title": "Soporte",
+    "message": "Si tienes problemas o preguntas, contacta a nuestro equipo de soporte a través de la página oficial de Instagram:"
   },
   "navbar": {
     "dashboard": "Panel",
@@ -396,14 +421,14 @@
     "trial_plan": {
       "title": "Piano de prueba",
       "price": "Gratis",
-      "features": ["3 días de prueba", "5 sesiones al día"],
+      "features": ["5 días de prueba", "2 sesiones al día"],
       "button": "Probar gratis"
     },
     "monthly_plan": {
       "title": "Plan Mensual",
       "price": "50",
       "period": "/mes",
-      "features": ["Acceso completo a las estadísticas", "7 sesiones al día"],
+      "features": ["Acceso ilimitado a las estadísticas", "Soporte estándar"],
       "button": "Comprar"
     },
     "annual_plan": {
@@ -414,8 +439,6 @@
       "discount": "50% de descuento",
       "recommended": "Recomendado",
       "features": [
-        "Acceso completo a las estadísticas",
-        "Predicciones ilimitadas",
         "Soporte prioritario",
         "Ahorro de €300 respecto al plan mensual"
       ],
@@ -468,6 +491,86 @@
     "errors": {
       "invalidToken": "Token de confirmación inválido o caducado.",
       "genericError": "Ocurrió un error al confirmar tu correo electrónico. Por favor, inténtalo de nuevo más tarde o contacta con soporte."
+    }
+  },
+  "landing": {
+    "hero": {
+      "subtitle": "Revoluciona tu forma de jugar a la ruleta",
+      "description": "Roulette Pro AI es un software avanzado que combina análisis estadístico e inteligencia artificial para identificar desequilibrios en las mesas de ruleta y sugerir números con mayor probabilidad de salir. No es un generador de números mágicos, sino una herramienta basada en estadísticas probadas y consolidadas.",
+      "signup_button": "Regístrate ahora",
+      "login_button": "Iniciar sesión"
+    },
+    "features": {
+      "title": "Características principales",
+      "statistical_analysis": {
+        "title": "Análisis estadístico avanzado",
+        "description": "Identifica desequilibrios estadísticos en las mesas de ruleta analizando los porcentajes de salida de las docenas y la zona cero tanto a 50 como a 500 giros."
+      },
+      "ai_powered": {
+        "title": "Potencia de la Inteligencia Artificial",
+        "description": "Nuestro algoritmo de IA analiza millones de datos para identificar patrones y tendencias que escaparían al ojo humano, aumentando significativamente las probabilidades de éxito."
+      },
+      "number_prediction": {
+        "title": "Predicción de números",
+        "description": "Basándose en años de análisis de secuencias, el algoritmo sugiere los números con mayor probabilidad de salir según las condiciones estadísticas actuales de la mesa."
+      },
+      "budget_management": {
+        "title": "Gestión inteligente del presupuesto",
+        "description": "Estrategias optimizadas para la gestión de tu bankroll, para maximizar las ganancias y minimizar las pérdidas durante las sesiones de juego."
+      }
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "items": [
+        {
+          "question": "¿Cómo funciona el sistema?",
+          "answer": "El sistema analiza los datos estadísticos para identificar patrones y desequilibrios. Monitoramos las docenas 'suficientes', la zona cero, los números calientes y fríos, y utilizamos algoritmos avanzados para predecir cuáles números tienen mayor probabilidad de salir."
+        },
+        {
+          "question": "¿Es posible ganar en la ruleta con un sistema?",
+          "answer": "Aunque la ruleta es un juego de probabilidad, una análisis estadístico avanzado puede ayudar a identificar desequilibrios temporales y patrones que pueden ser aprovechados. El software no garantiza ganancias, pero aumenta significativamente las probabilidades de éxito mediante un enfoque científico y metodológico."
+        },
+        {
+          "question": "¿Funciona el software para la ruleta 'slot' o la física?",
+          "answer": "No, el software funciona solo y exclusivamente con las ruletas físicas, con un croupier. Te recomiendo particularmente las que pertenecen al proveedor 'Evolution'."
+        },
+        {
+          "question": "¿Con qué presupuesto es recomendado comenzar a jugar?",
+          "answer": "Se podría jugar también con 50€, pero se recomienda iniciar la sesión con un presupuesto que varía entre 200€ y 300€. No está garantizada la victoria, obviamente, pero una buena sesión podría culminar con un 1.500€ de ganancias. Esto hace que, a largo plazo, se pueda obtener un buen beneficio."
+        }
+      ]
+    },
+    "strategy": {
+      "title": "Nuestra estrategia ganadora",
+      "dozen_analysis": {
+        "title": "Análisis de docenas suficientes",
+        "description": "Identificamos las docenas con porcentajes de salida inferiores a la media (aproximadamente 30% a 500 giros), que según la ley de los grandes números tenderán a recuperarse, ofreciendo oportunidades de apuesta ventajosas."
+      },
+      "zero_zone": {
+        "title": "Monitoreo de la zona cero",
+        "description": "Analizamos el porcentaje de salida de la zona 'cero y vecinos' (números del 12 al 15 más el 0), comparando datos a 50 y 500 giros para identificar tendencias de crecimiento significativas."
+      },
+      "hot_numbers": {
+        "title": "Identificación de números calientes",
+        "description": "Identificamos los números que salen con más frecuencia, centrándonos en aquellos que se encuentran en áreas específicas de la rueda, para aprovechar al máximo las secuencias estadísticas."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para transformar tu forma de jugar?",
+      "description": "Únete a miles de jugadores que ya han revolucionado su enfoque de la ruleta. Recuerda: esta no es una herramienta que garantiza ganancias, sino una guía para jugar con un método confiable basado en estadísticas.",
+      "button": "Empezar ahora"
+    },
+    "footer": {
+      "tagline": "Análisis estadístico avanzado para la ruleta",
+      "navigation": "Navegación",
+      "login": "Iniciar sesión",
+      "signup": "Registrarse",
+      "pricing": "Precios",
+      "legal": "Legal",
+      "terms": "Términos de servicio",
+      "privacy": "Política de privacidad",
+      "disclaimer": "Aviso legal",
+      "rights": "Todos los derechos reservados"
     }
   }
 }

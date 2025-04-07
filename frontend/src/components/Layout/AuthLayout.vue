@@ -2,6 +2,11 @@
   <div class="auth-container">
     <div class="overlay"></div>
     <div class="language-selector-container">
+      <n-button quaternary circle size="small" class="support-button" @click="showSupportModal = true">
+        <n-icon size="20" color="var(--card-text)">
+          <Headset />
+        </n-icon>
+      </n-button>
       <LanguageSelector />
       <ThemeToggle />
     </div>
@@ -53,12 +58,47 @@
       </template>
     </Card>
   </div>
+  
+  <!-- Modale di supporto -->
+  <n-modal v-model:show="showSupportModal" preset="card" :style="{ maxWidth: '400px' }">
+    <template #header>
+      <div class="flex items-center">
+        <n-icon size="24" color="var(--orange-accent)" class="mr-2">
+          <Headset />
+        </n-icon>
+        <span>{{ $t('support.title') }}</span>
+      </div>
+    </template>
+    <div class="support-modal-content">
+      <p>{{ $t('support.message') }}</p>
+      <!-- link to https://www.instagram.com/roulettepro_ai -->
+      <div class="instagram-contact cursor-pointer" @click="openInstagram">
+        <n-icon size="24" color="#E1306C" class="mr-2">
+          <BrandInstagram />
+        </n-icon>
+        <span class="instagram-handle">RoulettePro AI</span>
+      </div>
+    </div>
+    <template #footer>
+      <n-button type="primary" @click="showSupportModal = false" block>
+        {{ $t('common.close') }}
+      </n-button>
+    </template>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import Card from '@/components/Card/Card.vue'
 import LanguageSelector from '@/components/LanguageSelector.vue'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle.vue'
+import { Headset, BrandInstagram } from '@vicons/tabler'
+
+const showSupportModal = ref(false)
+
+const openInstagram = () => {
+  window.open('https://www.instagram.com/roulettepro_ai', '_blank')
+}
 </script>
 
 <style scoped>
@@ -210,5 +250,28 @@ import ThemeToggle from '@/components/ThemeToggle/ThemeToggle.vue'
   background: var(--navbar-bg);
   padding: 10px;
   border-radius: 20px;
+}
+
+.support-button {
+  margin-top: 0 !important;
+}
+
+.support-modal-content {
+  padding: 10px 0;
+}
+
+.instagram-contact {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  padding: 12px;
+  background-color: var(--navbar-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.instagram-handle {
+  font-weight: 600;
+  color: var(--card-text);
 }
 </style>

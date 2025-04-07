@@ -27,41 +27,45 @@
       </template>
 
       <div class="plans-container">
-        <n-card v-if="!user?.isTrialUsed" class="plan-card monthly">
-          <div class="plan-header">
-            <n-h2>{{ $t('pricing.trial_plan.title') }}</n-h2>
-          </div>
+        <n-card v-if="!user?.isTrialUsed" class="plan-card trial">
+          <div class="flex justify-between flex-col h-full">
+            <div>
+              <div class="plan-header">
+                <n-h2>{{ $t('pricing.trial_plan.title') }}</n-h2>
+              </div>
 
-          <div class="price-container">
-            <div class="price">
-              <span class="amount">{{ $t('pricing.trial_plan.price') }}</span>
-            </div>
-          </div>
+              <div class="price-container">
+                <div class="price">
+                  <span class="amount">{{ $t('pricing.trial_plan.price') }}</span>
+                </div>
+              </div>
 
-          <div class="features">
-            <div class="feature-item">
-              <n-icon size="20" color="#ffbc00">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.trial_plan.features.0') }}</span>
+              <div class="features">
+                <div class="feature-item">
+                  <n-icon size="20" color="#ffbc00">
+                    <Check />
+                  </n-icon>
+                  <span>{{ $t('pricing.trial_plan.features.0') }}</span>
+                </div>
+                <div class="feature-item">
+                  <n-icon size="20" color="#ffbc00">
+                    <Check />
+                  </n-icon>
+                  <span>{{ $t('pricing.trial_plan.features.1') }}</span>
+                </div>
+              </div>
             </div>
-            <div class="feature-item">
-              <n-icon size="20" color="#ffbc00">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.trial_plan.features.1') }}</span>
-            </div>
-          </div>
 
-          <n-button
-            type="primary"
-            round
-            class="subscribe-button"
-            @click="activateTrial()"
-            :loading="isLoading"
-          >
-            {{ $t('pricing.trial_plan.button') }}
-          </n-button>
+            <n-button
+              type="primary"
+              round
+              class="subscribe-button"
+              @click="activateTrial()"
+              :loading="isLoading"
+            >
+              {{ $t('pricing.trial_plan.button') }}
+            </n-button>
+          </div>
         </n-card>
 
         <n-card
@@ -69,37 +73,39 @@
           :key="plan._id"
           class="plan-card monthly"
         >
-          <div class="plan-header">
-            <n-h2>{{ $t('pricing.monthly_plan.title') }}</n-h2>
-          </div>
+        <div class="flex justify-between flex-col h-full">
+          <div>
+            <div class="plan-header">
+              <n-h2>{{ $t('pricing.monthly_plan.title') }}</n-h2>
+            </div>
 
-          <div class="price-container">
-            <div class="price">
-              <span class="currency">
-                {{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}
-              </span>
-              <span class="amount">{{ plan.price.amount }}</span>
-              <span class="period">
-                {{ plan.duration === 'monthly' ? t('pricing.monthly_plan.period') : 'Monthly' }}
-              </span>
+            <div class="price-container">
+              <div class="price">
+                <span class="currency">
+                  {{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}
+                </span>
+                <span class="amount">{{ plan.price.amount }}</span>
+                <span class="period">
+                  {{ plan.duration === 'monthly' ? t('pricing.monthly_plan.period') : 'Monthly' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="features">
+              <div class="feature-item">
+                <n-icon size="20" color="#ffbc00">
+                  <Check />
+                </n-icon>
+                <span>{{ $t('pricing.monthly_plan.features.0') }}</span>
+              </div>
+              <div class="feature-item">
+                <n-icon size="20" color="#ffbc00">
+                  <Check />
+                </n-icon>
+                <span>{{ $t('pricing.monthly_plan.features.1') }}</span>
+              </div>
             </div>
           </div>
-
-          <div class="features">
-            <div class="feature-item">
-              <n-icon size="20" color="#ffbc00">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.monthly_plan.features.0') }}</span>
-            </div>
-            <div class="feature-item">
-              <n-icon size="20" color="#ffbc00">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.monthly_plan.features.1') }}</span>
-            </div>
-          </div>
-
           <n-button
             type="primary"
             round
@@ -109,6 +115,7 @@
           >
             {{ $t('pricing.monthly_plan.button') }}
           </n-button>
+        </div>
         </n-card>
 
         <n-card
@@ -119,62 +126,55 @@
           <div class="ribbon">
             <span>{{ $t('pricing.annual_plan.recommended') }}</span>
           </div>
-          <div class="plan-header">
-            <n-h2>{{ t('pricing.annual_plan.title') }}</n-h2>
-          </div>
 
-          <div class="price-container">
-            <div class="price">
-              <span class="currency">
-                {{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}
-              </span>
-              <span class="amount">{{ plan.price.amount }}</span>
-              <span class="period">
-                {{ plan.duration === 'annual' ? t('pricing.annual_plan.period') : 'Annual' }}
-              </span>
-            </div>
-            <div class="original-price">
-              <span class="strikethrough">€{{ plan.price.amount * 1.2 }}</span>
-              <span class="discount">{{ $t('pricing.annual_plan.discount') }}</span>
+          <div class="flex justify-between flex-col h-full">
+            <div>
+              <div class="plan-header">
+                <n-h2>{{ t('pricing.annual_plan.title') }}</n-h2>
+              </div>
+    
+              <div class="price-container">
+                <div class="price">
+                  <span class="currency">
+                    {{ plan.price.currency === 'EUR' ? '€' : plan.price.currency }}
+                  </span>
+                  <span class="amount">{{ plan.price.amount }}</span>
+                  <span class="period">
+                    {{ plan.duration === 'annual' ? t('pricing.annual_plan.period') : 'Annual' }}
+                  </span>
+                </div>
+                <div class="original-price">
+                  <span class="strikethrough">€{{ plan.price.amount * 2 }}</span>
+                  <span class="discount">{{ $t('pricing.annual_plan.discount') }}</span>
+                </div>
+              </div>
+    
+              <div class="features">
+                <div class="feature-item">
+                  <n-icon size="20" color="#ff0058">
+                    <Check />
+                  </n-icon>
+                  <span>{{ $t('pricing.annual_plan.features.0') }}</span>
+                </div>
+                <div class="feature-item">
+                  <n-icon size="20" color="#ff0058">
+                    <Check />
+                  </n-icon>
+                  <span>{{ $t('pricing.annual_plan.features.1') }}</span>
+                </div>
+              </div>
+    
+              <n-button
+                type="primary"
+                round
+                class="subscribe-button premium-button"
+                @click="requestSubscription(plan._id)"
+                :loading="isLoading"
+              >
+                {{ $t('pricing.annual_plan.button') }}
+              </n-button>
             </div>
           </div>
-
-          <div class="features">
-            <div class="feature-item">
-              <n-icon size="20" color="#ff0058">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.annual_plan.features.0') }}</span>
-            </div>
-            <div class="feature-item">
-              <n-icon size="20" color="#ff0058">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.annual_plan.features.1') }}</span>
-            </div>
-            <div class="feature-item">
-              <n-icon size="20" color="#ff0058">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.annual_plan.features.2') }}</span>
-            </div>
-            <div class="feature-item">
-              <n-icon size="20" color="#ff0058">
-                <Check />
-              </n-icon>
-              <span>{{ $t('pricing.annual_plan.features.3') }}</span>
-            </div>
-          </div>
-
-          <n-button
-            type="primary"
-            round
-            class="subscribe-button premium-button"
-            @click="requestSubscription(plan._id)"
-            :loading="isLoading"
-          >
-            {{ $t('pricing.annual_plan.button') }}
-          </n-button>
         </n-card>
       </div>
     </n-card>
@@ -362,17 +362,61 @@ const cancelSubscriptionRequest = async () => {
   max-width: 1200px;
   padding: 20px 0;
   background-color: transparent;
-  color: #e0e0e0;
+  color: var(--text-color);
   border-color: transparent;
 }
 
 .card-header {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .card-header :deep(p) {
   font-size: 18px;
+  color: var(--secondary-text-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Stile per il toggle mensile/annuale */
+.billing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+  gap: 10px;
+  position: relative;
+}
+
+.billing-toggle span {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.billing-toggle span.active {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.billing-switch {
+  margin: 0 10px;
+}
+
+.discount-badge {
+  background-color: rgba(255, 0, 88, 0.1);
+  color: #ff0058;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 10px;
+  position: absolute;
+  top: 35px;
+}
+
+.billing-info {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  margin-top: 5px;
 }
 
 .plans-container {
@@ -386,39 +430,85 @@ const cancelSubscriptionRequest = async () => {
 .plan-card {
   flex: 1;
   min-width: 300px;
-  max-width: 450px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
-  padding: 0.2rem;
+  padding: 1.5rem;
   border-radius: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #2a2a2a;
-  color: #e0e0e0;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--card-color);
+  color: var(--text-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .text-btn {
-  color: var(--orange-accent);
+  color: var(--primary-color);
   font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
+
+.text-btn:hover {
+  color: var(--primary-color-hover);
+}
+
 .plan-card :deep(h2) {
-  color: #e0e0e0;
+  color: var(--text-color);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .plan-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Stile per il piano trial */
+.trial {
+  border: 1px solid var(--border-color);
+}
+
+.trial::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: #fb7d15;
+  transition: height 0.3s ease;
+}
+
+.trial:hover::before {
+  height: 7px;
 }
 
 .monthly {
-  border: 1px solid #333333;
+  border: 1px solid var(--border-color);
 }
 
+.monthly::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--primary-color);
+  transition: height 0.3s ease;
+}
+
+.monthly:hover::before {
+  height: 7px;
+}
+
+/* Stile per il piano d'Alembert */
 .annual {
   position: relative;
   border: none;
   z-index: 1;
-  background: linear-gradient(135deg, #2a2a2a, #333333);
-  transform: scale(1.05);
 }
 
 .annual::before {
@@ -428,7 +518,7 @@ const cancelSubscriptionRequest = async () => {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, #ffbc00, #ff0058);
+  background: linear-gradient(45deg, var(--primary-color), #ff0058);
   z-index: -1;
   border-radius: 22px;
   animation: borderGlow 3s infinite alternate;
@@ -441,17 +531,19 @@ const cancelSubscriptionRequest = async () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #2a2a2a, #333333);
+  background: var(--card-color);
   z-index: -1;
   border-radius: 20px;
   margin: 2px;
 }
+
 :deep(.n-alert-body) {
-  background-color: var(--secondary-color) !important;
+  background-color: var(--background-alt) !important;
 }
+
 .ribbon {
   position: absolute;
-  top: 1px;
+  top: 0;
   right: 0;
   z-index: 1;
   overflow: hidden;
@@ -472,8 +564,8 @@ const cancelSubscriptionRequest = async () => {
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   text-align: center;
-  right: -45px;
-  top: 37px;
+  right: -60px;
+  top: 35px;
   transform: rotate(45deg);
 }
 
@@ -482,11 +574,13 @@ const cancelSubscriptionRequest = async () => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .price-container {
   margin-bottom: 2rem;
   text-align: center;
+  position: relative;
 }
 
 .price {
@@ -500,17 +594,22 @@ const cancelSubscriptionRequest = async () => {
   font-size: 1.5rem;
   font-weight: bold;
   margin-right: 0.2rem;
+  color: var(--text-color);
 }
 
 .amount {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: bold;
   line-height: 1;
+  background: linear-gradient(45deg, var(--primary-color), #ff0058);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .period {
   font-size: 1rem;
-  color: #999;
+  color: var(--secondary-text-color);
   margin-left: 0.2rem;
 }
 
@@ -523,7 +622,7 @@ const cancelSubscriptionRequest = async () => {
 
 .strikethrough {
   text-decoration: line-through;
-  color: #999;
+  color: var(--secondary-text-color);
   font-size: 1.2rem;
 }
 
@@ -531,21 +630,28 @@ const cancelSubscriptionRequest = async () => {
   color: #ff0058;
   font-weight: bold;
   margin-top: 0.3rem;
+  font-size: 0.9rem;
+  padding: 2px 8px;
+  background-color: rgba(255, 0, 88, 0.1);
+  border-radius: 10px;
 }
 
 .features {
   flex-grow: 1;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
 }
 
 .feature-item {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  transition: transform 0.2s ease;
 }
 
 .feature-item span {
   margin-left: 0.8rem;
+  color: var(--text-color);
 }
 
 .subscribe-button {
@@ -553,21 +659,61 @@ const cancelSubscriptionRequest = async () => {
   padding: 0.8rem;
   font-size: 1.1rem;
   font-weight: bold;
-  background-color: #ffbc00;
+  background-color: var(--primary-color);
   border: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.subscribe-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s ease;
+}
+
+.subscribe-button:hover::after {
+  left: 100%;
 }
 
 .premium-button {
-  background: linear-gradient(45deg, #ffbc00, #ff0058);
+  background: linear-gradient(45deg, var(--primary-color), #ff0058);
   box-shadow: 0 4px 15px rgba(255, 0, 88, 0.3);
 }
 
+
+
 @keyframes borderGlow {
   0% {
-    box-shadow: 0 0 5px rgba(255, 188, 0, 0.5);
+    box-shadow: 0 0 5px rgba(var(--primary-color), 0.5);
+    opacity: 0.8;
   }
   100% {
     box-shadow: 0 0 20px rgba(255, 0, 88, 0.8);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .plans-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .plan-card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .annual {
+    transform: scale(1);
+    margin: 1rem 0;
   }
 }
 </style>

@@ -4,6 +4,7 @@ import App from './App.vue'
 import './style.css'
 import router from './router'
 import { i18n } from './i18n'
+import { createHead } from '@vueuse/head'
 
 // Naive UI
 import {
@@ -98,10 +99,12 @@ const naive = create({
 })
 
 const app = createApp(App)
+const head = createHead()
 
 app.use(naive)
 app.use(createPinia())
 app.use(router)
 app.use(i18n)
+app.use(head)
 
 app.mount('#app')

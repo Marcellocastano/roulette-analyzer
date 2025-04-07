@@ -35,6 +35,7 @@ class SubscriptionService {
         plan: subscription.planId.type,
         name: subscription.planId.name,
         duration: subscription.planId.duration,
+        durationValue: subscription.planId.durationValue,
         startDate: subscription.startDate,
         endDate: subscription.endDate,
         status: subscription.status,
@@ -236,10 +237,7 @@ class SubscriptionService {
         
         return { 
           allowed: sessionLimit === 0, // 0 significa nessun limite
-          count: 0,
-          limit: sessionLimit,
-          plan: 'free',
-          message: sessionLimit === 0 ? null : 'Piano free non permette sessioni'
+          message: sessionLimit === 0 ? 'Accesso consentito' : 'Limite di sessioni raggiunto per il piano free'
         };
       }
 

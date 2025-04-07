@@ -349,7 +349,32 @@
       "it": "Italian",
       "es": "Spanish",
       "de": "German"
-    }
+    },
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "asc": "Ascending",
+    "desc": "Descending"
+  },
+  "support": {
+    "title": "Support",
+    "message": "If you have any issues or questions, please contact our support team via the official Instagram page:"
   },
   "navbar": {
     "dashboard": "Dashboard",
@@ -396,14 +421,14 @@
     "trial_plan": {
       "title": "Trial Plan",
       "price": "Free",
-      "features": ["3 days of trial", "5 sessions per day"],
+      "features": ["5 days of trial", "2 sessions per day"],
       "button": "Try for free"
     },
     "monthly_plan": {
       "title": "Monthly Plan",
       "price": "50",
       "period": "/month",
-      "features": ["Complete access to statistics", "7 sessions per day"],
+      "features": ["Unlimited access to statistics", "Standard support"],
       "button": "Purchase"
     },
     "annual_plan": {
@@ -413,12 +438,7 @@
       "original_price": "600",
       "discount": "50% discount",
       "recommended": "Recommended",
-      "features": [
-        "Complete access to statistics",
-        "Unlimited predictions",
-        "Priority support",
-        "Save €300 compared to the monthly plan"
-      ],
+      "features": ["Priority support", "Save €300 compared to the monthly plan"],
       "button": "Save 50%"
     },
     "payment_modal": {
@@ -468,6 +488,67 @@
     "errors": {
       "invalidToken": "Invalid or expired confirmation token.",
       "genericError": "An error occurred while confirming your email. Please try again later or contact support."
+    }
+  },
+  "landing": {
+    "hero": {
+      "subtitle": "Revolutionize the way you play roulette",
+      "description": "Roulette Pro AI is an advanced software that combines statistical analysis and artificial intelligence to identify imbalances in roulette tables and suggest numbers with a higher probability of coming up. It's not a magic number generator, but a tool based on tested and proven statistics.",
+      "signup_button": "Sign up now",
+      "login_button": "Log in"
+    },
+    "features": {
+      "title": "Key Features",
+      "statistical_analysis": {
+        "title": "Advanced Statistical Analysis",
+        "description": "Identifies statistical imbalances in roulette tables by analyzing the percentages of dozens and zero zone outputs at both 50 and 500 spins."
+      },
+      "ai_powered": {
+        "title": "Powered by Artificial Intelligence",
+        "description": "Our AI algorithm analyzes millions of data points to identify patterns and trends that would escape the human eye, significantly increasing the chances of success."
+      },
+      "number_prediction": {
+        "title": "Number Prediction",
+        "description": "Based on years of sequence analysis, the algorithm suggests numbers with a higher probability of coming up based on the current statistical conditions of the table."
+      },
+      "budget_management": {
+        "title": "Intelligent Budget Management",
+        "description": "Optimized strategies for managing your bankroll, to maximize winnings and minimize losses during gaming sessions."
+      }
+    },
+    "faq": {
+      "strategy": {
+        "title": "Our Winning Strategy",
+        "dozen_analysis": {
+          "title": "Analysis of Suffering Dozens",
+          "description": "We identify dozens with below-average output percentages (about 30% at 500 spins), which according to the law of large numbers will tend to recover, offering advantageous betting opportunities."
+        },
+        "zero_zone": {
+          "title": "Zero Zone Monitoring",
+          "description": "We analyze the output percentage of the 'zero and neighbors' zone (numbers 12 to 15 plus 0), comparing data at 50 and 500 spins to identify significant growth trends."
+        },
+        "hot_numbers": {
+          "title": "Identification of Hot Numbers",
+          "description": "We identify the most frequently occurring numbers, focusing on those found in specific areas of the wheel, to make the most of statistical sequences."
+        }
+      },
+      "cta": {
+        "title": "Ready to transform your way of playing?",
+        "description": "Join thousands of players who have already revolutionized their approach to roulette. Remember: this is not a tool that guarantees winnings, but a guide to play with a reliable method based on statistics.",
+        "button": "Start now"
+      },
+      "footer": {
+        "tagline": "Advanced statistical analysis for roulette",
+        "navigation": "Navigation",
+        "login": "Log in",
+        "signup": "Sign up",
+        "pricing": "Pricing",
+        "legal": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "disclaimer": "Disclaimer",
+        "rights": "All rights reserved"
+      }
     }
   }
 }

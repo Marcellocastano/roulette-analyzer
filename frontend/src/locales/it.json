@@ -580,5 +580,11 @@
       "disclaimer": "Disclaimer",
       "rights": "Tutti i diritti riservati"
     }
+  },
+  "registration_confirm": {
+    "title": "Conferma la tua email",
+    "message": "Grazie per esserti registrato a RoulettePro AI! Abbiamo inviato un'email di conferma all'indirizzo che hai fornito. Per completare la registrazione, clicca sul link contenuto nell'email.",
+    "spam_note": "Se non vedi l'email nella tua casella di posta, controlla anche nella cartella spam o posta indesiderata.",
+    "login_button": "Vai alla pagina di accesso"
   }
 }

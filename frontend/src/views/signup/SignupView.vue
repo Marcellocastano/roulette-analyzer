@@ -184,9 +184,9 @@ const handleSubmit = async () => {
     })
 
     message.success(t('signup.messages.success'))
-    // Aspetta un momento prima di reindirizzare
+    // Reindirizza alla pagina di conferma della registrazione
     setTimeout(() => {
-      router.push('/dashboard')
+      router.push('/registration-confirm')
     }, 500)
   } catch (error) {
     console.error('Errore durante la registrazione:', error)

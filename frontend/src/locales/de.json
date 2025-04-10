@@ -341,7 +341,10 @@
   },
   "common": {
     "errors": {
-      "password_match": "Die Passwörter stimmen nicht überein"
+      "password_match": "Die Passwörter stimmen nicht überein",
+      "recaptcha_required": "Füge die reCAPTCHA-Prüfung hinzu",
+      "recaptcha_expired": "Die reCAPTCHA-Prüfung ist abgelaufen, bitte versuch es erneut",
+      "recaptcha_error": "Fehler bei der reCAPTCHA-Prüfung, bitte versuch es erneut"
     },
     "language": {
       "select": "Sprache",

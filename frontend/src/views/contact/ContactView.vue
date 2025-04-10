@@ -27,11 +27,20 @@
           />
         </n-form-item>
 
+        <!-- Componente reCAPTCHA v3 (invisibile) -->
+        <ReCaptcha
+          ref="recaptchaRef"
+          :sitekey="recaptchaSiteKey"
+          action="contact"
+          @verify="onRecaptchaVerify"
+          @error="onRecaptchaError"
+        />
+
         <div class="submit-container">
           <n-button
             :loading="submitting"
             type="primary"
-            @click="handleSubmit"
+            @click="executeRecaptchaAndSubmit"
             class="bg-accent-dark"
           >
             {{ $t('contact.submit_button') }}
@@ -50,6 +59,8 @@ import type { FormInst, FormRules, SelectOption } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { contactApi } from '@/api/contact'
+import ReCaptcha from '@/components/ReCaptcha/ReCaptcha.vue'
+import { RECAPTCHA_SITE_KEY } from '@/config/recaptcha'
 
 const { t } = useI18n()
 const message = useMessage()
@@ -60,6 +71,11 @@ const contactFormRef = ref<FormInst | null>(null)
 
 // Stato di caricamento
 const submitting = ref(false)
+
+// reCAPTCHA
+const recaptchaRef = ref<InstanceType<typeof ReCaptcha> | null>(null)
+const recaptchaToken = ref('')
+const recaptchaSiteKey = RECAPTCHA_SITE_KEY
 
 // Form per il contatto
 interface ContactForm {
@@ -92,42 +108,82 @@ const contactRules: FormRules = {
   ]
 }
 
+// Gestione reCAPTCHA
+const executeRecaptchaAndSubmit = async () => {
+  try {
+    await contactFormRef.value?.validate((errors) => {
+      if (errors) {
+        message.error(t('contact.errors.form_errors'))
+        throw new Error('Form validation failed')
+      }
+    })
+    
+    if (recaptchaRef.value) {
+      // Esegui reCAPTCHA v3 e ottieni il token
+      const token = await recaptchaRef.value.execute()
+      if (token) {
+        recaptchaToken.value = token
+        await handleSubmit()
+      } else {
+        message.error(t('common.recaptcha_error'))
+      }
+    }
+  } catch (error) {
+    console.error('Errore durante la validazione del form:', error)
+  }
+}
+
+const onRecaptchaVerify = (response: string) => {
+  recaptchaToken.value = response
+}
+
+const onRecaptchaError = () => {
+  message.error(t('common.recaptcha_error'))
+  recaptchaToken.value = ''
+}
+
 // Gestione dell'invio del form
-const handleSubmit = () => {
-  contactFormRef.value?.validate(async (errors) => {
-    if (errors) {
-      message.error(t('contact.errors.form_errors'))
-      return
+const handleSubmit = async () => {
+  // Verifica che il reCAPTCHA sia stato completato
+  if (!recaptchaToken.value) {
+    message.error(t('common.recaptcha_required'))
+    return
+  }
+
+  try {
+    submitting.value = true
+
+    // Prepara i dati da inviare
+    const requestData = {
+      category: contactForm.value.category,
+      message: contactForm.value.message,
+      recaptchaToken: recaptchaToken.value
     }
 
-    try {
-      submitting.value = true
+    // Invia la richiesta
+    const { data: response } = await contactApi.addFeedback(requestData)
 
-      // Prepara i dati da inviare
-      const requestData = {
-        category: contactForm.value.category,
-        message: contactForm.value.message
+    if (response.status === 'success') {
+      message.success(t('contact.messages.submit_success'))
+
+      // Resetta il form
+      contactForm.value = {
+        category: '',
+        message: ''
       }
-
-      // Invia la richiesta
-      const { data: response } = await contactApi.addFeedback(requestData)
-
-      if (response.status === 'success') {
-        message.success(t('contact.messages.submit_success'))
-
-        // Resetta il form
-        contactForm.value = {
-          category: '',
-          message: ''
-        }
+      
+      // Reset del reCAPTCHA
+      if (recaptchaRef.value) {
+        recaptchaRef.value.reset()
+        recaptchaToken.value = ''
       }
-    } catch (error: any) {
-      message.error(error.response?.data?.message || t('contact.errors.submit_error'))
-      console.error(error)
-    } finally {
-      submitting.value = false
     }
-  })
+  } catch (error: any) {
+    message.error(error.response?.data?.message || t('contact.errors.submit_error'))
+    console.error(error)
+  } finally {
+    submitting.value = false
+  }
 }
 </script>
 

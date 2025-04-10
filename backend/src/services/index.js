@@ -8,6 +8,7 @@ const SubscriptionService = require('./subscription.service');
 const PredictionService = require('./prediction.service');
 const EmailService = require('./email.service');
 const PlanService = require('./plan.service');
+const RecaptchaService = require('./recaptcha.service');
 
 module.exports = {
     AuthService,
@@ -19,5 +20,6 @@ module.exports = {
     SubscriptionService,
     PredictionService,
     EmailService,
-    PlanService
+    PlanService,
+    RecaptchaService
 };

@@ -341,7 +341,10 @@
   },
   "common": {
     "errors": {
-      "password_match": "Passwords do not match"
+      "password_match": "Passwords do not match",
+      "recaptcha_required": "Please complete the reCAPTCHA verification",
+      "recaptcha_expired": "The reCAPTCHA verification has expired, please try again",
+      "recaptcha_error": "Error during reCAPTCHA verification, please try again"
     },
     "language": {
       "select": "Language",

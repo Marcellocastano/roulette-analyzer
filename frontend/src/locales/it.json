@@ -341,7 +341,10 @@
   },
   "common": {
     "errors": {
-      "password_match": "Le password non corrispondono"
+      "password_match": "Le password non corrispondono",
+      "recaptcha_required": "Completa la verifica reCAPTCHA",
+      "recaptcha_expired": "La verifica reCAPTCHA è scaduta, riprova",
+      "recaptcha_error": "Errore durante la verifica reCAPTCHA, riprova"
     },
     "language": {
       "select": "Lingua",

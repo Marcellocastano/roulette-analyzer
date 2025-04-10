@@ -43,7 +43,6 @@
           size="large"
           round
           :placeholder="$t('signup.confirm_password')"
-          @keyup.enter="handleSubmit"
         >
           <template #password-visible-icon>
             <n-icon :size="16" :component="Eye" />
@@ -53,8 +52,22 @@
           </template>
         </n-input>
       </n-form-item>
+
+      <!-- Il componente reCAPTCHA v3 non ha UI visibile -->
+      <ReCaptcha
+        ref="recaptchaRef"
+        :sitekey="recaptchaSiteKey"
+        action="signup"
+        @verify="onRecaptchaVerify"
+        @error="onRecaptchaError"
+      />
+
       <div class="submit-container text-center">
-        <n-button :loading="loading" type="primary" @click="handleSubmit">
+        <n-button
+          :loading="loading"
+          type="primary"
+          @click="executeRecaptchaAndSubmit"
+        >
           {{ $t('signup.submit') }}
         </n-button>
       </div>
@@ -77,6 +90,8 @@ import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/Layout/AuthLayout.vue'
 import { Eye, EyeOff } from '@vicons/tabler'
 import { useI18n } from 'vue-i18n'
+import ReCaptcha from '@/components/ReCaptcha/ReCaptcha.vue'
+import { RECAPTCHA_SITE_KEY } from '@/config/recaptcha'
 
 const formRef = ref<FormInst | null>(null)
 const loading = ref(false)
@@ -84,6 +99,11 @@ const router = useRouter()
 const message = useMessage()
 const authStore = useAuthStore()
 const { t } = useI18n()
+
+// Definizione corretta del tipo per il riferimento al componente reCAPTCHA
+const recaptchaRef = ref<InstanceType<typeof ReCaptcha> | null>(null)
+const recaptchaToken = ref('')
+const recaptchaSiteKey = RECAPTCHA_SITE_KEY
 
 interface FormValue {
   name: string
@@ -173,14 +193,49 @@ const rules: FormRules = {
   ],
 }
 
-const handleSubmit = async () => {
+// Gestione reCAPTCHA
+const executeRecaptchaAndSubmit = async () => {
   try {
     await formRef.value?.validate()
+    if (recaptchaRef.value) {
+      // Esegui reCAPTCHA v3 e ottieni il token
+      const token = await recaptchaRef.value.execute()
+      if (token) {
+        recaptchaToken.value = token
+        await handleSubmit()
+      } else {
+        message.error(t('common.recaptcha_error'))
+      }
+    }
+  } catch (error) {
+    console.error('Errore durante la validazione del form:', error)
+    message.error(t('signup.messages.error'))
+  }
+}
+
+const onRecaptchaVerify = async (response: string) => {
+  recaptchaToken.value = response
+}
+
+const onRecaptchaError = () => {
+  message.error(t('common.recaptcha_error'))
+  recaptchaToken.value = ''
+}
+
+const handleSubmit = async () => {
+  try {
+    // Il token reCAPTCHA dovrebbe essere già impostato
+    if (!recaptchaToken.value) {
+      message.error(t('common.recaptcha_required'))
+      return
+    }
+    
     loading.value = true
     await authStore.register({
       name: formValue.value.name,
       email: formValue.value.email,
       password: formValue.value.password,
+      recaptchaToken: recaptchaToken.value
     })
 
     message.success(t('signup.messages.success'))
@@ -191,6 +246,11 @@ const handleSubmit = async () => {
   } catch (error) {
     console.error('Errore durante la registrazione:', error)
     message.error(t('signup.messages.error'))
+    // Reset del reCAPTCHA in caso di errore
+    if (recaptchaRef.value) {
+      recaptchaRef.value.reset()
+      recaptchaToken.value = ''
+    }
   } finally {
     loading.value = false
   }

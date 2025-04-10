@@ -341,7 +341,10 @@
   },
   "common": {
     "errors": {
-      "password_match": "Las contraseñas no coinciden"
+      "password_match": "Las contraseñas no coinciden",
+      "recaptcha_required": "Completa la verificación reCAPTCHA",
+      "recaptcha_expired": "La verificación reCAPTCHA ha expirado, vuelve a intentarlo",
+      "recaptcha_error": "Error al verificar reCAPTCHA, vuelve a intentarlo"
     },
     "language": {
       "select": "Idioma",

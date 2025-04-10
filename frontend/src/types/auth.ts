@@ -44,6 +44,7 @@ export interface LoginData {
 
 export interface RegisterData extends LoginData {
   name: string
+  recaptchaToken?: string
 }
 
 export interface ApiResponse<T> {

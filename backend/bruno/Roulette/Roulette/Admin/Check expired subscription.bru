@@ -1,0 +1,15 @@
+meta {
+  name: Check expired subscription
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/v1/admin/subscriptions/check-expired
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

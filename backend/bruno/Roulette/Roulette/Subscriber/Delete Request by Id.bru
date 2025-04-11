@@ -5,7 +5,7 @@ meta {
 }
 
 delete {
-  url: http://localhost:5001/api/v1/subscription/request/:requestId
+  url: {{baseUrl}}/api/v1/subscription/request/:requestId
   body: json
   auth: bearer
 }

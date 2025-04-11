@@ -85,6 +85,27 @@ class SchedulerService {
    * @param {string} name - Nome del job da eseguire
    */
   async runJobManually(name) {
+    // Se il job non è stato ancora inizializzato, esegui direttamente lo script
+    if (name === 'checkExpiredSubscriptions') {
+      try {
+        console.log(`Esecuzione diretta dello script di controllo sottoscrizioni scadute`);
+        const checkExpiredSubscriptions = require('../scripts/check-expired-subscriptions');
+        const result = await checkExpiredSubscriptions();
+        return {
+          success: true,
+          message: `Controllo sottoscrizioni scadute eseguito con successo`,
+          data: result
+        };
+      } catch (error) {
+        console.error(`Errore durante l'esecuzione dello script:`, error);
+        return {
+          success: false,
+          message: `Errore durante l'esecuzione: ${error.message}`
+        };
+      }
+    }
+    
+    // Altrimenti, cerca il job nell'array dei job schedulati
     const jobInfo = this.jobs.find(j => j.name === name);
     if (!jobInfo) {
       console.error(`Job '${name}' non trovato`);
@@ -96,9 +117,16 @@ class SchedulerService {
 
     try {
       console.log(`Esecuzione manuale del job '${name}'`);
-      // Estrai la funzione dal job e eseguila
+      
+      // Verifica che il job e la funzione di task esistano
+      if (!jobInfo.job || !jobInfo.job.options || typeof jobInfo.job.options.task !== 'function') {
+        throw new Error(`La funzione di task per il job '${name}' non è valida`);
+      }
+      
+      // Esegui la funzione di task
       const taskFunction = jobInfo.job.options.task;
       await taskFunction();
+      
       return {
         success: true,
         message: `Job '${name}' eseguito con successo`

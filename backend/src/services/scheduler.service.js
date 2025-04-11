@@ -3,6 +3,8 @@
  */
 const cron = require('node-cron');
 const checkExpiredSubscriptions = require('../scripts/check-expired-subscriptions');
+const resetDailySessions = require('../scripts/reset-daily-sessions');
+const cleanupInactiveStats = require('../scripts/cleanup-inactive-stats');
 const config = require('../config/config');
 
 class SchedulerService {
@@ -35,7 +37,32 @@ class SchedulerService {
       }
     }, isProduction);
 
-    // Aggiungi qui altri job schedulati se necessario
+    // Job per resettare i contatori delle sessioni giornaliere (ogni giorno a mezzanotte)
+    this.scheduleJob('resetDailySessions', '0 0 * * *', async () => {
+      console.log('Esecuzione job: reset contatori sessioni giornaliere');
+      try {
+        const result = await resetDailySessions();
+        console.log('Risultato reset sessioni:', result);
+      } catch (error) {
+        console.error('Errore durante il reset delle sessioni:', error);
+      }
+    }, false); // Esegui in tutti gli ambienti
+
+    // Job per pulire i record inattivi (ogni ora)
+    this.scheduleJob('cleanupInactiveStats', '0 * * * *', async () => {
+      console.log('Esecuzione job: pulizia record inattivi');
+      try {
+        const result = await cleanupInactiveStats();
+        console.log('Risultato pulizia record:', result);
+      } catch (error) {
+        console.error('Errore durante la pulizia dei record:', error);
+      }
+    }, false); // Esegui in tutti gli ambienti
+
+    // Esegui subito il reset delle sessioni all'avvio del server
+    this.runJobManually('resetDailySessions')
+      .then(result => console.log('Reset sessioni all\'avvio:', result))
+      .catch(error => console.error('Errore nel reset sessioni all\'avvio:', error));
 
     this.isInitialized = true;
     console.log('Scheduler inizializzato con successo');
@@ -85,7 +112,7 @@ class SchedulerService {
    * @param {string} name - Nome del job da eseguire
    */
   async runJobManually(name) {
-    // Se il job non è stato ancora inizializzato, esegui direttamente lo script
+    // Esecuzione diretta degli script se il job non è stato ancora inizializzato
     if (name === 'checkExpiredSubscriptions') {
       try {
         console.log(`Esecuzione diretta dello script di controllo sottoscrizioni scadute`);
@@ -94,6 +121,40 @@ class SchedulerService {
         return {
           success: true,
           message: `Controllo sottoscrizioni scadute eseguito con successo`,
+          data: result
+        };
+      } catch (error) {
+        console.error(`Errore durante l'esecuzione dello script:`, error);
+        return {
+          success: false,
+          message: `Errore durante l'esecuzione: ${error.message}`
+        };
+      }
+    } else if (name === 'resetDailySessions') {
+      try {
+        console.log(`Esecuzione diretta dello script di reset sessioni giornaliere`);
+        const resetDailySessions = require('../scripts/reset-daily-sessions');
+        const result = await resetDailySessions();
+        return {
+          success: true,
+          message: `Reset sessioni giornaliere eseguito con successo`,
+          data: result
+        };
+      } catch (error) {
+        console.error(`Errore durante l'esecuzione dello script:`, error);
+        return {
+          success: false,
+          message: `Errore durante l'esecuzione: ${error.message}`
+        };
+      }
+    } else if (name === 'cleanupInactiveStats') {
+      try {
+        console.log(`Esecuzione diretta dello script di pulizia record inattivi`);
+        const cleanupInactiveStats = require('../scripts/cleanup-inactive-stats');
+        const result = await cleanupInactiveStats();
+        return {
+          success: true,
+          message: `Pulizia record inattivi eseguita con successo`,
           data: result
         };
       } catch (error) {

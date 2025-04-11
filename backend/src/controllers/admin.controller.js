@@ -93,6 +93,36 @@ class AdminController {
       next(error);
     }
   }
+
+  async resetDailySessions(req, res, next) {
+    try {
+      // Esegui manualmente il job di reset delle sessioni giornaliere
+      const result = await SchedulerService.runJobManually('resetDailySessions');
+      
+      res.status(200).json({
+        status: 'success',
+        message: 'Reset sessioni giornaliere completato',
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async cleanupInactiveStats(req, res, next) {
+    try {
+      // Esegui manualmente il job di pulizia dei record inattivi
+      const result = await SchedulerService.runJobManually('cleanupInactiveStats');
+      
+      res.status(200).json({
+        status: 'success',
+        message: 'Pulizia record inattivi completata',
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AdminController();

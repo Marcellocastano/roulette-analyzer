@@ -20,94 +20,7 @@ const ReasonCode = {
 
 class InitialStatsService {
   constructor() {
-    this._startInactiveCheck();
-    this._startSubscriptionExpirationCheck();
-    this._startDailySessionReset();
-  }
-
-  _startInactiveCheck() {
-    setInterval(async () => {
-      const fourHoursAgo = new Date(Date.now() - 4 * 60 * 60 * 1000);
-      await InitialStats.updateMany(
-        { timestamp: { $lte: fourHoursAgo }, active: true },
-        { $set: { active: false } }
-      );
-    }, 60000);
-  }
-
-  async _startDailySessionReset() {
-    // Calcola il tempo fino alla prossima mezzanotte
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
-    const timeToMidnight = tomorrow - now;
-
-    // Esegui subito per resettare i contatori di sessione per gli utenti che non sono stati resettati oggi
-    this._resetDailySessions();
-
-    // Imposta un timeout per eseguire il reset a mezzanotte
-    setTimeout(() => {
-      this._resetDailySessions();
-      
-      // Imposta un intervallo per eseguire il reset ogni 24 ore
-      setInterval(() => {
-        this._resetDailySessions();
-      }, 24 * 60 * 60 * 1000);
-    }, timeToMidnight);
-  }
-
-  async _resetDailySessions() {
-    const now = new Date();
-    
-    try {
-      // Resetta il contatore delle sessioni giornaliere per tutti gli utenti
-      await UserModel.updateMany(
-        {
-          "sessions.lastReset": { $lt: new Date(now.setHours(0, 0, 0, 0)) }
-        },
-        {
-          $set: {
-            "sessions.count": 0,
-            "sessions.lastReset": now
-          }
-        }
-      );
-      console.log('Daily session counts reset successfully');
-    } catch (error) {
-      console.error('Error resetting daily session counts:', error);
-    }
-  }
-
-  _startSubscriptionExpirationCheck() {
-    setInterval(async () => {
-      const now = new Date();
-
-      // Verifica e aggiorna gli abbonamenti scaduti
-      await UserModel.updateMany(
-        {
-          "subscription.endDate": { $lte: now },
-          "subscription.status": { $ne: "expired" },
-        },
-        {
-          $set: {
-            "subscription.status": "expired",
-            "subscription.plan": "free",
-          },
-        }
-      );
-
-      // // Opzionale: genera notifiche o eventi per abbonamenti appena scaduti
-      // const justExpiredSubs = await SubscriptionModel.find({
-      //   expiryDate: { $lte: now, $gte: new Date(Date.now() - 60 * 60 * 1000) },
-      //   active: "expired",
-      // });
-
-      // // Gestisci notifiche per gli abbonamenti appena scaduti
-      // for (const sub of justExpiredSubs) {
-      //   await NotificationService.sendExpiredNotification(sub.userId);
-      // }
-    }, 3600000);
+    // I job schedulati sono ora gestiti dal servizio SchedulerService
   }
 
   async addInitialStats(userId, stats) {
@@ -162,6 +75,8 @@ class InitialStatsService {
           reasonCodes: analysis.reasonCodes,
           increasingNumbers: analysis.increasingNumbers,
         },
+        active: true,
+        timestamp: new Date()
       });
 
       // 2. Salva nel modello Statistics

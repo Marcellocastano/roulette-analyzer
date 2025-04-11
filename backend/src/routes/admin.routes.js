@@ -9,4 +9,7 @@ router.get('/users/:userId/request/pending', adminController.getUserRequestPendi
 router.post('/users/:userId/activate-subscription', adminController.activateSubscription);
 router.post('/users/:userId/deactivate-subscription', adminController.deactivateSubscription);
 
+// Endpoint per eseguire manualmente il controllo delle sottoscrizioni scadute
+router.post('/subscriptions/check-expired', adminController.checkExpiredSubscriptions);
+
 module.exports = router;

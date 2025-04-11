@@ -1,6 +1,7 @@
 const app = require('./app.js');
 const mongoose = require('mongoose');
 const config = require('./config/config');
+const { SchedulerService } = require('./services');
 
 // Opzioni di connessione MongoDB ottimizzate
 const mongooseOptions = {
@@ -46,6 +47,9 @@ const startServer = () => {
         console.log(`Configurazione email: servizio=${config.email.service}, utente=${config.email.user}`);
         console.log(`CORS configurato per: ${config.corsOrigin}`);
         console.log(`Frontend URL: ${config.frontendUrl}`);
+        
+        // Inizializza il servizio di scheduler
+        SchedulerService.initialize();
     });
 };
 

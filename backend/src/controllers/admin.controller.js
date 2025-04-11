@@ -1,5 +1,6 @@
 const { AppError } = require('../middlewares/errorHandler');
 const adminService = require('../services/admin.service');
+const { SchedulerService } = require('../services');
 
 class AdminController {
   async getAllUsers(req, res, next) {
@@ -72,6 +73,21 @@ class AdminController {
       res.status(200).json({
         status: 'success',
         data: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async checkExpiredSubscriptions(req, res, next) {
+    try {
+      // Esegui manualmente il job di controllo delle sottoscrizioni scadute
+      const result = await SchedulerService.runJobManually('checkExpiredSubscriptions');
+      
+      res.status(200).json({
+        status: 'success',
+        message: 'Controllo sottoscrizioni scadute completato',
+        data: result
       });
     } catch (error) {
       next(error);

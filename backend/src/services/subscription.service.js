@@ -13,7 +13,6 @@ class SubscriptionService {
       if (!user) {
         throw new AppError('Utente non trovato', 404);
       }
-      console.log(user)
       if (!user.activeSubscription) {
         return {
           active: false,
@@ -89,7 +88,6 @@ class SubscriptionService {
 
       // Verifica se c'è già una richiesta pendente
       const pendingRequest = await subscriptionRequestRepository.findPendingByUserId(userId);
-      console.log(pendingRequest);
       if (pendingRequest) {
         throw new AppError('Esiste già una richiesta di abbonamento in attesa', 400);
       }

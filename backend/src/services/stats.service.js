@@ -53,7 +53,6 @@ class StatsService {
       if (isFirstSpin) {
         // Verifica se l'utente ha raggiunto il limite di sessioni
         const sessionCheck = await this.subscriptionRepository.checkSessionLimit(user.activeSubscription);
-        console.log('sessionCheck', sessionCheck);
         if (!sessionCheck.allowed) {
           throw new AppError(`Hai raggiunto il limite di sessioni per il tuo piano (${sessionCheck.count}/${sessionCheck.limit}). Aggiorna il tuo piano per continuare.`, 403);
         }

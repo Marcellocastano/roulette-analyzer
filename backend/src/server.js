@@ -17,7 +17,6 @@ const mongooseOptions = {
 
 // Funzione per connettere a MongoDB
 const connectWithRetry = () => {
-    console.log('Tentativo di connessione a MongoDB...');
     mongoose.connect(config.mongoUri, mongooseOptions)
         .then(() => {
             console.log('Connesso a MongoDB');

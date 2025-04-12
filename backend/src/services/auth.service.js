@@ -275,7 +275,6 @@ class AuthService {
   }
 
   generateAccessToken(user) {
-    console.log('userrrrr', user)
     return jwt.sign(
       { 
         id: user._id,

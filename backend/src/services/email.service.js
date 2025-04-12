@@ -84,7 +84,6 @@ class EmailService {
   async sendPasswordResetEmail(user, resetToken) {
     await this.ensureInitialized();
     console.log(`Tentativo di invio email di reset password a: ${user.email}`);
-    console.log(`Token di reset (primi 10 caratteri): ${resetToken.substring(0, 10)}...`);
     
     const resetUrl = `${config.frontendUrl}/reset-password/${resetToken}`;
     console.log(`URL di reset: ${resetUrl}`);
@@ -106,8 +105,6 @@ class EmailService {
     `;
 
     try {
-      console.log(`Metodo di invio: ${this.useEthereal ? 'Ethereal (test)' : 'Mailgun API'}`);
-      
       if (this.useEthereal) {
         // Usa Ethereal per i test
         console.log('Invio email tramite Ethereal...');
@@ -122,15 +119,9 @@ class EmailService {
         console.log('Email anteprima URL: %s', nodemailer.getTestMessageUrl(info));
         return info;
       } else {
-        // Usa l'API Mailgun
-        console.log('Invio email tramite Mailgun API...');
-        
-        // Estrai il dominio dall'indirizzo email o usa direttamente il dominio configurato
         const domain = 'roulettepro.ai'; // Usa direttamente il dominio invece di estrarlo dall'email
-        console.log(`Dominio Mailgun: ${domain}`);
         
         try {
-          // Usa il formato corretto per l'API Mailgun
           const data = await this.mailgunClient.messages.create(domain, {
             from: config.email.from || `RoulettePro AI <${config.email.user}>`,
             to: [user.email],

@@ -124,7 +124,6 @@ class AdminService {
         };
       } else if (user.subscription.plan === 'premium') {
         // Caso piano premium
-        console.log(get(user, 'subscription.newRequest.status'))
         if (!user.subscription.newRequest || user.subscription.newRequest.status !== 'pending') {
           throw new AppError('Nessuna richiesta di rinnovo in sospeso', 400);
         }
@@ -138,8 +137,6 @@ class AdminService {
             new Date(currentEndDate.setFullYear(currentEndDate.getFullYear() + 1))
         };
       }
-      console.log(updateData)
-      
       // Aggiorniamo la subscription dell'utente
       const updatedUser = await userRepository.findOneAndUpdate(
         { _id: userId },

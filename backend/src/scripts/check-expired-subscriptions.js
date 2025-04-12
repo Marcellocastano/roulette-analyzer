@@ -9,8 +9,6 @@ const config = require('../config/config');
 
 async function checkExpiredSubscriptions() {
   try {
-    console.log('Inizio controllo sottoscrizioni scadute...');
-    
     // Trova tutte le sottoscrizioni attive con data di scadenza passata
     const now = new Date();
     const expiredSubscriptions = await Subscription.find({
@@ -26,8 +24,6 @@ async function checkExpiredSubscriptions() {
       subscription.status = 'expired';
       await subscription.save();
       
-      console.log(`Sottoscrizione ${subscription._id} impostata come scaduta`);
-      
       // Aggiorna anche lo stato dell'utente per rimuovere l'abbonamento attivo
       await User.findByIdAndUpdate(subscription.userId, {
         $set: { activeSubscription: null }
@@ -36,7 +32,6 @@ async function checkExpiredSubscriptions() {
       console.log(`Rimosso abbonamento attivo per l'utente ${subscription.userId}`);
     }
     
-    console.log('Controllo sottoscrizioni scadute completato con successo');
     return {
       success: true,
       processed: expiredSubscriptions.length

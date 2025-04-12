@@ -9,9 +9,7 @@
         </n-h1>
       </div>
     </div>
-
-    <!-- Banner Promozionale -->
-    <div class="promo-banner-container" v-if="!authStore.isPremiumUser">
+    <div class="promo-banner-container" v-if="!authStore.isPremiumUser || user?.subscription?.plan === 'trial'">
       <div class="promo-banner">
         <div class="promo-content">
           <div class="promo-header">

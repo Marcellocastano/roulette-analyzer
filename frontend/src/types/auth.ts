@@ -1,7 +1,7 @@
 export interface Subscription {
   _id?: string
   active: boolean
-  plan: 'free' | 'premium'
+  plan: 'free' | 'premium' | 'trial'
   duration: 'monthly' | 'annual' | null
   startDate: string | null
   endDate: string | null

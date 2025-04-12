@@ -247,7 +247,7 @@ const openInstagram = () => {
 
 .language-selector-container {
   width: 100%;
-  justify-content: end;
+  justify-content: flex-end;
   display: flex;
   z-index: 10;
   margin: 20px 0;

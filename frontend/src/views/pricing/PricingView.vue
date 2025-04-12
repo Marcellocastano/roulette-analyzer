@@ -253,13 +253,10 @@
 import { NButton, NCard, NH1, NH2, NP, NIcon, NModal, NSpace, NText, NDivider, NAlert } from 'naive-ui'
 import { Check, InfoCircle } from '@vicons/tabler'
 import { ref, onMounted, computed } from 'vue'
-import { h } from 'vue'
 import { useMessage } from 'naive-ui'
 import { useRouter } from 'vue-router'
-import { userApi } from '@/api/user'
 import { subscriptionApi, SubscriptionRequest } from '@/api/subscription'
 import { planApi, Plan } from '@/api/plan'
-import type { UserSubscription, UserProfile } from '@/api/user'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 

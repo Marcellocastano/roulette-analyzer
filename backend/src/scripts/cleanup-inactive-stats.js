@@ -10,18 +10,17 @@ async function cleanupInactiveStats() {
   try {
     console.log('Inizio pulizia record inattivi da InitialStats...');
     
-    // Trova e aggiorna i record più vecchi di 4 ore
+    // Trova ed elimina i record più vecchi di 4 ore
     const fourHoursAgo = new Date(Date.now() - 4 * 60 * 60 * 1000);
-    const result = await InitialStats.updateMany(
-      { timestamp: { $lte: fourHoursAgo }, active: true },
-      { $set: { active: false } }
+    const result = await InitialStats.deleteMany(
+      { timestamp: { $lte: fourHoursAgo } }
     );
     
-    console.log(`Pulizia completata: ${result.modifiedCount} record aggiornati`);
+    console.log(`Pulizia completata: ${result.deletedCount} record eliminati`);
     return {
       success: true,
       message: 'Pulizia record inattivi completata con successo',
-      modifiedCount: result.modifiedCount
+      deletedCount: result.deletedCount
     };
   } catch (error) {
     console.error('Errore durante la pulizia dei record inattivi:', error);

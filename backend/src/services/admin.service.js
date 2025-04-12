@@ -463,7 +463,6 @@ class AdminService {
         return [];
       }
       const plan = await planRepository.findById(requests[0].planId);
-      console.log(plan);
       return requests.map(request => ({
         ...request.toObject(),
         plan: plan ? plan.type : 'unknown',

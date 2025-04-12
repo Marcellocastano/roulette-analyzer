@@ -36,7 +36,6 @@ const checkRole = (roles = []) => {
 const requirePremium = async (req, res, next) => {
   try {
     const userSubscription = await subscriptionRepository.findActiveByUserId(req.user.id);
-    console.log('User subscription:', userSubscription, req.user);
     const hasValidSubscriptionInToken = req.user &&
       userSubscription &&
       userSubscription.status === 'active' &&

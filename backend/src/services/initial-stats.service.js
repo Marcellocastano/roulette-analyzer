@@ -19,10 +19,6 @@ const ReasonCode = {
 };
 
 class InitialStatsService {
-  constructor() {
-    // I job schedulati sono ora gestiti dal servizio SchedulerService
-  }
-
   async addInitialStats(userId, stats) {
     try {
       const subscriptionRepository = require('../repositories/subscription.repository');
@@ -132,8 +128,6 @@ class InitialStatsService {
 
       // Salva entrambi i modelli
       await Promise.all([initialStats.save(), statistics.save()]);
-
-      console.log("Dati salvati con successo in entrambi i modelli");
       return initialStats;
     } catch (error) {
       console.error(

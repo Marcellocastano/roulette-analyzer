@@ -73,7 +73,6 @@ class SubscriptionRepository extends BaseRepository {
       // Verifica il limite in base al piano di abbonamento
       const count = subscription.sessions?.count || 0;
       const limit = plan.sessions?.total || 0;
-      console.log('count', count, 'limit', limit);
       const allowed = count < limit || limit === 0; // 0 significa illimitato
       return { 
         allowed, 

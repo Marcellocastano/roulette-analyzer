@@ -5,10 +5,6 @@ const env = process.env.NODE_ENV || 'development';
 const envFile = env === 'production' ? '.env.production' : '.env';
 require('dotenv').config({ path: path.resolve(__dirname, `../../${envFile}`) });
 
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('CORS_ORIGIN:', process.env.CORS_ORIGIN);
-console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Impostato (non mostrato per sicurezza)' : 'Non impostato');
-
 const config = {
   development: {
     port: process.env.PORT || 5001,

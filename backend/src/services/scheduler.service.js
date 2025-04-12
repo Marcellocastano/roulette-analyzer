@@ -26,8 +26,8 @@ class SchedulerService {
     const isProduction = config.env === 'production';
     console.log(`Inizializzazione scheduler in ambiente: ${config.env}`);
 
-    // Job per verificare le sottoscrizioni scadute (ogni giorno a mezzanotte)
-    this.scheduleJob('checkExpiredSubscriptions', '0 0 * * *', async () => {
+    // Job per verificare le sottoscrizioni scadute (ogni 4 ore)
+    this.scheduleJob('checkExpiredSubscriptions', '0 */4 * * *', async () => {
       console.log('Esecuzione job: controllo sottoscrizioni scadute');
       try {
         const result = await checkExpiredSubscriptions();

@@ -2,13 +2,15 @@
   <div class="auth-container">
     <div class="overlay"></div>
     <div class="language-selector-container">
-      <n-button quaternary circle size="small" class="support-button" @click="showSupportModal = true">
-        <n-icon size="20" color="var(--card-text)">
-          <Headset />
-        </n-icon>
-      </n-button>
-      <LanguageSelector />
-      <ThemeToggle />
+      <div class="language-selector">
+        <n-button quaternary circle size="small" class="support-button" @click="showSupportModal = true">
+          <n-icon size="20" color="var(--card-text)">
+            <Headset />
+          </n-icon>
+        </n-button>
+        <LanguageSelector />
+        <ThemeToggle />
+      </div>
     </div>
     <n-gradient-text
       class="z-10"
@@ -71,7 +73,6 @@
     </template>
     <div class="support-modal-content">
       <p>{{ $t('support.message') }}</p>
-      <!-- link to https://www.instagram.com/roulettepro_ai -->
       <div class="instagram-contact cursor-pointer" @click="openInstagram">
         <n-icon size="24" color="#E1306C" class="mr-2">
           <BrandInstagram />
@@ -120,7 +121,6 @@ const openInstagram = () => {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-image: url('/assets/images/rl-bg1.jpg');
   background-size: cover;
@@ -128,11 +128,16 @@ const openInstagram = () => {
   background-repeat: no-repeat;
   transition: all 0.3s ease;
   position: relative;
+  padding: 20px;
 
   .title {
     font-family: 'Cinzel', serif;
     font-weight: 700;
-    font-size: 3rem;
+    font-size: 2.3rem;
+
+    @media (min-width: 950px) {
+      font-size: 3rem;
+    }
   }
 }
 
@@ -241,15 +246,19 @@ const openInstagram = () => {
 }
 
 .language-selector-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
+  width: 100%;
+  justify-content: end;
   display: flex;
-  gap: 10px;
-  background: var(--navbar-bg);
-  padding: 10px;
-  border-radius: 20px;
+  z-index: 10;
+  margin: 20px 0;
+  
+  .language-selector {
+    display: flex;
+    gap: 10px;
+    background: var(--navbar-bg);
+    padding: 10px;
+    border-radius: 20px;
+  }
 }
 
 .support-button {

@@ -82,15 +82,10 @@ body {
 }
 
 .app-wrapper {
-  // padding: 0px 40px;
   transition: all 0.3s ease;
 
   &.sidebar-collapsed {
     padding-left: 0;
-  }
-
-  @media (max-width: 950px) {
-    padding: 80px 10px;
   }
 }
 </style>

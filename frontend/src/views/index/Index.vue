@@ -439,7 +439,7 @@ useHead({
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 60px;
-  color: var(--gold-accent);
+  color: var(--accent-primary);
 }
 
 .white-section {

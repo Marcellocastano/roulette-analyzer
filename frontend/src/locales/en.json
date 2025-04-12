@@ -337,6 +337,15 @@
       "zero_content": "The strategy is developed to work best by exploiting the ZERO zone of the roulette, which includes numbers from 12 to 15. If the percentage of this zone is <strong>below average (20%)</strong> at both 50 and 500 spins, the zone is considered to be \"<strong>in deficit</strong>\". This suggests that the zone is delayed and it might be the right time to bet on its numbers.",
       "growth_title": "Number growth",
       "growth_content": "Statistics at 50 spins are compared with those at 500 spins to identify numbers showing a <strong>positive trend</strong>. Growing numbers are those that, at 50 spins, show an <strong>increase in frequency</strong> when considering a longer period, up to 500 spins. These numbers are considered promising because their increase suggests they are beginning to \"<strong>recover</strong>\" the delay and could become more frequent in the next spins."
+    },
+    "promo_banner": {
+      "title": "Special Offer - Time Limited!",
+      "message": "Acquire a Premium plan before May 2nd and receive a free extra period!",
+      "monthly_offer": "Monthly Plan: 1 MONTH EXTRA FREE",
+      "annual_offer": "Annual Plan: 1 YEAR EXTRA FREE",
+      "valid_until": "Offer valid until May 2nd 2025",
+      "first_purchase": "Only for the first purchase",
+      "button": "Act now"
     }
   },
   "common": {
@@ -416,6 +425,7 @@
     },
     "header": {
       "title": "Choose your Subscription",
+      "titlePremium": "Renew subscription",
       "subtitle": "Access all premium features of Roulette Pro AI"
     },
     "trial_plan": {
@@ -429,7 +439,8 @@
       "price": "50",
       "period": "/month",
       "features": ["Unlimited access to statistics", "Standard support"],
-      "button": "Purchase"
+      "button": "Purchase",
+      "buttonPremium": "Renew"
     },
     "annual_plan": {
       "title": "Annual Plan",
@@ -442,7 +453,8 @@
         "Priority support",
         "Save €300 compared to the monthly plan"
       ],
-      "button": "Save 50%"
+      "button": "Save 50%",
+      "buttonPremium": "Renew"
     },
     "payment_modal": {
       "title": "Payment Instructions",

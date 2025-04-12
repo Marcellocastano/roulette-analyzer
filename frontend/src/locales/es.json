@@ -337,6 +337,15 @@
       "zero_content": "La estrategia está desarrollada para funcionar mejor aprovechando la zona CERO de la ruleta, que comprende los números del 12 al 15. Si el porcentaje de esta zona es <strong>inferior al promedio (20%)</strong> tanto a 50 como a 500 giros, la zona se considera \"<strong>en déficit</strong>\". Esto sugiere que la zona está en retraso y podría ser el momento adecuado para apostar en sus números.",
       "growth_title": "Crecimiento de números",
       "growth_content": "Las estadísticas a 50 giros se comparan con las de 500 giros para identificar los números que muestran una <strong>tendencia positiva</strong>. Los números en crecimiento son aquellos que, a 50 giros, muestran un <strong>aumento de frecuencia</strong> cuando se considera un período más largo, hasta 500 giros. Estos números se consideran prometedores porque su aumento sugiere que están comenzando a \"<strong>recuperar</strong>\" y podrían continuar esta tendencia."
+    },
+    "promo_banner": {
+      "title": "OFERTA ESPECIAL - TIEMPO LIMITADO!",
+      "message": "Adquiere un plan Premium antes del 2 de Mayo y recibe un periodo extra GRATUITO!",
+      "monthly_offer": "Plan Mensual: 1 MES EXTRA GRATIS",
+      "annual_offer": "Plan Anual: 1 AÑO EXTRA GRATIS",
+      "valid_until": "Oferta válida hasta el 2 de Mayo 2025",
+      "first_purchase": "Solo para el primer adquisición",
+      "button": "Aprovecha ahora"
     }
   },
   "common": {
@@ -416,6 +425,7 @@
     },
     "header": {
       "title": "Elige tu Suscripción",
+      "titlePremium": "Renueva suscripción",
       "subtitle": "Accede a todas las funcionalidades premium de Roulette Pro AI"
     },
     "trial_plan": {
@@ -429,7 +439,8 @@
       "price": "50",
       "period": "/mes",
       "features": ["Acceso ilimitado a las estadísticas", "Soporte estándar"],
-      "button": "Comprar"
+      "button": "Comprar",
+      "buttonPremium": "Renueva"
     },
     "annual_plan": {
       "title": "Plan Anual",
@@ -442,7 +453,8 @@
         "Soporte prioritario",
         "Ahorro de €300 respecto al plan mensual"
       ],
-      "button": "Ahorra el 50%"
+      "button": "Ahorra el 50%",
+      "buttonPremium": "Renueva"
     },
     "payment_modal": {
       "title": "Instrucciones de Pago",

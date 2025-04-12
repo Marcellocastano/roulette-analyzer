@@ -337,6 +337,15 @@
       "zero_content": "Die Strategie ist entwickelt, um am besten zu funktionieren, indem sie die NULL-Zone des Roulette nutzt, die die Zahlen von 12 bis 15 umfasst. Wenn der Prozentsatz dieser Zone <strong>unter dem Durchschnitt (20%)</strong> liegt, sowohl bei 50 als auch bei 500 Spins, gilt die Zone als \"<strong>im Defizit</strong>\". Dies deutet darauf hin, dass die Zone im Rückstand ist und es könnte der richtige Moment sein, auf ihre Zahlen zu setzen.",
       "growth_title": "Zahlenwachstum",
       "growth_content": "Die Statistiken bei 50 Spins werden mit denen bei 500 Spins verglichen, um Zahlen zu identifizieren, die einen <strong>positiven Trend</strong> zeigen. Wachsende Zahlen sind diejenigen, die bei 50 Spins einen <strong>Frequenzanstieg</strong> zeigen, wenn man einen längeren Zeitraum bis zu 500 Spins betrachtet. Diese Zahlen gelten als vielversprechend, weil ihr Anstieg darauf hindeutet, dass sie beginnen zu \"<strong>erholen</strong>\" und diesen Trend fortsetzen könnten."
+    },
+    "promo_banner": {
+      "title": "SONDERANGEBOT - ZEITLICH BEGRENZT!",
+      "message": "Erwerben Sie einen Premium-Plan vor dem 2. Mai und erhalten Sie eine kostenlose Extraperiode!",
+      "monthly_offer": "Monatsplan: 1 MONAT EXTRA GRATIS",
+      "annual_offer": "Jahresplan: 1 JAHR EXTRA GRATIS",
+      "valid_until": "Angebot gültig bis 2. Mai 2025",
+      "first_purchase": "Nur für den ersten Kauf",
+      "button": "Jetzt handeln"
     }
   },
   "common": {
@@ -416,6 +425,7 @@
     },
     "header": {
       "title": "Wählen Sie Ihr Abonnement",
+      "titlePremium": "Erneut abonnieren",
       "subtitle": "Zugriff auf alle Premium-Funktionen von Roulette Pro AI"
     },
     "trial_plan": {
@@ -429,7 +439,8 @@
       "price": "50",
       "period": "/Monat",
       "features": ["Unbegrenzter Zugriff auf Statistiken", "Standard-Support"],
-      "button": "Kaufen"
+      "button": "Kaufen",
+      "buttonPremium": "Erneut abonnieren"
     },
     "annual_plan": {
       "title": "Jahresplan",
@@ -442,7 +453,8 @@
         "Prioritäts-Support",
         "Sparen Sie €300 gegenüber dem Monatsplan"
       ],
-      "button": "Sparen Sie 50%"
+      "button": "Sparen Sie 50%",
+      "buttonPremium": "Erneut abonnieren"
     },
     "payment_modal": {
       "title": "Zahlungsanweisungen",

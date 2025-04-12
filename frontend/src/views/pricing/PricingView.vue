@@ -21,7 +21,7 @@
     <n-card class="pricing-card">
       <template #header>
         <div class="card-header">
-          <n-h1>{{ $t('pricing.header.title') }}</n-h1>
+          <n-h1>{{ userSubscription?.active ? $t('pricing.header.titlePremium') : $t('pricing.header.title') }}</n-h1>
           <n-p>{{ $t('pricing.header.subtitle') }}</n-p>
         </div>
       </template>
@@ -113,7 +113,7 @@
             @click="requestSubscription(plan._id)"
             :loading="isLoading"
           >
-            {{ $t('pricing.monthly_plan.button') }}
+            {{ userSubscription?.active ? $t('pricing.monthly_plan.buttonPremium') : $t('pricing.monthly_plan.button') }}
           </n-button>
         </div>
         </n-card>
@@ -171,7 +171,7 @@
                 @click="requestSubscription(plan._id)"
                 :loading="isLoading"
               >
-                {{ $t('pricing.annual_plan.button') }}
+                {{ userSubscription?.active ? $t('pricing.annual_plan.buttonPremium') : $t('pricing.annual_plan.button') }}
               </n-button>
             </div>
           </div>

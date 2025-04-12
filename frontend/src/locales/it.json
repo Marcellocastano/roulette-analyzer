@@ -337,6 +337,15 @@
       "zero_content": "La strategia è sviluppata per funzionare al meglio sfruttando la zona ZERO della roulette, che comprende i numeri dal 12 al 15. Se la percentuale di questa zona è <strong>inferiore alla media (20%)</strong> sia a 50 che a 500 spin, la zona è considerata \"<strong>in deficit</strong>\". Questo suggerisce che la zona è in ritardo e potrebbe essere il momento giusto per puntare sui suoi numeri.",
       "growth_title": "Crescita dei numeri",
       "growth_content": "Le statistiche a 50 spin vengono confrontate con quelle a 500 spin per identificare i numeri che mostrano un <strong>trend positivo</strong>. I numeri in crescita sono quelli che, a 50 spin, mostrano un <strong>aumento di frequenza</strong> quando si considera un periodo più lungo, fino a 500 spin. Questi numeri sono considerati promettenti perché il loro aumento suggerisce che stanno iniziando a \"<strong>recuperare</strong>\" e potrebbero continuare questa tendenza."
+    },
+    "promo_banner": {
+      "title": "OFFERTA SPECIALE - TEMPO LIMITATO!",
+      "message": "Acquista un piano Premium entro il 2 Maggio e ricevi un periodo extra GRATUITO!",
+      "monthly_offer": "Piano Mensile: 1 MESE EXTRA GRATIS",
+      "annual_offer": "Piano Annuale: 1 ANNO EXTRA GRATIS",
+      "valid_until": "Offerta valida fino al 2 Maggio 2025",
+      "first_purchase": "Solo per il primo acquisto",
+      "button": "Approfitta ora"
     }
   },
   "common": {
@@ -416,6 +425,7 @@
     },
     "header": {
       "title": "Scegli il tuo Abbonamento",
+      "titlePremium": "Rinnova abbonamento",
       "subtitle": "Accedi a tutte le funzionalità premium di Roulette Pro AI"
     },
     "trial_plan": {
@@ -429,7 +439,8 @@
       "price": "50",
       "period": "/mese",
       "features": ["Sessioni illimitate", "Supporto standard"],
-      "button": "Acquista"
+      "button": "Acquista",
+      "buttonPremium": "Rinnova"
     },
     "annual_plan": {
       "title": "Piano Annuale",
@@ -442,7 +453,8 @@
         "Supporto prioritario",
         "Risparmio di €300 rispetto al piano mensile"
       ],
-      "button": "Risparmia il 50%"
+      "button": "Risparmia il 50%",
+      "buttonPremium": "Rinnova"
     },
     "payment_modal": {
       "title": "Istruzioni per il Pagamento",

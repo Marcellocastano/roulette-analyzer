@@ -4,6 +4,7 @@
  */
 const mongoose = require('mongoose');
 const InitialStats = require('../models/initial-stats.model');
+const Statistics = require('../models/statistics.model');
 const config = require('../config/config');
 
 async function cleanupInactiveStats() {
@@ -12,15 +13,22 @@ async function cleanupInactiveStats() {
     
     // Trova ed elimina i record più vecchi di 4 ore
     const fourHoursAgo = new Date(Date.now() - 4 * 60 * 60 * 1000);
-    const result = await InitialStats.deleteMany(
+    const initialStatsResult = await InitialStats.deleteMany(
+      { timestamp: { $lte: fourHoursAgo } }
+    );
+
+    const statisticsResult = await Statistics.deleteMany(
       { timestamp: { $lte: fourHoursAgo } }
     );
     
-    console.log(`Pulizia completata: ${result.deletedCount} record eliminati`);
+    console.log(`Pulizia completata: ${initialStatsResult.deletedCount} record eliminati da Initial-Stats e ${statisticsResult.deletedCount} record eliminati da Statistics`);
     return {
       success: true,
       message: 'Pulizia record inattivi completata con successo',
-      deletedCount: result.deletedCount
+      deletedCount: {
+        initialStats: initialStatsResult.deletedCount,
+        statistics: statisticsResult.deletedCount
+      }
     };
   } catch (error) {
     console.error('Errore durante la pulizia dei record inattivi:', error);

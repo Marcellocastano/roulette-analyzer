@@ -3,7 +3,7 @@
  * Questo script viene eseguito ogni giorno a mezzanotte
  */
 const mongoose = require('mongoose');
-const User = require('../models/user.model');
+const Subscription = require('../models/subscription.model');
 const config = require('../config/config');
 
 async function resetDailySessions() {
@@ -12,7 +12,7 @@ async function resetDailySessions() {
     
     const now = new Date();
     // Resetta il contatore delle sessioni giornaliere per tutti gli utenti
-    const result = await User.updateMany(
+    const result = await Subscription.updateMany(
       {
         "sessions.lastReset": { $lt: new Date(now.setHours(0, 0, 0, 0)) }
       },

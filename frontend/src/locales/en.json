@@ -340,10 +340,10 @@
     },
     "promo_banner": {
       "title": "Special Offer - Time Limited!",
-      "message": "Acquire a Premium plan before May 2nd and receive a free extra period!",
+      "message": "Acquire a Premium plan before June 2nd and receive a free extra period!",
       "monthly_offer": "Monthly Plan: 1 MONTH EXTRA FREE",
       "annual_offer": "Annual Plan: 1 YEAR EXTRA FREE",
-      "valid_until": "Offer valid until May 2nd 2025",
+      "valid_until": "Offer valid until June 2nd 2025",
       "first_purchase": "Only for the first purchase",
       "button": "Act now"
     }

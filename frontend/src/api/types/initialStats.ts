@@ -13,7 +13,7 @@ interface ZeroNeighborsStats {
 }
 
 interface SpinStats {
-  dozens: DozensStats
+  dozens?: DozensStats
   zeroNeighbors: ZeroNeighborsStats
 }
 

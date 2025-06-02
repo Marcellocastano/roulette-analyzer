@@ -36,20 +36,56 @@
     </svg>
   </div>
 
-  <!-- <div class="controls">
-    <n-button @click="resetCones" type="error">
+  <div class="controls">
+    <n-button @click="showManualSettings = !showManualSettings" type="primary" size="small">
       <template #icon>
-        <n-icon><Refresh /></n-icon>
+        <n-icon><Settings /></n-icon>
       </template>
-      {{ $t('wheel_statistics.reset_button') }}
+      {{ showManualSettings ? $t('wheel_statistics.hide_settings') : $t('wheel_statistics.show_settings') }}
     </n-button>
-  </div> -->
+  </div>
+
+  <!-- Sezione impostazioni manuali -->
+  <n-collapse-transition :show="showManualSettings">
+    <div class="manual-settings">
+      <div class="settings-header">
+        <h3>{{ $t('wheel_statistics.manual_settings') }}</h3>
+        <p>{{ $t('wheel_statistics.manual_settings_description') }}</p>
+      </div>
+      <div class="number-controls">
+        <div v-for="(number, index) in rouletteNumbers" :key="index" class="number-control">
+          <div class="number-label" :style="{ backgroundColor: getNumberColor(number) }">{{ number }}</div>
+          <div class="slider-container">
+            <div class="vertical-slider">
+              <div class="slider-track"></div>
+              <div 
+                class="slider-fill" 
+                :style="{ height: `${(coneValues[index] / 40) * 100}%` }"
+              ></div>
+              <div 
+                class="slider-thumb" 
+                :style="{ bottom: `calc(${(coneValues[index] / 40) * 100}% - 8px)` }"
+                @mousedown="startSliderDrag(index, $event)"
+              ></div>
+            </div>
+          </div>
+          <n-input-number 
+            v-model:value="coneValues[index]" 
+            :min="0" 
+            :max="40" 
+            size="small"
+            @update:value="(val) => updateConeValue(index, val)"
+          />
+        </div>
+      </div>
+    </div>
+  </n-collapse-transition>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, watch } from 'vue'
-import { NButton } from 'naive-ui'
-import { Refresh } from '@vicons/tabler'
+import { NButton, NIcon, NInputNumber, NCollapseTransition } from 'naive-ui'
+import { Refresh, Settings } from '@vicons/tabler'
 import * as InitialStats from '@/api/types/initialStats'
 import { useI18n } from 'vue-i18n'
 
@@ -74,6 +110,7 @@ const coneValues = reactive(new Array(7).fill(0))
 const isDragging = ref(false)
 const currentCone = ref(-1)
 const lastUpdatedCone = ref<number | null>(null)
+const showManualSettings = ref(false)
 
 // Inizializza i valori dei coni quando cambiano gli initialValues
 watch(
@@ -89,8 +126,10 @@ watch(
 )
 
 // Funzione per aggiornare il valore di un cono
-const updateConeValue = (index: number, value: number) => {
-  coneValues[index] = value
+const updateConeValue = (index: number, value: number | null) => {
+  if (value !== null) {
+    coneValues[index] = value
+  }
   lastUpdatedCone.value = index
 
   // Emetti l'evento con i valori aggiornati
@@ -200,6 +239,32 @@ const handleMouseMove = (event: MouseEvent, index: number) => {
   }
 }
 
+// Gestione del drag per gli slider verticali
+const startSliderDrag = (index: number, event: MouseEvent) => {
+  const handleSliderMove = (moveEvent: MouseEvent) => {
+    const sliderTrack = (event.target as HTMLElement).parentElement?.querySelector('.slider-track') as HTMLElement
+    if (!sliderTrack) return
+
+    const rect = sliderTrack.getBoundingClientRect()
+    const height = rect.height
+    const y = moveEvent.clientY - rect.top
+    const normalizedValue = Math.max(0, Math.min(1, 1 - y / height))
+    const value = Math.round(normalizedValue * 40)
+
+    if (coneValues[index] !== value) {
+      updateConeValue(index, value)
+    }
+  }
+
+  const stopSliderDrag = () => {
+    document.removeEventListener('mousemove', handleSliderMove)
+    document.removeEventListener('mouseup', stopSliderDrag)
+  }
+
+  document.addEventListener('mousemove', handleSliderMove)
+  document.addEventListener('mouseup', stopSliderDrag)
+}
+
 // Reset dei coni
 const resetCones = () => {
   rouletteNumbers.forEach((_, index) => {
@@ -265,5 +330,110 @@ const resetCones = () => {
 
 .text-accent {
   color: var(--accent-color);
+}
+
+.controls {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+.manual-settings {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: var(--card-background);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-header {
+  margin-bottom: 15px;
+  text-align: center;
+
+  h3 {
+    margin-bottom: 5px;
+    color: var(--card-text);
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: var(--card-text-secondary);
+  }
+}
+
+.number-controls {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.number-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50px;
+}
+
+.number-label {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.slider-container {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.vertical-slider {
+  position: relative;
+  width: 8px;
+  height: 100%;
+  background-color: var(--card-background-secondary);
+  border-radius: 4px;
+  border: 1px solid var(--border-color, rgba(100, 100, 100, 0.3));
+}
+
+.slider-track {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--card-background-secondary);
+}
+
+.slider-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--fill-wheel);
+  border-radius: 4px;
+  box-shadow: 0 0 4px var(--fill-wheel);
+}
+
+.slider-thumb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background-color: var(--gold-accent);
+  border: 2px solid var(--card-text);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 </style>

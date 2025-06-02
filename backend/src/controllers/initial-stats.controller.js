@@ -52,14 +52,12 @@ class InitialStatsController {
     }
 
     // Verifica dozzine
-    ['stats50', 'stats500'].forEach(range => {
-      if (!stats[range].dozens || 
-          !stats[range].dozens.first || 
-          !stats[range].dozens.second || 
-          !stats[range].dozens.third) {
-        throw new Error(`Statistiche dozzine mancanti per ${range}`);
+    if (!stats.stats500.dozens || 
+          !stats.stats500.dozens.first || 
+          !stats.stats500.dozens.second || 
+          !stats.stats500.dozens.third) {
+        throw new Error('Statistiche dozzine mancanti per stats500');
       }
-    });
 
     // Verifica zona zero
     if (!stats.stats50.zeroNeighbors || !stats.stats500.zeroNeighbors) {

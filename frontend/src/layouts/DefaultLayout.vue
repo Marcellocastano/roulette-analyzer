@@ -28,7 +28,7 @@ import Navbar from '@/components/Navbar/Navbar.vue'
   transition: all 0.3s ease;
 
   @media (max-width: 768px) {
-    padding: 1rem 0;
+    padding: 3rem 0;
   }
 }
 </style>

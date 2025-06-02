@@ -44,11 +44,6 @@ class InitialStatsService {
       const initialStats = new InitialStats({
         userId,
         stats50: {
-          dozens: {
-            first: stats.stats50.dozens.first || 0,
-            second: stats.stats50.dozens.second || 0,
-            third: stats.stats50.dozens.third || 0,
-          },
           zeroNeighbors: {
             percentage: stats.stats50.zeroNeighbors || 0,
           },
@@ -83,18 +78,10 @@ class InitialStatsService {
 
       // Aggiorna le statistiche a 50 spin
       statistics.stats50 = {
-        dozens: {
-          first: { count: 0, percentage: stats.stats50.dozens.first || 0 },
-          second: { count: 0, percentage: stats.stats50.dozens.second || 0 },
-          third: { count: 0, percentage: stats.stats50.dozens.third || 0 },
-        },
         zeroNeighbors: {
           total: { count: 0, percentage: stats.stats50.zeroNeighbors || 0 },
           numbers: {},
         },
-        hotNumbers: [],
-        coldNumbers: [],
-        sequences: [],
       };
 
       // Aggiorna le statistiche a 500 spin
@@ -108,9 +95,6 @@ class InitialStatsService {
           total: { count: 0, percentage: stats.stats500.zeroNeighbors || 0 },
           numbers: {},
         },
-        hotNumbers: [],
-        coldNumbers: [],
-        sequences: [],
       };
 
       // Aggiorna i numeri vicini allo zero
@@ -350,9 +334,6 @@ class InitialStatsService {
     reasons.push(`La ${this._getDozenName(minDozens.dozen)} è in sofferenza:`);
     reasons.push(`• Media: ${minDozens.percentage.toFixed(1)}%`);
     reasons.push(
-      `• A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`
-    );
-    reasons.push(
       `• A 500 spin: ${stats.stats500.dozens[minDozens.dozen].toFixed(1)}%`
     );
 
@@ -390,9 +371,6 @@ class InitialStatsService {
       );
       reasons.push(`  • Media: ${minDozens.percentage.toFixed(1)}%`);
       reasons.push(
-        `  • A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`
-      );
-      reasons.push(
         `  • A 500 spin: ${stats.stats500.dozens[minDozens.dozen].toFixed(1)}%`
       );
     } else if (isMinDozenConditionMet) {
@@ -400,9 +378,6 @@ class InitialStatsService {
         `\n✓ La ${this._getDozenName(minDozens.dozen)} è in sofferenza:`
       );
       reasons.push(`  • Media: ${minDozens.percentage.toFixed(1)}%`);
-      reasons.push(
-        `  • A 50 spin: ${stats.stats50.dozens[minDozens.dozen].toFixed(1)}%`
-      );
       reasons.push(
         `  • A 500 spin: ${stats.stats500.dozens[minDozens.dozen].toFixed(1)}%`
       );

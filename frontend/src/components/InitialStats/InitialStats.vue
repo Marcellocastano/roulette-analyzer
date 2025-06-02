@@ -10,32 +10,6 @@
               <div class="stats-input">
                 <div>
                   <n-p>
-                    <strong>{{ $t('initial_stats.first_dozen') }}</strong>
-                  </n-p>
-                  <n-input-number
-                    v-model:value="stats50.dozens.first"
-                    button-placement="both"
-                    :placeholder="$t('initial_stats.first_dozen_placeholder')"
-                  />
-                  <n-p>
-                    <strong>{{ $t('initial_stats.third_dozen') }}</strong>
-                  </n-p>
-                  <n-input-number
-                    v-model:value="stats50.dozens.third"
-                    button-placement="both"
-                    :placeholder="$t('initial_stats.third_dozen_placeholder')"
-                  />
-                </div>
-                <div>
-                  <n-p>
-                    <strong>{{ $t('initial_stats.second_dozen') }}</strong>
-                  </n-p>
-                  <n-input-number
-                    v-model:value="stats50.dozens.second"
-                    button-placement="both"
-                    :placeholder="$t('initial_stats.second_dozen_placeholder')"
-                  />
-                  <n-p>
                     <strong>{{ $t('initial_stats.zero_zone') }}</strong>
                   </n-p>
                   <n-input-number
@@ -276,7 +250,7 @@ const handleProceed = () => {
 
 <style scoped>
 .statistics-card {
-  width: 440px;
+  width: 490px;
   margin: 0 auto;
   border: 3px dashed var(--card-border);
 }

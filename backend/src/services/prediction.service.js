@@ -73,37 +73,6 @@ class PredictionService {
     return ZONE_ZERO_NUMBERS.includes(num);
   }
 
-  _findSurplusDozen(initialStats) {
-    // Ricaviamo le percentuali a 50 e 500 spin
-    const { stats50, stats500 } = initialStats;
-    
-    // Calcoliamo la media per ciascuna dozzina
-    const firstAvg = (stats50.dozens.first + stats500.dozens.first) / 2;
-    const secondAvg = (stats50.dozens.second + stats500.dozens.second) / 2;
-    const thirdAvg = (stats50.dozens.third + stats500.dozens.third) / 2;
-  
-    // Troviamo la dozzina con la media più alta
-    let maxDozen = 'first';
-    let maxValue = firstAvg;
-  
-    if (secondAvg > maxValue) {
-      maxDozen = 'second';
-      maxValue = secondAvg;
-    }
-    if (thirdAvg > maxValue) {
-      maxDozen = 'third';
-      maxValue = thirdAvg;
-    }
-  
-    // Se la dozzina più alta supera la soglia, la consideriamo in surplus
-    if (maxValue >= DOZEN_MAX_THRESHOLD) {
-      return maxDozen; // "first", "second" o "third"
-    }
-    // Altrimenti, nessuna dozzina è in surplus
-    return null;
-  }
-  
-
   _refineSequenceNumbers(sequenceNumbers, initialStats) {
     const { dozenDown, analysis, dozenUp } = initialStats || {};
     const { reasonCodes = [], increasingNumbers = [] } = analysis || {};

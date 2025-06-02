@@ -300,7 +300,11 @@
   "wheel_statistics": {
     "instructions": "Replicate the wheel number statistics as accurately as possible. Drag your mouse over a cone to modify its value. If you have any doubts read the ",
     "tutorial_link": "tutorial",
-    "reset_button": "Reset"
+    "reset_button": "Reset",
+    "show_settings": "Manual input",
+    "hide_settings": "Hide manual input",
+    "manual_settings": "Manual input",
+    "manual_settings_description": "Use the sliders or directly insert values (0-40) for each number in the zero zone"
   },
   "dashboard": {
     "greeting": "Hello, {name}!",
@@ -340,10 +344,10 @@
     },
     "promo_banner": {
       "title": "Special Offer - Time Limited!",
-      "message": "Acquire a Premium plan before June 2nd and receive a free extra period!",
+      "message": "Acquire a Premium plan before July 2nd and receive a free extra period!",
       "monthly_offer": "Monthly Plan: 1 MONTH EXTRA FREE",
       "annual_offer": "Annual Plan: 1 YEAR EXTRA FREE",
-      "valid_until": "Offer valid until June 2nd 2025",
+      "valid_until": "Offer valid until July 2nd 2025",
       "first_purchase": "Only for the first purchase",
       "button": "Act now"
     }

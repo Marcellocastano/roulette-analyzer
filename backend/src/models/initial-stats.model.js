@@ -12,11 +12,6 @@ const initialStatsSchema = new mongoose.Schema({
   },
   active: { type: Boolean, default: true },
   stats50: {
-    dozens: {
-      first: { type: Number, required: true },  // 1-12
-      second: { type: Number, required: true }, // 13-24
-      third: { type: Number, required: true },  // 25-36
-    },
     zeroNeighbors: {
       percentage: { type: Number, required: true }
     }

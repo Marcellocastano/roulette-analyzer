@@ -300,7 +300,11 @@
   "wheel_statistics": {
     "instructions": "Replica de la manera más fiel posible las estadísticas de los números en la rueda. Arrastra el mouse sobre un cono para modificar su valor. En caso de dudas lee el ",
     "tutorial_link": "tutorial",
-    "reset_button": "Volver a empezar"
+    "reset_button": "Volver a empezar",
+    "show_settings": "Entrada manual",
+    "hide_settings": "Ocultar entrada manual",
+    "manual_settings": "Entrada manual",
+    "manual_settings_description": "Utiliza los deslizadores o inserta directamente los valores (0-40) para cada número de la zona cero"
   },
   "dashboard": {
     "greeting": "¡Hola, {name}!",
@@ -340,10 +344,10 @@
     },
     "promo_banner": {
       "title": "OFERTA ESPECIAL - TIEMPO LIMITADO!",
-      "message": "Adquiere un plan Premium antes del 2 de Junio y recibe un periodo extra GRATUITO!",
+      "message": "Adquiere un plan Premium antes del 2 de Julio y recibe un periodo extra GRATUITO!",
       "monthly_offer": "Plan Mensual: 1 MES EXTRA GRATIS",
       "annual_offer": "Plan Anual: 1 AÑO EXTRA GRATIS",
-      "valid_until": "Oferta válida hasta el 2 de Junio 2025",
+      "valid_until": "Oferta válida hasta el 2 de Julio 2025",
       "first_purchase": "Solo para el primer adquisición",
       "button": "Aprovecha ahora"
     }

@@ -27,7 +27,7 @@
       </template>
 
       <div class="plans-container">
-        <n-card v-if="!user?.isTrialUsed" class="plan-card trial">
+        <n-card v-if="!user?.isTrialUsed && !user?.subscription?.active" class="plan-card trial">
           <div class="flex justify-between flex-col h-full">
             <div>
               <div class="plan-header">

@@ -1,8 +1,8 @@
 import { createI18n } from 'vue-i18n'
-import en from '@/locales/en.json'
-import it from '@/locales/it.json'
-import es from '@/locales/es.json'
-import de from '@/locales/de.json'
+import en from '@/i18n/locales/en.json'
+import it from '@/i18n/locales/it.json'
+import es from '@/i18n/locales/es.json'
+import de from '@/i18n/locales/de.json'
 
 type MessageSchema = typeof en
 

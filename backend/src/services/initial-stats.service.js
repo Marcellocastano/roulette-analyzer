@@ -19,7 +19,7 @@ const ReasonCode = {
 };
 
 class InitialStatsService {
-  async addInitialStats(userId, stats) {
+  async checkRequirementsAndSetup(userId) {
     try {
       const subscriptionRepository = require('../repositories/subscription.repository');
       const user = await UserModel.findById(userId);
@@ -30,9 +30,17 @@ class InitialStatsService {
       if (!sessionCheck.allowed) {
         throw new AppError(sessionCheck.message, 400);
       }
-      
+
       await InitialStats.deleteMany({ userId });
       await Statistics.deleteOne({ user: userId });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async addInitialStats(userId, stats) {
+    try {
+      await this.checkRequirementsAndSetup(userId);
 
       if (!stats.stats50 || !stats.stats500) {
         throw new Error("Mancano le statistiche a 50 o 500 spin");
@@ -116,6 +124,85 @@ class InitialStatsService {
     } catch (error) {
       console.error(
         "Errore nel salvataggio delle statistiche iniziali:",
+        error
+      );
+      throw error;
+    }
+  }
+
+  async addInitialStatsAdvanced(userId, stats) {
+    try {
+      await this.checkRequirementsAndSetup(userId);
+
+      // Modalità avanzata: l'utente specifica direttamente i valori chiave
+      const { 
+        sufferingDozen,      // Dozzina sofferente (1, 2 o 3)
+        surplusDozen,        // Dozzina in surplus (opzionale)
+        growingZeroNumbers,  // Array di numeri della zona zero in crescita
+        tableStatus          // Status del tavolo (opzionale, default 'recommended')
+      } = stats;
+
+      // Costruisci i reasonCodes in base ai dati forniti
+      const reasonCodes = [];
+      if (sufferingDozen) {
+        reasonCodes.push(ReasonCode.DOZEN_SUFFERING);
+      }
+      if (growingZeroNumbers && growingZeroNumbers.length > 0) {
+        reasonCodes.push(ReasonCode.ZERO_ZONE_SUFFERING);
+        reasonCodes.push(ReasonCode.INCREASING_NUMBERS);
+      }
+
+      // Costruisci zeroZoneNumbers con increasePercentage fittizio per i numeri in crescita
+      const zeroNeighborsList = [0, 3, 12, 15, 26, 32, 35];
+      const zeroZoneNumbers = zeroNeighborsList.map(number => ({
+        number,
+        increasePercentage: growingZeroNumbers?.includes(number) 
+          ? INCREASE_PERCENTAGE_THRESHOLD + 1  // Sopra la soglia per essere considerato in crescita
+          : 0
+      }));
+
+      const initialStats = new InitialStats({
+        userId,
+        inputMode: 'advanced',
+        stats50: {
+          zeroNeighbors: {
+            percentage: 0,
+          },
+        },
+        stats500: {
+          dozens: {
+            first: 0,
+            second: 0,
+            third: 0,
+          },
+          zeroNeighbors: {
+            percentage: 0,
+          },
+        },
+        zeroZoneNumbers,
+        dozenDown: sufferingDozen || null,
+        dozenUp: surplusDozen || null,
+        analysis: {
+          tableStatus: tableStatus || 'recommended',
+          reasonCodes,
+          increasingNumbers: growingZeroNumbers || [],
+        },
+        active: true,
+        timestamp: new Date()
+      });
+
+      // Crea anche il documento Statistics (vuoto, pronto per ricevere spin)
+      let statistics = await Statistics.findOne({ user: userId });
+      if (!statistics) {
+        statistics = new Statistics({ user: userId });
+      }
+
+      // Salva entrambi i modelli
+      await Promise.all([initialStats.save(), statistics.save()]);
+      return initialStats;
+    } catch (error) {
+      console.error(
+        "Errore nel salvataggio delle statistiche iniziali avanzate:",
         error
       );
       throw error;

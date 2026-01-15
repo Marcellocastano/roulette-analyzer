@@ -50,6 +50,11 @@ export interface InitialStatsPayload {
   stats500: Stats
 }
 
+export interface InitialStatsPayloadAdvanced {
+  sufferingDozen: number
+  growingZeroNumbers: number[]
+}
+
 export interface Stats {
   dozens: Dozens
   zeroNeighbors: number | null

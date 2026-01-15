@@ -50,7 +50,7 @@ async function createSubscriptionPlans() {
         duration: 'monthly',
         durationValue: 1,
         price: {
-          amount: 50,
+          amount: 9.99,
           currency: 'EUR'
         },
         sessions: {
@@ -65,7 +65,7 @@ async function createSubscriptionPlans() {
         duration: 'annual',
         durationValue: 1,
         price: {
-          amount: 300,
+          amount: 99.99,
           currency: 'EUR'
         },
         sessions: {

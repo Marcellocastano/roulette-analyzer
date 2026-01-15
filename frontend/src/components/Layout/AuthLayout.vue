@@ -90,7 +90,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Card from '@/components/Card/Card.vue'
+import Card from '@/components/common/Card.vue'
 import LanguageSelector from '@/components/LanguageSelector.vue'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle.vue'
 import { Headset, BrandInstagram } from '@vicons/tabler'

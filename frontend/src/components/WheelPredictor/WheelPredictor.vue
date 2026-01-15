@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import Card from '../Card/Card.vue'
+import Card from '../common/Card.vue'
 
 interface Props {
   primaryPredictedNumbers: number[]

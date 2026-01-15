@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import Card from '@/components/Card/Card.vue'
+import Card from '@/components/common/Card.vue'
 import type { Analysis } from '@/api/types/initialStats'
 import { useI18n } from 'vue-i18n'
 

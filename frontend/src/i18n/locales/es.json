@@ -76,34 +76,64 @@
   },
   "initial_stats": {
     "title": "Ingresa las estadísticas de la mesa",
+    "normal_mode": "Modo Normal",
+    "expert_mode": "Modo Experto",
     "stats_50_spin": "Estadísticas a 50 giros",
     "stats_500_spin": "Estadísticas a 500 giros",
     "first_dozen": "1ª docena %",
     "second_dozen": "2ª docena %",
     "third_dozen": "3ª docena %",
     "zero_zone": "Zona CERO %",
+    "dozens_50": "Docenas a 50 giros",
+    "dozens_500": "Docenas a 500 giros",
+    "zero_zone_50": "Zona Cero a 50 giros",
+    "zero_zone_500": "Zona Cero a 500 giros",
     "first_dozen_placeholder": "Primera Docena",
     "second_dozen_placeholder": "Segunda Docena",
     "third_dozen_placeholder": "Tercera Docena",
     "zero_zone_placeholder": "Zona Cero",
     "check_table": "Revisar mesa",
+    "expert_analysis": "Análisis Experto",
+    "suffering_dozen": "Docena Sufriente",
+    "dozen": "Docena",
+    "zero_zone_analysis": "Análisis Zona Cero",
+    "trend": "Tendencia",
+    "growing_numbers_zero_zone": "Números en Crecimiento en Zona Cero",
+    "table_recommendation": "Recomendación de Mesa",
+    "table_recommended": "Mesa Recomendada",
+    "table_borderline": "Mesa Límite",
+    "table_not_recommended": "Mesa No Recomendada",
+    "no_analysis_yet": "Análisis no disponible aún",
+    "no_growing_numbers": "No hay números en crecimiento",
+    "proceed": "Proceder",
+    "reset": "Reiniciar",
+    "selected_numbers": "Números seleccionados",
+    "no_numbers_selected": "Ningún número seleccionado",
+    "suffering_dozen_selection": "Selección de Docena Sufriente",
+    "first_dozen_label": "1ª Docena (1-12)",
+    "second_dozen_label": "2ª Docena (13-24)", 
+    "third_dozen_label": "3ª Docena (25-36)",
+    "zero_zone_percentage": "Porcentaje Zona Cero",
+    "growing_zero_zone_numbers": "Números Zona Cero en Crecimiento",
+    "analysis_results": "Resultados del Análisis",
+    "statistics_input": "Entrada de Estadísticas",
     "modals": {
       "not_recommended": {
         "title": "Estadísticas no recomendadas",
-        "dialog_title": "Condiciones no favorables",
-        "description": "Las estadísticas actuales no muestran condiciones favorables para el juego. Se recomienda resetear y cambiar de mesa."
+        "dialog_title": "Condiciones desfavorables",
+        "description": "Las estadísticas actuales no muestran condiciones favorables para el juego. Se recomienda reiniciar y cambiar de mesa."
       },
       "borderline": {
-        "title": "Mesa borderline",
-        "dialog_title": "Condiciones al límite",
-        "description": "Las estadísticas actuales muestran condiciones al límite. Puedes elegir si proceder con cautela o analizar otra mesa."
+        "title": "Mesa límite",
+        "dialog_title": "Condiciones límite",
+        "description": "Las estadísticas actuales muestran condiciones límite. Puedes elegir si proceder con precaución o analizar otra mesa."
       },
       "recommended": {
         "title": "Mesa recomendada",
         "dialog_title": "Condiciones recomendadas",
-        "description": "Las estadísticas actuales muestran condiciones favorables. Procede siempre con atención, comienza con apuestas bajas para luego aumentarlas en caso de ganancia."
+        "description": "Las estadísticas actuales muestran condiciones favorables. Procede siempre con precaución, comienza con apuestas bajas y luego auméntalas en caso de ganar."
       },
-      "reset_stats": "Resetear Estadísticas",
+      "reset_stats": "Reiniciar Estadísticas",
       "proceed": "Proceder",
       "change_table": "Cambiar Mesa"
     }
@@ -344,10 +374,10 @@
     },
     "promo_banner": {
       "title": "OFERTA ESPECIAL - TIEMPO LIMITADO!",
-      "message": "Adquiere un plan Premium antes del 2 de Julio y recibe un periodo extra GRATUITO!",
+      "message": "Adquiere un plan Premium antes del 31 de Octubre y recibe un periodo extra GRATUITO!",
       "monthly_offer": "Plan Mensual: 1 MES EXTRA GRATIS",
-      "annual_offer": "Plan Anual: 1 AÑO EXTRA GRATIS",
-      "valid_until": "Oferta válida hasta el 2 de Julio 2025",
+      "annual_offer": "Plan Anual: 3 MESES EXTRA GRATIS",
+      "valid_until": "Oferta válida hasta el 31 de Octubre 2025",
       "first_purchase": "Solo para el primer adquisición",
       "button": "Aprovecha ahora"
     }

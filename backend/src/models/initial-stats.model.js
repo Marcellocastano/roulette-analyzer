@@ -11,19 +11,24 @@ const initialStatsSchema = new mongoose.Schema({
     default: Date.now
   },
   active: { type: Boolean, default: true },
+  inputMode: {
+    type: String,
+    enum: ['normal', 'advanced'],
+    default: 'normal'
+  },
   stats50: {
     zeroNeighbors: {
-      percentage: { type: Number, required: true }
+      percentage: { type: Number, default: 0 }
     }
   },
   stats500: {
     dozens: {
-      first: { type: Number, required: true },
-      second: { type: Number, required: true },
-      third: { type: Number, required: true },
+      first: { type: Number, default: 0 },
+      second: { type: Number, default: 0 },
+      third: { type: Number, default: 0 },
     },
     zeroNeighbors: {
-      percentage: { type: Number, required: true }
+      percentage: { type: Number, default: 0 }
     }
   },
   zeroZoneNumbers: [{
@@ -36,7 +41,7 @@ const initialStatsSchema = new mongoose.Schema({
     tableStatus: {
       type: String,
       enum: ['recommended', 'borderline', 'not_recommended'],
-      required: true
+      default: 'recommended'
     },
     reasonCodes: [{ type: String }],
     increasingNumbers: [{ type: Number }]

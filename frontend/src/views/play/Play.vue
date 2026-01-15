@@ -24,7 +24,7 @@
       <n-grid-item v-if="step === 1">
         <InitialStats
           @statistics-updated="handleStatisticsUpdate"
-          @reset-stats="handleReset"
+          @statistics-reset="handleReset"
           @proceed="handleProceed"
           :analysis="statsAnalysis"
         />
@@ -73,7 +73,7 @@ import Board from '@/components/Board/Board.vue'
 import WheelPredictor from '@/components/WheelPredictor/WheelPredictor.vue'
 import InitialStats from '@/components/InitialStats/InitialStats.vue'
 import TableAnalysis from '@/components/TableAnalysis/TableAnalysis.vue'
-import type { InitialStatsPayload, InitialStatsResponse } from '@/api/types/initialStats'
+import type { InitialStatsPayload, InitialStatsPayloadAdvanced, InitialStatsResponse, Stats } from '@/api/types/initialStats'
 import type { Spin } from '@/types/spin'
 import { initialStatsApi, statsApi } from '@/api'
 import BoardPredictor from '@/components/BoardPredictor/BoardPredictor.vue'
@@ -102,11 +102,25 @@ onMounted(async () => {
   }
 })
 
-const handleStatisticsUpdate = async (payload: InitialStatsPayload) => {
+const handleStatisticsUpdate = async (
+  data: { stats50: Stats; stats500: Stats } | { sufferingDozen: number; growingZeroNumbers: number[] }, 
+  mode: 'normal' | 'advanced'
+) => {
   try {
-    const { data: response } = await initialStatsApi.submitStats(payload)
-    if (response.status === 'success' && response.data) {
-      statsAnalysis.value = response.data
+    if (mode === 'normal') {
+      // Handle normal mode with existing API
+      const payload = data as InitialStatsPayload
+      const { data: response } = await initialStatsApi.submitStats(payload)
+      if (response.status === 'success' && response.data) {
+        statsAnalysis.value = response.data
+      }
+    } else {
+      // Handle advanced mode with new API call
+      const advancedPayload = data as InitialStatsPayloadAdvanced
+      const { data: response } = await initialStatsApi.submitAdvancedStats(advancedPayload)
+      if (response.status === 'success' && response.data) {
+        statsAnalysis.value = response.data
+      }
     }
   } catch (error: unknown) {
     console.error("Errore durante l'aggiornamento delle statistiche:", error)

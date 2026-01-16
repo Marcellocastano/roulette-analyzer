@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const FormData = require('form-data');
 const Mailgun = require('mailgun.js');
 const config = require('../config/config');
+const { notificationSettingsRepository } = require('../repositories');
 
 class EmailService {
   constructor() {
@@ -230,6 +231,159 @@ class EmailService {
         console.log('=========================================');
       }
       
+      throw error;
+    }
+  }
+
+  /**
+   * Invia notifica di registrazione all'amministratore
+   */
+  async sendSignupNotificationToAdmin(user) {
+    try {
+      // Verifica se le notifiche di registrazione sono abilitate
+      const isEnabled = await notificationSettingsRepository.isSignupNotificationEnabled();
+      if (!isEnabled) {
+        console.log('Notifiche di registrazione disabilitate, email non inviata');
+        return null;
+      }
+
+      await this.ensureInitialized();
+      
+      const adminEmail = await notificationSettingsRepository.getAdminEmail();
+      console.log(`Invio notifica di registrazione all'admin: ${adminEmail}`);
+      
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333;">🎯 Nuova Registrazione - RoulettePro AI</h2>
+          <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #28a745; margin-top: 0;">Dettagli Utente:</h3>
+            <p><strong>Nome:</strong> ${user.name}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Data Registrazione:</strong> ${new Date().toLocaleString('it-IT')}</p>
+            <p><strong>ID Utente:</strong> ${user._id}</p>
+          </div>
+          <div style="background-color: #e9ecef; padding: 15px; border-radius: 8px;">
+            <p style="margin: 0; font-size: 14px; color: #666;">
+              Questa è una notifica automatica del sistema RoulettePro AI.
+            </p>
+          </div>
+        </div>
+      `;
+
+      return await this.sendEmail({
+        to: adminEmail,
+        subject: `🎯 Nuova Registrazione: ${user.name} - RoulettePro AI`,
+        html: emailHtml
+      });
+    } catch (error) {
+      console.error('Errore nell\'invio della notifica di registrazione:', error);
+      // Non lanciare l'errore per non bloccare il processo di registrazione
+      return null;
+    }
+  }
+
+  /**
+   * Invia notifica di richiesta pagamento all'amministratore
+   */
+  async sendPaymentRequestNotificationToAdmin(user, subscriptionRequest, plan) {
+    try {
+      // Verifica se le notifiche di richiesta pagamento sono abilitate
+      const isEnabled = await notificationSettingsRepository.isPaymentRequestNotificationEnabled();
+      if (!isEnabled) {
+        console.log('Notifiche di richiesta pagamento disabilitate, email non inviata');
+        return null;
+      }
+
+      await this.ensureInitialized();
+      
+      const adminEmail = await notificationSettingsRepository.getAdminEmail();
+      console.log(`Invio notifica di richiesta pagamento all'admin: ${adminEmail}`);
+      
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333;">💳 Nuova Richiesta Pagamento - RoulettePro AI</h2>
+          
+          <div style="background-color: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;">
+            <h3 style="color: #856404; margin-top: 0;">Dettagli Richiesta:</h3>
+            <p><strong>Tipo:</strong> ${subscriptionRequest.type === 'new' ? 'Nuovo Abbonamento' : 
+                                      subscriptionRequest.type === 'renewal' ? 'Rinnovo' : 'Upgrade'}</p>
+            <p><strong>Piano:</strong> ${plan.name}</p>
+            <p><strong>Prezzo:</strong> €${plan.price.amount}</p>
+            <p><strong>Durata:</strong> ${plan.durationValue} ${plan.duration === 'days' ? 'giorni' : 
+                                                               plan.duration === 'months' ? 'mesi' : 'anni'}</p>
+            <p><strong>Data Richiesta:</strong> ${new Date(subscriptionRequest.requestDate).toLocaleString('it-IT')}</p>
+            <p><strong>ID Richiesta:</strong> ${subscriptionRequest._id}</p>
+          </div>
+
+          <div style="background-color: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #28a745;">
+            <h3 style="color: #155724; margin-top: 0;">Dettagli Utente:</h3>
+            <p><strong>Nome:</strong> ${user.name}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>ID Utente:</strong> ${user._id}</p>
+          </div>
+
+          <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <h4 style="color: #495057; margin-top: 0;">Link di Pagamento:</h4>
+            <p style="word-break: break-all;">
+              <a href="${plan.paymentLink}" style="color: #007bff;">${plan.paymentLink}</a>
+            </p>
+          </div>
+
+          <div style="background-color: #e9ecef; padding: 15px; border-radius: 8px;">
+            <p style="margin: 0; font-size: 14px; color: #666;">
+              Questa è una notifica automatica del sistema RoulettePro AI.
+            </p>
+          </div>
+        </div>
+      `;
+
+      return await this.sendEmail({
+        to: adminEmail,
+        subject: `💳 Richiesta Pagamento: ${user.name} - Piano ${plan.name}`,
+        html: emailHtml
+      });
+    } catch (error) {
+      console.error('Errore nell\'invio della notifica di richiesta pagamento:', error);
+      // Non lanciare l'errore per non bloccare il processo di richiesta
+      return null;
+    }
+  }
+
+  /**
+   * Metodo generico per inviare email
+   */
+  async sendEmail({ to, subject, html, from = null }) {
+    await this.ensureInitialized();
+    
+    try {
+      if (this.useEthereal) {
+        // Usa Ethereal per i test
+        console.log('Invio email tramite Ethereal...');
+        const mailOptions = {
+          from: from || config.email.from || `"RoulettePro AI" <${config.email.user}>`,
+          to: to,
+          subject: subject,
+          html: html
+        };
+        
+        const info = await this.transporter.sendMail(mailOptions);
+        console.log('Email anteprima URL: %s', nodemailer.getTestMessageUrl(info));
+        return info;
+      } else {
+        const domain = 'roulettepro.ai';
+        
+        const data = await this.mailgunClient.messages.create(domain, {
+          from: from || config.email.from || `RoulettePro AI <${config.email.user}>`,
+          to: [to],
+          subject: subject,
+          html: html
+        });
+        
+        console.log(`Email inviata con successo a ${to} tramite Mailgun API`);
+        return data;
+      }
+    } catch (error) {
+      console.error('Errore nell\'invio dell\'email:', error);
       throw error;
     }
   }

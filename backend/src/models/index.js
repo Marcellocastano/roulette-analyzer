@@ -5,6 +5,7 @@ const Contact = require('./contact.model');
 const Plan = require('./plan.model');
 const Subscription = require('./subscription.model');
 const SubscriptionRequest = require('./sub-request.model');
+const NotificationSettings = require('./notification-settings.model');
 
 module.exports = {
   User,
@@ -13,5 +14,6 @@ module.exports = {
   Contact,
   Plan,
   Subscription,
-  SubscriptionRequest
+  SubscriptionRequest,
+  NotificationSettings
 };

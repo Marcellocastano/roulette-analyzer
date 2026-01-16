@@ -24,6 +24,7 @@ class SubscriptionRepository extends BaseRepository {
   }
 
   async findById(subscriptionId) {
+    console.log('subscriptionId', subscriptionId);
     return await this.findOne({ _id: subscriptionId });
   }
 

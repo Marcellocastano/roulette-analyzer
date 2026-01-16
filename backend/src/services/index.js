@@ -9,6 +9,7 @@ const PredictionService = require('./prediction.service');
 const EmailService = require('./email.service');
 const PlanService = require('./plan.service');
 const SchedulerService = require('./scheduler.service');
+const NotificationSettingsService = require('./notification-settings.service');
 
 module.exports = {
     AuthService,
@@ -21,5 +22,6 @@ module.exports = {
     PredictionService,
     EmailService,
     PlanService,
-    SchedulerService
+    SchedulerService,
+    NotificationSettingsService
 };

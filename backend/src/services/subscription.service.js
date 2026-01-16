@@ -5,6 +5,7 @@ const {
   subscriptionRepository, 
   subscriptionRequestRepository 
 } = require('../repositories');
+const emailService = require('./email.service');
 
 class SubscriptionService {
   async getUserSubscription(userId) {
@@ -19,7 +20,6 @@ class SubscriptionService {
           plan: 'free'
         };
       }
-
       // Ottieni i dettagli dell'abbonamento
       const subscription = await subscriptionRepository.findById(user.activeSubscription);
       if (!subscription) {
@@ -27,6 +27,20 @@ class SubscriptionService {
       }
       // Popola i dettagli del piano
       await subscription.populate('planId');
+      console.log('subscription', subscription);
+      const cacca = {
+        active: subscription.isActive(),
+        id: subscription._id,
+        plan: subscription.planId.type,
+        name: subscription.planId.name,
+        duration: subscription.planId.duration,
+        durationValue: subscription.planId.durationValue,
+        startDate: subscription.startDate,
+        endDate: subscription.endDate,
+        status: subscription.status,
+        sessions: subscription.sessions
+      };
+      console.log('sborro peloso', cacca);
 
       return {
         active: subscription.isActive(),
@@ -119,6 +133,14 @@ class SubscriptionService {
           amount: plan.price.amount
         }
       });
+
+      // Invia notifica di richiesta pagamento all'amministratore
+      try {
+        await emailService.sendPaymentRequestNotificationToAdmin(user, subscriptionRequest, plan);
+      } catch (notificationError) {
+        console.error('Error sending payment request notification to admin:', notificationError);
+        // Non bloccare la richiesta se la notifica fallisce
+      }
 
       return subscriptionRequest;
     } catch (error) {

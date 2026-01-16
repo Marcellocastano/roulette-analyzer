@@ -46,6 +46,14 @@ class AuthService {
         }
       }
 
+      // Invia notifica di registrazione all'amministratore
+      try {
+        await emailService.sendSignupNotificationToAdmin(user);
+      } catch (notificationError) {
+        console.error('Error sending signup notification to admin:', notificationError);
+        // Non bloccare la registrazione se la notifica fallisce
+      }
+
       return {
         id: user._id,
         email: user.email,

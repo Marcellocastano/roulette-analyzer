@@ -9,7 +9,7 @@
         </n-h1>
       </div>
     </div>
-    <div class="promo-banner-container" v-if="!authStore.isPremiumUser || user?.subscription?.plan === 'trial'">
+    <!-- <div class="promo-banner-container" v-if="!authStore.isPremiumUser || user?.subscription?.plan === 'trial'">
       <div class="promo-banner">
         <div class="promo-content">
           <div class="promo-header">
@@ -58,12 +58,6 @@
             <span class="decoration diamond purple bigger"></span>
             <span class="decoration diamond red"></span>
             <span class="decoration diamond red bigger"></span>
-
-            <!-- <span class="decoration wave cyan"></span>
-            <span class="decoration wave pink"></span>
-            <span class="decoration wave yellow"></span>
-            <span class="decoration wave purple"></span>
-            <span class="decoration wave red"></span> -->
           </div>
           
           <div class="promo-footer">
@@ -77,7 +71,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div v-if="authStore.isPremiumUser" class="dashboard-content">
       <!-- Sezione Tutorial -->

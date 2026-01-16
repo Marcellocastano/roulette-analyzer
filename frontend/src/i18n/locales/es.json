@@ -465,7 +465,7 @@
     "trial_plan": {
       "title": "Piano de prueba",
       "price": "Gratis",
-      "features": ["5 días de prueba", "2 sesiones al día"],
+      "features": ["3 días de prueba", "3 sesiones al día"],
       "button": "Probar gratis"
     },
     "monthly_plan": {

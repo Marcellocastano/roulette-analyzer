@@ -465,7 +465,7 @@
     "trial_plan": {
       "title": "Testplan",
       "price": "Frei",
-      "features": ["5 Tage Testversion", "2 Sitzungen pro Tag"],
+      "features": ["3 Tage Testversion", "3 Sitzungen pro Tag"],
       "button": "Kostenlos testen"
     },
     "monthly_plan": {

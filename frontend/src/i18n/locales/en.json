@@ -465,7 +465,7 @@
     "trial_plan": {
       "title": "Trial Plan",
       "price": "Free",
-      "features": ["5 days of trial", "2 sessions per day"],
+      "features": ["3 days of trial", "3 sessions per day"],
       "button": "Try for free"
     },
     "monthly_plan": {

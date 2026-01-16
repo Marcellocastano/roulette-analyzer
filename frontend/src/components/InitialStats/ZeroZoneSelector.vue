@@ -1,6 +1,6 @@
 <template>
   <div class="roulette-wheel">
-    <svg>
+    <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet">
       <g v-for="(number, index) in rouletteNumbers" :key="index">
         <path
           :d="getConePath(index)"
@@ -152,13 +152,15 @@ const toggleCone = (index: number) => {
 }
 .roulette-wheel {
   width: 100%;
-  height: 200px;
+  max-width: 400px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  aspect-ratio: 400 / 250;
 
   & svg {
-    width: 72%;
+    width: 100%;
     height: 100%;
   }
 }

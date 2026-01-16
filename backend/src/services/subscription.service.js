@@ -27,20 +27,6 @@ class SubscriptionService {
       }
       // Popola i dettagli del piano
       await subscription.populate('planId');
-      console.log('subscription', subscription);
-      const cacca = {
-        active: subscription.isActive(),
-        id: subscription._id,
-        plan: subscription.planId.type,
-        name: subscription.planId.name,
-        duration: subscription.planId.duration,
-        durationValue: subscription.planId.durationValue,
-        startDate: subscription.startDate,
-        endDate: subscription.endDate,
-        status: subscription.status,
-        sessions: subscription.sessions
-      };
-      console.log('sborro peloso', cacca);
 
       return {
         active: subscription.isActive(),

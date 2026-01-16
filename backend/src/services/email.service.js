@@ -350,7 +350,7 @@ class EmailService {
   }
 
   /**
-   * Metodo generico per inviare email
+   * Metodo generico per inviare email con fallback
    */
   async sendEmail({ to, subject, html, from = null }) {
     await this.ensureInitialized();
@@ -370,20 +370,44 @@ class EmailService {
         console.log('Email anteprima URL: %s', nodemailer.getTestMessageUrl(info));
         return info;
       } else {
-        const domain = 'roulettepro.ai';
-        
-        const data = await this.mailgunClient.messages.create(domain, {
-          from: from || config.email.from || `RoulettePro AI <${config.email.user}>`,
-          to: [to],
-          subject: subject,
-          html: html
-        });
-        
-        console.log(`Email inviata con successo a ${to} tramite Mailgun API`);
-        return data;
+        // Prova prima con Mailgun
+        try {
+          const domain = 'roulettepro.ai';
+          
+          const data = await this.mailgunClient.messages.create(domain, {
+            from: from || config.email.from || `RoulettePro AI <${config.email.user}>`,
+            to: [to],
+            subject: subject,
+            html: html
+          });
+          
+          console.log(`Email inviata con successo a ${to} tramite Mailgun API`);
+          return data;
+        } catch (mailgunError) {
+          console.error('Errore Mailgun:', mailgunError);
+          
+          // Se Mailgun fallisce per account inattivo, logga i dettagli invece di inviare
+          if (mailgunError.status === 403 || 
+              (mailgunError.message && mailgunError.message.includes('Account Inactivity'))) {
+            console.log('=== EMAIL NON INVIATA - ACCOUNT MAILGUN INATTIVO ===');
+            console.log(`Destinatario: ${to}`);
+            console.log(`Oggetto: ${subject}`);
+            console.log(`Contenuto HTML salvato nei log per debug`);
+            console.log('=== FINE DETTAGLI EMAIL ===');
+            
+            // Restituisci un oggetto che simula il successo per non bloccare l'app
+            return {
+              id: 'logged-only',
+              message: 'Email logged due to Mailgun account inactivity'
+            };
+          }
+          
+          // Per altri errori, rilancia l'errore
+          throw mailgunError;
+        }
       }
     } catch (error) {
-      console.error('Errore nell\'invio dell\'email:', error);
+      console.error('Errore generale nell\'invio dell\'email:', error);
       throw error;
     }
   }

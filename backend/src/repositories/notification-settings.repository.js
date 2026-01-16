@@ -64,6 +64,26 @@ class NotificationSettingsRepository {
   }
 
   /**
+   * Verifica se le notifiche di contatto sono abilitate
+   */
+  async isContactNotificationEnabled() {
+    const settings = await this.getSettings();
+    return settings.contactNotifications?.enabled ?? true;
+  }
+
+  /**
+   * Abilita/disabilita le notifiche di contatto
+   */
+  async toggleContactNotifications(enabled) {
+    return await this.updateSettings({
+      contactNotifications: {
+        enabled,
+        lastUpdated: new Date()
+      }
+    });
+  }
+
+  /**
    * Aggiorna l'email dell'amministratore
    */
   async updateAdminEmail(email) {

@@ -24,6 +24,18 @@ const notificationSettingsSchema = new mongoose.Schema({
       default: Date.now
     }
   },
+
+  // Impostazioni per le notifiche di contatto
+  contactNotifications: {
+    enabled: {
+      type: Boolean,
+      default: true
+    },
+    lastUpdated: {
+      type: Date,
+      default: Date.now
+    }
+  },
   
   // Email dell'amministratore
   adminEmail: {
@@ -66,7 +78,8 @@ notificationSettingsSchema.statics.getSettings = async function() {
     settings = await this.create({
       adminEmail: process.env.ADMIN_EMAIL || 'admin@roulettepro.ai',
       signupNotifications: { enabled: true },
-      paymentRequestNotifications: { enabled: true }
+      paymentRequestNotifications: { enabled: true },
+      contactNotifications: { enabled: true }
     });
   }
   

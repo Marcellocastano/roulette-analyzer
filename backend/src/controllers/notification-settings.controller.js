@@ -101,6 +101,29 @@ class NotificationSettingsController {
   };
 
   /**
+   * Abilita/disabilita le notifiche di contatto
+   */
+  toggleContactNotifications = async (req, res, next) => {
+    try {
+      const { enabled } = req.body;
+      
+      if (typeof enabled !== 'boolean') {
+        return next(new AppError('Il campo "enabled" deve essere un booleano', 400));
+      }
+
+      const updatedSettings = await this.notificationSettingsService.toggleContactNotifications(enabled);
+      
+      res.status(200).json({
+        status: 'success',
+        message: `Notifiche di contatto ${enabled ? 'abilitate' : 'disabilitate'}`,
+        data: updatedSettings
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  /**
    * Aggiorna l'email dell'amministratore
    */
   updateAdminEmail = async (req, res, next) => {

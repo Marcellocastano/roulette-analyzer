@@ -63,6 +63,22 @@ class NotificationSettingsService {
   }
 
   /**
+   * Abilita/disabilita le notifiche di contatto
+   */
+  async toggleContactNotifications(enabled) {
+    try {
+      if (typeof enabled !== 'boolean') {
+        throw new AppError('Il valore deve essere un booleano', 400);
+      }
+
+      return await notificationSettingsRepository.toggleContactNotifications(enabled);
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Errore durante l\'aggiornamento delle notifiche di contatto', 500);
+    }
+  }
+
+  /**
    * Aggiorna l'email dell'amministratore
    */
   async updateAdminEmail(email) {
@@ -93,6 +109,10 @@ class NotificationSettingsService {
         paymentRequestNotifications: {
           enabled: settings.paymentRequestNotifications.enabled,
           lastUpdated: settings.paymentRequestNotifications.lastUpdated
+        },
+        contactNotifications: {
+          enabled: settings.contactNotifications?.enabled ?? true,
+          lastUpdated: settings.contactNotifications?.lastUpdated
         },
         adminEmail: settings.adminEmail,
         lastUpdated: settings.updatedAt

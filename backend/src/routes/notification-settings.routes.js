@@ -24,6 +24,9 @@ router.put('/signup', notificationSettingsController.toggleSignupNotifications);
 // PUT /api/notification-settings/payment-requests - Abilita/disabilita notifiche di richiesta pagamento
 router.put('/payment-requests', notificationSettingsController.togglePaymentRequestNotifications);
 
+// PUT /api/notification-settings/contact - Abilita/disabilita notifiche di contatto
+router.put('/contact', notificationSettingsController.toggleContactNotifications);
+
 // PUT /api/notification-settings/admin-email - Aggiorna email amministratore
 router.put('/admin-email', notificationSettingsController.updateAdminEmail);
 

@@ -350,6 +350,75 @@ class EmailService {
   }
 
   /**
+   * Invia notifica di richiesta contatto all'amministratore
+   */
+  async sendContactNotificationToAdmin(user, category, message) {
+    try {
+      // Verifica se le notifiche di contatto sono abilitate
+      const isEnabled = await notificationSettingsRepository.isContactNotificationEnabled();
+      if (!isEnabled) {
+        console.log('Notifiche di contatto disabilitate, email non inviata');
+        return null;
+      }
+
+      await this.ensureInitialized();
+      
+      const adminEmail = await notificationSettingsRepository.getAdminEmail();
+      console.log(`Invio notifica di contatto all'admin: ${adminEmail}`);
+
+      // Mappa delle categorie per visualizzazione
+      const categoryLabels = {
+        'bug_report': '🐛 Segnalazione Bug',
+        'payment_issue': '💳 Problema Pagamento',
+        'feature_request': '✨ Richiesta Funzionalità',
+        'general_inquiry': '❓ Domanda Generale',
+        'other': '📝 Altro'
+      };
+
+      const categoryLabel = categoryLabels[category] || category;
+      
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333;">📬 Nuova Richiesta di Contatto - RoulettePro AI</h2>
+          
+          <div style="background-color: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;">
+            <h3 style="color: #856404; margin-top: 0;">Categoria: ${categoryLabel}</h3>
+          </div>
+
+          <div style="background-color: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #28a745;">
+            <h3 style="color: #155724; margin-top: 0;">Dettagli Utente:</h3>
+            <p><strong>Nome:</strong> ${user.name}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>ID Utente:</strong> ${user._id}</p>
+          </div>
+
+          <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #dee2e6;">
+            <h3 style="color: #495057; margin-top: 0;">Messaggio:</h3>
+            <p style="white-space: pre-wrap; line-height: 1.6;">${message}</p>
+          </div>
+
+          <div style="background-color: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 20px;">
+            <p style="margin: 0; font-size: 14px; color: #666;">
+              <strong>Data:</strong> ${new Date().toLocaleString('it-IT')}<br>
+              Questa è una notifica automatica del sistema RoulettePro AI.
+            </p>
+          </div>
+        </div>
+      `;
+
+      return await this.sendEmail({
+        to: adminEmail,
+        subject: `📬 Richiesta Contatto: ${user.name} - ${categoryLabel}`,
+        html: emailHtml
+      });
+    } catch (error) {
+      console.error('Errore nell\'invio della notifica di contatto:', error);
+      // Non lanciare l'errore per non bloccare il processo di contatto
+      return null;
+    }
+  }
+
+  /**
    * Metodo generico per inviare email con fallback
    */
   async sendEmail({ to, subject, html, from = null }) {
